@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+define('START_TIME', microtime(true));
+
+require_once 'app/env.php';
+require_once 'app/bootstrap.php';
+require_once 'helpers/helpers.php';
+
+/**
+ * Create container this application then
+ * Make console and run it
+ * 
+ * it's simple
+ */
+
+$app = \Core\App::new(new \Core\Application());
+
+$console = $app->make(\Core\Console::class, array($argv));
+exit($console->run());
