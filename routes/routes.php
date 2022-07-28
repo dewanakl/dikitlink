@@ -1,6 +1,6 @@
 <?php
 
-use Controllers\WelcomeController;
+use Controllers\AuthController;
 use Core\Route;
 
 /**
@@ -8,4 +8,8 @@ use Core\Route;
  * keep simple yahh
  */
 
-Route::get('/', WelcomeController::class);
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'auth']);
+
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'submit']);
