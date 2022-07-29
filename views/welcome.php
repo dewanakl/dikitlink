@@ -144,7 +144,7 @@
             <div class="d-flex justify-content-end">
                 <a class="mb-3 me-2 mb-md-0 text-muted text-decoration-none" href="#">
                     <svg class="bi" width="24" height="24">
-                        <use xlink:href="#twitter"></use>
+                        <use xlink:href="#github"></use>
                     </svg>
                 </a>
             </div>
