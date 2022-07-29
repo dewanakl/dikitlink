@@ -28,7 +28,7 @@ class AuthController extends Controller
     {
         $credential = $request->validate([
             'email' => ['required', 'email', 'str', 'min:5', 'max:50'],
-            'password' => ['required', 'str', 'min:5', 'max:20']
+            'password' => ['required', 'str', 'min:8', 'max:20']
         ]);
 
         if (auth()->attempt($credential)) {
@@ -43,12 +43,12 @@ class AuthController extends Controller
         $credential = $request->validate([
             'nama' => ['required', 'str', 'min:2', 'max:50'],
             'email' => ['required', 'email', 'str', 'min:5', 'max:50', 'unik'],
-            'password' => ['required', 'str', 'min:5', 'max:20', 'hash']
+            'password' => ['required', 'str', 'min:8', 'max:20', 'hash']
         ]);
 
         $credential['role_id'] = 2;
         User::create($credential);
 
-        return $this->redirect(route('login'))->with('berhasil', 'Berhasil membuat akun, silahkan login');
+        return $this->redirect(route('login'))->with('berhasil', 'Berhasil registrasi, silahkan login');
     }
 }

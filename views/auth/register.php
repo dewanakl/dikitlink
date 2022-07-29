@@ -3,12 +3,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9 col-lg-8 mx-auto">
-            <?php if ($pesan = flash('gagal')) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= $pesan ?>
-                </div>
-            <?php endif ?>
-            <h2 class="text-dark">Register</h2>
+            <div class="d-flex justify-content-center">
+                <h1 class="d-block d-md-none fw-bold mb-4" style="font-size:40px;">
+                    Dikit-Link
+                </h1>
+            </div>
             <div class="card shadow">
                 <div class="card-body">
                     <form method="POST" onsubmit="register()">
@@ -44,13 +43,12 @@
                             <button class="btn btn-lg btn-success btn-login fw-bold mb-2" id="button-register" type="submit">Daftar</button>
                         </div>
                         <hr class="text-dark">
-                        <div class="row justify-content-center">
-                            <a href="<?= route('login') ?>" class="col-8 btn btn-primary mb-2" type="button">Masuk</a>
+                        <div class="row d-flex justify-content-center">
+                            <a href="<?= route('login') ?>" class="col-8 btn btn-primary fw-bold mb-2" type="button">Masuk</a>
                         </div>
                     </form>
                 </div>
             </div>
-            <small><?= getPageTime() ?></small>
         </div>
     </div>
 </div>
