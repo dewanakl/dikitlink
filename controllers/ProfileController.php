@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Core\Auth;
 use Core\Controller;
 use Core\Request;
 use Models\User;
@@ -17,16 +18,16 @@ class ProfileController extends Controller
     {
         $credential = $request->validate([
             'nama' => ['required', 'trim', 'str', 'min:2', 'max:50'],
-            'email' => ['required', 'email', 'str', 'min:5', 'max:50'],
+            'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50'],
         ]);
 
         $email = User::where('email', $request->email)
-            ->where('id', auth()->user()->id, '!=')
+            ->where('id', Auth::user()->id, '!=')
             ->limit(1)->first();
 
         if ($email->email) {
             $request->throwError([
-                'email' => 'email sudah ada'
+                'email' => 'Email sudah ada'
             ]);
         }
 
@@ -39,7 +40,7 @@ class ProfileController extends Controller
             $credential['password'] = $request->konfirmasi_password;
         }
 
-        User::where('id', auth()->user()->id)->update($credential);
+        User::where('id', Auth::user()->id)->update($credential);
 
         return $this->back()->with('berhasil', 'Berhasil mengupdate profil');
     }

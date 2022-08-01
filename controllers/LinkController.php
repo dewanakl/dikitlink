@@ -2,32 +2,69 @@
 
 namespace Controllers;
 
+use Core\Auth;
 use Core\Controller;
 use Core\Request;
 use Models\Link;
-use Models\Stat;
 
 class LinkController extends Controller
 {
     public function show()
     {
-        return $this->json(Link::where('user_id', auth()->user()->id)->orderBy('id', 'DESC')->get());
+        return $this->json(
+            Link::leftJoin('stats', 'links.id', 'stats.link_id')
+                ->where('links.user_id', Auth::user()->id)
+                ->groupBy('stats.link_id', 'links.id')
+                ->orderBy('links.id', 'DESC')
+                ->select('links.name', 'links.link', 'count(stats.id) as hint')
+                ->get()
+        );
+    }
+
+    public function detail(Request $request)
+    {
+        $request->json()->validate([
+            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
+        ]);
+
+        $lastweek = Link::join('stats', 'links.id', 'stats.link_id')
+            ->where('links.user_id', Auth::user()->id)
+            ->where('links.name', $request->name)
+            ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-1 week')), '>=')
+            ->groupBy('tgl')
+            ->orderBy('tgl')
+            ->select('to_char(stats.created_at, \'YYYY-MM-DD\') AS tgl', 'count(stats.id) as hint')
+            ->get();
+
+        $get = fn (string $select) => Link::join('stats', 'links.id', 'stats.link_id')
+            ->where('links.user_id', Auth::user()->id)
+            ->where('links.name', $request->name)
+            ->groupBy('stats.' . $select)
+            ->orderBy('hint', 'DESC')
+            ->select('stats.' . $select, 'count(stats.id) as hint')
+            ->get();
+
+        return $this->json([
+            'last_week' => $lastweek,
+            'user_agent' => $get('user_agent'),
+            'ip_address' => $get('ip_address')
+        ]);
     }
 
     public function create(Request $request)
     {
         $data = $request->json()->validate([
-            'name' => ['str', 'max:20', 'unik:link'],
-            'link' => ['trim', 'required', 'str']
+            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25', 'unik:link'],
+            'link' => ['required', 'trim', 'url', 'str', 'min:5']
         ]);
 
-        if (!filter_var($request->link, FILTER_VALIDATE_URL)) {
-            $request->throwError([
-                'link' => 'Link tidak sesuai !'
+        if (str_contains($request->link, BASEURL)) {
+            $request->json()->throwError([
+                'link' => 'Link ilegal'
             ]);
         }
 
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = Auth::user()->id;
         Link::create($data);
 
         return $this->json([
@@ -35,30 +72,52 @@ class LinkController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function update(Request $request)
     {
-        Link::where('name', $id)->delete();
+        $request->json()->validate([
+            'old' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
+            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
+            'link' => ['required', 'trim', 'url', 'str', 'min:5']
+        ]);
+
+        if (str_contains($request->link, BASEURL)) {
+            $request->json()->throwError([
+                'link' => 'Link ilegal'
+            ]);
+        }
+
+        if ($request->old != $request->name) {
+            $request->json()->validate([
+                'name' => ['unik:link']
+            ]);
+        }
+
+        $old = Link::find($request->old, 'name');
+
+        $result = Link::where('id', $old->id)
+            ->where('user_id', Auth::user()->id)
+            ->update([
+                'name' => $request->name,
+                'link' => $request->link
+            ]);
+
         return $this->json([
-            'status' => true
+            'status' => $result
         ]);
     }
 
-    public function click(Request $request, $id)
+    public function delete(Request $request)
     {
-        $link = Link::find($id, 'name');
-
-        if (empty($link->id)) {
-            notFound();
-        }
-
-        Stat::create([
-            'link_id' => $link->id,
-            'user_agent' => $request->server('HTTP_USER_AGENT'),
-            'ip_address' => $request->server('REMOTE_ADDR')
+        $request->json()->validate([
+            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
         ]);
 
-        header('HTTP/1.1 301 Moved Permanently');
-        header('Location: ' . trim($link->link));
-        exit();
+        $result = Link::where('name', $request->name)
+            ->where('user_id', Auth::user()->id)
+            ->delete();
+
+        return $this->json([
+            'status' => $result
+        ]);
     }
 }

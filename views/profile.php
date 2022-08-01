@@ -1,23 +1,23 @@
-<?= extend('templates/head', ['title' => 'Profile']) ?>
+<?= extend('templates/top', ['title' => 'Profile']) ?>
 
 <h4 class="mb-3">
-    <i class="far fa-address-card"></i>
+    <i class="fa-solid fa-address-card"></i>
     Profile
 </h4>
 
-<div class="card border-dark">
+<div class="card border-dark mb-4">
     <div class="card-body">
         <div class="row">
             <div class="col-sm-4">
                 <h5 class="card-title"><i class="fas fa-user"></i> <?= e(auth()->user()->nama) ?></h5>
                 <hr>
                 <p class="card-text"><i class="fas fa-envelope"></i> <?= e(auth()->user()->email) ?></p>
-                <p class="card-text"><i class="fas fa-user-clock"></i> <?= e(date("d M Y, H:i", strtotime((auth()->user()->created_at)))) ?></p>
-                <p class="card-text"><i class="fas fa-history"></i> <?= e(date("d M Y, H:i", strtotime((auth()->user()->updated_at)))) ?></p>
-                <hr>
+                <p class="card-text"><i class="fas fa-user-clock"></i> <?= date("d M Y, H:i", strtotime((auth()->user()->created_at))) ?></p>
+                <p class="card-text"><i class="fas fa-history"></i> <?= date("d M Y, H:i", strtotime((auth()->user()->updated_at))) ?></p>
+                <hr class="mb-0">
             </div>
             <div class="col-sm-8">
-                <form method="post" class="m-1">
+                <form method="post" class="my-3 mx-1" onsubmit="update()">
                     <?= csrf() ?>
                     <?= method('put') ?>
 
@@ -44,10 +44,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-md-6">
                             <div class="input-group mb-3">
                                 <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                                <input type="password" placeholder="Password" class="form-control <?= error('password', 'is-invalid') ?>" name="password">
+                                <input type="password" placeholder="Password" class="form-control <?= error('password', 'is-invalid') ?>" name="password" autocomplete="off">
 
                                 <?php if (error('password')) : ?>
                                     <div class="invalid-feedback">
@@ -57,10 +57,10 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6">
+                        <div class="col-md-6 ms-auto">
                             <div class="input-group mb-3">
-                                <span class="input-group-text"><i class="fas fa-sync"></i></span>
-                                <input type="password" placeholder="Repeat" class="form-control  <?= error('konfirmasi_password', 'is-invalid') ?>" name="konfirmasi_password">
+                                <span class="input-group-text"><i class="fas fa-redo"></i></span>
+                                <input type="password" placeholder="Repeat" class="form-control  <?= error('konfirmasi_password', 'is-invalid') ?>" name="konfirmasi_password" autocomplete="off">
 
                                 <?php if (error('konfirmasi_password')) : ?>
                                     <div class="invalid-feedback">
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-primary">
+                        <button type="submit" class="btn btn-primary btn-sm" id="button-update">
                             <i class="fas fa-check"></i>
                             Simpan
                         </button>
@@ -86,9 +86,16 @@
     <script>
         Swal.fire({
             title: `<?= $pesan ?>`,
-            icon: 'success'
+            icon: 'success',
+            confirmButtonText: '<i class="fas fa-check"></i> Oke',
         });
     </script>
 <?php endif ?>
-
+<script>
+    const update = () => {
+        let btn = document.getElementById('button-update');
+        btn.disabled = true;
+        btn.innerText = 'Loading...';
+    }
+</script>
 <?= extend('templates/down') ?>

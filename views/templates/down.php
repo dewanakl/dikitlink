@@ -7,20 +7,30 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h6>Apakah anda ingin Logout ?</h6>
+                <h5>Apakah anda ingin Logout ?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
-                <form action="<?= route('logout') ?>" method="post">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="button-logout-batal"><i class="fas fa-times"></i> Batal</button>
+                <form action="<?= route('logout') ?>" method="post" onsubmit="logout()">
                     <?= csrf() ?>
                     <?= method('delete') ?>
-                    <button type="submit" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    <button type="submit" class="btn btn-danger" id="button-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-</body>
 
-</html>
+<?php if (routeIs('dashboard')) : ?>
+    <script src="<?= asset('js/dashboard.js') ?>" defer></script>
+<?php endif ?>
+<script>
+    const logout = () => {
+        let btnbatal = document.getElementById('button-logout-batal');
+        let btn = document.getElementById('button-logout');
+        btn.disabled = true;
+        btnbatal.disabled = true;
+        btn.innerText = 'Loading...';
+    }
+</script>
+<?= extend('templates/baseDown') ?>

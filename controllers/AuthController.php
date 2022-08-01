@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Core\Auth;
 use Core\Controller;
 use Core\Request;
 use Models\User;
@@ -20,18 +21,18 @@ class AuthController extends Controller
 
     public function logout()
     {
-        auth()->logout();
+        Auth::logout();
         return $this->redirect(route('login'))->with('berhasil', 'Berhasil Logout');
     }
 
     public function auth(Request $request)
     {
         $credential = $request->validate([
-            'email' => ['required', 'email', 'str', 'min:5', 'max:50'],
-            'password' => ['required', 'str', 'min:8', 'max:20']
+            'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50'],
+            'password' => ['required', 'trim', 'str', 'min:8', 'max:20']
         ]);
 
-        if (auth()->attempt($credential)) {
+        if (Auth::attempt($credential)) {
             return $this->redirect(route('dashboard'));
         }
 
@@ -41,9 +42,9 @@ class AuthController extends Controller
     public function submit(Request $request)
     {
         $credential = $request->validate([
-            'nama' => ['required', 'str', 'min:2', 'max:50'],
-            'email' => ['required', 'email', 'str', 'min:5', 'max:50', 'unik'],
-            'password' => ['required', 'str', 'min:8', 'max:20', 'hash']
+            'nama' => ['required', 'trim', 'str', 'min:2', 'max:50'],
+            'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50', 'unik'],
+            'password' => ['required', 'trim', 'str', 'min:8', 'max:20', 'hash']
         ]);
 
         $credential['role_id'] = 2;

@@ -2,18 +2,29 @@
 
 namespace Controllers;
 
-use Core\Auth;
 use Core\Controller;
-use Core\Request;
 use Models\Link;
-use Models\Stat;
+use Models\User;
 
-class StatistikController extends Controller
+class UsersController extends Controller
 {
     public function index()
     {
+        $users = User::leftJoin('links', 'users.id', 'links.user_id')
+            ->leftJoin('stats', 'links.id', 'stats.link_id')
+            ->where('users.role_id', 2)
+            ->groupBy('users.id')
+            ->orderBy('users.id')
+            ->select('users.*', 'count(DISTINCT links.id) as jumlah_link', 'count(stats.id) as jumlah_pengunjung')
+            ->get();
+
+        return $this->view('users', compact('users'));
+    }
+
+    public function detail($id)
+    {
         $lastmonth = Link::join('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', Auth::user()->id)
+            ->where('links.user_id', $id)
             ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-1 month')), '>=')
             ->groupBy('tgl')
             ->orderBy('tgl')
@@ -21,19 +32,19 @@ class StatistikController extends Controller
             ->get();
 
         $get = fn (string $select) => Link::join('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', Auth::user()->id)
+            ->where('links.user_id', $id)
             ->groupBy('stats.' . $select)
             ->orderBy('hint', 'DESC')
             ->select('stats.' . $select, 'count(stats.id) as hint')
             ->get();
 
         $sum = Link::leftJoin('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', Auth::user()->id)
+            ->where('links.user_id', $id)
             ->groupBy('links.user_id')
             ->select('count(distinct links.id) as jumlah_link', 'count(distinct stats.id) as total_pengunjung')
             ->first();
 
-        return $this->view('statistik', [
+        return $this->json([
             'last_month' => $lastmonth,
             'user_agent' => $get('user_agent'),
             'ip_address' => $get('ip_address'),
@@ -42,23 +53,9 @@ class StatistikController extends Controller
         ]);
     }
 
-    public function click(Request $request, $id)
+    public function delete($id)
     {
-        $link = Link::find($id, 'name');
-
-        if (empty($link->id)) {
-            return $this->view('hilang');
-        }
-
-        Stat::create([
-            'link_id' => $link->id,
-            'user_agent' => $request->server('HTTP_USER_AGENT'),
-            'ip_address' => $request->ip()
-        ]);
-
-        header_remove();
-        header('HTTP/1.1 301 Moved Permanently');
-        header('Location: ' . trim($link->link));
-        exit();
+        User::where('id', $id)->delete();
+        return $this->back()->with('berhasil', 'Berhasil menghapus user');
     }
 }

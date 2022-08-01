@@ -1,64 +1,139 @@
-<?= extend('templates/head', ['title' => 'Statistik']) ?>
+<?= extend('templates/top', ['title' => 'Statistik']) ?>
 
 <h4 class="mb-3">
-    <i class="fas fa-chart-bar"></i>
+    <i class="fa-solid fa-chart-column"></i>
     Statistik
 </h4>
 
-<div class="row">
-    <div class="col-md-8">
+<div class="row mb-4">
+    <div class="col-md-9">
         <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
     </div>
-    <div class="col-md-4">
-        <div class="card border-secondary mb-3" style="max-width: 18rem;">
-            <div class="card-header">Jumlah Link</div>
-            <div class="card-body text-secondary">
-                <h5 class="card-title">Secondary card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
+    <div class="col-md-3">
+        <ul class="list-group mt-4">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Jumlah Link</div>
+                    <small>Dibuat hingga saat ini</small>
+                </div>
+                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1"><?= $jumlah_link ?></span></h5>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">Total Pengunjung</div>
+                    <small>Jumlah hint semua link</small>
+                </div>
+                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1"><?= $total_pengunjung ?></span></h5>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="row mb-4">
+    <div class="col-md-9">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Hint</th>
+                        <th scope="col">User Agent</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <?php foreach ($user_agent as $ag) : ?>
+                        <tr>
+                            <th><?= $ag->hint ?></th>
+                            <td><?= e($ag->user_agent) ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
         </div>
-        <div class="card border-secondary mb-3" style="max-width: 18rem;">
-            <div class="card-header">Jumlah Pengunjung</div>
-            <div class="card-body text-secondary">
-                <h5 class="card-title">Secondary card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
+    </div>
+    <div class="col-md-3 ms-auto">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Hint</th>
+                        <th scope="col">IP Address</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <?php foreach ($ip_address as $ip) : ?>
+                        <tr>
+                            <th><?= $ip->hint ?></th>
+                            <td><?= e($ip->ip_address) ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 
-<script>
+<script defer>
+    <?= 'const DATA = ' . json_encode($last_month) . ';' ?>
+
     const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
+    let labels = [];
+    let values = [];
+    let colors = [
+        'rgba(75, 192, 192, 0.3)',
+        'rgba(54, 162, 235, 0.3)',
+        'rgba(153, 102, 255, 0.3)',
+        'rgba(255, 206, 86, 0.3)',
+        'rgba(255, 159, 64, 0.3)',
+        'rgba(255, 99, 132, 0.3)'
+    ];
+    let border = [
+        'rgba(75, 192, 192, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(255, 159, 64, 1)',
+        'rgba(255, 99, 132, 1)'
+    ];
+
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    DATA.forEach((key) => {
+        labels.push(monthNames[(new Date(key.tgl + '-01').getMonth())] + ' ' + (new Date(key.tgl + '-01').getFullYear()));
+        values.push(key.hint);
+    });
+
+    // sorting warna
+    let valueLen = values.length;
+    let valueFloor = valueLen != 1 ? Math.min(...values) : 0;
+    let valueRange = Math.max(...values) - valueFloor;
+    let maxColorIdx = colors.length - 1;
+    let fillColor = [];
+    let borderColor = [];
+    for (let i = 0; i < valueLen; i++) {
+        let normalizedValue = (values[i] - valueFloor) / valueRange;
+        let colorIdx = Math.floor(normalizedValue * maxColorIdx);
+        colorIdx = Number.isNaN(colorIdx) ? 5 : colorIdx;
+        fillColor.push(colors[colorIdx]);
+        borderColor.push(border[colorIdx]);
+    }
+
+    let myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: labels,
             datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
+                data: values,
+                backgroundColor: fillColor,
+                borderColor: borderColor,
+                borderWidth: 2
             }]
         },
         options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
                 }
             }
         }
