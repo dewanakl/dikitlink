@@ -40,8 +40,8 @@ class StatistikController extends Controller
         ]);
 
         header_remove();
+        http_response_code(301);
         header('HTTP/1.1 301 Moved Permanently');
-        header('Location: ' . trim($link->link));
-        exit();
+        header('Location: ' . trim($link->link), true, 301);
     }
 }
