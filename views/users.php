@@ -48,17 +48,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="hapusModalLabel">Hapus User ?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <h4 id="nama"></h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
-                <form id="formhapus" action="" method="post">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="button-hapus-batal"><i class="fas fa-times"></i> Batal</button>
+                <form id="formhapus" action="" method="post" onsubmit="hapus()">
                     <?= csrf() ?>
                     <?= method('delete') ?>
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit" class="btn btn-danger" id="button-hapus">
                         <li class="fas fa-trash"></li> Hapus
                     </button>
                 </form>
@@ -68,18 +67,18 @@
 </div>
 
 <div class="modal fade" id="detaillinkmodal" tabindex="-1" aria-labelledby="detaillinkLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-xxl-down">
+    <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="detaillinkLabel"></h5>
             </div>
             <div class="modal-body">
                 <div class="container">
-                    <div class="row mb-4">
+                    <div class="row">
                         <div class="col-md-9">
-                            <canvas class="img-fluid" id="myChart"></canvas>
+                            <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 ms-auto">
                             <ul class="list-group mt-4">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="ms-2 me-auto">
@@ -98,7 +97,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="row mb-4">
+                    <div class="row">
                         <div class="col-md-9">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover">
@@ -148,23 +147,41 @@
 <script defer>
     const HAPUS = document.querySelectorAll('.hapus');
     const DETAIL = document.querySelectorAll('.detail');
+    let myChart;
+
+    const hapus = () => {
+        let btnbatal = document.getElementById('button-hapus-batal');
+        let btn = document.getElementById('button-hapus');
+        btn.disabled = true;
+        btnbatal.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+    }
+
+    const refreshChart = () => {
+        myChart.data.labels = [];
+        myChart.data.datasets = [{
+            data: [],
+            backgroundColor: [],
+            borderColor: [],
+            borderWidth: 2
+        }];
+
+        myChart.update();
+    }
 
     const detail = async (id, nama) => {
+        const myModal = new bootstrap.Modal(document.getElementById('detaillinkmodal'));
         const AGENT = document.getElementById('user-agent');
         const IP = document.getElementById('ip-address');
         const TITLE = document.getElementById('detaillinkLabel');
-        const ctx = document.getElementById('myChart').getContext('2d');
 
-        AGENT.innerHTML = '<span class="spinner-border"></span> Loading..';
-        IP.innerHTML = '<span class="spinner-border"></span> Loading..';
+        myModal.show();
+
+        AGENT.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+        IP.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
         TITLE.innerHTML = `<i class="fa-solid fa-chart-column"></i> ${nama}`;
 
-        if (window.myChart instanceof Chart) {
-            window.myChart.destroy();
-        }
-
-        const myModal = new bootstrap.Modal(document.getElementById('detaillinkmodal'));
-        myModal.show();
+        refreshChart();
 
         await fetch(`${window.location.origin}/users/${id}/detail`)
             .then((res) => res.json())
@@ -212,26 +229,15 @@
                     borderColor.push(border[colorIdx]);
                 }
 
-                let chart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: labels,
-                        datasets: [{
-                            data: values,
-                            backgroundColor: fillColor,
-                            borderColor: borderColor,
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        }
-                    }
-                });
+                myChart.data.labels = labels;
+                myChart.data.datasets = [{
+                    data: values,
+                    backgroundColor: fillColor,
+                    borderColor: borderColor,
+                    borderWidth: 2
+                }];
+
+                myChart.update();
 
                 // jumlah link
                 document.getElementById('jumlahlink').innerText = res.jumlah_link;
@@ -250,24 +256,39 @@
             .catch((err) => showModal(err, 'error'));
     }
 
-    for (let i = 0; i < HAPUS.length; i++) {
-        HAPUS[i].addEventListener('click', () => {
-            let nama = HAPUS[i].getAttribute('data-nama');
-            document.getElementById('nama').innerText = `Ingin hapus "${nama}" ?`;
+    document.addEventListener('DOMContentLoaded', () => {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        for (let i = 0; i < HAPUS.length; i++) {
+            HAPUS[i].addEventListener('click', () => {
+                let nama = HAPUS[i].getAttribute('data-nama');
+                let url = HAPUS[i].getAttribute('data-url');
 
-            let url = HAPUS[i].getAttribute('data-url');
-            document.getElementById('formhapus').action = url;
+                document.getElementById('nama').innerText = `Ingin hapus "${nama}" ?`;
+                document.getElementById('formhapus').action = url;
 
-            const myModal = new bootstrap.Modal(document.getElementById('hapusModal'));
-            myModal.show();
+                const myModal = new bootstrap.Modal(document.getElementById('hapusModal'));
+                myModal.show();
+            });
+
+            DETAIL[i].addEventListener('click', () => {
+                let id = DETAIL[i].getAttribute('data-id');
+                let nama = HAPUS[i].getAttribute('data-nama');
+                detail(id, nama);
+            });
+        }
+        myChart = new Chart(ctx, {
+            type: 'bar',
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
         });
-
-        DETAIL[i].addEventListener('click', () => {
-            let id = DETAIL[i].getAttribute('data-id');
-            let nama = HAPUS[i].getAttribute('data-nama');
-            detail(id, nama);
-        });
-    }
+        refreshChart();
+    });
 </script>
 
 <?= extend('templates/down') ?>

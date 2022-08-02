@@ -108,7 +108,7 @@
                 <h5 class="modal-title" id="detaillinkLabel"></h5>
             </div>
             <div class="modal-body">
-                <canvas class="img-fluid" id="myChart"></canvas>
+                <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
                 <hr class="text-dark">
                 <div class="row">
                     <div class="col-md-8">

@@ -1,6 +1,7 @@
 const URI = window.location.origin;
 const TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const DATA = [];
+let myChart;
 
 const showModal = (msg, type, text = '') => Swal.fire({
     title: msg,
@@ -42,9 +43,21 @@ const confirmCopy = (name) => {
     });
 }
 
+const refreshChart = () => {
+    myChart.data.labels = [];
+    myChart.data.datasets = [{
+        data: [],
+        backgroundColor: [],
+        borderColor: [],
+        borderWidth: 2
+    }];
+
+    myChart.update();
+}
+
 const refreshTable = async () => {
     const TABELS = document.getElementById('tables');
-    TABELS.innerHTML = '<span class="spinner-border"></span> Loading...';
+    TABELS.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
 
     await fetch(`${URI}/api/link/show`)
         .then((res) => res.json())
@@ -111,7 +124,7 @@ const tambah = async () => {
 
     BATAL.disabled = true
     TAMBAH.disabled = true;
-    TAMBAH.innerHTML = `<span class="spinner-border"></span>`;
+    TAMBAH.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Loading...`;
 
     await fetch(`${URI}/api/link/create`, REQ)
         .then((res) => res.json())
@@ -177,7 +190,7 @@ const update = async () => {
 
     BATAL.disabled = true;
     EDIT.disabled = true;
-    EDIT.innerHTML = `<span class="spinner-border"></span>`;
+    EDIT.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Loading...`;
 
     await fetch(`${URI}/api/link/update`, REQ)
         .then((res) => res.json())
@@ -205,25 +218,20 @@ const update = async () => {
 }
 
 const detail = async (button, id) => {
+    const myModal = new bootstrap.Modal(document.getElementById('detaillinkmodal'));
     const AGENT = document.getElementById('user-agent');
     const IP = document.getElementById('ip-address');
     const TITLE = document.getElementById('detaillinkLabel');
-    const ctx = document.getElementById('myChart').getContext('2d');
 
     id = DATA[id][0];
+    myModal.show();
 
-    AGENT.innerHTML = '<span class="spinner-border"></span> Loading..';
-    IP.innerHTML = '<span class="spinner-border"></span> Loading..';
-    TITLE.innerText = `Detail Link ${id}`;
+    AGENT.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+    IP.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+    TITLE.innerText = `Detail ${id}`;
     button.disabled = true;
 
-    let chartStatus = Chart.getChart('myChart');
-    if (chartStatus != undefined) {
-        chartStatus.destroy();
-    }
-
-    const myModal = new bootstrap.Modal(document.getElementById('detaillinkmodal'));
-    myModal.show();
+    refreshChart();
 
     await fetch(`${URI}/api/link/detail?name=${id}`)
         .then((res) => res.json())
@@ -271,27 +279,15 @@ const detail = async (button, id) => {
                 borderColor.push(border[colorIdx]);
             }
 
-            let myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: fillColor,
-                        borderColor: borderColor,
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    animation: false,
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    }
-                }
-            });
+            myChart.data.labels = labels;
+            myChart.data.datasets = [{
+                data: values,
+                backgroundColor: fillColor,
+                borderColor: borderColor,
+                borderWidth: 2
+            }];
+
+            myChart.update();
 
             // user-agen
             AGENT.innerHTML = null;
@@ -338,7 +334,7 @@ const destroy = async () => {
 
     BATAL.disabled = true;
     HAPUS.disabled = true;
-    HAPUS.innerHTML = `<span class="spinner-border"></span>`;
+    HAPUS.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Loading...`;
 
     await fetch(`${URI}/api/link/delete`, REQ)
         .then((res) => res.json())
@@ -380,5 +376,18 @@ hapusLink.addEventListener('submit', event => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('myChart').getContext('2d');
+    myChart = new Chart(ctx, {
+        type: 'bar',
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
     refreshTable();
+    refreshChart();
 });

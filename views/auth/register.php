@@ -57,7 +57,7 @@
     const register = () => {
         let btn = document.getElementById('button-register');
         btn.disabled = true;
-        btn.innerText = 'Loading...';
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
     }
 </script>
 

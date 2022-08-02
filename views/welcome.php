@@ -43,8 +43,8 @@
                     <i class="fa-solid fa-sack-dollar"></i>
                 </div>
                 <div class="mt-0">
-                    <h3>100% Free</h3>
-                    <p>Asli nggak bohong, coba dulu baru bilang, tuhkan gratis tanpa butuh apa apa.</p>
+                    <h3>100% Gratis</h3>
+                    <p>Asli nggak bohong, coba dulu baru bilang... tuhkan gratis tanpa butuh apa apa.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -53,7 +53,7 @@
                 </div>
                 <div class="mt-0">
                     <h3>Mudah</h3>
-                    <p>Sat set sat set, hiyaaa mudah bangett tambah linknya.</p>
+                    <p>Sat set sat set, hiyaaa... mudah bangett kan tambah linknya ?.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="mt-0">
                     <h3>Bebas</h3>
-                    <p>Yoii, bebas bangett mau dikasih nama apa untuk alias linknya.</p>
+                    <p>Yoii, bebas dan terserah mau dikasih nama apa untuk alias linknya.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
@@ -71,7 +71,7 @@
                 </div>
                 <div class="mt-0">
                     <h3>Cepat</h3>
-                    <p>Perasaan baru klik ini tombol kok udah muncul selesai ? Cepet bangett.</p>
+                    <p>Perasaan baru klik ini tombol kok udah muncul selesai ? Gile cepet bangett.</p>
                 </div>
             </div>
         </div>

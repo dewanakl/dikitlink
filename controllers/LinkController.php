@@ -33,7 +33,7 @@ class LinkController extends Controller
             ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-1 week')), '>=')
             ->groupBy('tgl')
             ->orderBy('tgl')
-            ->select('to_char(stats.created_at, \'YYYY-MM-DD\') AS tgl', 'count(stats.id) as hint')
+            ->select('concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at), \'-\', extract(DAY from stats.created_at)) AS tgl', 'count(stats.id) as hint')
             ->get();
 
         $get = fn (string $select) => Link::join('stats', 'links.id', 'stats.link_id')
