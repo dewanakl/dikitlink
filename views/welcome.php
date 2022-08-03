@@ -3,8 +3,8 @@
 <div class="container">
     <div class="px-4 py-5 border-bottom">
         <div class="row flex-lg-row-reverse align-items-center">
-            <div class="col-10 col-sm-8 col-lg-6">
-                <img src="<?= asset('link.svg') ?>" class="d-md-block d-sm-none d-none mx-lg-auto img-fluid" alt="link" width="500" height="300" loading="lazy">
+            <div class="col-10 col-md-8 col-lg-6">
+                <img src="<?= asset('link.svg') ?>" class="d-lg-block d-none mx-auto img-fluid" alt="link" width="400" loading="lazy">
             </div>
             <div class="col-lg-6">
                 <h1 class="display-2 fw-bold lh-1 mb-4">Dikit-Link</h1>

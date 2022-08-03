@@ -135,11 +135,13 @@
 </div>
 
 <?php if ($pesan = flash('berhasil')) : ?>
-    <script>
-        Swal.fire({
-            title: `<?= $pesan ?>`,
-            icon: 'success',
-            confirmButtonText: '<i class="fas fa-check"></i> Oke',
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            Swal.fire({
+                title: `<?= $pesan ?>`,
+                icon: 'success',
+                confirmButtonText: '<i class="fas fa-check"></i> Oke',
+            });
         });
     </script>
 <?php endif ?>

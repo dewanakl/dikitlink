@@ -74,7 +74,6 @@
 <script defer>
     <?= 'const DATA = ' . json_encode($last_month) . ';' ?>
 
-    const ctx = document.getElementById('myChart').getContext('2d');
     let labels = [];
     let values = [];
     let colors = [
@@ -118,25 +117,28 @@
         borderColor.push(border[colorIdx]);
     }
 
-    let myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                data: values,
-                backgroundColor: fillColor,
-                borderColor: borderColor,
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    display: false
+    document.addEventListener('DOMContentLoaded', () => {
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: values,
+                    backgroundColor: fillColor,
+                    borderColor: borderColor,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
                 }
             }
-        }
+        });
     });
 </script>
 

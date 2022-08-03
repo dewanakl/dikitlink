@@ -8,7 +8,7 @@
 <div class="card border-dark mb-4">
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-md-4">
                 <h5 class="card-title"><i class="fas fa-user"></i> <?= e(auth()->user()->nama) ?></h5>
                 <hr>
                 <p class="card-text"><i class="fas fa-envelope"></i> <?= e(auth()->user()->email) ?></p>
@@ -16,7 +16,7 @@
                 <p class="card-text"><i class="fas fa-history"></i> <?= date("d M Y, H:i", strtotime((auth()->user()->updated_at))) ?></p>
                 <hr class="mb-0">
             </div>
-            <div class="col-sm-8">
+            <div class="col-md-8">
                 <form method="post" class="my-3 mx-1" onsubmit="update()">
                     <?= csrf() ?>
                     <?= method('put') ?>
@@ -83,14 +83,17 @@
 </div>
 
 <?php if ($pesan = flash('berhasil')) : ?>
-    <script>
-        Swal.fire({
-            title: `<?= $pesan ?>`,
-            icon: 'success',
-            confirmButtonText: '<i class="fas fa-check"></i> Oke',
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            Swal.fire({
+                title: `<?= $pesan ?>`,
+                icon: 'success',
+                confirmButtonText: '<i class="fas fa-check"></i> Oke',
+            });
         });
     </script>
 <?php endif ?>
+
 <script>
     const update = () => {
         let btn = document.getElementById('button-update');
@@ -98,4 +101,5 @@
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
     }
 </script>
+
 <?= extend('templates/down') ?>
