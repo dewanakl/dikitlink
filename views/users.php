@@ -1,4 +1,4 @@
-<?= extend('templates/top', ['title' => 'Dashboard']) ?>
+<?= extend('templates/top', ['title' => 'User']) ?>
 
 <h4 class="mb-3">
     <i class="fas fa-users"></i>

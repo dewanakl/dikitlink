@@ -12,7 +12,7 @@
     <meta property="og:description" content="Dikit-Link simple and powerfull shortlink">
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?= asset('/') ?>">
-    <title><?= $title ?? 'Kamu Framework' ?></title>
+    <title><?= $title ?? 'Dikit-Link' ?></title>
     <meta name="csrf-token" content="<?= csrf_token() ?>">
     <link rel="manifest" href="<?= asset('manifest.webmanifest') ?>">
     <link rel="icon" type="image/png" sizes="192x192" href="<?= asset('icon-192x192.png') ?>">
