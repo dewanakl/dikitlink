@@ -17,16 +17,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #ddd;
 }
-
-/* bootstrap custom */
-.dropdown-item:focus {
-    background-color: var(--bs-green) !important;
-}
-
-.dropdown-item.logout:focus {
-    background-color: var(--bs-red) !important;
-}
-
-.dropdown-item.active {
-    background-color: var(--bs-green) !important;
-}

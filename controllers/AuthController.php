@@ -22,7 +22,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return $this->redirect(route('login'))->with('berhasil', 'Berhasil Logout');
+        return $this->redirect(route('login'))->with('berhasil', 'Berhasil logout');
     }
 
     public function auth(Request $request)
@@ -42,7 +42,7 @@ class AuthController extends Controller
     public function submit(Request $request)
     {
         $credential = $request->validate([
-            'nama' => ['required', 'trim', 'str', 'min:2', 'max:50'],
+            'nama' => ['required', 'trim', 'str', 'min:2', 'max:25'],
             'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50', 'unik'],
             'password' => ['required', 'trim', 'str', 'min:8', 'max:20', 'hash']
         ]);

@@ -1,6 +1,11 @@
 const URI = window.location.origin;
 const TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const DATA = [];
+
+const addLink = document.getElementById('addlink');
+const editLink = document.getElementById('editlink');
+const hapusLink = document.getElementById('hapuslink');
+
 let myChart;
 
 const showModal = (msg, type, text = '') => Swal.fire({
@@ -28,9 +33,9 @@ const copy = (id) => {
     clipboard(DATA[id][0]);
 }
 
-const confirmCopy = (name) => {
+const confirmCopy = (name, action = 'Membuat') => {
     Swal.fire({
-        title: `Membuat link "${name}"`,
+        title: `${action} link "${name}"`,
         icon: 'success',
         showCancelButton: true,
         focusConfirm: true,
@@ -198,7 +203,7 @@ const update = async () => {
             if (res.status) {
                 refreshTable();
                 bootstrap.Modal.getInstance(document.querySelector('#editlinkmodal')).hide();
-                confirmCopy(name);
+                confirmCopy(name, 'Mengubah');
 
                 OLD.value = null;
                 NAME.value = null;
@@ -357,19 +362,16 @@ const destroy = async () => {
     HAPUS.innerHTML = '<i class="fas fa-trash"></i> Hapus';
 }
 
-const addLink = document.getElementById('addlink');
 addLink.addEventListener('submit', event => {
     event.preventDefault();
     tambah();
 });
 
-const editLink = document.getElementById('editlink');
 editLink.addEventListener('submit', event => {
     event.preventDefault();
     update();
 });
 
-const hapusLink = document.getElementById('hapuslink');
 hapusLink.addEventListener('submit', event => {
     event.preventDefault();
     destroy();

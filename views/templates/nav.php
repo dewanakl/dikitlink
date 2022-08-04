@@ -32,7 +32,7 @@
                     <hr class="dropdown-divider">
                 </li>
                 <li>
-                    <a href="#" class="dropdown-item logout my-1 rounded-2" onmouseout="this.style.color='#000'; this.style.backgroundColor='#fff'" onmouseover="this.style.color='#fff'; this.style.backgroundColor='var(--bs-red)'" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    <a href="#" class="dropdown-item my-1 rounded-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
                         <i class="fas fa-sign-out-alt"></i> Logout
                     </a>
                 </li>

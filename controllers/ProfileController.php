@@ -23,10 +23,11 @@ class ProfileController extends Controller
 
         $email = User::where('email', $request->email)
             ->where('id', Auth::user()->id, '!=')
-            ->limit(1)->first();
+            ->limit(1)
+            ->first();
 
         if ($email->email) {
-            $request->throwError([
+            $request->throw([
                 'email' => 'Email sudah ada'
             ]);
         }
