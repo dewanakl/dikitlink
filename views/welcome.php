@@ -12,7 +12,7 @@
                     Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, tunggu apa lagi ?
                 </p>
                 <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-                    <a type="button" class="btn btn-primary btn-lg fw-bold px-4" href="<?= route('login') ?>">Buat Sekarang !</a>
+                    <a type="button" class="btn btn-primary btn-lg fw-bold" href="<?= route('login') ?>">Buat Sekarang !</a>
                 </div>
             </div>
         </div>

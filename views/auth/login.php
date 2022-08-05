@@ -46,7 +46,7 @@
                             <?php endif ?>
                         </div>
                         <div class="d-grid">
-                            <button class="btn btn-lg btn-primary fw-bold mb-2" id="button-login" type="submit">Masuk</button>
+                            <button class="btn btn-primary fw-bold mb-2" id="button-login" type="submit">Masuk</button>
                         </div>
                         <hr class="text-dark">
                         <div class="row d-flex justify-content-center">

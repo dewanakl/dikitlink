@@ -45,12 +45,18 @@ class DataBase
      */
     function __construct()
     {
+        if (env('DATABASE_URL')) {
+            $data = explode(':', explode('://', env('DATABASE_URL'))[1]);
+            $data2 = explode('@', $data[1]);
+            $data3 = explode('/', $data[2]);
+        }
+
         $dsn = sprintf(
             "%s:host=%s;dbname=%s;port=%s;",
             env('DB_DRIV'),
-            env('DB_HOST'),
-            env('DB_NAME'),
-            env('DB_PORT')
+            env('DB_HOST', @$data2[1]),
+            env('DB_NAME', @$data3[1]),
+            env('DB_PORT', @$data3[0])
         );
 
         $option = [
@@ -60,7 +66,7 @@ class DataBase
 
         try {
             if (empty($this->pdo)) {
-                $this->pdo = new PDO($dsn, env('DB_USER'), env('DB_PASS'), $option);
+                $this->pdo = new PDO($dsn, env('DB_USER', @$data[0]), env('DB_PASS', @$data2[0]), $option);
             }
 
             $this->transaction = false;
