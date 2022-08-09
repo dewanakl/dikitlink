@@ -10,24 +10,32 @@
         <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
     </div>
     <div class="col-md-3 ms-auto">
-        <ul class="list-group mt-4">
+        <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Jumlah Link</div>
-                    <small>Dibuat hingga saat ini</small>
+                <div class="ms-1 me-auto">
+                    <div class="fw-bold"><i class="fa-solid fa-link"></i> Link</div>
+                    <small>Jumlah link saat ini</small>
                 </div>
                 <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1"><?= $jumlah_link ?></span></h5>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="ms-2 me-auto">
-                    <div class="fw-bold">Total Pengunjung</div>
-                    <small>Jumlah hint semua link</small>
+                <div class="ms-1 me-auto">
+                    <div class="fw-bold"><i class="fa-solid fa-fingerprint"></i> Unik</div>
+                    <small>Jumlah pengunjung unik</small>
+                </div>
+                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1"><?= $unique_pengunjung ?></span></h5>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="ms-1 me-auto">
+                    <div class="fw-bold"><i class="fa-solid fa-computer-mouse"></i> Klik</div>
+                    <small>Jumlah klik semua link</small>
                 </div>
                 <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1"><?= $total_pengunjung ?></span></h5>
             </li>
         </ul>
     </div>
 </div>
+
 <div class="row mb-4">
     <div class="col-md-9">
         <div class="table-responsive">

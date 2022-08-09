@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Auth;
+
+use Core\Facades\App;
 
 /**
  * Helper class Autentikasi

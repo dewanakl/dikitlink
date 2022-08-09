@@ -7,7 +7,7 @@ use Controllers\LinkController;
 use Controllers\ProfileController;
 use Controllers\StatistikController;
 use Controllers\UsersController;
-use Core\Route;
+use Core\Routing\Route;
 use Middleware\AdminMiddleware;
 use Middleware\AuthMiddleware;
 use Middleware\GuestMiddleware;

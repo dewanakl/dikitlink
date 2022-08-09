@@ -2,10 +2,10 @@
 
 namespace Controllers;
 
-use Core\Auth;
-use Core\Controller;
-use Core\Request;
-use Core\Validator;
+use Core\Auth\Auth;
+use Core\Http\Request;
+use Core\Routing\Controller;
+use Core\Support\Validator;
 use Models\Link;
 use Models\Stat;
 
@@ -17,12 +17,20 @@ class StatistikController extends Controller
         $getstats = $link->getStats($id);
         $sumstats = $link->sumStats($id);
 
+        $unique = $link->join('stats', 'links.id', 'stats.link_id')
+            ->where('links.user_id', $id)
+            ->groupBy('stats.user_agent', 'stats.ip_address')
+            ->select('COUNT(stats.link_id)')
+            ->get()
+            ->rowCount();
+
         return $this->view('statistik', [
             'last_month' => $link->lastMonth($id),
             'user_agent' => $getstats('user_agent'),
             'ip_address' => $getstats('ip_address'),
             'jumlah_link' => $sumstats->jumlah_link ?? 0,
-            'total_pengunjung' => $sumstats->total_pengunjung ?? 0
+            'total_pengunjung' => $sumstats->total_pengunjung ?? 0,
+            'unique_pengunjung' => $unique ?? 0
         ]);
     }
 
@@ -31,7 +39,7 @@ class StatistikController extends Controller
         $valid = Validator::make([
             'id' => $id
         ], [
-            'id' => ['trim', 'slug', 'max:30']
+            'id' => ['trim', 'slug', 'str', 'min:3', 'max:30']
         ]);
 
         if ($valid->fails()) {

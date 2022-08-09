@@ -6,7 +6,25 @@ const addLink = document.getElementById('addlink');
 const editLink = document.getElementById('editlink');
 const hapusLink = document.getElementById('hapuslink');
 
+const LOAD = document.getElementById('loadmore');
+const JudulInput = document.getElementById('nama');
+const OrderInput = document.getElementById('order');
+
 let myChart;
+let init = 0;
+let end = 6;
+let each = 0;
+let timeout = null;
+
+const renderEmpty = (title) => {
+    LOAD.style.visibility = 'hidden';
+    const DIV = document.createElement('div');
+    DIV.classList.add('col-12');
+    DIV.classList.add('m-2');
+    DIV.classList.add('text-center');
+    DIV.innerHTML = `<h4>Hasil tidak ditemukan lagi untuk "${title}"</h4>`;
+    return DIV;
+}
 
 const showModal = (msg, type, text = '') => Swal.fire({
     title: msg,
@@ -60,50 +78,76 @@ const refreshChart = () => {
     myChart.update();
 }
 
-const refreshTable = async () => {
-    const TABELS = document.getElementById('tables');
-    TABELS.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+const renderCard = (data, key) => {
+    const DIV = document.createElement('div');
+    DIV.classList.add('col-12');
+    DIV.classList.add('mb-3');
+    DIV.innerHTML = `
+    <div class="card shadow border-secondary">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="card-title my-1 mx-0">
+                <strong class="mx-0">${data.name}</strong>
+                </h5>
+                <small class="text-dark text-opacity-75 border border-secondary border-2 rounded-3 px-1"><i class="fa-solid fa-computer-mouse"></i> ${data.hint}</small>
+            </div>
+            <p class="text-truncate my-1 mx-0">${escapeHtml(data.link)}</p>
+            <hr class="mt-2 mb-3">
+            <div class="d-flex justify-content-between align-items-center mx-0">
+                <small class="text-dark text-opacity-75 m-0"><i class="fa-solid fa-clock"></i> ${(new Date(data.created_at)).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
+                <div class="btn-group btn-group-sm m-0" role="group">
+                    <a onclick="copy(${key})" class="btn btn-outline-secondary">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fas fa-copy mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Salin</span>
+                        </div>
+                    </a>
+                    <a onclick="detail(this, ${key})" class="btn btn-outline-success">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fas fa-info-circle mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Detail</span>
+                        </div>
+                    </a>
+                    <a onclick="edit(this, ${key})" class="btn btn-outline-warning">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fas fa-pen-to-square mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Edit</span>
+                        </div>
+                    </a>
+                    <a onclick="hapus(this, ${key})" class="btn btn-outline-danger">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <i class="fas fa-trash mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Hapus</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>`;
+    return DIV;
+}
 
-    await fetch(`${URI}/api/link/show`)
+const refreshTable = async (nama = '', order = 'a') => {
+    const TABELS = document.getElementById('tables');
+    LOAD.disabled = true;
+    LOAD.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+
+    await fetch(`${URI}/api/link/show?order=${order}&nama=${nama}&init=${init}&end=${end}`)
         .then((res) => res.json())
         .then((res) => {
-            TABELS.innerHTML = null;
-            DATA.splice(0, DATA.length);
-
-            res.forEach((data, key) => {
-                DATA.push([data.name, data.link]);
-                TABELS.insertRow(-1).innerHTML = `
-                    <tr>
-                        <th>${key + 1}</th>
-                        <td>${data.name}</td>
-                        <td>${data.hint}</td>
-                        <td>${escapeHtml(data.link)}</td>
-                        <td>
-                            <div class="btn-group btn-group-sm" role="group">
-                                <a onclick="copy(${key})" class="btn btn-outline-secondary">
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="fas fa-copy mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Salin</span>
-                                    </div>
-                                </a>
-                                <a onclick="detail(this, ${key})" class="btn btn-outline-success">
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="fas fa-info-circle mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Detail</span>
-                                    </div>
-                                </a>
-                                <a onclick="edit(this, ${key})" class="btn btn-outline-warning">
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="fas fa-pen-to-square mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Edit</span>
-                                    </div>
-                                </a>
-                                <a onclick="hapus(this, ${key})" class="btn btn-outline-danger">
-                                    <div class="d-flex justify-content-center align-items-center">
-                                        <i class="fas fa-trash mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Hapus</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>`;
-            });
+            if (res.length > 0) {
+                res.forEach((data) => {
+                    DATA.push([data.name, data.link]);
+                    TABELS.appendChild(renderCard(data, each));
+                    each += 1;
+                });
+                LOAD.disabled = false;
+                LOAD.innerText = 'Muat lebih banyak';
+                LOAD.style.visibility = 'visible';
+            } else {
+                if (nama == '') {
+                    LOAD.disabled = true;
+                    LOAD.innerText = 'Tidak ada hasil lagi';
+                } else {
+                    TABELS.appendChild(renderEmpty(escapeHtml(nama)));
+                }
+            }
         })
         .catch((err) => showModal(err, 'error'));
 }
@@ -135,6 +179,7 @@ const tambah = async () => {
         .then((res) => res.json())
         .then((res) => {
             if (res.status) {
+                reset(false);
                 refreshTable();
                 bootstrap.Modal.getInstance(document.querySelector('#addlinkmodal')).hide();
                 confirmCopy(name);
@@ -201,6 +246,7 @@ const update = async () => {
         .then((res) => res.json())
         .then((res) => {
             if (res.status) {
+                reset(false);
                 refreshTable();
                 bootstrap.Modal.getInstance(document.querySelector('#editlinkmodal')).hide();
                 confirmCopy(name, 'Mengubah');
@@ -265,7 +311,7 @@ const detail = async (button, id) => {
                 'July', 'August', 'September', 'October', 'November', 'December'
             ];
             res.last_week.forEach((key) => {
-                labels.push((new Date(key.tgl).getDate()) + ' ' + monthNames[(new Date(key.tgl).getMonth())]);
+                labels.push((new Date(key.tgl)).getDate() + ' ' + monthNames[(new Date(key.tgl)).getMonth()]);
                 values.push(key.hint);
             });
 
@@ -291,14 +337,14 @@ const detail = async (button, id) => {
                 borderColor: borderColor,
                 borderWidth: 2
             }];
-
             myChart.update();
 
-            // user-agen
+            document.getElementById('unik').innerText = res.unique;
+            document.getElementById('klik').innerText = res.jumlah;
+
             AGENT.innerHTML = null;
             res.user_agent.forEach((data) => AGENT.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.user_agent}</td></tr>`);
 
-            // ip
             IP.innerHTML = null;
             res.ip_address.forEach((data) => IP.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.ip_address}</td></tr>`);
         })
@@ -311,7 +357,6 @@ const hapus = async (button, id) => {
     button.disabled = true;
 
     id = DATA[id][0];
-
     document.getElementById('valuehapusname').innerText = `Ingin hapus "${id}" ?`;
     document.getElementById('valuehapusid').value = id;
 
@@ -345,6 +390,7 @@ const destroy = async () => {
         .then((res) => res.json())
         .then((res) => {
             if (res.status) {
+                reset(false);
                 refreshTable();
                 bootstrap.Modal.getInstance(document.querySelector('#hapuslinkmodal')).hide();
                 showModal(`Menghapus "${NAME.value}"`, 'success');
@@ -360,6 +406,39 @@ const destroy = async () => {
     BATAL.disabled = false;
     HAPUS.disabled = false;
     HAPUS.innerHTML = '<i class="fas fa-trash"></i> Hapus';
+}
+
+const reset = (show = true) => {
+    init = 0;
+    end = 6;
+    each = 0;
+
+    DATA.splice(0, DATA.length);
+    document.getElementById('tables').innerHTML = null;
+    if (show) {
+        LOAD.disabled = true;
+        LOAD.style.visibility = 'visible';
+        LOAD.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+    } else {
+        LOAD.style.visibility = 'hidden';
+    }
+}
+
+const cariNama = () => {
+    reset();
+    clearTimeout(timeout);
+    timeout = setTimeout(() => refreshTable(JudulInput.value, OrderInput.value), 700);
+}
+
+const urutkan = () => {
+    reset();
+    clearTimeout(timeout);
+    timeout = setTimeout(() => refreshTable(JudulInput.value, OrderInput.value), 350);
+}
+
+const loadMore = () => {
+    init = init + end;
+    refreshTable(JudulInput.value, OrderInput.value);
 }
 
 addLink.addEventListener('submit', event => {

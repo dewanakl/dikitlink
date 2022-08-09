@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Http;
+
+use Core\Support\Validator;
 
 /**
  * Request yang masuk

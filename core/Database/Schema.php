@@ -1,8 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Database;
 
 use Closure;
+use Core\Facades\App;
 
 /**
  * Helper class untuk skema tabel

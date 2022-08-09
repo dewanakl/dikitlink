@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Database;
+
+use Core\Facades\App;
 
 /**
  * Helper class DB untuk custome nama table

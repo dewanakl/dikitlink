@@ -13,8 +13,8 @@
                 <th scope="col">Nama</th>
                 <th scope="col">Email</th>
                 <th scope="col">Tanggal Daftar</th>
-                <th scope="col">Jumlah Link</th>
-                <th scope="col">Jumlah Pengunjung</th>
+                <th scope="col">Link</th>
+                <th scope="col">Pengunjung</th>
                 <th scope="col">Pilih</th>
             </tr>
         </thead>
@@ -30,10 +30,14 @@
                     <td>
                         <div class="btn-group btn-group-sm" role="group">
                             <button class="btn btn-outline-success detail" data-id="<?= $user->id ?>" data-nama="<?= e($user->nama) ?>">
-                                <li class="fas fa-info-circle mx-1"></li> <span class="d-none d-md-inline">Detail</span>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <li class="fas fa-info-circle mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Detail</span>
+                                </div>
                             </button>
                             <button class="btn btn-outline-danger hapus" data-nama="<?= e($user->nama) ?>" data-url="<?= route('delete.users', $user->id) ?>">
-                                <li class="fas fa-trash mx-1"></li> <span class="d-none d-md-inline">Hapus</span>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <li class="fas fa-trash mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Hapus</span>
+                                </div>
                             </button>
                         </div>
                     </td>
@@ -82,15 +86,22 @@
                             <ul class="list-group mt-4">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="ms-2 me-auto">
-                                        <div class="fw-bold">Jumlah Link</div>
-                                        <small>Dibuat hingga saat ini</small>
+                                        <div class="fw-bold"><i class="fa-solid fa-link"></i> Link</div>
+                                        <small>Jumlah link saat ini</small>
                                     </div>
                                     <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="jumlahlink"></span></h5>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div class="ms-1 me-auto">
+                                        <div class="fw-bold"><i class="fa-solid fa-fingerprint"></i> Unik</div>
+                                        <small>Jumlah pengunjung unik</small>
+                                    </div>
+                                    <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="linkunik"></span></h5>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="ms-2 me-auto">
-                                        <div class="fw-bold">Total Pengunjung</div>
-                                        <small>Jumlah hint semua link</small>
+                                        <div class="fw-bold"><i class="fa-solid fa-computer-mouse"></i> Klik</div>
+                                        <small>Jumlah klik semua link</small>
                                     </div>
                                     <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="totalpengunjung"></span></h5>
                                 </li>
@@ -154,8 +165,8 @@
     const hapus = () => {
         let btnbatal = document.getElementById('button-hapus-batal');
         let btn = document.getElementById('button-hapus');
-        btn.disabled = true;
         btnbatal.disabled = true;
+        btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
     }
 
@@ -170,6 +181,13 @@
 
         myChart.update();
     }
+
+    const showModal = (msg, type, text = '') => Swal.fire({
+        title: msg,
+        icon: type,
+        text: text,
+        confirmButtonText: '<i class="fas fa-check"></i> Oke',
+    });
 
     const detail = async (id, nama) => {
         const myModal = new bootstrap.Modal(document.getElementById('detaillinkmodal'));
@@ -243,6 +261,9 @@
 
                 // jumlah link
                 document.getElementById('jumlahlink').innerText = res.jumlah_link;
+
+                // jumlah link
+                document.getElementById('linkunik').innerText = res.unique_pengunjung;
 
                 // total pengunjung
                 document.getElementById('totalpengunjung').innerText = res.total_pengunjung;

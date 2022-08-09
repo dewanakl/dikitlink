@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use Core\Controller;
+use Core\Routing\Controller;
 
 class DashboardController extends Controller
 {

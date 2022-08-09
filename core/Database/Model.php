@@ -1,7 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Database;
 
+use Core\Facades\App;
 use Exception;
 use ReflectionClass;
 use ReflectionException;

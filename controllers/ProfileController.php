@@ -2,9 +2,9 @@
 
 namespace Controllers;
 
-use Core\Auth;
-use Core\Controller;
-use Core\Request;
+use Core\Auth\Auth;
+use Core\Http\Request;
+use Core\Routing\Controller;
 use Models\User;
 
 class ProfileController extends Controller
@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $credential = $request->validate([
-            'nama' => ['required', 'trim', 'str', 'min:2', 'max:50'],
+            'nama' => ['required', 'trim', 'str', 'min:2', 'max:20'],
             'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50'],
         ]);
 

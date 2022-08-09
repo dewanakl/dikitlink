@@ -1,11 +1,15 @@
 <?php
 
-namespace Core;
+namespace Core\Facades;
 
+use Core\Http\Request;
+use Core\Http\Respond;
+use Core\Middleware\Middleware;
+use Core\Middleware\MiddlewareInterface;
+use Core\Routing\Router;
 use InvalidArgumentException;
 use Middleware\CorsMiddleware;
 use Middleware\CsrfMiddleware;
-use Middleware\MiddlewareInterface;
 
 /**
  * Class untuk menjalankan middleware dan controller

@@ -1,6 +1,6 @@
 <?= extend('templates/top', ['title' => 'Dashboard']) ?>
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+<div class="d-flex justify-content-between align-items-center mb-4">
     <h4 class="my-0">
         <i class="fas fa-columns"></i>
         Dashboard
@@ -11,19 +11,36 @@
     </button>
 </div>
 
-<div class="table-responsive">
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Hint</th>
-                <th scope="col">Link</th>
-                <th scope="col">Pilih</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider" id="tables"></tbody>
-    </table>
+<div class="row flex-md-row-reverse">
+    <div class="col-md-4">
+        <div class="card shadow border-dark mb-4">
+            <div class="card-header">
+                <i class="fas fa-filter"></i> Filter
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <label for="nama" class="form-label"><i class="fas fa-search"></i>
+                        Nama</label>
+                    <input class="form-control" type="text" onkeyup="cariNama()" id="nama" placeholder="Nama">
+                </div>
+                <div class="mb-2">
+                    <label for="order" class="form-label"><i class="fas fa-clock"></i>
+                        Waktu</label>
+                    <select class="form-select" id="order" onchange="urutkan()">
+                        <option value="a" selected>Terbaru</option>
+                        <option value="d">Terlama</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <div class="row" id="tables"></div>
+        <div class="d-grid mb-4 mt-2">
+            <button class="btn btn-primary btn-sm fw-bold" id="loadmore" onclick="loadMore()">Muat lebih banyak</button>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="addlinkmodal" tabindex="-1" aria-labelledby="addlinkLabel" aria-hidden="true">
@@ -108,7 +125,29 @@
                 <h5 class="modal-title" id="detaillinkLabel"></h5>
             </div>
             <div class="modal-body">
-                <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
+                <div class="row mb-4">
+                    <div class="col-md-8">
+                        <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
+                    </div>
+                    <div class="col-md-4 ms-auto">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="ms-1 me-auto">
+                                    <div class="fw-bold"><i class="fa-solid fa-fingerprint"></i> Unik</div>
+                                    <small>Pengunjung unik</small>
+                                </div>
+                                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="unik"></span></h5>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div class="ms-1 me-auto">
+                                    <div class="fw-bold"><i class="fa-solid fa-computer-mouse"></i> Klik</div>
+                                    <small>Klik link ini</small>
+                                </div>
+                                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="klik"></span></h5>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
                 <hr class="text-dark">
                 <div class="row">
                     <div class="col-md-8">

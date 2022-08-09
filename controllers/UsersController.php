@@ -2,7 +2,8 @@
 
 namespace Controllers;
 
-use Core\Controller;
+use Core\Routing\Controller;
+use Core\Support\Validator;
 use Models\Link;
 use Models\User;
 
@@ -23,15 +24,35 @@ class UsersController extends Controller
 
     public function detail(Link $link, $id)
     {
-        $getstats = $link->getStats($id);
-        $sumstats = $link->sumStats($id);
+        $valid = Validator::make([
+            'id' => $id
+        ], [
+            'id' => ['required', 'int']
+        ]);
+
+        if ($valid->fails()) {
+            return $this->json([
+                'error' => $valid->failed()
+            ]);
+        }
+
+        $getstats = $link->getStats($valid->id);
+        $sumstats = $link->sumStats($valid->id);
+
+        $unique = $link->join('stats', 'links.id', 'stats.link_id')
+            ->where('links.user_id', $valid->id)
+            ->groupBy('stats.user_agent', 'stats.ip_address')
+            ->select('COUNT(stats.link_id)')
+            ->get()
+            ->rowCount();
 
         return $this->json([
-            'last_month' => $link->lastMonth($id),
+            'last_month' => $link->lastMonth($valid->id),
             'user_agent' => $getstats('user_agent'),
             'ip_address' => $getstats('ip_address'),
             'jumlah_link' => $sumstats->jumlah_link ?? 0,
-            'total_pengunjung' => $sumstats->total_pengunjung ?? 0
+            'total_pengunjung' => $sumstats->total_pengunjung ?? 0,
+            'unique_pengunjung' => $unique ?? 0
         ]);
     }
 

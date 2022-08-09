@@ -2,29 +2,47 @@
 
 namespace Controllers;
 
-use Core\Auth;
-use Core\Controller;
-use Core\Request;
-use Core\Validator;
+use Core\Auth\Auth;
+use Core\Http\Request;
+use Core\Routing\Controller;
+use Core\Support\Validator;
 use Models\Link;
 
 class LinkController extends Controller
 {
     private $id;
 
-    function __construct()
+    function __construct(Auth $auth)
     {
-        $this->id = Auth::user()->id;
+        $this->id = $auth->user()->id;
     }
 
-    public function show()
+    public function show(Request $request)
     {
+        $valid = $this->validate($request, [
+            'nama' => ['slug', 'trim', 'str', 'max:25'],
+            'order' => ['required', 'trim', 'str', 'max:1'],
+            'init' => ['trim', 'max:3', 'int'],
+            'end' => ['required', 'trim', 'max:3', 'int']
+        ]);
+
+        if ($valid->fails()) {
+            return $this->json([
+                'error' => $valid->failed()
+            ], 400);
+        }
+
+        $nama = (!empty($valid->nama)) ? $valid->nama : null;
+
         return $this->json(
             Link::leftJoin('stats', 'links.id', 'stats.link_id')
                 ->where('links.user_id', $this->id)
-                ->groupBy('stats.link_id', 'links.id')
-                ->orderBy('links.id', 'DESC')
-                ->select('links.name', 'links.link', 'count(stats.id) as hint')
+                ->where('links.name', "%$nama%", 'LIKE')
+                ->groupBy('links.id')
+                ->orderBy('links.id', ($valid->order == 'a') ? 'DESC' : 'ASC')
+                ->limit($valid->end)
+                ->offset($valid->init)
+                ->select('links.name', 'links.link', 'links.created_at', 'count(stats.id) as hint')
                 ->get()
         );
     }
@@ -41,27 +59,40 @@ class LinkController extends Controller
             ], 400);
         }
 
-        $lastweek = Link::join('stats', 'links.id', 'stats.link_id')
+        $base = fn () => Link::join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $this->id)
-            ->where('links.name', $valid->name)
-            ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-1 week')), '>=')
+            ->where('links.name', $valid->name);
+
+        $lastweek = $base()
+            ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-6 day', strtotime('now'))), '>')
             ->groupBy('tgl')
             ->orderBy('tgl')
             ->select('concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at), \'-\', extract(DAY from stats.created_at)) AS tgl', 'count(stats.id) as hint')
             ->get();
 
-        $get = fn (string $select) => Link::join('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', $this->id)
-            ->where('links.name', $valid->name)
+        $get = fn (string $select) => $base()
             ->groupBy('stats.' . $select)
             ->orderBy('hint', 'DESC')
             ->select('stats.' . $select, 'count(stats.id) as hint')
             ->get();
 
+        $unique = $base()
+            ->groupBy('stats.user_agent', 'stats.ip_address')
+            ->select('COUNT(stats.link_id)')
+            ->get()
+            ->rowCount();
+
+        $sum = $base()
+            ->groupBy('links.id')
+            ->select('count(stats.id) as jumlah')
+            ->first();
+
         return $this->json([
             'last_week' => $lastweek,
             'user_agent' => $get('user_agent'),
-            'ip_address' => $get('ip_address')
+            'ip_address' => $get('ip_address'),
+            'unique' => $unique ?? 0,
+            'jumlah' => $sum->jumlah ?? 0
         ]);
     }
 
@@ -84,7 +115,7 @@ class LinkController extends Controller
             ], 400);
         }
 
-        $data = $valid->validated();
+        $data = $valid->only(['name', 'link']);
         $data['user_id'] = $this->id;
         Link::create($data);
 

@@ -2,9 +2,9 @@
 
 namespace Controllers;
 
-use Core\Auth;
-use Core\Controller;
-use Core\Request;
+use Core\Auth\Auth;
+use Core\Http\Request;
+use Core\Routing\Controller;
 use Models\User;
 
 class AuthController extends Controller
@@ -42,7 +42,7 @@ class AuthController extends Controller
     public function submit(Request $request)
     {
         $credential = $request->validate([
-            'nama' => ['required', 'trim', 'str', 'min:2', 'max:25'],
+            'nama' => ['required', 'trim', 'str', 'min:2', 'max:20'],
             'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50', 'unik'],
             'password' => ['required', 'trim', 'str', 'min:8', 'max:20', 'hash']
         ]);

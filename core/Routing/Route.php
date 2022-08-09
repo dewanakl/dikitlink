@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Routing;
 
 /**
  * Helper class untuk routing url

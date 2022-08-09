@@ -1,6 +1,8 @@
 <?php
 
-namespace Core;
+namespace Core\Support;
+
+use Core\View\Render;
 
 /**
  * Kirim email dengan SMTP

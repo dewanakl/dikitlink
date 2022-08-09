@@ -1,6 +1,11 @@
 <?php
 
-namespace Core;
+namespace Core\Routing;
+
+use Core\Http\Request;
+use Core\Http\Respond;
+use Core\Support\Validator;
+use Core\View\Render;
 
 /**
  * Base controller untuk mempermudah memanggil fungsi

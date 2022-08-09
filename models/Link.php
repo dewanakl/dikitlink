@@ -2,7 +2,7 @@
 
 namespace Models;
 
-use Core\Model;
+use Core\Database\Model;
 
 final class Link extends Model
 {
@@ -19,7 +19,7 @@ final class Link extends Model
     {
         return $this->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id)
-            ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-1 month')), '>=')
+            ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-1 month', strtotime('now'))), '>')
             ->groupBy('tgl')
             ->orderBy('tgl')
             ->select('concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at)) AS tgl', 'count(stats.id) as hint')

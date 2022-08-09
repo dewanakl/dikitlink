@@ -1,8 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Middleware;
 
 use Closure;
+use Core\Http\Request;
 
 /**
  * Middleware - cek dahulu sebelum ke controller
