@@ -9,7 +9,7 @@ use Core\Facades\App;
  * Helper class untuk skema tabel
  *
  * @class Schema
- * @package Core
+ * @package Core\Database
  */
 final class Schema
 {

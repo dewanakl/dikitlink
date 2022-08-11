@@ -8,7 +8,7 @@ use Core\Support\Validator;
  * Request yang masuk
  *
  * @class Request
- * @package Core
+ * @package Core\Http
  */
 class Request
 {

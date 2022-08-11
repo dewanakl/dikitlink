@@ -10,7 +10,7 @@ use Exception;
  * Autentikasi user dengan basemodel
  *
  * @class AuthManager
- * @package Core
+ * @package Core\Auth
  */
 class AuthManager
 {

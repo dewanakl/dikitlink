@@ -11,7 +11,7 @@ use ReflectionException;
  * Representasi model database
  *
  * @class Model
- * @package Core
+ * @package Core\Database
  */
 abstract class Model
 {

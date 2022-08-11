@@ -8,7 +8,7 @@ use InvalidArgumentException;
  * Tampilkan html dan juga injek variabel
  *
  * @class Render
- * @package Core
+ * @package Core\View
  */
 class Render
 {

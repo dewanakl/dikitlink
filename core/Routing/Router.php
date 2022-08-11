@@ -9,7 +9,7 @@ use Exception;
  * Class untuk routing dan mengelompokan url
  *
  * @class Router
- * @package Core
+ * @package Core\Routing
  */
 class Router
 {

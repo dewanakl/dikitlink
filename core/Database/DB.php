@@ -8,7 +8,7 @@ use Core\Facades\App;
  * Helper class DB untuk custome nama table
  *
  * @class DB
- * @package Core
+ * @package Core\Database
  */
 final class DB
 {

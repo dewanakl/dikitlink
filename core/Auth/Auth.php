@@ -8,7 +8,7 @@ use Core\Facades\App;
  * Helper class Autentikasi
  *
  * @class Auth
- * @package Core
+ * @package Core\Auth
  */
 final class Auth
 {

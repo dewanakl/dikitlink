@@ -6,9 +6,9 @@ namespace Core\Support;
  * Saya console untuk mempermudah develop app
  *
  * @class Console
- * @package Core
+ * @package Core\Support
  */
-final class Console
+class Console
 {
     /**
      * Perintah untuk eksekusi

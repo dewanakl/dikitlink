@@ -6,7 +6,7 @@ namespace Core\Support;
  * Validasi sebuah nilai
  * 
  * @class Validator
- * @package Core
+ * @package Core\Support
  */
 class Validator
 {

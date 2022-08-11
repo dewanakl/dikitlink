@@ -6,7 +6,7 @@ namespace Core\Support;
  * Class untuk menghandle session
  *
  * @class Session
- * @package Core
+ * @package Core\Support
  */
 class Session
 {

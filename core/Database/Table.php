@@ -6,7 +6,7 @@ namespace Core\Database;
  * Membuat tabel dengan mudah
  * 
  * @class Table
- * @package Core
+ * @package Core\Database
  */
 class Table
 {

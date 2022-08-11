@@ -14,7 +14,7 @@ use Traversable;
  * Simple query builder
  *
  * @class BaseModel
- * @package Core
+ * @package Core\Database
  */
 class BaseModel implements IteratorAggregate, JsonSerializable
 {
