@@ -34,6 +34,11 @@
                                     <li class="fas fa-info-circle mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Detail</span>
                                 </div>
                             </button>
+                            <button class="btn btn-outline-warning update" data-nama="<?= e($user->nama) ?>" data-url="<?= route('update.users', $user->id) ?>">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <li class="fas fa-rotate mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Update</span>
+                                </div>
+                            </button>
                             <button class="btn btn-outline-danger hapus" data-nama="<?= e($user->nama) ?>" data-url="<?= route('delete.users', $user->id) ?>">
                                 <div class="d-flex justify-content-center align-items-center">
                                     <li class="fas fa-trash mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Hapus</span>
@@ -54,7 +59,7 @@
                 <h5 class="modal-title" id="hapusModalLabel">Hapus User ?</h5>
             </div>
             <div class="modal-body">
-                <h4 id="nama"></h4>
+                <h4 id="namahapus"></h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="button-hapus-batal"><i class="fas fa-times"></i> Batal</button>
@@ -63,6 +68,29 @@
                     <?= method('delete') ?>
                     <button type="submit" class="btn btn-danger" id="button-hapus">
                         <li class="fas fa-trash"></li> Hapus
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Password ?</h5>
+            </div>
+            <div class="modal-body">
+                <h4 id="namaupdate"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="button-update-batal"><i class="fas fa-times"></i> Batal</button>
+                <form id="formupdate" action="" method="post" onsubmit="update()">
+                    <?= csrf() ?>
+                    <?= method('put') ?>
+                    <button type="submit" class="btn btn-warning" id="button-update">
+                        <i class="fa-solid fa-rotate"></i> Update
                     </button>
                 </form>
             </div>
@@ -160,11 +188,20 @@
 <script defer>
     const HAPUS = document.querySelectorAll('.hapus');
     const DETAIL = document.querySelectorAll('.detail');
+    const UPDATE = document.querySelectorAll('.update');
     let myChart;
 
     const hapus = () => {
         let btnbatal = document.getElementById('button-hapus-batal');
         let btn = document.getElementById('button-hapus');
+        btnbatal.disabled = true;
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+    }
+
+    const update = () => {
+        let btnbatal = document.getElementById('button-update-batal');
+        let btn = document.getElementById('button-update');
         btnbatal.disabled = true;
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
@@ -286,7 +323,7 @@
                 let nama = HAPUS[i].getAttribute('data-nama');
                 let url = HAPUS[i].getAttribute('data-url');
 
-                document.getElementById('nama').innerText = `Ingin hapus "${nama}" ?`;
+                document.getElementById('namahapus').innerText = `Ingin hapus "${nama}" ?`;
                 document.getElementById('formhapus').action = url;
 
                 const myModal = new bootstrap.Modal(document.getElementById('hapusModal'));
@@ -297,6 +334,17 @@
                 let id = DETAIL[i].getAttribute('data-id');
                 let nama = HAPUS[i].getAttribute('data-nama');
                 detail(id, nama);
+            });
+
+            UPDATE[i].addEventListener('click', () => {
+                let nama = UPDATE[i].getAttribute('data-nama');
+                let url = UPDATE[i].getAttribute('data-url');
+
+                document.getElementById('namaupdate').innerText = `Ingin update "${nama}" ?`;
+                document.getElementById('formupdate').action = url;
+
+                const myModal = new bootstrap.Modal(document.getElementById('updateModal'));
+                myModal.show();
             });
         }
         myChart = new Chart(ctx, {

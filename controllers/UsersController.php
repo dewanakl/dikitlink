@@ -56,6 +56,25 @@ class UsersController extends Controller
         ]);
     }
 
+    public function update($id)
+    {
+        $newpass = substr(md5(time()), 0, 8);
+
+        $valid = Validator::make([
+            'newpass' => $newpass,
+            'id' => $id
+        ], [
+            'newpass' => ['hash'],
+            'id' => ['int']
+        ]);
+
+        User::where('id', $valid->id)->update([
+            'password' => $valid->newpass
+        ]);
+
+        return $this->back()->with('berhasil', 'Mengupdate password "' . $newpass . '"');
+    }
+
     public function delete($id)
     {
         User::where('id', $id)->delete();

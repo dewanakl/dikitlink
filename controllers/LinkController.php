@@ -66,9 +66,11 @@ class LinkController extends Controller
         $lastweek = $base()
             ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-6 day', strtotime('now'))), '>')
             ->groupBy('tgl')
-            ->orderBy('tgl')
             ->select('concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at), \'-\', extract(DAY from stats.created_at)) AS tgl', 'count(stats.id) as hint')
             ->get();
+
+        $lastweek = json_decode(json_encode($lastweek), true);
+        usort($lastweek, fn ($a, $b) => strtotime($a['tgl']) - strtotime($b['tgl']));
 
         $get = fn (string $select) => $base()
             ->groupBy('stats.' . $select)

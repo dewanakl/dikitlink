@@ -17,13 +17,16 @@ final class Link extends Model
 
     public function lastMonth(int $id)
     {
-        return $this->join('stats', 'links.id', 'stats.link_id')
+        $lastmonth = $this->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id)
             ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-1 month', strtotime('now'))), '>')
             ->groupBy('tgl')
-            ->orderBy('tgl')
             ->select('concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at)) AS tgl', 'count(stats.id) as hint')
             ->get();
+
+        $lastmonth = json_decode(json_encode($lastmonth), true);
+        usort($lastmonth, fn ($a, $b) => strtotime($a['tgl']) - strtotime($b['tgl']));
+        return $lastmonth;
     }
 
     public function getStats(int $id)

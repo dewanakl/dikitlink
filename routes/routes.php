@@ -51,10 +51,13 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     });
 
     // Admin only
-    Route::middleware(AdminMiddleware::class)->prefix('/users')->group(function () {
-        Route::get('/', [UsersController::class, 'index'])->name('users');
-        Route::get('/{id}/detail', [UsersController::class, 'detail']);
-        Route::delete('/{id}/delete', [UsersController::class, 'delete'])->name('delete.users');
+    Route::middleware(AdminMiddleware::class)->group(function () {
+        Route::controller(UsersController::class)->prefix('/users')->group(function () {
+            Route::get('/', 'index')->name('users');
+            Route::get('/{id}/detail', 'detail');
+            Route::put('/{id}/update', 'update')->name('update.users');
+            Route::delete('/{id}/delete', 'delete')->name('delete.users');
+        });
     });
 });
 
