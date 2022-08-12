@@ -14,18 +14,14 @@
 <div class="row flex-md-row-reverse">
     <div class="col-md-4">
         <div class="card shadow border-dark mb-4">
-            <div class="card-header">
-                <i class="fas fa-filter"></i> Filter
-            </div>
+            <h6 class="card-header"><i class="fas fa-filter"></i> Filter</h6>
             <div class="card-body">
-                <div class="mb-2">
-                    <label for="nama" class="form-label"><i class="fas fa-search"></i>
-                        Nama</label>
-                    <input class="form-control" type="text" onkeyup="cariNama()" id="nama" placeholder="Nama">
+                <div class="input-group mb-3">
+                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    <input type="text" class="form-control" onkeyup="cariNama()" id="nama" placeholder="Nama">
                 </div>
-                <div class="mb-2">
-                    <label for="order" class="form-label"><i class="fas fa-clock"></i>
-                        Waktu</label>
+                <div class="input-group mb-1">
+                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
                     <select class="form-select" id="order" onchange="urutkan()">
                         <option value="a" selected>Terbaru</option>
                         <option value="d">Terlama</option>
