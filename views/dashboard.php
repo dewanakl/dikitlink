@@ -1,11 +1,11 @@
 <?= extend('templates/top', ['title' => 'Dashboard']) ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="my-0">
+    <h4>
         <i class="fas fa-columns"></i>
         Dashboard
     </h4>
-    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#addlinkmodal">
+    <button class="btn btn-info btn-sm my-0" data-bs-toggle="modal" data-bs-target="#addlinkmodal">
         <i class="fas fa-plus mx-1 my-0"></i>
         <span class="d-none d-md-inline">Tambah </span>Link
     </button>
@@ -13,19 +13,26 @@
 
 <div class="row flex-md-row-reverse">
     <div class="col-md-4">
-        <div class="card shadow border-dark mb-4">
-            <h6 class="card-header"><i class="fas fa-filter"></i> Filter</h6>
-            <div class="card-body">
-                <div class="input-group mb-3">
-                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                    <input type="text" class="form-control" onkeyup="cariNama()" id="nama" placeholder="Nama">
-                </div>
-                <div class="input-group mb-1">
-                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                    <select class="form-select" id="order" onchange="urutkan()">
-                        <option value="a" selected>Terbaru</option>
-                        <option value="d">Terlama</option>
-                    </select>
+        <div class="d-grid d-block d-md-none">
+            <button class="btn btn-light btn-sm shadow border-dark fw-bold mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <i class="fas fa-filter"></i> Filter
+            </button>
+        </div>
+        <div class="collapse d-print-none d-md-block d-print-block" id="collapseExample">
+            <div class="card shadow border-dark mb-3">
+                <h6 class="card-header d-none d-md-block"><i class="fas fa-filter"></i> Filter</h6>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" class="form-control" onkeyup="cariNama()" id="nama" placeholder="Nama">
+                    </div>
+                    <div class="input-group mb-1">
+                        <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                        <select class="form-select" id="order" onchange="urutkan()">
+                            <option value="a" selected>Terbaru</option>
+                            <option value="d">Terlama</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
