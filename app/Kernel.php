@@ -55,7 +55,6 @@ class Kernel
     private function setEnv(): void
     {
         $file = __DIR__ . '/../.env';
-
         $lines = file_exists($file)
             ? @file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
             : [];
@@ -121,10 +120,7 @@ class Kernel
             'samesite' => 'strict',
         ]);
 
-        if (DEBUG || !file_exists('cache/routes.php')) {
-            require_once __DIR__ . '/../routes/routes.php';
-        }
-
+        require_once __DIR__ . '/../routes/routes.php';
         $self->helper();
 
         set_exception_handler(function (\Throwable $error) {
