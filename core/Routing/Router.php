@@ -56,7 +56,7 @@ class Router
     public static function self(): Router
     {
         if (!(self::$self instanceof Router)) {
-            self::$self = new self;
+            self::$self = new self();
         }
 
         return self::$self;
@@ -201,6 +201,22 @@ class Router
      */
     public function routes(): array
     {
+        $file = __DIR__ . '/../../app/cache/routes.php';
+
+        if (DEBUG) {
+            if (file_exists($file)) {
+                unlink($file);
+            }
+
+            return $this->routes;
+        }
+
+        if (file_exists($file)) {
+            $this->routes = require_once $file;
+        } else {
+            file_put_contents($file, '<?php return ' . var_export($this->routes, true) . ';');
+        }
+
         return $this->routes;
     }
 
