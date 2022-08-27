@@ -7,7 +7,7 @@
                 <img src="<?= asset('link.svg') ?>" class="d-lg-block d-none mx-auto img-fluid" alt="link" width="400" loading="lazy">
             </div>
             <div class="col-lg-6">
-                <h1 class="display-2 fw-bold lh-1 mb-4">Dikit-Link</h1>
+                <h1 class="display-3 fw-bold mb-4">Link tuh dikit nggak banyak !</h1>
                 <p class="lead" style="font-size: 24px;">
                     Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, tunggu apa lagi ?
                 </p>

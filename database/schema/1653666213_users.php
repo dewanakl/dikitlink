@@ -15,7 +15,7 @@ return new class implements Migration
     {
         Schema::create('users', function (Table $table) {
             $table->id();
-            $table->unsignedInteger('role_id');
+            $table->integer('role_id');
 
             $table->string('nama', 50);
             $table->string('email', 100)->unique();

@@ -15,7 +15,7 @@ return new class implements Migration
     {
         Schema::create('stats', function (Table $table) {
             $table->id();
-            $table->unsignedInteger('link_id');
+            $table->integer('link_id');
 
             $table->string('user_agent', 150);
             $table->string('ip_address', 20);

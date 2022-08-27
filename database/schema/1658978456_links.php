@@ -15,7 +15,7 @@ return new class implements Migration
     {
         Schema::create('links', function (Table $table) {
             $table->id();
-            $table->unsignedInteger('user_id');
+            $table->integer('user_id');
 
             $table->string('name')->unique();
             $table->text('link');
