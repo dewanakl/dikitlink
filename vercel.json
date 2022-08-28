@@ -40,19 +40,19 @@
         },
         {
             "src": "/icon-192x192.png",
-            "dest": "icon-192x192.png"
+            "dest": "/icon-192x192.png"
         },
         {
             "src": "/icon-256x256.png",
-            "dest": "icon-256x256.png"
+            "dest": "/icon-256x256.png"
         },
         {
             "src": "/icon-384x384.png",
-            "dest": "icon-384x384.png"
+            "dest": "/icon-384x384.png"
         },
         {
             "src": "/icon-512x512.png",
-            "dest": "icon-512x512.png"
+            "dest": "/icon-512x512.png"
         },
         {
             "src": "/(.*)",
