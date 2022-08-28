@@ -11,6 +11,10 @@
             "dest": "/public/$1/$2"
         },
         {
+            "src": "/robots.txt",
+            "dest": "/robots.txt"
+        },
+        {
             "src": "/404.svg",
             "dest": "/404.svg"
         },
@@ -58,7 +62,6 @@
     "env": {
         "APP_NAME": "dikitlink",
         "DEBUG": "false",
-        "HTTPS": "true",
-        "BASEURL": "https://dikitlink.vercel.app/"
+        "HTTPS": "true"
     }
 }

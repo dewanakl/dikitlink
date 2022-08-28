@@ -45,29 +45,22 @@ class DataBase
      */
     function __construct()
     {
-        if (env('DATABASE_URL')) {
-            $data = explode(':', explode('://', env('DATABASE_URL'))[1]);
-            $data2 = explode('@', $data[1]);
-            $data3 = explode('/', $data[2]);
-        }
-
         $dsn = sprintf(
             "%s:host=%s;dbname=%s;port=%s;",
             env('DB_DRIV'),
-            env('DB_HOST', @$data2[1]),
-            env('DB_NAME', @$data3[1]),
-            env('DB_PORT', @$data3[0])
+            env('DB_HOST'),
+            env('DB_NAME'),
+            env('DB_PORT')
         );
 
         $option = [
             PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::MYSQL_ATTR_SSL_CA => env('SSL_CERT_PATH'),
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
         try {
             if (empty($this->pdo)) {
-                $this->pdo = new PDO($dsn, env('DB_USER', @$data[0]), env('DB_PASS', @$data2[0]), $option);
+                $this->pdo = new PDO($dsn, env('DB_USER'), env('DB_PASS'), $option);
             }
 
             $this->transaction = false;
