@@ -62,7 +62,7 @@
     "env": {
         "APP_NAME": "dikitlink",
         "BASEURL": "https://dikitlink.vercel.app/",
-        "DEBUG": "false",
+        "DEBUG": "true",
         "HTTPS": "true",
         "DB_DRIV": "pgsql",
         "DB_HOST": "db.kanaozprvvumldighhid.supabase.co",
