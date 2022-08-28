@@ -61,7 +61,14 @@
     ],
     "env": {
         "APP_NAME": "dikitlink",
+        "BASEURL": "https://dikitlink.vercel.app/",
         "DEBUG": "false",
-        "HTTPS": "true"
+        "HTTPS": "true",
+        "DB_DRIV": "pgsql",
+        "DB_HOST": "db.kanaozprvvumldighhid.supabase.co",
+        "DB_PORT": "5432",
+        "DB_NAME": "postgres",
+        "DB_USER": "postgres",
+        "DB_PASS": "G4QjQE!kHC5cntQ"
     }
 }
