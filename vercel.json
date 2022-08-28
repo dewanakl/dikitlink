@@ -62,7 +62,6 @@
     "env": {
         "APP_NAME": "dikitlink",
         "BASEURL": "https://dikitlink.vercel.app/",
-        "DEBUG": "false",
         "HTTPS": "true",
         "DB_DRIV": "pgsql",
         "DB_PORT": "5432"
