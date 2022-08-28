@@ -2,7 +2,7 @@
 
 define('START_TIME', microtime(true));
 
-require_once '../app/Kernel.php';
+require_once __DIR__ . '/../app/Kernel.php';
 
 /** 
  * Create kernel this web application then
