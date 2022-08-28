@@ -1,0 +1,23 @@
+{
+    "version": 2,
+    "functions": {
+        "api/*.php": {
+            "runtime": "vercel-php@0.5.2"
+        }
+    },
+    "routes": [
+        {
+            "src": "/(css|js)/(.*)",
+            "dest": "public/$1/$2"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/api/index.php"
+        }
+    ],
+    "env": {
+        "APP_NAME": "dikitlink",
+        "APP_DEBUG": "false",
+        "APP_URL": "https://dikitlink.vercel.app"
+    }
+}
