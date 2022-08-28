@@ -8,7 +8,19 @@
     "routes": [
         {
             "src": "/(css|js)/(.*)",
-            "dest": "public/$1/$2"
+            "dest": "/public/$1/$2"
+        },
+        {
+            "src": "/404.svg",
+            "dest": "/404.svg"
+        },
+        {
+            "src": "/favicon.ico",
+            "dest": "/favicon.ico"
+        },
+        {
+            "src": "/sw.jss",
+            "dest": "/sw.jss"
         },
         {
             "src": "/(.*)",
@@ -18,6 +30,6 @@
     "env": {
         "APP_NAME": "dikitlink",
         "APP_DEBUG": "false",
-        "APP_URL": "https://dikitlink.vercel.app"
+        "APP_URL": "https://dikitlink.vercel.app/"
     }
 }
