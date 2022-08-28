@@ -57,7 +57,7 @@
     ],
     "env": {
         "APP_NAME": "dikitlink",
-        "DEBUG": "false",
+        "DEBUG": "true",
         "HTTPS": "true",
         "BASEURL": "https://dikitlink.vercel.app/"
     }
