@@ -15,12 +15,40 @@
             "dest": "/404.svg"
         },
         {
+            "src": "/link.svg",
+            "dest": "/link.svg"
+        },
+        {
             "src": "/favicon.ico",
             "dest": "/favicon.ico"
         },
         {
-            "src": "/sw.jss",
-            "dest": "/sw.jss"
+            "src": "/sw.js",
+            "dest": "/sw.js"
+        },
+        {
+            "src": "/offline.html",
+            "dest": "/offline.html"
+        },
+        {
+            "src": "/manifest.webmanifest",
+            "dest": "/manifest.webmanifest"
+        },
+        {
+            "src": "/icon-192x192.png",
+            "dest": "icon-192x192.png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "dest": "icon-256x256.png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "dest": "icon-384x384.png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "dest": "icon-512x512.png"
         },
         {
             "src": "/(.*)",
@@ -29,7 +57,8 @@
     ],
     "env": {
         "APP_NAME": "dikitlink",
-        "APP_DEBUG": "false",
-        "APP_URL": "https://dikitlink.vercel.app/"
+        "DEBUG": "false",
+        "HTTPS": "true",
+        "BASEURL": "https://dikitlink.vercel.app/"
     }
 }

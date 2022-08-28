@@ -3,7 +3,7 @@
     "background_color": "#bd05f5",
     "display": "standalone",
     "scope": "/",
-    "start_url": "https://dikitlink.herokuapp.com/",
+    "start_url": "https://dikitlink.vercel.app/",
     "name": "Dikit-Link",
     "short_name": "dikit",
     "description": "url shortener",
