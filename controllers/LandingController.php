@@ -8,6 +8,7 @@ class LandingController extends Controller
 {
     public function __invoke()
     {
-        return $this->view('welcome');
+        phpinfo();
+        //return $this->view('welcome');
     }
 }
