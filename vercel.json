@@ -8,87 +8,87 @@
     "routes": [
         {
             "src": "/(css|js)/(.*)",
-            "dest": "/public/$1/$2",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/$1/$2"
         },
         {
             "src": "/robots.txt",
-            "dest": "/public/robots.txt",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/robots.txt"
         },
         {
             "src": "/404.svg",
-            "dest": "/public/404.svg",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/404.svg"
         },
         {
             "src": "/link.svg",
-            "dest": "/public/link.svg",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/link.svg"
         },
         {
             "src": "/favicon.ico",
-            "dest": "/public/favicon.ico",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/favicon.ico"
         },
         {
             "src": "/sw.js",
-            "dest": "/public/sw.js",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/sw.js"
         },
         {
             "src": "/offline.html",
-            "dest": "/public/offline.html",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/offline.html"
         },
         {
             "src": "/manifest.webmanifest",
-            "dest": "/public/manifest.webmanifest",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/manifest.webmanifest"
         },
         {
             "src": "/icon-192x192.png",
-            "dest": "/public/icon-192x192.png",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/icon-192x192.png"
         },
         {
             "src": "/icon-256x256.png",
-            "dest": "/public/icon-256x256.png",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/icon-256x256.png"
         },
         {
             "src": "/icon-384x384.png",
-            "dest": "/public/icon-384x384.png",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/icon-384x384.png"
         },
         {
             "src": "/icon-512x512.png",
-            "dest": "/public/icon-512x512.png",
             "headers": {
-                "Cache-Control": "public, max-age=604800, must-revalidate"
-            }
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/icon-512x512.png"
         },
         {
             "src": "/(.*)",
