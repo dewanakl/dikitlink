@@ -1,27 +1,6 @@
-## About Kamu
+## About Dikit-Link
 
-Kamu adalah framework yang sangat sederhana. Saking sederhananya, dokumentasinya juga apa adanya :)
-
-> Intinya mirip dengan laravel, karena terinspirasi darinya
-
-## How to run ?
-
-- `cp .env.example .env`
-- `php saya coba`
-
-> Simple bukan ? hehee
-
-## Todo list
-
-- [ ] Upload file
-- [ ] Download file
-- [ ] Validasi file
-- [ ] Security check
-- [ ] API Improvement
-
-## Warning
-
-Kamu framework is for educational purposes only but ready for production 
+Dikit-Link short link gk ada obat dengan KAMU PHP Framework yang powerfull
 
 ## License
 

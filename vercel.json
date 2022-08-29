@@ -8,51 +8,87 @@
     "routes": [
         {
             "src": "/(css|js)/(.*)",
-            "dest": "/public/$1/$2"
+            "dest": "/public/$1/$2",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/robots.txt",
-            "dest": "/robots.txt"
+            "dest": "/public/robots.txt",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/404.svg",
-            "dest": "/404.svg"
+            "dest": "/public/404.svg",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/link.svg",
-            "dest": "/link.svg"
+            "dest": "/public/link.svg",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/favicon.ico",
-            "dest": "/favicon.ico"
+            "dest": "/public/favicon.ico",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/sw.js",
-            "dest": "/sw.js"
+            "dest": "/public/sw.js",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/offline.html",
-            "dest": "/offline.html"
+            "dest": "/public/offline.html",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/manifest.webmanifest",
-            "dest": "/manifest.webmanifest"
+            "dest": "/public/manifest.webmanifest",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/icon-192x192.png",
-            "dest": "/icon-192x192.png"
+            "dest": "/public/icon-192x192.png",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/icon-256x256.png",
-            "dest": "/icon-256x256.png"
+            "dest": "/public/icon-256x256.png",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/icon-384x384.png",
-            "dest": "/icon-384x384.png"
+            "dest": "/public/icon-384x384.png",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/icon-512x512.png",
-            "dest": "/icon-512x512.png"
+            "dest": "/public/icon-512x512.png",
+            "headers": {
+                "Cache-Control": "public, max-age=604800, must-revalidate"
+            }
         },
         {
             "src": "/(.*)",
