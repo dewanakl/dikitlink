@@ -4,10 +4,10 @@
     <div class="px-4 py-5 border-bottom">
         <div class="row flex-lg-row-reverse align-items-center">
             <div class="col-10 col-md-8 col-lg-6">
-                <img src="<?= asset('link.svg') ?>" class="d-lg-block d-none mx-auto img-fluid" alt="link" width="400" loading="lazy">
+                <img src="<?= asset('link.svg') ?>" class="d-lg-block d-none mx-auto img-fluid" alt="link" width="380" loading="lazy">
             </div>
             <div class="col-lg-6">
-                <h1 class="display-3 fw-bold mb-4">Link tuh dikit nggak banyak !</h1>
+                <h1 class="fw-bold mb-4" style="font-size: 40px;">Link tuh dikit nggak banyak !</h1>
                 <p class="lead" style="font-size: 24px;">
                     Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, tunggu apa lagi ?
                 </p>
@@ -79,7 +79,7 @@
 
     <footer class="px-4 py-4 d-flex justify-content-between align-items-center">
         <a href="/" class="text-dark text-decoration-none">
-            © dikitlink.herokuapp.com
+            © dikitlink.vercel.app
         </a>
         <a class="text-dark text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <svg class="bi" width="2em" height="2em" viewBox="0 0 496 512">
