@@ -18,16 +18,19 @@ use Middleware\GuestMiddleware;
  */
 
 // Blom login
-Route::middleware(GuestMiddleware::class)->controller(AuthController::class)->group(function () {
+Route::middleware(GuestMiddleware::class)->group(function () {
     // Landing page
     Route::get('/', LandingController::class)->name('landing');
-    // Login
-    Route::get('/login', 'login')->name('login');
-    Route::post('/login', 'auth');
 
-    // Register
-    Route::get('/register', 'register')->name('register');
-    Route::post('/register', 'submit');
+    Route::controller(AuthController::class)->group(function () {
+        // Login
+        Route::get('/login', 'login')->name('login');
+        Route::post('/login', 'auth');
+
+        // Register
+        Route::get('/register', 'register')->name('register');
+        Route::post('/register', 'submit');
+    });
 });
 
 // Udah login
