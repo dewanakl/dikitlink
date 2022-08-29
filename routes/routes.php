@@ -17,11 +17,10 @@ use Middleware\GuestMiddleware;
  * keep simple yahh
  */
 
-// Landing page
-Route::get('/', LandingController::class)->name('landing');
-
 // Blom login
 Route::middleware(GuestMiddleware::class)->controller(AuthController::class)->group(function () {
+    // Landing page
+    Route::get('/', LandingController::class)->name('landing');
     // Login
     Route::get('/login', 'login')->name('login');
     Route::post('/login', 'auth');
