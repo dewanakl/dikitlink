@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Support;
+namespace Core\Valid;
 
 /**
  * Validasi sebuah nilai
@@ -119,7 +119,7 @@ class Validator
                 break;
 
             case $rule == 'hash':
-                $this->__set($param, password_hash($value, PASSWORD_BCRYPT));
+                $this->__set($param, Hash::make($value));
                 break;
 
             case $rule == 'trim':

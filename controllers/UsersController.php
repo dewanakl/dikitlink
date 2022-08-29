@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use Core\Routing\Controller;
-use Core\Support\Validator;
+use Core\Valid\Validator;
 use Models\Link;
 use Models\User;
 

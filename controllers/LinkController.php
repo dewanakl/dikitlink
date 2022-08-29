@@ -5,7 +5,7 @@ namespace Controllers;
 use Core\Auth\Auth;
 use Core\Http\Request;
 use Core\Routing\Controller;
-use Core\Support\Validator;
+use Core\Valid\Validator;
 use Models\Link;
 
 class LinkController extends Controller

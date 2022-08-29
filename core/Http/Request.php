@@ -3,7 +3,7 @@
 namespace Core\Http;
 
 use Core\Support\File;
-use Core\Support\Validator;
+use Core\Valid\Validator;
 
 /**
  * Request yang masuk

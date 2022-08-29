@@ -3,6 +3,7 @@
 namespace Core\Support;
 
 use Core\Http\Request;
+use Core\Valid\Hash;
 
 /**
  * File uploaded
@@ -95,7 +96,7 @@ class File
      */
     public function hashName(): string
     {
-        return bin2hex(random_bytes(10));
+        return Hash::rand(10);
     }
 
     /**

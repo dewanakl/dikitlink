@@ -117,6 +117,8 @@ class Respond
     public function redirect(string $uri): void
     {
         $this->session->unset('token');
+        $this->session->send();
+
         $uri = str_contains($uri, BASEURL) ? $uri : BASEURL . $uri;
 
         $this->httpCode(302);
@@ -138,6 +140,7 @@ class Respond
                 $this->session->set('oldRoute', $this->request->server('REQUEST_URI'));
                 $this->session->unset('old');
                 $this->session->unset('error');
+                $this->session->send();
             }
 
             $this->terminate($respond);

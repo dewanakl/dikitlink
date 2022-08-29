@@ -4,6 +4,7 @@ namespace Core\Auth;
 
 use Core\Database\BaseModel;
 use Core\Support\Session;
+use Core\Valid\Hash;
 use Exception;
 
 /**
@@ -118,7 +119,7 @@ class AuthManager
         $this->logout();
 
         if ($user->failFunction(fn () => false)) {
-            if (password_verify($credential[$last], $user->$last)) {
+            if (Hash::check($credential[$last], $user->$last)) {
                 $this->user = $user;
                 $this->session->set('_user', serialize($user));
                 return true;

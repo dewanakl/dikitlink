@@ -4,7 +4,7 @@ namespace Core\Routing;
 
 use Core\Http\Request;
 use Core\Http\Respond;
-use Core\Support\Validator;
+use Core\Valid\Validator;
 use Core\View\Render;
 
 /**
