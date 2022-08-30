@@ -2,7 +2,6 @@
 
 namespace Core\Http;
 
-use Core\Support\Session;
 use Core\View\Render;
 
 /**
@@ -79,7 +78,7 @@ class Respond
      */
     public function back(): self
     {
-        return $this->to($this->session->get('_oldRoute', '/'));
+        return $this->to($this->session->get('_oldroute', '/'));
     }
 
     /**
@@ -116,7 +115,7 @@ class Respond
      */
     public function redirect(string $uri): void
     {
-        $this->session->unset('token');
+        $this->session->unset('_token');
         $this->session->send();
 
         $uri = str_contains($uri, BASEURL) ? $uri : BASEURL . $uri;
@@ -137,7 +136,7 @@ class Respond
     {
         if (is_string($respond) || $respond instanceof Render) {
             if ($respond instanceof Render) {
-                $this->session->set('_oldRoute', $this->request->server('REQUEST_URI'));
+                $this->session->set('_oldroute', $this->request->server('REQUEST_URI'));
                 $this->session->unset('old');
                 $this->session->unset('error');
                 $this->session->send();

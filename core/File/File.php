@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Support;
+namespace Core\File;
 
 use Core\Http\Request;
 use Core\Valid\Hash;
@@ -9,7 +9,7 @@ use Core\Valid\Hash;
  * File uploaded
  *
  * @class File
- * @package Core\Support
+ * @package Core\File
  */
 class File
 {

@@ -2,7 +2,7 @@
 
 namespace Core\Http;
 
-use Core\Support\File;
+use Core\File\File;
 use Core\Valid\Validator;
 
 /**
@@ -56,7 +56,7 @@ class Request
         if ($this->validator->fails()) {
             session()->set('old', $this->all());
             session()->set('error', $this->validator->failed());
-            respond()->redirect(session()->get('_oldRoute', '/'));
+            respond()->redirect(session()->get('_oldroute', '/'));
         }
     }
 

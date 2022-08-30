@@ -3,7 +3,7 @@
 namespace Core\Auth;
 
 use Core\Database\BaseModel;
-use Core\Support\Session;
+use Core\Http\Session;
 use Core\Valid\Hash;
 use Exception;
 

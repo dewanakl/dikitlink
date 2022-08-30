@@ -1,14 +1,14 @@
 <?php
 
-namespace Core\Support;
+namespace Core\Http;
 
 use Core\Valid\Hash;
 
 /**
- * Class untuk menghandle session
+ * Handle session
  *
  * @class Session
- * @package Core\Support
+ * @package Core\Http
  */
 class Session
 {
@@ -33,14 +33,14 @@ class Session
      */
     function __construct()
     {
-        $this->name = env('APP_NAME', 'Kamu') . '_session';
+        $this->name = env('APP_NAME', 'kamu') . '_session';
 
         if (@$_COOKIE[$this->name]) {
             $this->data = unserialize(Hash::decrypt(rawurldecode($_COOKIE[$this->name])));
         }
 
-        if (is_null($this->get('token'))) {
-            $this->set('token', Hash::rand(16));
+        if (is_null($this->get('_token'))) {
+            $this->set('_token', Hash::rand(16));
         }
     }
 
@@ -51,28 +51,17 @@ class Session
      */
     public function send(): void
     {
-        $value = rawurlencode(Hash::encrypt(serialize($this->data)));
         $expires = env('COOKIE_LIFETIME', 86400) + time();
-        $path = '/';
+        $header = 'Set-Cookie: ' . $this->name . '=' . rawurlencode(Hash::encrypt(serialize($this->data)));
 
-        $header = "Set-Cookie: {$this->name}={$value}";
-
-        if ($expires != 0) {
-            $header .= '; expires=' . date('D, d-M-Y H:i:s', $expires) . ' GMT' . '; Max-Age=' . ($expires - time());
-        }
-
-        if ($path != '') {
-            $header .= '; path=' . $path;
-        }
+        $header .= '; expires=' . date('D, d-M-Y H:i:s', $expires) . ' GMT' . '; Max-Age=' . ($expires - time());
+        $header .= '; path=/';
 
         if (HTTPS) {
             $header .= '; secure';
         }
 
-        if (true) {
-            $header .= '; httponly';
-        }
-
+        $header .= '; httponly';
         $header .= '; samesite=strict';
 
         header($header);
@@ -81,11 +70,11 @@ class Session
     /**
      * Ambil nilai dari sesi ini
      *
-     * @param string $name
+     * @param ?string $name
      * @param mixed $defaultValue
      * @return mixed
      */
-    public function get(string $name = null, mixed $defaultValue = null): mixed
+    public function get(?string $name = null, mixed $defaultValue = null): mixed
     {
         if ($name === null) {
             return $this->data;

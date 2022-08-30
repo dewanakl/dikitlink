@@ -6,7 +6,7 @@ use Core\View\Render;
 use Core\Http\Request;
 use Core\Http\Respond;
 use Core\Routing\Route;
-use Core\Support\Session;
+use Core\Http\Session;
 
 if (!function_exists('app')) {
     /**
@@ -219,7 +219,7 @@ if (!function_exists('csrf_token')) {
      */
     function csrf_token(): string
     {
-        return session()->get('token');
+        return session()->get('_token');
     }
 }
 
