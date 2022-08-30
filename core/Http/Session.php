@@ -54,15 +54,16 @@ class Session
         $expires = env('COOKIE_LIFETIME', 86400) + time();
         $header = 'Set-Cookie: ' . $this->name . '=' . rawurlencode(Hash::encrypt(serialize($this->data)));
 
-        $header .= '; expires=' . date('D, d-M-Y H:i:s', $expires) . ' GMT' . '; Max-Age=' . ($expires - time());
-        $header .= '; path=/';
+        $header .= '; Expires=' . date('D, d-M-Y H:i:s', $expires) . ' GMT';
+        $header .= '; Max-Age=' . ($expires - time());
+        $header .= '; Path=/';
 
         if (HTTPS) {
-            $header .= '; secure';
+            $header .= '; Secure';
         }
 
-        $header .= '; httponly';
-        $header .= '; samesite=strict';
+        $header .= '; HttpOnly';
+        $header .= '; SameSite=Strict';
 
         header($header);
     }

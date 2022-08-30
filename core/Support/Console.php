@@ -297,7 +297,7 @@ class Console
         $lines = file($env, FILE_IGNORE_NEW_LINES);
         foreach ($lines as $id => $line) {
             if (str_contains($line, 'APP_KEY=')) {
-                $lines[$id] = 'APP_KEY=' . Hash::rand(5) . '.' . Hash::rand(8);
+                $lines[$id] = 'APP_KEY=' . Hash::rand(6) . ':' . Hash::rand(8);
                 break;
             }
         }
