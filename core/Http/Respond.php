@@ -79,7 +79,7 @@ class Respond
      */
     public function back(): self
     {
-        return $this->to($this->session->get('oldRoute', '/'));
+        return $this->to($this->session->get('_oldRoute', '/'));
     }
 
     /**
@@ -137,7 +137,7 @@ class Respond
     {
         if (is_string($respond) || $respond instanceof Render) {
             if ($respond instanceof Render) {
-                $this->session->set('oldRoute', $this->request->server('REQUEST_URI'));
+                $this->session->set('_oldRoute', $this->request->server('REQUEST_URI'));
                 $this->session->unset('old');
                 $this->session->unset('error');
                 $this->session->send();

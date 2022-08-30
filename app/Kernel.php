@@ -107,7 +107,7 @@ class Kernel
 
         define('HTTPS', ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443 || @$_ENV['HTTPS']));
         define('BASEURL', @$_ENV['BASEURL'] ? rtrim($_ENV['BASEURL'], '/') : (HTTPS ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
-        define('DEBUG', (@$_ENV['DEBUG'] == 'true') ? true : false);
+        define('DEBUG', @$_ENV['DEBUG'] == 'true');
 
         error_reporting(DEBUG ? E_ALL : 0);
 
@@ -125,7 +125,7 @@ class Kernel
         });
 
         if (!env('APP_KEY')) {
-            throw new Exception('App Key gk ada !');
+            throw new \Exception('App Key gk ada !');
         }
 
         return $self->app();

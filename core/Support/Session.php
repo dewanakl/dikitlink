@@ -33,14 +33,14 @@ class Session
      */
     function __construct()
     {
-        $this->name = env('APP_NAME', 'Kamu');
+        $this->name = env('APP_NAME', 'Kamu') . '_session';
 
         if (@$_COOKIE[$this->name]) {
             $this->data = unserialize(Hash::decrypt(rawurldecode($_COOKIE[$this->name])));
         }
 
         if (is_null($this->get('token'))) {
-            $this->set('token', Hash::rand(10));
+            $this->set('token', Hash::rand(16));
         }
     }
 
@@ -55,15 +55,14 @@ class Session
         $expires = env('COOKIE_LIFETIME', 86400) + time();
         $path = '/';
 
-        $date = date('D, d-M-Y H:i:s', $expires) . ' GMT';
         $header = "Set-Cookie: {$this->name}={$value}";
 
         if ($expires != 0) {
-            $header .= "; expires={$date}; Max-Age=" . ($expires - time());
+            $header .= '; expires=' . date('D, d-M-Y H:i:s', $expires) . ' GMT' . '; Max-Age=' . ($expires - time());
         }
 
         if ($path != '') {
-            $header .= '; path="' . $path . '"';
+            $header .= '; path=' . $path;
         }
 
         if (HTTPS) {
@@ -71,7 +70,7 @@ class Session
         }
 
         if (true) {
-            $header .= '; HttpOnly';
+            $header .= '; httponly';
         }
 
         $header .= '; samesite=strict';

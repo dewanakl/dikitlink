@@ -18,6 +18,7 @@ trait HasToken
             respond()->httpCode(400);
 
             if (!$ajax) {
+                session()->send();
                 pageExpired();
             }
 
