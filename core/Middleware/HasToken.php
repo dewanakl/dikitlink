@@ -15,10 +15,9 @@ trait HasToken
     {
         if (!hash_equals(session()->get('_token'), $token)) {
             session()->unset('_token');
-            respond()->httpCode(400);
+            session()->send();
 
             if (!$ajax) {
-                session()->send();
                 pageExpired();
             }
 
