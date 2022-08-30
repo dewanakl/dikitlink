@@ -139,9 +139,9 @@ class Respond
                 $this->session->set('_oldroute', $this->request->server('REQUEST_URI'));
                 $this->session->unset('old');
                 $this->session->unset('error');
-                $this->session->send();
             }
 
+            $this->session->send();
             $this->terminate($respond);
         }
 
