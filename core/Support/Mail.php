@@ -126,7 +126,7 @@ class Mail
         $this->from = array(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
         $protocol = env('MAIL_ENCRYPTION');
 
-        if ($protocol == 'tls') {
+        if ($protocol == 'tcp') {
             $this->isTLS = true;
         }
 
