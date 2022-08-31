@@ -306,6 +306,7 @@ class Mail
         $this->setHeader('From', $this->formatAddress($this->from));
         $this->setHeader('Return-Path', $this->formatAddress($this->from));
         $this->setHeader('To', $this->formatAddressList($this->to));
+        $this->setHeader('List-Unsubscribe', '<mailto: ' . $this->formatAddress($this->from) . '?subject=unsubscribe>');
 
         $this->setHeader('Content-Type', 'multipart/alternative; boundary="alt-' . $boundary . '"');
 
