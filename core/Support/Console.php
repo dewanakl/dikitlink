@@ -287,6 +287,11 @@ class Console
         }
     }
 
+    /**
+     * Create key to env file
+     *
+     * @return void
+     */
     private function createKey(): void
     {
         $env = __DIR__ . '/../../.env';
