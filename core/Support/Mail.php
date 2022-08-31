@@ -123,7 +123,7 @@ class Mail
         $this->hostname = gethostname();
         $this->username = env('MAIL_USERNAME');
         $this->password = env('MAIL_PASSWORD');
-        $this->from = array(env('MAIL_FROM_ADDRESS'), null);
+        $this->from = array(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
         $protocol = env('MAIL_ENCRYPTION');
 
         if ($protocol == 'tcp') {
