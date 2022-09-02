@@ -300,7 +300,6 @@ class Mail
 
         $this->setHeader('MIME-Version', '1.0');
         $this->setHeader('Message-ID', "<$boundary@$this->hostname>");
-        $this->setHeader('X-Mailer', 'PHP/' . phpversion());
         $this->setHeader('Date', date('r'));
         $this->setHeader('Subject', $this->subject);
         $this->setHeader('From', $this->formatAddress($this->from));
