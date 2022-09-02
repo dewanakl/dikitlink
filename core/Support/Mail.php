@@ -2,6 +2,8 @@
 
 namespace Core\Support;
 
+use Core\Http\Request;
+
 /**
  * Kirim email dengan SMTP
  *
@@ -114,11 +116,11 @@ class Mail
      * 
      * @return void
      */
-    function __construct()
+    function __construct(Request $request)
     {
         $this->server = env('MAIL_HOST');
         $this->port = (int) env('MAIL_PORT');
-        $this->hostname = rtrim(asset('/'), '/');
+        $this->hostname = $request->server('HTTP_HOST');
         $this->username = env('MAIL_USERNAME');
         $this->password = env('MAIL_PASSWORD');
         $this->from = array(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
@@ -294,7 +296,7 @@ class Mail
 
         $this->setHeader('MIME-Version', '1.0');
         $this->setHeader('Message-ID', "<$boundary@$this->hostname>");
-        $this->setHeader('Date', date('D, d-M-Y H:i:s') . ' GMT');
+        $this->setHeader('Date', date('r') . ' GMT');
         $this->setHeader('Subject', $this->subject);
         $this->setHeader('From', $this->formatAddress($this->from));
         $this->setHeader('To', $this->formatAddressList($this->to));
