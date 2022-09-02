@@ -63,7 +63,7 @@ class Session
         }
 
         $header .= '; HttpOnly';
-        $header .= '; SameSite=Strict';
+        $header .= '; SameSite=Lax';
 
         header($header);
     }
