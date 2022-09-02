@@ -32,6 +32,11 @@ Route::middleware(GuestMiddleware::class)->group(function () {
         // Register
         Route::get('/register', 'register')->name('register');
         Route::post('/register', 'submit');
+
+        // Forget
+        Route::get('/forget', 'forget')->name('forget');
+        Route::post('/forget', 'send');
+        Route::get('/reset/{id}', 'reset')->name('reset');
     });
 });
 

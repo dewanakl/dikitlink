@@ -45,7 +45,8 @@
                                 </div>
                             <?php endif ?>
                         </div>
-                        <div class="d-grid">
+                        <div class="d-flex justify-content-between align-items-top">
+                            <a href="<?= route('forget') ?>">Reset password</a>
                             <button class="btn btn-primary fw-bold mb-2" id="button-login" type="submit">Masuk</button>
                         </div>
                         <hr class="text-dark">
