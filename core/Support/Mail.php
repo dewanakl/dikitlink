@@ -310,11 +310,13 @@ class Mail
         $this->setHeader('Content-Type', 'multipart/alternative; boundary="alt-' . $boundary . '"');
 
         $message .= '--alt-' . $boundary . self::CRLF;
+        $message .= 'Mime-Version: 1.0' . self::CRLF;
         $message .= 'Content-Type: text/plain; charset=utf-8' . self::CRLF;
         $message .= 'Content-Transfer-Encoding: base64' . self::CRLF . self::CRLF;
-        $message .= chunk_split(base64_encode(trim(strip_tags($this->htmlMessage)))) . self::CRLF;
+        $message .= chunk_split(base64_encode($this->htmlMessage)) . self::CRLF;
 
         $message .= '--alt-' . $boundary . self::CRLF;
+        $message .= 'Mime-Version: 1.0' . self::CRLF;
         $message .= 'Content-Type: text/html; charset=utf-8' . self::CRLF;
         $message .= 'Content-Transfer-Encoding: base64' . self::CRLF . self::CRLF;
         $message .= chunk_split(base64_encode($this->htmlMessage)) . self::CRLF;
