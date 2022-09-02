@@ -2,7 +2,6 @@
 
 use Controllers\AuthController;
 use Controllers\DashboardController;
-use Controllers\EmailController;
 use Controllers\LandingController;
 use Controllers\LinkController;
 use Controllers\ProfileController;
@@ -17,7 +16,6 @@ use Middleware\GuestMiddleware;
  * Make something great with this app
  * keep simple yahh
  */
-
 
 // Blom login
 Route::middleware(GuestMiddleware::class)->group(function () {
@@ -49,8 +47,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::put('/profile', [ProfileController::class, 'update']);
 
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
-
-    Route::get('/mail', [EmailController::class, 'index']);
 
     // CRUD Link API
     Route::controller(LinkController::class)->prefix('/api/link')->group(function () {

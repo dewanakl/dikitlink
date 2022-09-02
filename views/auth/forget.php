@@ -28,7 +28,7 @@
                     <form method="POST" onsubmit="forget()">
                         <?= csrf() ?>
                         <div class="form-floating mb-3">
-                            <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputforget" placeholder="Email">
+                            <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputforget" placeholder="Email" value="<?= old('email') ?>">
                             <label for="floatingInputforget" class="form-label"><i class="fa-solid fa-envelope"></i> Email</label>
                             <?php if (error('email')) : ?>
                                 <div class="invalid-feedback">
@@ -40,6 +40,7 @@
                             <button class="btn btn-warning fw-bold mb-2" id="button-forget" type="submit">Reset Password</button>
                         </div>
                     </form>
+                    <a href="<?= route('register') ?>">Bikin akun ?</a>
                 </div>
             </div>
         </div>

@@ -103,6 +103,9 @@ class AuthController extends Controller
             return $this->redirect(route('profile'))->with('berhasil', 'Silahkan ganti password anda !');
         }
 
+        session()->unset('key');
+        session()->unset('email');
+
         return $this->redirect(route('login'))->with('gagal', 'Kode tidak valid !');
     }
 }
