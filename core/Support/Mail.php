@@ -2,8 +2,6 @@
 
 namespace Core\Support;
 
-use Core\View\Render;
-
 /**
  * Kirim email dengan SMTP
  *
@@ -120,7 +118,7 @@ class Mail
     {
         $this->server = env('MAIL_HOST');
         $this->port = (int) env('MAIL_PORT');
-        $this->hostname = gethostname();
+        $this->hostname = rtrim(asset('/'), '/');
         $this->username = env('MAIL_USERNAME');
         $this->password = env('MAIL_PASSWORD');
         $this->from = array(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
@@ -244,16 +242,12 @@ class Mail
     /**
      * Kirim html
      *
-     * @param string|Render $message
+     * @param mixed $message
      * @return Mail
      */
-    public function pesan(string|Render $message): self
+    public function pesan(mixed $message): self
     {
-        if ($message instanceof Render) {
-            $message = (string) $message;
-        }
-
-        $this->htmlMessage = $message;
+        $this->htmlMessage = (string) $message;
 
         return $this;
     }
@@ -300,23 +294,22 @@ class Mail
 
         $this->setHeader('MIME-Version', '1.0');
         $this->setHeader('Message-ID', "<$boundary@$this->hostname>");
-        $this->setHeader('Date', date('r'));
+        $this->setHeader('Date', date('D, d-M-Y H:i:s') . ' GMT');
         $this->setHeader('Subject', $this->subject);
         $this->setHeader('From', $this->formatAddress($this->from));
         $this->setHeader('To', $this->formatAddressList($this->to));
         $this->setHeader('Return-Path', $this->from[0]);
+        $this->setHeader('Reply-To', $this->from[0]);
         $this->setHeader('List-Unsubscribe', '<mailto:' . $this->from[0] . '?subject=unsubscribe>');
 
         $this->setHeader('Content-Type', 'multipart/alternative; boundary="alt-' . $boundary . '"');
 
-        $message .= '--alt-' . $boundary . self::CRLF;
-        $message .= 'Mime-Version: 1.0' . self::CRLF;
-        $message .= 'Content-Type: text/plain; charset=utf-8' . self::CRLF;
-        $message .= 'Content-Transfer-Encoding: base64' . self::CRLF . self::CRLF;
-        $message .= chunk_split(base64_encode($this->htmlMessage)) . self::CRLF;
+        // $message .= '--alt-' . $boundary . self::CRLF;
+        // $message .= 'Content-Type: text/plain; charset=utf-8' . self::CRLF;
+        // $message .= 'Content-Transfer-Encoding: base64' . self::CRLF . self::CRLF;
+        // $message .= chunk_split(base64_encode($this->htmlMessage)) . self::CRLF;
 
         $message .= '--alt-' . $boundary . self::CRLF;
-        $message .= 'Mime-Version: 1.0' . self::CRLF;
         $message .= 'Content-Type: text/html; charset=utf-8' . self::CRLF;
         $message .= 'Content-Transfer-Encoding: base64' . self::CRLF . self::CRLF;
         $message .= chunk_split(base64_encode($this->htmlMessage)) . self::CRLF;
