@@ -115,7 +115,7 @@ class BaseModel implements IteratorAggregate, JsonSerializable
         $this->db->query($query);
 
         foreach ($data as $key => $val) {
-            $this->db->bind(":" . $key, $val);
+            $this->db->bind(':' . $key, $val);
         }
 
         $this->query = null;
@@ -486,7 +486,7 @@ class BaseModel implements IteratorAggregate, JsonSerializable
      * @param Closure $fn
      * @return mixed
      */
-    public function failFunction(Closure $fn): mixed
+    public function fail(Closure $fn): mixed
     {
         if (!$this->attributes) {
             return $fn();

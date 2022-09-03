@@ -47,7 +47,7 @@ class AuthManager
     public function check(): bool
     {
         $user = $this->user();
-        return is_null($user) ? false : !empty($user->failFunction(function () {
+        return is_null($user) ? false : !empty($user->fail(function () {
             $this->logout();
             return false;
         }));
@@ -118,7 +118,7 @@ class AuthManager
         $user = app($model)->find($credential[$first], $first);
         $this->logout();
 
-        if ($user->failFunction(fn () => false)) {
+        if ($user->fail(fn () => false)) {
             if (Hash::check($credential[$last], $user->$last)) {
                 $this->user = $user;
                 $this->session->set('_user', serialize($user));

@@ -66,7 +66,7 @@ class AuthController extends Controller
             'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50']
         ]);
 
-        $user = User::find($request->email, 'email')->failFunction(fn () => false);
+        $user = User::find($request->email, 'email')->fail(fn () => false);
 
         if (!$user) {
             return $this->back()->with('gagal', 'Email tidak ada');

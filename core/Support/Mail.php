@@ -116,11 +116,11 @@ class Mail
      * 
      * @return void
      */
-    function __construct(Request $request)
+    function __construct()
     {
         $this->server = env('MAIL_HOST');
         $this->port = (int) env('MAIL_PORT');
-        $this->hostname = $request->server('HTTP_HOST');
+        $this->hostname = parse_url(BASEURL, PHP_URL_HOST);
         $this->username = env('MAIL_USERNAME');
         $this->password = env('MAIL_PASSWORD');
         $this->from = array(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
