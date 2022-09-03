@@ -10,16 +10,16 @@
 <body>
     <h1 style="color: #126dff;"><?= ucfirst(env('APP_NAME')) ?></h1>
 
-    <h3>Haii <strong><?= $nama ?></strong></h3>
+    <h3>Haii <strong><?= e($nama) ?></strong></h3>
     <p>Berikut link untuk pemulihan akun kamu :</p>
 
-    <p><a href="<?= $link ?>" style="color: #126dff;" target="_blank" rel="noopener noreferrer"><?= $link ?></a>
+    <p><a href="<?= $link ?>" style="color: #126dff;" target="_blank" rel="noopener noreferrer"><?= e($link) ?></a>
     <p>Link reset password ini satu kali pakai, jika ini bukan kamu maka abaikan saja.</p>
 
     <hr />
 
     <p>Salam hangat dari <?= env('APP_NAME') ?> </p>
-    <p><a href="<?= asset('/') ?>" style="color: #126dff;"><?= e($_SERVER['HTTP_HOST']) ?></a></p>
+    <p><a href="<?= asset('/') ?>" style="color: #126dff;"><?= e(parse_url(BASEURL, PHP_URL_HOST)) ?></a></p>
 </body>
 
 </html>

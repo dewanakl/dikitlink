@@ -51,7 +51,7 @@ class Session
             $this->set('_token', Hash::rand(16));
         }
 
-        $this->set('_time', $this->expires);
+        $this->set('_rand', Hash::rand(5));
     }
 
     /**
@@ -66,6 +66,7 @@ class Session
         $header .= '; Expires=' . date('D, d-M-Y H:i:s', $this->expires) . ' GMT';
         $header .= '; Max-Age=' . ($this->expires - time());
         $header .= '; Path=/';
+        $header .= '; Domain=' . parse_url(BASEURL, PHP_URL_HOST);
 
         if (HTTPS) {
             $header .= '; Secure';
