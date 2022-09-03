@@ -27,6 +27,13 @@ class Session
     private $name;
 
     /**
+     * Expires session
+     * 
+     * @var int $expires
+     */
+    private $expires;
+
+    /**
      * Buat objek session
      *
      * @return void
@@ -34,6 +41,7 @@ class Session
     function __construct()
     {
         $this->name = env('APP_NAME', 'kamu') . '_session';
+        $this->expires = env('COOKIE_LIFETIME', 86400) + time();
 
         if (@$_COOKIE[$this->name]) {
             $this->data = unserialize(Hash::decrypt(rawurldecode($_COOKIE[$this->name])));
@@ -42,6 +50,8 @@ class Session
         if (is_null($this->get('_token'))) {
             $this->set('_token', Hash::rand(16));
         }
+
+        $this->set('_time', $this->expires);
     }
 
     /**
@@ -51,11 +61,10 @@ class Session
      */
     public function send(): void
     {
-        $expires = env('COOKIE_LIFETIME', 86400) + time();
         $header = 'Set-Cookie: ' . $this->name . '=' . rawurlencode(Hash::encrypt(serialize($this->data)));
 
-        $header .= '; Expires=' . date('D, d-M-Y H:i:s', $expires) . ' GMT';
-        $header .= '; Max-Age=' . ($expires - time());
+        $header .= '; Expires=' . date('D, d-M-Y H:i:s', $this->expires) . ' GMT';
+        $header .= '; Max-Age=' . ($this->expires - time());
         $header .= '; Path=/';
 
         if (HTTPS) {
