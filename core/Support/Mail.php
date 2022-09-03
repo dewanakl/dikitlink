@@ -2,8 +2,6 @@
 
 namespace Core\Support;
 
-use Core\Http\Request;
-
 /**
  * Kirim email dengan SMTP
  *

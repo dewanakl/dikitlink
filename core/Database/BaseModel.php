@@ -177,10 +177,12 @@ class BaseModel implements IteratorAggregate, JsonSerializable
         $this->query = null;
         $this->param = [];
 
-        $this->attributes = $data[0];
-        $this->table = $data[1];
-        $this->dates = $data[2];
-        $this->primaryKey = $data[3];
+        list(
+            $this->attributes,
+            $this->table,
+            $this->dates,
+            $this->primaryKey
+        ) = $data;
     }
 
     /**

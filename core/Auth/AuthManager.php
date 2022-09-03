@@ -32,6 +32,7 @@ class AuthManager
     /**
      * Init obejct
      * 
+     * @param Session $session
      * @return void
      */
     function __construct(Session $session)
@@ -111,9 +112,7 @@ class AuthManager
      */
     public function attempt(array $credential, string $model = 'Models\User'): bool
     {
-        $data = array_keys($credential);
-        $first = $data[0];
-        $last = $data[1];
+        list($first, $last) = array_keys($credential);
 
         $user = app($model)->find($credential[$first], $first);
         $this->logout();
