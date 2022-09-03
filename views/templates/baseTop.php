@@ -35,6 +35,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.2/chart.min.js" integrity="sha512-zjlf0U0eJmSo1Le4/zcZI51ks5SjuQXkU0yOdsOBubjSmio9iCUp8XPLkEAADZNBdR9crRy3cniZ65LF2w8sRA==" crossorigin="anonymous"></script>
     <link rel="preload" href="<?= asset('css/app.css') ?>" as="style">
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
+    <script src="<?= asset('sw.js') ?>"></script>
+    <script>
+        if (!navigator.serviceWorker.controller) {
+            navigator.serviceWorker.register('sw.js').then(function(reg) {
+                console.log('Service worker has been registered for scope: ' + reg.scope);
+            });
+        }
+    </script>
 </head>
 
 <body>

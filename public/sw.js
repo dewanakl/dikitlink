@@ -10,7 +10,15 @@ self.addEventListener('install', function (event) {
 });
 
 const filesToCache = [
-    '/',
+    '/css/app.css',
+    '/js/dashboard.js',
+    '/404.svg',
+    '/link.svg',
+    '/favicon.ico',
+    '/icon-192x192.png',
+    '/icon-256x256.png',
+    '/icon-384x384.png',
+    '/icon-512x512.png',
     '/offline.html'
 ];
 
@@ -39,9 +47,9 @@ const returnFromCache = function (request) {
         return cache.match(request).then(function (matching) {
             if (!matching || matching.status === 404) {
                 return cache.match('offline.html');
-            } else {
-                return matching;
             }
+
+            return matching;
         });
     });
 };
@@ -50,6 +58,7 @@ self.addEventListener('fetch', function (event) {
     event.respondWith(checkResponse(event.request).catch(function () {
         return returnFromCache(event.request);
     }));
+
     if (!event.request.url.startsWith('http')) {
         event.waitUntil(addToCache(event.request));
     }
