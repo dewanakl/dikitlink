@@ -51,8 +51,7 @@ class Session
             $this->set('_token', Hash::rand(16));
         }
 
-        $this->set('_rand', Hash::rand(5));
-        dd(parse_url(BASEURL, PHP_URL_HOST));
+        $this->set('_rand', Hash::rand(4));
     }
 
     /**
