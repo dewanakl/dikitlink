@@ -52,6 +52,7 @@ class Session
         }
 
         $this->set('_rand', Hash::rand(5));
+        dd(parse_url(BASEURL, PHP_URL_HOST));
     }
 
     /**
