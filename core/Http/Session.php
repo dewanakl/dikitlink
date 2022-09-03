@@ -44,7 +44,7 @@ class Session
         $this->expires = env('COOKIE_LIFETIME', 86400) + time();
 
         if (@$_COOKIE[$this->name]) {
-            $this->data = unserialize(Hash::decrypt(rawurldecode($_COOKIE[$this->name])));
+            $this->data = unserialize(Hash::decrypt($_COOKIE[$this->name]));
         }
 
         if (is_null($this->get('_token'))) {
@@ -61,7 +61,7 @@ class Session
      */
     public function send(): void
     {
-        $header = 'Set-Cookie: ' . $this->name . '=' . rawurlencode(Hash::encrypt(serialize($this->data)));
+        $header = 'Set-Cookie: ' . $this->name . '=' . Hash::encrypt(serialize($this->data));
 
         $header .= '; Expires=' . date('D, d-M-Y H:i:s', $this->expires) . ' GMT';
         $header .= '; Max-Age=' . ($this->expires - time());
