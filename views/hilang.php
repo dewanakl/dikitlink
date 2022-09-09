@@ -1,25 +1,19 @@
-<?= extend('auth/templates/baseTop', ['title' => 'Tersesat...']) ?>
+<?= extend('auth/templates/top', ['title' => 'Tersesat...', 'img' => '404.svg']) ?>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-lg-6">
-            <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh !important;">
-                <div class="row">
-                    <h1 class="col-12 h1 text-primary fw-bold" style="font-size:70px;">
-                        Link tidak ada
-                    </h1>
-                    <p class="col-12 text-dark fw-bold" style="font-size: 20px;">
-                        Coba teliti lagi, karena ini sangat sensitif
-                    </p>
-                </div>
-            </div>
+        <div class="col-auto mx-auto">
+            <img src="<?= asset('404.svg') ?>" width="200" class="d-block d-md-none img-fluid ">
         </div>
-        <div class="col-md-8 col-lg-6">
-            <div class="d-md-flex d-sm-none d-none justify-content-center align-items-center" style="min-height: 100vh !important;">
-                <img src="<?= asset('404.svg') ?>" alt="404" class="img-fluid">
-            </div>
+        <div class="col-md-9 col-lg-8 mx-auto">
+            <h1 class="fw-bold text-primary mt-5 mb-4">
+                Ada yang nggak betul nich...
+            </h1>
+            <p class="text-dark fw-bold" style="font-size: 20px;">
+                Anda tersesat. Coba teliti lagi linknya, karena ini sangat sensitif
+            </p>
         </div>
     </div>
 </div>
 
-<?= extend('auth/templates/baseDown') ?>
+<?= extend('auth/templates/down') ?>

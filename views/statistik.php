@@ -1,40 +1,16 @@
 <?= extend('templates/top', ['title' => 'Statistik']) ?>
 
-<h4 class="mb-3">
-    <i class="fa-solid fa-chart-column"></i>
-    Statistik
-</h4>
-
-<div class="row mb-4">
-    <div class="col-md-9">
-        <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
-    </div>
-    <div class="col-md-3 ms-auto">
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="ms-1 me-auto">
-                    <div class="fw-bold"><i class="fa-solid fa-link"></i> Link</div>
-                    <small>Jumlah link saat ini</small>
-                </div>
-                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1"><?= $jumlah_link ?></span></h5>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="ms-1 me-auto">
-                    <div class="fw-bold"><i class="fa-solid fa-fingerprint"></i> Unik</div>
-                    <small>Jumlah pengunjung unik</small>
-                </div>
-                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1"><?= $unique_pengunjung ?></span></h5>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="ms-1 me-auto">
-                    <div class="fw-bold"><i class="fa-solid fa-computer-mouse"></i> Klik</div>
-                    <small>Jumlah klik semua link</small>
-                </div>
-                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1"><?= $total_pengunjung ?></span></h5>
-            </li>
-        </ul>
+<div class="card-body rounded-3 p-2 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
+    <div class="d-flex justify-content-between">
+        <p class="fw-semibold m-1"><i class="fa-solid fa-chart-column mx-2"></i>Statistik penggunaan</p>
+        <a class="btn btn-success shadow-sm btn-sm m-0" href="<?= route('statistik.download') ?>">
+            <i class="fa-solid fa-download mx-1"></i>
+            <span class="d-none d-sm-inline">Download</span>
+        </a>
     </div>
 </div>
+
+<canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
 
 <div class="row mb-4">
     <div class="col-md-9">

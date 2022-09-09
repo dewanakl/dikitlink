@@ -1,9 +1,8 @@
 <?= extend('templates/top', ['title' => 'Users']) ?>
 
-<h4 class="mb-3">
-    <i class="fas fa-users"></i>
-    Users
-</h4>
+<div class="card-body rounded-3 p-2 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
+    <p class="fw-semibold m-1"><i class="fa-solid fa-users mx-2"></i>Daftar user di platform ini</p>
+</div>
 
 <div class="table-responsive">
     <table class="table table-striped table-hover">
@@ -12,7 +11,7 @@
                 <th scope="col">No</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Email</th>
-                <th scope="col">Tanggal Daftar</th>
+                <th scope="col">Daftar</th>
                 <th scope="col">Link</th>
                 <th scope="col">Pengunjung</th>
                 <th scope="col">Pilih</th>

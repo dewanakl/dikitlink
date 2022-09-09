@@ -1,13 +1,16 @@
-<?= extend('auth/templates/top', ['title' => 'Reset password']) ?>
+<?= extend('auth/templates/top', ['title' => 'Reset password', 'img' => 'forget.svg']) ?>
 
 <div class="container">
     <div class="row">
+        <div class="col-auto mx-auto">
+            <img src="<?= asset('forget.svg') ?>" width="200" class="d-block d-md-none img-fluid ">
+        </div>
         <div class="col-md-9 col-lg-8 mx-auto">
-            <div class="d-flex justify-content-center">
-                <h1 class="d-block d-md-none fw-bold mb-4" style="font-size:40px;">
-                    Dikit-Link
-                </h1>
-            </div>
+            <h1 class="fw-bold mt-3 mb-3">
+                Kelupaan ?
+            </h1>
+
+            <h6 class="mb-4">Jangan panik, pastikan email kamu aktif aja..</h6>
 
             <?php if ($pesan = flash('berhasil')) : ?>
                 <div class="alert alert-success d-flex align-items-center" role="alert">
@@ -23,26 +26,25 @@
                 </div>
             <?php endif ?>
 
-            <div class="card shadow">
-                <div class="card-body">
-                    <form method="POST" onsubmit="forget()">
-                        <?= csrf() ?>
-                        <div class="form-floating mb-3">
-                            <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputforget" placeholder="Email" value="<?= old('email') ?>">
-                            <label for="floatingInputforget" class="form-label"><i class="fa-solid fa-envelope"></i> Email</label>
-                            <?php if (error('email')) : ?>
-                                <div class="invalid-feedback">
-                                    <?= error('email') ?>
-                                </div>
-                            <?php endif ?>
+            <form method="POST" onsubmit="forget()">
+                <?= csrf() ?>
+                <div class="form-floating mb-3">
+                    <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?> transparent-input shadow-sm" id="floatingInputforget" placeholder="Email" value="<?= old('email') ?>">
+                    <label for="floatingInputforget" class="form-label"><i class="fa-solid fa-envelope mx-1"></i>Email</label>
+                    <?php if (error('email')) : ?>
+                        <div class="invalid-feedback">
+                            <?= error('email') ?>
                         </div>
-                        <div class="d-grid">
-                            <button class="btn btn-warning fw-bold mb-2" id="button-forget" type="submit">Reset Password</button>
-                        </div>
-                    </form>
-                    <a href="<?= route('register') ?>">Bikin akun ?</a>
+                    <?php endif ?>
                 </div>
-            </div>
+                <div class="d-grid">
+                    <button class="btn btn-warning  fw-bold mb-2" id="button-forget" type="submit">Kirim</button>
+                </div>
+                <hr class="text-dark">
+                <div class="d-flex justify-content-center">
+                    <p class="fw-semibold">Tiba tiba ingat lagi? <a href="<?= route('login') ?>" class="text-decoration-none text-primary">Login</a></p>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -51,6 +53,7 @@
     const forget = () => {
         let btn = document.getElementById('button-forget');
         btn.disabled = true;
+        btn.className = 'btn btn-warning  active disabled fw-bold mb-2'
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
     }
 </script>

@@ -1,11 +1,10 @@
 <?= extend('templates/top', ['title' => 'Profile']) ?>
 
-<h4 class="mb-3">
-    <i class="fa-solid fa-address-card"></i>
-    Profile
-</h4>
+<div class="card-body rounded-3 p-2 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
+    <p class="fw-semibold m-1"><i class="fa-solid fa-address-card mx-2"></i>Profil kamu</p>
+</div>
 
-<div class="card shadow border-dark mb-4">
+<div class="card shadow-sm border-dark mb-4">
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
@@ -17,7 +16,7 @@
                 <hr class="mb-0">
             </div>
             <div class="col-md-8">
-                <form method="post" class="my-3 mx-1" onsubmit="update()">
+                <form method="post" class="mt-3 mx-1" onsubmit="update()">
                     <?= csrf() ?>
                     <?= method('put') ?>
 
@@ -71,15 +70,20 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary btn-sm" id="button-update">
-                            <i class="fas fa-check"></i>
-                            Simpan
+                        <button type="submit" class="btn btn-primary btn-sm " id="button-update">
+                            <i class="fas fa-check mx-1"></i>Simpan
                         </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+</div>
+
+<div class="d-grid d-block d-sm-none mb-4">
+    <a href="javascript:void(0);" class="btn btn-danger  fw-semibold" data-bs-toggle="modal" data-bs-target="#logoutModal">
+        <i class="fas fa-sign-out-alt ms-2 me-1"></i>Logout
+    </a>
 </div>
 
 <?php if ($pesan = flash('berhasil')) : ?>
@@ -98,6 +102,7 @@
     const update = () => {
         let btn = document.getElementById('button-update');
         btn.disabled = true;
+        btn.className = 'btn btn-primary btn-sm  active';
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
     }
 </script>

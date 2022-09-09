@@ -76,12 +76,10 @@ class AuthController extends Controller
 
         $mail->addTo($request->email)
             ->subjek('Reset Password Dikit Link')
-            ->pesan(
-                $this->view('/../helpers/templates/templateMail', [
-                    'nama' => $user->nama,
-                    'link' => route('reset', $key)
-                ])
-            );
+            ->pesan($this->view('/../helpers/templates/templateMail', [
+                'nama' => $user->nama,
+                'link' => route('reset', $key)
+            ]));
 
         if ($mail->send()) {
             session()->set('key', $key);
@@ -97,6 +95,7 @@ class AuthController extends Controller
     {
         if ($id === session()->get('key')) {
             Auth::login(User::find(session()->get('email'), 'email'));
+
             session()->unset('key');
             session()->unset('email');
 
@@ -106,6 +105,6 @@ class AuthController extends Controller
         session()->unset('key');
         session()->unset('email');
 
-        return $this->redirect(route('login'))->with('gagal', 'Kode tidak valid !');
+        return $this->redirect(route('forget'))->with('gagal', 'Kode tidak valid !');
     }
 }

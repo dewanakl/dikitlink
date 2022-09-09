@@ -21,7 +21,6 @@ class LinkController extends Controller
     {
         $valid = $this->validate($request, [
             'nama' => ['slug', 'trim', 'str', 'max:25'],
-            'order' => ['required', 'trim', 'str', 'max:1'],
             'init' => ['trim', 'max:3', 'int'],
             'end' => ['required', 'trim', 'max:3', 'int']
         ]);
@@ -39,7 +38,7 @@ class LinkController extends Controller
                 ->where('links.user_id', $this->id)
                 ->where('links.name', "%$nama%", 'LIKE')
                 ->groupBy('links.id')
-                ->orderBy('links.id', ($valid->order == 'a') ? 'DESC' : 'ASC')
+                ->orderBy('links.id', 'DESC')
                 ->limit($valid->end)
                 ->offset($valid->init)
                 ->select('links.name', 'links.link', 'links.created_at', 'count(stats.id) as hint')
@@ -64,12 +63,12 @@ class LinkController extends Controller
             ->where('links.name', $valid->name);
 
         $lastweek = $base()
-            ->where('stats.created_at', date('Y-m-d H:i:s.u', strtotime('-6 day', strtotime('now'))), '>')
+            ->where('stats.created_at', date('Y-m-d', strtotime('-1 week', strtotime('now'))) . ' 00:00:00.000000', '>=')
             ->groupBy('tgl')
             ->select('concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at), \'-\', extract(DAY from stats.created_at)) AS tgl', 'count(stats.id) as hint')
-            ->get();
+            ->get()
+            ->toArray();
 
-        $lastweek = json_decode(json_encode($lastweek), true);
         usort($lastweek, fn ($a, $b) => strtotime($a['tgl']) - strtotime($b['tgl']));
 
         $get = fn (string $select) => $base()
@@ -102,7 +101,8 @@ class LinkController extends Controller
     {
         $valid = $this->validate($request, [
             'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25', 'unik:link'],
-            'link' => ['required', 'trim', 'url', 'str', 'min:5']
+            'link' => ['required', 'trim', 'url', 'str', 'min:5'],
+            'password' => ['trim', 'str', 'max:25']
         ]);
 
         if (str_contains($valid->link, BASEURL)) {
@@ -119,6 +119,11 @@ class LinkController extends Controller
 
         $data = $valid->only(['name', 'link']);
         $data['user_id'] = $this->id;
+
+        if (!empty($valid->password)) {
+            $data['link_password'] = $valid->password;
+        }
+
         Link::create($data);
 
         return $this->json([

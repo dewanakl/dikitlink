@@ -15,32 +15,47 @@ class StatistikController extends Controller
     {
         $id = Auth::user()->id;
         $getstats = $link->getStats($id);
-        $sumstats = $link->sumStats($id);
-
-        $unique = $link->join('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', $id)
-            ->groupBy('stats.user_agent', 'stats.ip_address')
-            ->select('COUNT(stats.link_id)')
-            ->get()
-            ->rowCount();
 
         return $this->view('statistik', [
             'last_month' => $link->lastMonth($id),
             'user_agent' => $getstats('user_agent'),
-            'ip_address' => $getstats('ip_address'),
-            'jumlah_link' => $sumstats->jumlah_link ?? 0,
-            'total_pengunjung' => $sumstats->total_pengunjung ?? 0,
-            'unique_pengunjung' => $unique ?? 0
+            'ip_address' => $getstats('ip_address')
         ]);
+    }
+
+    public function download()
+    {
+        $hasil = Link::join('stats', 'links.id', 'stats.link_id')
+            ->where('links.user_id', Auth::user()->id)
+            ->select('stats.id', 'links.name', 'stats.user_agent', 'stats.ip_address', 'stats.created_at', 'stats.updated_at')
+            ->get();
+
+        header_remove();
+        header('Content-Type: application/csv; charset=UTF-8');
+        header('Content-Disposition: attachment; filename="statistik_' . now('Y-m-d_H-i-s') . '.csv";');
+
+        $handle = fopen('php://output', 'w');
+
+        fputcsv($handle, ['id', 'name', 'user_agent', 'ip_address', 'created_at', 'updated_at'], ';');
+        foreach ($hasil as $value) {
+            fputcsv($handle, array_values($value), ';');
+        }
+
+        fclose($handle);
     }
 
     public function click(Request $request, $id)
     {
-        $valid = Validator::make([
-            'id' => $id
-        ], [
-            'id' => ['trim', 'slug', 'str', 'min:3', 'max:30']
-        ]);
+        $valid = Validator::make(
+            [
+                'id' => $id,
+                'password' => $request->password
+            ],
+            [
+                'id' => ['trim', 'slug', 'str', 'min:3', 'max:30'],
+                'password' => ['trim', 'str', 'max:25']
+            ]
+        );
 
         if ($valid->fails()) {
             return $this->view('hilang');
@@ -50,6 +65,40 @@ class StatistikController extends Controller
 
         if (empty($link->id)) {
             return $this->view('hilang');
+        }
+
+        if (!empty($link->waktu_tutup) && time() >= strtotime($link->waktu_tutup)) {
+            return $this->view('tunggu', [
+                'opened' => false,
+                'name' => $id,
+                'time' => $link->waktu_tutup
+            ]);
+        }
+
+        if (!empty($link->waktu_buka) && time() <= strtotime($link->waktu_buka)) {
+            return $this->view('tunggu', [
+                'opened' => true,
+                'name' => $id,
+                'time' => $link->waktu_buka
+            ]);
+        }
+
+        if (!empty($link->link_password)) {
+            if (!empty($valid->password)) {
+                if ($link->link_password !== $valid->password) {
+                    return $this->back()->with('gagal', 'Password salah !');
+                }
+            } else {
+                if ($request->method() == 'POST') {
+                    $request->validate([
+                        'password' => ['required']
+                    ]);
+                }
+
+                return $this->view('password', [
+                    'name' => $valid->id
+                ]);
+            }
         }
 
         Stat::create([
@@ -68,5 +117,6 @@ class StatistikController extends Controller
         http_response_code(301);
         header('HTTP/1.1 301 Moved Permanently');
         header('Location: ' . trim($link->link), true, 301);
+        exit;
     }
 }

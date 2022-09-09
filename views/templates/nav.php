@@ -1,42 +1,36 @@
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="<?= route('landing') ?>"><strong>Dikit-Link <i class="fas fa-link mx-1 my-0"></i></strong></a>
-        <div class="btn-group">
-            <button type="button" class="btn btn-warning btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <?= e(auth()->user()->nama) ?>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end p-2 rounded-1 shadow">
-                <li>
-                    <a class="dropdown-item <?= routeIs('dashboard', 'active') ?> my-1 rounded-2" href="<?= route('dashboard') ?>">
-                        <i class="fas fa-columns"></i> Dashboard
-                    </a>
-                </li>
-                <?php if (auth()->user()->role_id == 1) : ?>
-                    <li>
-                        <a class="dropdown-item <?= routeIs('users', 'active') ?> my-1 rounded-2" href="<?= route('users') ?>">
-                            <i class="fas fa-users"></i> Users
-                        </a>
-                    </li>
-                <?php endif ?>
-                <li>
-                    <a class="dropdown-item <?= routeIs('statistik', 'active') ?> my-1 rounded-2" href="<?= route('statistik') ?>">
-                        <i class="fa-solid fa-chart-column"></i> Statistik
-                    </a>
-                </li>
-                <li>
-                    <a class="dropdown-item <?= routeIs('profile', 'active') ?> my-1 rounded-2" href="<?= route('profile') ?>">
-                        <i class="fa-solid fa-address-card"></i> Profil
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <a href="#" class="dropdown-item my-1 rounded-2" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<nav class="navbar navbar-dark bg-dark rounded navbar-expand fixed-bottom d-md-none d-lg-none d-xl-none m-0 p-0">
+    <ul class="navbar-nav nav-justified w-100 align-items-center">
+        <li class="nav-item">
+            <a href="<?= route('dashboard') ?>" class="nav-link <?= routeIs('dashboard', 'active') ?> text-center">
+                <i class="fas fa-home"></i>
+                <span class="small d-block">Home</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <?= routeIs('list', 'active') ?> text-center" href="<?= route('list') ?>">
+                <i class="fa-solid fa-list"></i>
+                <span class="small d-block">List</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="btn btn-warning fw-semibold py-0 px-2 text-center" data-bs-toggle="modal" data-bs-target="#addlinkmodal">
+                <i class="fas fa-plus"></i>
+                <span class="small d-block">Baru</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link <?= routeIs('statistik', 'active') ?> text-center" href="<?= route('statistik') ?>">
+                <i class="fa-solid fa-chart-column"></i>
+                <span class="small d-block">Statistik</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link <?= routeIs('profile', 'active') ?> text-center" href="<?= route('profile') ?>">
+                <i class="fa-solid fa-address-card"></i>
+                <span class="small d-block">Profil</span>
+            </a>
+        </li>
+    </ul>
 </nav>
