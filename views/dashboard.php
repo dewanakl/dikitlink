@@ -1,6 +1,6 @@
 <?= extend('templates/top', ['title' => 'Dashboard']) ?>
 
-<div class="card-body rounded-3 p-4 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
+<div class="card-body rounded-3 p-4 shadow-sm mb-4" style="background-color: var(--bs-gray-200)">
     <h1 class="text-truncate fw-bold"><?= $salam ?>, <?= e(auth()->user()->nama) ?></h1>
     <p class="fw-semibold mb-0">Selamat datang di halaman utama dikit link, ayok bikin link yang banyak !</p>
 </div>
