@@ -41,7 +41,10 @@ Route::middleware(GuestMiddleware::class)->group(function () {
 // Udah login
 Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+    Route::get('/list', [DashboardController::class, 'list'])->name('list');
+
     Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik');
+    Route::get('/statistik/download', [StatistikController::class, 'download'])->name('statistik.download');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update']);
@@ -70,3 +73,4 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
 // Redirect it
 Route::get('/{id}', [StatistikController::class, 'click'])->name('click');
+Route::post('/{id}', [StatistikController::class, 'click']);

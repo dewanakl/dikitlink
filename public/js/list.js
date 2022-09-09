@@ -16,16 +16,6 @@ let end = 6;
 let each = 0;
 let timeout = null;
 
-const renderEmpty = (title) => {
-    LOAD.style.visibility = 'hidden';
-    const DIV = document.createElement('div');
-    DIV.classList.add('col-12');
-    DIV.classList.add('m-2');
-    DIV.classList.add('text-center');
-    DIV.innerHTML = `<h4>Hasil tidak ditemukan lagi untuk "${title}"</h4>`;
-    return DIV;
-}
-
 const showModal = (msg, type, text = '') => Swal.fire({
     title: msg,
     icon: type,
@@ -83,7 +73,7 @@ const renderCard = (data, key) => {
     DIV.classList.add('col-12');
     DIV.classList.add('mb-3');
     DIV.innerHTML = `
-    <div class="card shadow border-secondary">
+    <div class="card shadow-sm border-secondary">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title my-1 mx-0">
@@ -141,12 +131,8 @@ const refreshTable = async (nama = '', order = 'a') => {
                 LOAD.innerText = 'Muat lebih banyak';
                 LOAD.style.visibility = 'visible';
             } else {
-                if (nama == '') {
-                    LOAD.disabled = true;
-                    LOAD.innerText = 'Tidak ada hasil lagi';
-                } else {
-                    TABELS.appendChild(renderEmpty(escapeHtml(nama)));
-                }
+                LOAD.disabled = true;
+                LOAD.innerText = 'Tidak ada hasil lagi';
             }
         })
         .catch((err) => showModal(err, 'error'));
@@ -157,6 +143,7 @@ const tambah = async () => {
     const BATAL = document.getElementById('valueaddbatal');
     const NAME = document.getElementById('valueaddname');
     const LINK = document.getElementById('valueaddlink');
+    const PASSWORD = document.getElementById('valueaddpassword');
     const name = NAME.value ? NAME.value.replace(/[^\w-]/gi, '') : Math.random().toString(36).slice(2, 8);
 
     const REQ = {
@@ -167,7 +154,8 @@ const tambah = async () => {
         },
         body: JSON.stringify({
             name: name,
-            link: LINK.value
+            link: LINK.value,
+            password: PASSWORD.value
         })
     };
 
@@ -186,6 +174,7 @@ const tambah = async () => {
 
                 NAME.value = null;
                 LINK.value = null;
+                PASSWORD.value = null;
             } else if (res.error) {
                 showModal(Object.values(res.error)[0], 'error');
             } else if (!res.token) {

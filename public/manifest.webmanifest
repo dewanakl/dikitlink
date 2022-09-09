@@ -1,11 +1,11 @@
 {
-    "theme_color": "#bd05f5",
-    "background_color": "#bd05f5",
+    "theme_color": "#fff",
+    "background_color": "#fff",
     "display": "standalone",
     "scope": "/",
-    "start_url": "https://dikitlink.vercel.app/",
-    "name": "Dikit-Link",
-    "short_name": "dikit",
+    "start_url": "/",
+    "name": "Dikit Link",
+    "short_name": "Dikit",
     "description": "url shortener",
     "icons": [
         {

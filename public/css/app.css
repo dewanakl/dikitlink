@@ -17,3 +17,16 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background: #ddd;
 }
+
+.transparent-input {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.list-menu:hover {
+    background-color: var(--bs-gray-200);
+}
+
+.list-menu.danger:hover {
+    background-color: var(--bs-danger);
+    color: var(--bs-white);
+}

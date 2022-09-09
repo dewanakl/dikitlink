@@ -186,6 +186,26 @@ class BaseModel implements IteratorAggregate, JsonSerializable
     }
 
     /**
+     * Eksport to array
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return json_decode($this->toJson(), true);
+    }
+
+    /**
+     * Eksport to json
+     *
+     * @return string|false
+     */
+    public function toJson(): string|false
+    {
+        return json_encode($this->attribute());
+    }
+
+    /**
      * Set nama tabelnya
      *
      * @param string $name

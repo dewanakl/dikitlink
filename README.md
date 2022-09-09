@@ -1,6 +1,6 @@
-## About Dikit-Link
+## About Dikit Link
 
-Dikit-Link short link gk ada obat dengan KAMU PHP Framework yang powerfull
+Dikit Link short link gk ada obat dengan Kamu PHP Framework yang powerfull
 
 ## License
 
