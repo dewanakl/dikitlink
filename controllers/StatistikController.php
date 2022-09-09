@@ -28,7 +28,8 @@ class StatistikController extends Controller
         $hasil = Link::join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', Auth::user()->id)
             ->select('stats.id', 'links.name', 'stats.user_agent', 'stats.ip_address', 'stats.created_at', 'stats.updated_at')
-            ->get();
+            ->get()
+            ->toArray();
 
         header_remove();
         header('Content-Type: application/csv; charset=UTF-8');
