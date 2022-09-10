@@ -4,7 +4,7 @@
     <p class="fw-semibold m-1"> <i class="fa-solid fa-list mx-2"></i>Daftar link saat ini</p>
 </div>
 
-<div class="input-group mb-4">
+<div class="input-group mb-3">
     <span class="input-group-text"><i class="fas fa-search"></i></span>
     <input type="text" class="form-control" onkeyup="cariNama()" id="nama" placeholder="Cari disini..">
 </div>

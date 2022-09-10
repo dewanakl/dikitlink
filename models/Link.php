@@ -36,7 +36,7 @@ final class Link extends Model
             ->groupBy('stats.' . $select)
             ->orderBy('hint', 'DESC')
             ->select('stats.' . $select, 'count(stats.id) as hint')
-            ->limit(15)
+            ->limit(10)
             ->get();
     }
 
