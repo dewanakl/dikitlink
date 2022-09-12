@@ -65,7 +65,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::controller(UsersController::class)->prefix('/users')->group(function () {
             Route::get('/', 'index')->name('users');
             Route::get('/{id}/detail', 'detail');
-            Route::put('/{id}/update', 'update')->name('update.users');
             Route::delete('/{id}/delete', 'delete')->name('delete.users');
         });
     });

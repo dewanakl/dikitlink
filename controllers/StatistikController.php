@@ -27,7 +27,7 @@ class StatistikController extends Controller
     {
         $hasil = Link::join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', Auth::user()->id)
-            ->select('stats.id', 'links.name', 'stats.user_agent', 'stats.ip_address', 'stats.created_at', 'stats.updated_at')
+            ->select('stats.id', 'links.name', 'stats.user_agent', 'stats.ip_address', 'stats.created_at')
             ->get()
             ->toArray();
 
@@ -37,7 +37,7 @@ class StatistikController extends Controller
 
         $handle = fopen('php://output', 'w');
 
-        fputcsv($handle, ['id', 'name', 'user_agent', 'ip_address', 'created_at', 'updated_at'], ';');
+        fputcsv($handle, ['id', 'name', 'user_agent', 'ip_address', 'time'], ';');
         foreach ($hasil as $value) {
             fputcsv($handle, array_values($value), ';');
         }
@@ -118,6 +118,5 @@ class StatistikController extends Controller
         http_response_code(301);
         header('HTTP/1.1 301 Moved Permanently');
         header('Location: ' . trim($link->link), true, 301);
-        exit;
     }
 }

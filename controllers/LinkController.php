@@ -31,12 +31,10 @@ class LinkController extends Controller
             ], 400);
         }
 
-        $nama = (!empty($valid->nama)) ? $valid->nama : null;
-
         return $this->json(
             Link::leftJoin('stats', 'links.id', 'stats.link_id')
                 ->where('links.user_id', $this->id)
-                ->where('links.name', "%$nama%", 'LIKE')
+                ->where('links.name', '%' . $valid->nama . '%', 'LIKE')
                 ->groupBy('links.id')
                 ->orderBy('links.id', 'DESC')
                 ->limit($valid->end)
@@ -49,7 +47,7 @@ class LinkController extends Controller
     public function detail(Request $request)
     {
         $valid = Validator::make($request->only(['name']), [
-            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
+            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25']
         ]);
 
         if ($valid->fails()) {
@@ -102,8 +100,7 @@ class LinkController extends Controller
     {
         $valid = $this->validate($request, [
             'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25', 'unik:link'],
-            'link' => ['required', 'trim', 'url', 'str', 'min:5'],
-            'password' => ['trim', 'str', 'max:25']
+            'link' => ['required', 'trim', 'url', 'str', 'min:5']
         ]);
 
         if (str_contains($valid->link, BASEURL)) {
@@ -121,14 +118,10 @@ class LinkController extends Controller
         $data = $valid->only(['name', 'link']);
         $data['user_id'] = $this->id;
 
-        if (!empty($valid->password)) {
-            $data['link_password'] = $valid->password;
-        }
-
-        Link::create($data);
+        $status = Link::create($data);
 
         return $this->json([
-            'status' => true
+            'status' => (bool) $status
         ]);
     }
 
@@ -175,7 +168,7 @@ class LinkController extends Controller
     public function delete(Request $request)
     {
         $valid = Validator::make($request->only(['name']), [
-            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
+            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25']
         ]);
 
         if ($valid->fails()) {

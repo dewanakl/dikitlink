@@ -28,7 +28,7 @@ class ProfileController extends Controller
 
         if ($email->email) {
             $request->throw([
-                'email' => 'Email sudah ada'
+                'email' => 'email sudah ada'
             ]);
         }
 
