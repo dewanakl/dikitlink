@@ -8,15 +8,10 @@
     <span class="input-group-text"><i class="fas fa-search"></i></span>
     <input type="text" class="form-control" onkeyup="cariNama()" id="nama" placeholder="Cari disini..">
 </div>
-<div class="d-none">
-    <select class="form-select" id="order" onchange="urutkan()">
-        <option value="a" selected>Terbaru</option>
-        <option value="d">Terlama</option>
-    </select>
-</div>
+
 <div class="row" id="tables"></div>
 <div class="d-grid mb-2">
-    <button class="btn btn-primary btn-sm fw-bold mb-4" id="loadmore" onclick="loadMore()">Muat lebih banyak</button>
+    <button class="btn btn-primary btn-sm fw-bold mb-3" id="loadmore" onclick="loadMore()">Muat lebih banyak</button>
 </div>
 
 <div class="modal fade" id="editlinkmodal" tabindex="-1" aria-labelledby="editlinkLabel" aria-hidden="true">
@@ -35,7 +30,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="valueeditlink">Link</label>
-                        <input type="url" class="form-control" id="valueeditlink" placeholder="https://www.google.com/" required>
+                        <textarea class="form-control" id="valueeditlink" placeholder="https://www.google.com/" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -11,14 +11,14 @@
 
 <div class="row">
     <div class="col-md-4 mb-4">
-        <div class="card border-success border border-2 shadow-sm p-0">
+        <div class="card border-success shadow-sm p-0">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h5 class="fw-bold mb-1">
+                        <h6 class="fw-bold mb-1">
                             Link saat ini
-                        </h5>
-                        <div class="h4 mb-0 fw-bold"><?= $jumlah_link ?></div>
+                        </h6>
+                        <div class="h5 mb-0 fw-bold"><?= $jumlah_link ?></div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-link fa-2x text-black-50 mx-1"></i>
@@ -28,14 +28,14 @@
         </div>
     </div>
     <div class="col-md-4 mb-4">
-        <div class="card border-warning border border-2 shadow-sm p-0">
+        <div class="card border-warning shadow-sm p-0">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h5 class="fw-bold mb-1">
+                        <h6 class="fw-bold mb-1">
                             Pengunjung unik
-                        </h5>
-                        <div class="h4 mb-0 fw-bold"><?= $unique_pengunjung ?></div>
+                        </h6>
+                        <div class="h5 mb-0 fw-bold"><?= $unique_pengunjung ?></div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-fingerprint fa-2x text-black-50 mx-1"></i>
@@ -45,14 +45,14 @@
         </div>
     </div>
     <div class="col-md-4 mb-4">
-        <div class="card border-danger border border-2 shadow-sm p-0">
+        <div class="card border-danger shadow-sm p-0">
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h5 class="fw-bold mb-1">
+                        <h6 class="fw-bold mb-1">
                             Klik semua link
-                        </h5>
-                        <div class="h4 mb-0 fw-bold"><?= $total_pengunjung ?></div>
+                        </h6>
+                        <div class="h5 mb-0 fw-bold"><?= $total_pengunjung ?></div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-computer-mouse fa-2x text-black-50 mx-1"></i>

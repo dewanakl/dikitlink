@@ -2,6 +2,30 @@
 </div>
 </div>
 
+<div class="offcanvas offcanvas-bottom" style="height: 50vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Tambah Link</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body pt-0">
+        <form id="addlinkmobile">
+            <div class="mb-3">
+                <label for="valueaddnamemobile">Nama</label>
+                <input type="text" class="form-control" id="valueaddnamemobile" placeholder="Nama">
+                <small class="text-danger">*Acak jika kosong dan karakter ilegal dihapus</small>
+            </div>
+            <div class="mb-3">
+                <label for="valueaddlinkmobile">Link</label>
+                <textarea class="form-control" id="valueaddlinkmobile" placeholder="https://www.google.com/" required></textarea>
+            </div>
+            <div class="d-grid text-center mb-0">
+                <button type="submit" class="btn btn-success" id="valueaddtambahmobile"><i class="fas fa-plus mx-1"></i>Tambah</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="modal fade" id="addlinkmodal" tabindex="-1" aria-labelledby="addlinkLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-sm-down modal-lg">
         <div class="modal-content">
@@ -17,19 +41,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="valueaddlink">Link</label>
-                        <input type="url" class="form-control" id="valueaddlink" placeholder="https://www.google.com/" required>
-                    </div>
-                    <div class="d-grid">
-                        <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                            Lebih lanjut
-                        </a>
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                        <div class="mb-3">
-                            <label for="valueaddpassword">Password</label>
-                            <input type="text" class="form-control" id="valueaddpassword">
-                        </div>
-                        <!-- <input type="datetime-local" class="form-control" name="times" id="tgl-test" /> -->
+                        <textarea class="form-control" id="valueaddlink" placeholder="https://www.google.com/" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -65,13 +77,7 @@
 <?php if (routeIs('list')) : ?>
     <script src="<?= asset('js/list.js') ?>" defer></script>
 <?php endif ?>
-<script>
-    const logout = () => {
-        let btnbatal = document.getElementById('button-logout-batal');
-        let btn = document.getElementById('button-logout');
-        btn.disabled = true;
-        btnbatal.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
-    }
-</script>
+
+<script src="<?= asset('js/utildown.js') ?>"></script>
+
 <?= extend('templates/baseDown') ?>

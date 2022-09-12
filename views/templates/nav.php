@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark rounded-top navbar-expand fixed-bottom d-md-none d-lg-none d-xl-none m-0 p-0">
+<nav class="navbar navbar-dark bg-dark navbar-expand fixed-bottom d-md-none d-lg-none d-xl-none m-0 p-0">
     <ul class="navbar-nav nav-justified w-100 align-items-end m-0 p-0">
         <li class="nav-item m-0 p-0">
             <a href="<?= route('dashboard') ?>" class="nav-link pb-1 <?= routeIs('dashboard', 'active') ?> text-center">
@@ -14,7 +14,7 @@
         </li>
 
         <li class="nav-item m-0 p-0">
-            <a class="btn btn-warning fw-semibold pb-0 pt-0 mb-1 mt-1 text-center" data-bs-toggle="modal" data-bs-target="#addlinkmodal">
+            <a class="btn btn-warning fw-semibold pb-0 pt-0 mb-1 mt-1 text-center" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">
                 <i class="fas fa-plus"></i>
                 <span class="d-block" style="font-size: 10px;">Baru</span>
             </a>

@@ -41,7 +41,7 @@ class LinkController extends Controller
                 ->orderBy('links.id', 'DESC')
                 ->limit($valid->end)
                 ->offset($valid->init)
-                ->select('links.name', 'links.link', 'links.created_at', 'count(stats.id) as hint')
+                ->select('links.name', 'links.link', 'links.created_at', 'links.link_password', 'links.waktu_buka', 'links.waktu_tutup', 'count(stats.id) as hint')
                 ->get()
         );
     }
@@ -75,6 +75,7 @@ class LinkController extends Controller
             ->groupBy('stats.' . $select)
             ->orderBy('hint', 'DESC')
             ->select('stats.' . $select, 'count(stats.id) as hint')
+            ->limit(5)
             ->get();
 
         $unique = $base()

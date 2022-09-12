@@ -1,60 +1,11 @@
-const URI = window.location.origin;
-const TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const DATA = [];
-
-const addLink = document.getElementById('addlink');
-const editLink = document.getElementById('editlink');
-const hapusLink = document.getElementById('hapuslink');
-
 const LOAD = document.getElementById('loadmore');
-const JudulInput = document.getElementById('nama');
-const OrderInput = document.getElementById('order');
 
 let myChart;
 let init = 0;
 let end = 6;
 let each = 0;
 let timeout = null;
-
-const showModal = (msg, type, text = '') => Swal.fire({
-    title: msg,
-    icon: type,
-    text: text,
-    confirmButtonText: '<i class="fas fa-check"></i> Oke',
-});
-
-const escapeHtml = (text) => {
-    return text
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
-const clipboard = (url) => {
-    let uri = URI + '/' + url;
-    navigator.clipboard.writeText(uri);
-    showModal('Menyalin', 'success', `"${uri}"`);
-}
-
-const copy = (id) => {
-    clipboard(DATA[id][0]);
-}
-
-const confirmCopy = (name, action = 'Membuat') => {
-    Swal.fire({
-        title: `${action} link "${name}"`,
-        icon: 'success',
-        showCancelButton: true,
-        focusConfirm: true,
-        confirmButtonText: '<i class="fas fa-copy"></i> Salin',
-        cancelButtonText: '<i class="fas fa-check"></i> Oke',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            clipboard(name);
-        }
-    });
-}
 
 const refreshChart = () => {
     myChart.data.labels = [];
@@ -66,6 +17,14 @@ const refreshChart = () => {
     }];
 
     myChart.update();
+}
+
+const escapeHtml = (text) => {
+    return text
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 const renderCard = (data, key) => {
@@ -113,12 +72,13 @@ const renderCard = (data, key) => {
     return DIV;
 }
 
-const refreshTable = async (nama = '', order = 'a') => {
+const refreshTable = async () => {
     const TABELS = document.getElementById('tables');
+    let nama = document.getElementById('nama').value;
     LOAD.disabled = true;
     LOAD.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
 
-    await fetch(`${URI}/api/link/show?order=${order}&nama=${nama}&init=${init}&end=${end}`)
+    await fetch(`${URI}/api/link/show?nama=${nama}&init=${init}&end=${end}`)
         .then((res) => res.json())
         .then((res) => {
             if (res.length > 0) {
@@ -127,6 +87,7 @@ const refreshTable = async (nama = '', order = 'a') => {
                     TABELS.appendChild(renderCard(data, each));
                     each += 1;
                 });
+
                 LOAD.disabled = false;
                 LOAD.innerText = 'Muat lebih banyak';
                 LOAD.style.visibility = 'visible';
@@ -136,56 +97,6 @@ const refreshTable = async (nama = '', order = 'a') => {
             }
         })
         .catch((err) => showModal(err, 'error'));
-}
-
-const tambah = async () => {
-    const TAMBAH = document.getElementById('valueaddtambah');
-    const BATAL = document.getElementById('valueaddbatal');
-    const NAME = document.getElementById('valueaddname');
-    const LINK = document.getElementById('valueaddlink');
-    const PASSWORD = document.getElementById('valueaddpassword');
-    const name = NAME.value ? NAME.value.replace(/[^\w-]/gi, '') : Math.random().toString(36).slice(2, 8);
-
-    const REQ = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'token': TOKEN
-        },
-        body: JSON.stringify({
-            name: name,
-            link: LINK.value,
-            password: PASSWORD.value
-        })
-    };
-
-    BATAL.disabled = true
-    TAMBAH.disabled = true;
-    TAMBAH.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Loading...`;
-
-    await fetch(`${URI}/api/link/create`, REQ)
-        .then((res) => res.json())
-        .then((res) => {
-            if (res.status) {
-                reset(false);
-                refreshTable();
-                bootstrap.Modal.getInstance(document.querySelector('#addlinkmodal')).hide();
-                confirmCopy(name);
-
-                NAME.value = null;
-                LINK.value = null;
-                PASSWORD.value = null;
-            } else if (res.error) {
-                showModal(Object.values(res.error)[0], 'error');
-            } else if (!res.token) {
-                throw 'Token error, login ulang';
-            }
-        })
-        .catch((err) => showModal(err, 'error'));
-
-    BATAL.disabled = false;
-    TAMBAH.disabled = false;
-    TAMBAH.innerHTML = '<i class="fas fa-plus"></i> Tambah';
 }
 
 const edit = async (button, id) => {
@@ -416,31 +327,20 @@ const reset = (show = true) => {
 const cariNama = () => {
     reset();
     clearTimeout(timeout);
-    timeout = setTimeout(() => refreshTable(JudulInput.value, OrderInput.value), 700);
-}
-
-const urutkan = () => {
-    reset();
-    clearTimeout(timeout);
-    timeout = setTimeout(() => refreshTable(JudulInput.value, OrderInput.value), 350);
+    timeout = setTimeout(() => refreshTable(), 700);
 }
 
 const loadMore = () => {
     init = init + end;
-    refreshTable(JudulInput.value, OrderInput.value);
+    refreshTable();
 }
 
-addLink.addEventListener('submit', event => {
-    event.preventDefault();
-    tambah();
-});
-
-editLink.addEventListener('submit', event => {
+document.getElementById('editlink').addEventListener('submit', event => {
     event.preventDefault();
     update();
 });
 
-hapusLink.addEventListener('submit', event => {
+document.getElementById('hapuslink').addEventListener('submit', event => {
     event.preventDefault();
     destroy();
 });

@@ -1,5 +1,7 @@
 <?= extend('templates/baseTop', compact('title')) ?>
+
 <?= extend('templates/nav') ?>
+
 <div class="container mt-3 mb-5">
     <div class="d-flex d-none d-sm-flex justify-content-between align-items-center mb-4 mt-4">
         <h4 class="d-none d-sm-block fw-bold mx-1">Dikit<i class="fa-solid fa-link mx-1"></i>Link</h4>
@@ -37,6 +39,7 @@
                 </li>
                 <?php if (auth()->user()->role_id == 1) : ?>
                     <hr class="m-2">
+                    <span class="badge text-bg-success fw-semibold mb-2">ADMIN</span>
                     <li class="list-group-item list-menu <?= routeIs('users', 'active disabled') ?> my-1 rounded-2 border border-0">
                         <a class="dropdown-item fw-semibold" href="<?= route('users') ?>">
                             <i class="fa-solid fa-users ms-2 me-1"></i>Users
