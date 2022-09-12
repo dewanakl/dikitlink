@@ -243,7 +243,7 @@ const detail = async (button, id) => {
             document.getElementById('klik').innerText = res.jumlah;
 
             AGENT.innerHTML = null;
-            res.user_agent.forEach((data) => AGENT.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.user_agent}</td></tr>`);
+            res.user_agent.forEach((data) => AGENT.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td class="text-truncate">${data.user_agent}</td></tr>`);
 
             IP.innerHTML = null;
             res.ip_address.forEach((data) => IP.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.ip_address}</td></tr>`);

@@ -18,7 +18,7 @@ class ProfileController extends Controller
     {
         $credential = $request->validate([
             'nama' => ['required', 'trim', 'str', 'min:2', 'max:20'],
-            'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50'],
+            'email' => ['required', 'trim', 'email', 'dns', 'str', 'min:5', 'max:50'],
         ]);
 
         $email = User::where('email', $request->email)

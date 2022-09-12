@@ -86,6 +86,13 @@ class Validator
                 }
                 break;
 
+            case $rule == 'dns':
+                $domain = explode('@', $value)[1];
+                if (checkdnsrr($domain)) {
+                    $this->setError($param, 'ilegal atau tidak sah !');
+                }
+                break;
+
             case $rule == 'url':
                 if (filter_var($value, FILTER_VALIDATE_URL)) {
                     $this->__set($param, filter_var($value, FILTER_SANITIZE_URL));

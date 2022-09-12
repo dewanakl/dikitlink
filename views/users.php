@@ -33,11 +33,6 @@
                                     <li class="fas fa-info-circle mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Detail</span>
                                 </div>
                             </button>
-                            <button class="btn btn-outline-warning update" data-nama="<?= e($user->nama) ?>" data-url="<?= route('update.users', $user->id) ?>">
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <li class="fas fa-rotate mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Update</span>
-                                </div>
-                            </button>
                             <button class="btn btn-outline-danger hapus" data-nama="<?= e($user->nama) ?>" data-url="<?= route('delete.users', $user->id) ?>">
                                 <div class="d-flex justify-content-center align-items-center">
                                     <li class="fas fa-trash mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Hapus</span>
@@ -67,29 +62,6 @@
                     <?= method('delete') ?>
                     <button type="submit" class="btn btn-danger" id="button-hapus">
                         <li class="fas fa-trash"></li> Hapus
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel">Update Password ?</h5>
-            </div>
-            <div class="modal-body">
-                <h4 id="namaupdate"></h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="button-update-batal"><i class="fas fa-times"></i> Batal</button>
-                <form id="formupdate" action="" method="post" onsubmit="update()">
-                    <?= csrf() ?>
-                    <?= method('put') ?>
-                    <button type="submit" class="btn btn-warning" id="button-update">
-                        <i class="fa-solid fa-rotate"></i> Update
                     </button>
                 </form>
             </div>
@@ -217,13 +189,6 @@
 
         myChart.update();
     }
-
-    const showModal = (msg, type, text = '') => Swal.fire({
-        title: msg,
-        icon: type,
-        text: text,
-        confirmButtonText: '<i class="fas fa-check"></i> Oke',
-    });
 
     const detail = async (id, nama) => {
         const myModal = new bootstrap.Modal(document.getElementById('detaillinkmodal'));
