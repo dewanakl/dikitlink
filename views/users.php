@@ -159,20 +159,11 @@
 <script defer>
     const HAPUS = document.querySelectorAll('.hapus');
     const DETAIL = document.querySelectorAll('.detail');
-    const UPDATE = document.querySelectorAll('.update');
     let myChart;
 
     const hapus = () => {
         let btnbatal = document.getElementById('button-hapus-batal');
         let btn = document.getElementById('button-hapus');
-        btnbatal.disabled = true;
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
-    }
-
-    const update = () => {
-        let btnbatal = document.getElementById('button-update-batal');
-        let btn = document.getElementById('button-update');
         btnbatal.disabled = true;
         btn.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
@@ -298,17 +289,6 @@
                 let id = DETAIL[i].getAttribute('data-id');
                 let nama = HAPUS[i].getAttribute('data-nama');
                 detail(id, nama);
-            });
-
-            UPDATE[i].addEventListener('click', () => {
-                let nama = UPDATE[i].getAttribute('data-nama');
-                let url = UPDATE[i].getAttribute('data-url');
-
-                document.getElementById('namaupdate').innerText = `Ingin update "${nama}" ?`;
-                document.getElementById('formupdate').action = url;
-
-                const myModal = new bootstrap.Modal(document.getElementById('updateModal'));
-                myModal.show();
             });
         }
         myChart = new Chart(ctx, {

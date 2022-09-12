@@ -26,7 +26,7 @@
                     <?php foreach ($user_agent as $ag) : ?>
                         <tr>
                             <th><?= $ag->hint ?></th>
-                            <td class="text-truncate"><?= e($ag->user_agent) ?></td>
+                            <td><?= e($ag->user_agent) ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
