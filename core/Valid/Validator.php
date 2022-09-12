@@ -88,7 +88,7 @@ class Validator
 
             case $rule == 'dns':
                 $domain = explode('@', $value);
-                if (checkdnsrr($domain[1]) === false) {
+                if (!checkdnsrr($domain[1])) {
                     $this->setError($param, 'ilegal atau tidak sah !');
                 }
                 break;
