@@ -27,7 +27,7 @@ class StatistikController extends Controller
     {
         $hasil = Link::join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', Auth::user()->id)
-            ->select('stats.id', 'links.name', 'stats.user_agent', 'stats.ip_address', 'stats.created_at')
+            ->select('stats.created_at', 'links.name', 'stats.user_agent', 'stats.ip_address')
             ->get()
             ->toArray();
 
@@ -37,9 +37,9 @@ class StatistikController extends Controller
 
         $handle = fopen('php://output', 'w');
 
-        fputcsv($handle, ['id', 'name', 'user_agent', 'ip_address', 'time'], ';');
+        fputcsv($handle, ['time', 'name', 'user_agent', 'ip_address']);
         foreach ($hasil as $value) {
-            fputcsv($handle, array_values($value), ';');
+            fputcsv($handle, array_values($value));
         }
 
         fclose($handle);

@@ -20,7 +20,6 @@
             </div>
             <div class="d-grid text-center mb-0">
                 <button type="submit" class="btn btn-success" id="valueaddtambahmobile"><i class="fas fa-plus mx-1"></i>Tambah</button>
-
             </div>
         </form>
     </div>
@@ -73,11 +72,5 @@
         </div>
     </div>
 </div>
-
-<?php if (routeIs('list')) : ?>
-    <script src="<?= asset('js/list.js') ?>" defer></script>
-<?php endif ?>
-
-<script src="<?= asset('js/utildown.js') ?>"></script>
 
 <?= extend('templates/baseDown') ?>

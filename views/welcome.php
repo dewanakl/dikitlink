@@ -19,6 +19,7 @@
             </div>
         </div>
     </div>
+
     <div class="px-4 py-5 border-bottom">
         <div class="row g-4 row-cols-1 row-cols-lg-3">
             <div class="col d-flex align-items-start">
@@ -77,6 +78,7 @@
             </div>
         </div>
     </div>
+
     <footer class="p-4">
         <div class="row align-items-center justify-content-between flex-column flex-sm-row">
             <div class="col-auto">
@@ -132,8 +134,10 @@
                 <h5>Perbaruan</h5>
                 <p>Kebijakan Privasi kami dapat berubah dari waktu ke waktu dan semua pembaruan akan diposting di halaman ini.</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success  fw-bold" data-bs-dismiss="modal">Paham</button>
+            <div class="modal-footer d-inline d-sm-flex">
+                <div class="d-grid">
+                    <button type="button" class="btn btn-success fw-bold" data-bs-dismiss="modal">Paham</button>
+                </div>
             </div>
         </div>
     </div>
@@ -148,8 +152,10 @@
             <div class="modal-body">
                 <p>Dengan mengakses situs web ini, anda telah membaca privacy policy dengan pernuh sadar. Tidak ada syarat apapun kecuali telah membaca privacy policy karena project ini bersifat open source. Terima kasih</p>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success  fw-bold" data-bs-dismiss="modal">Setuju</button>
+            <div class="modal-footer d-inline d-sm-flex">
+                <div class="d-grid">
+                    <button type="button" class="btn btn-success fw-bold" data-bs-dismiss="modal">Setuju</button>
+                </div>
             </div>
         </div>
     </div>

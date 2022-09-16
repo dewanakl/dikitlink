@@ -63,7 +63,7 @@ class AuthController extends Controller
     public function send(Request $request, Mail $mail)
     {
         $request->validate([
-            'email' => ['required', 'trim', 'email', 'str', 'min:5', 'max:50']
+            'email' => ['required', 'trim', 'min:5', 'email', 'dns', 'str', 'max:50']
         ]);
 
         $user = User::find($request->email, 'email')->fail(fn () => false);

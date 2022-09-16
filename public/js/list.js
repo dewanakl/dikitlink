@@ -1,10 +1,10 @@
 const DATA = [];
 const LOAD = document.getElementById('loadmore');
 
-let myChart;
 let init = 0;
 let end = 6;
 let each = 0;
+let myChart = null;
 let timeout = null;
 
 const refreshChart = () => {
@@ -36,14 +36,18 @@ const renderCard = (data, key) => {
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title my-1 mx-0">
-                <strong class="mx-0">${data.name}</strong>
+                    <strong class="text-truncate mx-0">${data.name}</strong>
                 </h5>
-                <small class="text-dark text-opacity-75 border border-secondary border-2 rounded-3 px-1"><i class="fa-solid fa-computer-mouse"></i> ${data.hint}</small>
+                <small class="text-dark">
+                    ${(data.waktu_buka || data.waktu_tutup) ? '<i class="fa-solid fa-stopwatch mx-1"></i>' : ''}
+                    ${(data.link_password) ? '<i class="fa-solid fa-lock mx-1"></i>' : ''}
+                    <i class="fa-solid fa-computer-mouse me-1"></i>${data.hint}
+                </small>
             </div>
             <p class="text-truncate my-1 mx-0">${escapeHtml(data.link)}</p>
             <hr class="mt-2 mb-3">
             <div class="d-flex justify-content-between align-items-center mx-0">
-                <small class="text-dark text-opacity-75 m-0"><i class="fa-solid fa-clock"></i> ${(new Date(data.created_at)).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
+                <small class="text-dark text-opacity-75 m-0"><i class="fa-solid fa-clock ms-0 me-1"></i>${(new Date(data.created_at)).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
                 <div class="btn-group btn-group-sm m-0" role="group">
                     <a onclick="copy(${key})" class="btn btn-outline-secondary">
                         <div class="d-flex justify-content-center align-items-center">
@@ -83,7 +87,15 @@ const refreshTable = async () => {
         .then((res) => {
             if (res.length > 0) {
                 res.forEach((data) => {
-                    DATA.push([data.name, data.link]);
+                    DATA.push([
+                        data.name,
+                        data.link,
+                        data.hint,
+                        data.link_password,
+                        data.waktu_buka,
+                        data.waktu_tutup
+                    ]);
+
                     TABELS.appendChild(renderCard(data, each));
                     each += 1;
                 });
@@ -102,12 +114,19 @@ const refreshTable = async () => {
 const edit = async (button, id) => {
     button.disabled = true;
 
-    let link = DATA[id][1];
-    id = DATA[id][0];
+    document.getElementById('valueeditid').value = DATA[id][0];
+    document.getElementById('valueeditname').value = DATA[id][0];
+    document.getElementById('valueeditlink').value = escapeHtml(DATA[id][1]);
+    document.getElementById('valueeditpassword').value = DATA[id][3];
 
-    document.getElementById('valueeditid').value = id;
-    document.getElementById('valueeditname').value = id;
-    document.getElementById('valueeditlink').value = escapeHtml(link);
+    let now = new Date(DATA[id][4] ?? '');
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+    document.getElementById('valueeditbuka').value = DATA[id][4] ? now.toISOString().slice(0, 16) : null;
+
+    now = new Date(DATA[id][5] ?? '');
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('valueedittutup').value = DATA[id][5] ? now.toISOString().slice(0, 16) : null;
 
     const myModal = new bootstrap.Modal(document.getElementById('editlinkmodal'));
     myModal.show();
@@ -122,6 +141,10 @@ const update = async () => {
     const NAME = document.getElementById('valueeditname');
     const LINK = document.getElementById('valueeditlink');
 
+    const PASS = document.getElementById('valueeditpassword');
+    const BUKA = document.getElementById('valueeditbuka');
+    const TUTUP = document.getElementById('valueedittutup');
+
     const old = OLD.value ? OLD.value.replace(/[^\w-]/gi, '') : Math.random().toString(36).slice(2, 8);
     const name = NAME.value ? NAME.value.replace(/[^\w-]/gi, '') : Math.random().toString(36).slice(2, 8);
 
@@ -134,7 +157,10 @@ const update = async () => {
         body: JSON.stringify({
             old: old,
             name: name,
-            link: LINK.value
+            link: LINK.value,
+            password: PASS.value,
+            buka: BUKA.value,
+            tutup: TUTUP.value
         })
     };
 
@@ -155,6 +181,10 @@ const update = async () => {
                 NAME.value = null;
                 LINK.value = null;
 
+                PASS.value = null;
+                BUKA.value = null;
+                TUTUP.value = null;
+
             } else if (res.error) {
                 showModal(Object.values(res.error)[0], 'error');
             } else if (!res.token) {
@@ -174,6 +204,7 @@ const detail = async (button, id) => {
     const IP = document.getElementById('ip-address');
     const TITLE = document.getElementById('detaillinkLabel');
 
+    document.getElementById('klik').innerText = DATA[id][2];
     id = DATA[id][0];
     myModal.show();
 
@@ -240,7 +271,6 @@ const detail = async (button, id) => {
             myChart.update();
 
             document.getElementById('unik').innerText = res.unique;
-            document.getElementById('klik').innerText = res.jumlah;
 
             AGENT.innerHTML = null;
             res.user_agent.forEach((data) => AGENT.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.user_agent}</td></tr>`);

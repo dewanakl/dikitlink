@@ -82,17 +82,11 @@ class LinkController extends Controller
             ->get()
             ->rowCount();
 
-        $sum = $base()
-            ->groupBy('links.id')
-            ->select('count(stats.id) as jumlah')
-            ->first();
-
         return $this->json([
             'last_week' => $lastweek,
             'user_agent' => $get('user_agent'),
             'ip_address' => $get('ip_address'),
-            'unique' => $unique ?? 0,
-            'jumlah' => $sum->jumlah ?? 0
+            'unique' => $unique ?? 0
         ]);
     }
 
@@ -130,7 +124,10 @@ class LinkController extends Controller
         $valid = $this->validate($request, [
             'old' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
             'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
-            'link' => ['required', 'trim', 'url', 'str', 'min:5']
+            'link' => ['required', 'trim', 'url', 'str', 'min:5'],
+            'password' => ['trim', 'str', 'max:20'],
+            'buka' => ['trim', 'str', 'max:16'],
+            'tutup' => ['trim', 'str', 'max:16']
         ]);
 
         if (str_contains($valid->link, BASEURL)) {
@@ -151,14 +148,14 @@ class LinkController extends Controller
             ], 400);
         }
 
-        $old = Link::find($valid->old, 'name');
+        $data = $valid->only(['name', 'link']);
+        $data['link_password'] = empty($valid->password) ? null : $valid->password;
+        $data['waktu_buka'] = $valid->buka ? implode(' ', explode('T', $valid->buka)) . ':00' : null;
+        $data['waktu_tutup'] = $valid->tutup ? implode(' ', explode('T', $valid->tutup)) . ':00' : null;
 
-        $result = Link::where('id', $old->id)
+        $result = Link::where('id', Link::find($valid->old, 'name')->id)
             ->where('user_id', $this->id)
-            ->update([
-                'name' => $valid->name,
-                'link' => $valid->link
-            ]);
+            ->update($data);
 
         return $this->json([
             'status' => $result

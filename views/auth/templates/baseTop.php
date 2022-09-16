@@ -12,7 +12,7 @@
     <meta property="og:description" content="Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?">
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?= asset('/') ?>">
-    <meta name="theme-color" content="#bd05f5" />
+    <meta name="theme-color" content="#fff" />
     <title><?= $title ?? 'Kamu Framework' ?></title>
     <link rel="manifest" href="<?= asset('manifest.webmanifest') ?>">
     <link rel="apple-touch-icon" href="<?= asset('icon-192x192.png') ?>">
@@ -26,14 +26,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
     <link rel="preload" href="<?= asset('css/app.css') ?>" as="style">
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
-    <!-- <script src="<?= asset('sw.js') ?>"></script>
     <script>
         if (!navigator.serviceWorker.controller) {
-            navigator.serviceWorker.register('sw.js').then(function(reg) {
+            navigator.serviceWorker.register('sw.js').then((reg) => {
                 console.log('Service worker has been registered for scope: ' + reg.scope);
             });
         }
-    </script> -->
+    </script>
 </head>
 
 <body>

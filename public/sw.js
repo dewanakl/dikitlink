@@ -1,19 +1,14 @@
-const preLoad = function () {
-    return caches.open('offline').then(function (cache) {
-        // caching index and important routes
-        return cache.addAll(filesToCache);
-    });
-};
-
-self.addEventListener('install', function (event) {
-    event.waitUntil(preLoad());
-});
-
 const filesToCache = [
     '/css/app.css',
-    '/js/dashboard.js',
-    '/404.svg',
+    '/js/utiltop.js',
+    '/js/utildown.js',
+    '/js/list.js',
+    '/time.svg',
+    '/register.svg',
+    '/password.svg',
+    '/login.svg',
     '/link.svg',
+    '/forget.svg',
     '/favicon.ico',
     '/icon-192x192.png',
     '/icon-256x256.png',
@@ -22,9 +17,20 @@ const filesToCache = [
     '/offline.html'
 ];
 
-const checkResponse = function (request) {
-    return new Promise(function (fulfill, reject) {
-        fetch(request).then(function (response) {
+const preLoad = async () => {
+    return caches.open('offline').then((cache) => {
+        // caching index and important routes
+        return cache.addAll(filesToCache);
+    });
+};
+
+self.addEventListener('install', (event) => {
+    event.waitUntil(preLoad());
+});
+
+const checkResponse = (request) => {
+    return new Promise((fulfill, reject) => {
+        fetch(request).then((response) => {
             if (response.status !== 404) {
                 fulfill(response);
             } else {
@@ -34,17 +40,17 @@ const checkResponse = function (request) {
     });
 };
 
-const addToCache = function (request) {
-    return caches.open('offline').then(function (cache) {
-        return fetch(request).then(function (response) {
+const addToCache = async (request) => {
+    return caches.open('offline').then(async (cache) => {
+        return fetch(request).then((response) => {
             return cache.put(request, response);
         });
     });
 };
 
-const returnFromCache = function (request) {
-    return caches.open('offline').then(function (cache) {
-        return cache.match(request).then(function (matching) {
+const returnFromCache = async (request) => {
+    return caches.open('offline').then(async (cache) => {
+        return cache.match(request).then((matching) => {
             if (!matching || matching.status === 404) {
                 return cache.match('offline.html');
             }
@@ -54,8 +60,8 @@ const returnFromCache = function (request) {
     });
 };
 
-self.addEventListener('fetch', function (event) {
-    event.respondWith(checkResponse(event.request).catch(function () {
+self.addEventListener('fetch', (event) => {
+    event.respondWith(checkResponse(event.request).catch(() => {
         return returnFromCache(event.request);
     }));
 
