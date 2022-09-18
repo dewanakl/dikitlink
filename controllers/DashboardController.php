@@ -8,12 +8,12 @@ use Models\Link;
 
 class DashboardController extends Controller
 {
-    public function __invoke(Link $link)
+    public function __invoke()
     {
         $id = Auth::user()->id;
-        $sumstats = $link->sumStats($id);
+        $sumstats = (new Link)->sumStats($id);
 
-        $unique = $link->join('stats', 'links.id', 'stats.link_id')
+        $unique = Link::join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id)
             ->groupBy('stats.user_agent', 'stats.ip_address')
             ->select('COUNT(stats.link_id)')

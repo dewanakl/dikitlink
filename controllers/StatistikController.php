@@ -92,7 +92,7 @@ class StatistikController extends Controller
             } else {
                 if ($request->method() == 'POST') {
                     $request->validate([
-                        'password' => ['required']
+                        'password' => ['required', 'trim', 'str', 'max:25']
                     ]);
                 }
 

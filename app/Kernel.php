@@ -110,8 +110,6 @@ class Kernel
         define('DEBUG', @$_ENV['DEBUG'] == 'true');
 
         error_reporting(DEBUG ? E_ALL : 0);
-
-        require_once __DIR__ . '/../routes/routes.php';
         $self->helper();
 
         set_exception_handler(function (\Throwable $error) {
@@ -127,6 +125,8 @@ class Kernel
         if (!env('APP_KEY')) {
             throw new \Exception('App Key gk ada !');
         }
+
+        require_once __DIR__ . '/../routes/routes.php';
 
         return $self->app();
     }
