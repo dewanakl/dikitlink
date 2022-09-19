@@ -18,13 +18,13 @@ abstract class Controller
     /**
      * Render template html
      *
-     * @param string $view
-     * @param array $param
+     * @param string $path
+     * @param array $data
      * @return Render
      */
-    protected function view(string $view, array $param = []): Render
+    protected function view(string $path, array $data = []): Render
     {
-        return app(Respond::class)->view($view, $param);
+        return app(Respond::class)->view($path, $data);
     }
 
     /**

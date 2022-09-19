@@ -61,28 +61,38 @@ if (!function_exists('auth')) {
     }
 }
 
+if (!function_exists('extend')) {
+    /**
+     * Baca dari view serta masih bentuk object
+     * 
+     * @param string $path
+     * @param array $data
+     * @return Render
+     */
+    function extend(string $path, array $data = []): Render
+    {
+        $template = new Render($path);
+        $template->setData($data);
+        $template->show();
+
+        return $template;
+    }
+}
+
 if (!function_exists('show')) {
     /**
      * Tampikan hasil dari template html
      * 
-     * @param string $view
-     * @param array $param
-     * @param bool $echo
-     * @return mixed
+     * @param string $path
+     * @param array $data
+     * @return void
      */
-    function show(string $view, array $param = [], bool $echo = true): mixed
+    function show(string $path, array $data = []): void
     {
-        $template = new Render($view);
-        $template->setData($param);
-        $template->show();
-
-        if (!$echo) {
-            return $template;
-        }
+        $template = extend($path, $data);
 
         @ob_end_clean();
         echo $template;
-        return null;
     }
 }
 
@@ -194,20 +204,6 @@ if (!function_exists('unavailable')) {
             'pesan' => 'Service Unavailable !'
         ]);
         exit;
-    }
-}
-
-if (!function_exists('extend')) {
-    /**
-     * Sambungkan beberapa html
-     * 
-     * @param string $path
-     * @param array $data
-     * @return Render
-     */
-    function extend(string $path, array $data = []): Render
-    {
-        return show($path, $data, false);
     }
 }
 

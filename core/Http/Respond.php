@@ -98,13 +98,13 @@ class Respond
     /**
      * Tampilkan html
      * 
-     * @param string $view
-     * @param array $param
+     * @param string $path
+     * @param array $data
      * @return Render
      */
-    public function view(string $view, array $param = []): Render
+    public function view(string $path, array $data = []): Render
     {
-        return show($view, $param, false);
+        return extend($path, $data);
     }
 
     /**

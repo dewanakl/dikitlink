@@ -38,7 +38,7 @@
 
 <body>
     <pre><?= e($error->getMessage()) ?></pre>
-    <div style="overflow-x: auto;">
+    <div style="overflow-x: auto; padding-bottom: 2rem">
         <div class="font">
             <p><?= e($error->getFile()) . '::' . e($error->getLine()) ?></p>
             <table style="width: 100%; border-collapse: collapse;">

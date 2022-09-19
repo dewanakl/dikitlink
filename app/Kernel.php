@@ -114,6 +114,8 @@ class Kernel
 
         set_exception_handler(function (\Throwable $error) {
             header('Content-Type: text/html');
+            @ob_end_clean();
+
             if (!DEBUG) {
                 unavailable();
             }
