@@ -1,25 +1,21 @@
 body {
-    overflow: overlay;
+    overflow: overlay !important;
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #555;
+    background: #fff;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #999;
+    background: var(--bs-gray-500);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #ddd;
-}
-
-.transparent-input {
-    background-color: rgba(0, 0, 0, 0) !important;
+    background: var(--bs-secondary);
 }
 
 .list-menu:hover {

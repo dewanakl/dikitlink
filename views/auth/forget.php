@@ -29,7 +29,7 @@
             <form method="POST" onsubmit="forget()">
                 <?= csrf() ?>
                 <div class="form-floating mb-3">
-                    <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?> transparent-input shadow-sm" id="floatingInputforget" placeholder="Email" value="<?= old('email') ?>">
+                    <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?> shadow-sm" id="floatingInputforget" placeholder="Email" value="<?= old('email') ?>">
                     <label for="floatingInputforget" class="form-label"><i class="fa-solid fa-envelope mx-1"></i>Email</label>
                     <?php if (error('email')) : ?>
                         <div class="invalid-feedback">
