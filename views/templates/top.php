@@ -5,7 +5,7 @@
 <div class="container mt-3 mb-5">
     <div class="d-flex d-none d-sm-flex justify-content-between align-items-center mb-4 mt-4">
         <h4 class="d-none d-sm-block fw-bold mx-1">Dikit<i class="fa-solid fa-link mx-1"></i>Link</h4>
-        <h4 class="text-truncate mx-1">👋 Haii, <?= e(auth()->user()->nama) ?></h4>
+        <h4 class="text-truncate mx-1">Haii, <?= e(auth()->user()->nama) ?></h4>
     </div>
 
     <div class="row">
