@@ -18,7 +18,7 @@ class AuthManager
     /**
      * Object basemodel
      * 
-     * @var BaseModel $user
+     * @var BaseModel|null $user
      */
     private $user;
 

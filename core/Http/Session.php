@@ -17,7 +17,7 @@ class Session
      * 
      * @var array $data
      */
-    private array $data = [];
+    private $data;
 
     /**
      * Name session
@@ -42,6 +42,7 @@ class Session
     {
         $this->name = env('APP_NAME', 'kamu') . '_session';
         $this->expires = env('COOKIE_LIFETIME', 86400) + time();
+        $this->data = [];
 
         if (@$_COOKIE[$this->name]) {
             $this->data = unserialize(Hash::decrypt(rawurldecode($_COOKIE[$this->name])));
@@ -62,7 +63,7 @@ class Session
         $header = 'Set-Cookie: ' . $this->name . '=' . rawurlencode(Hash::encrypt(serialize($this->data)));
 
         $header .= '; Expires=' . date('D, d-M-Y H:i:s', $this->expires) . ' GMT';
-        $header .= '; Max-Age=' . ($this->expires - time());
+        $header .= '; Max-Age=' . (string) ($this->expires - time());
         $header .= '; Path=/';
         $header .= '; Domain=' . parse_url(BASEURL, PHP_URL_HOST);
 

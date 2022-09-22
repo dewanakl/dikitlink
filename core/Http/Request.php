@@ -223,6 +223,7 @@ class Request
         foreach ($only as $ol) {
             $temp[$ol] = $this->__get($ol);
         }
+
         return $temp;
     }
 
@@ -240,6 +241,7 @@ class Request
                 $temp[$key] = $value;
             }
         }
+
         return $temp;
     }
 

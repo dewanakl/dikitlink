@@ -116,7 +116,7 @@ class StatistikController extends Controller
         header('Pragma: no-cache');
 
         http_response_code(301);
-        header('HTTP/1.1 301 Moved Permanently');
+        header('HTTP/1.1 301 Moved Permanently', true, 301);
         header('Location: ' . trim($link->link), true, 301);
     }
 }

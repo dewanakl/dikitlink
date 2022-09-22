@@ -5,6 +5,7 @@ namespace Core\Database;
 use ArrayIterator;
 use Closure;
 use Core\Facades\App;
+use Exception;
 use IteratorAggregate;
 use JsonSerializable;
 use ReturnTypeWillChange;
@@ -186,16 +187,6 @@ class BaseModel implements IteratorAggregate, JsonSerializable
     }
 
     /**
-     * Eksport to array
-     *
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return json_decode($this->toJson(), true);
-    }
-
-    /**
      * Eksport to json
      *
      * @return string|false
@@ -203,6 +194,16 @@ class BaseModel implements IteratorAggregate, JsonSerializable
     public function toJson(): string|false
     {
         return json_encode($this->attribute());
+    }
+
+    /**
+     * Eksport to array
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return json_decode($this->toJson(), true);
     }
 
     /**
@@ -373,13 +374,8 @@ class BaseModel implements IteratorAggregate, JsonSerializable
      */
     public function orderBy(string $name, string $order = 'ASC'): self
     {
-        if (str_contains($this->query, 'ORDER BY')) {
-            $agr = ', ';
-        } else {
-            $agr = ' ORDER BY ';
-        }
-
-        $this->query = $this->query . $agr . $name . ' ' . $order;
+        $agr = str_contains($this->query, 'ORDER BY') ? ', ' : ' ORDER BY ';
+        $this->query = $this->query . $agr . $name . ' ' . strtoupper($order);
 
         return $this;
     }
@@ -530,6 +526,19 @@ class BaseModel implements IteratorAggregate, JsonSerializable
     }
 
     /**
+     * Save perubahan pada attribute dengan primarykey
+     *
+     * @return bool
+     */
+    public function save(): bool
+    {
+        $attributes = $this->attribute();
+        unset($attributes[$this->primaryKey]);
+
+        return $this->where($this->primaryKey, $this->__get($this->primaryKey))->update($attributes);
+    }
+
+    /**
      * Ambil semua datanya dari tabel ini
      *
      * @return self
@@ -558,7 +567,7 @@ class BaseModel implements IteratorAggregate, JsonSerializable
             'INSERT INTO %s (%s) VALUES (%s)',
             $this->table,
             implode(', ',  $keys),
-            implode(', ',  array_map(fn ($data) => ":" . $data, $keys))
+            implode(', ',  array_map(fn ($data) => ':' . $data, $keys))
         );
 
         $this->bind($query, $data);
@@ -596,7 +605,7 @@ class BaseModel implements IteratorAggregate, JsonSerializable
             return false;
         }
 
-        return $result;
+        return (bool) $result;
     }
 
     /**
@@ -615,7 +624,7 @@ class BaseModel implements IteratorAggregate, JsonSerializable
             return false;
         }
 
-        return $result;
+        return (bool) $result;
     }
 
     /**
@@ -631,6 +640,22 @@ class BaseModel implements IteratorAggregate, JsonSerializable
         }
 
         return null;
+    }
+
+    /**
+     * Isi nilai ke model ini
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return void
+     */
+    public function __set(string $name, mixed $value): void
+    {
+        if ($this->primaryKey == $name) {
+            throw new Exception('Nilai primary key tidak bisa di ubah !');
+        }
+
+        $this->attributes[$name] = $value;
     }
 
     /**

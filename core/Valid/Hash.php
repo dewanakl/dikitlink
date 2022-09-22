@@ -8,7 +8,7 @@ namespace Core\Valid;
  * @class Hash
  * @package Core\Valid
  */
-class Hash
+final class Hash
 {
     /**
      * Algo Ciphering

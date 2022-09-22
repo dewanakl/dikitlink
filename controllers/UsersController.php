@@ -31,7 +31,7 @@ class UsersController extends Controller
         ]);
 
         if ($valid->fails()) {
-            return $this->json([
+            return json([
                 'error' => $valid->failed()
             ]);
         }
@@ -46,7 +46,7 @@ class UsersController extends Controller
             ->get()
             ->rowCount();
 
-        return $this->json([
+        return json([
             'last_month' => $link->lastMonth($valid->id),
             'user_agent' => $getstats('user_agent'),
             'ip_address' => $getstats('ip_address'),

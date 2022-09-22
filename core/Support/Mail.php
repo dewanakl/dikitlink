@@ -72,42 +72,42 @@ class Mail
      * 
      * @var array $to
      */
-    private $to = [];
+    private $to;
 
     /**
      * Dari siapa
      * 
      * @var array $from
      */
-    private $from = [];
+    private $from;
 
     /**
      * Protokolnya
      * 
      * @var string|null $protocol
      */
-    private $protocol = null;
+    private $protocol;
 
     /**
      * Pesannya
      * 
      * @var string|null $htmlMessage
      */
-    private $htmlMessage = null;
+    private $htmlMessage;
 
     /**
      * Apakah tls ?
      * 
      * @var bool $isTLS
      */
-    private $isTLS = false;
+    private $isTLS;
 
     /**
      * Email headers
      * 
      * @var array $headers
      */
-    private $headers = [];
+    private $headers;
 
     /**
      * Init semua config dari env
@@ -303,11 +303,6 @@ class Mail
         $this->setHeader('List-Unsubscribe', '<mailto:' . $this->from[0] . '?subject=unsubscribe>');
 
         $this->setHeader('Content-Type', 'multipart/alternative; boundary="alt-' . $boundary . '"');
-
-        // $message .= '--alt-' . $boundary . self::CRLF;
-        // $message .= 'Content-Type: text/plain; charset=utf-8' . self::CRLF;
-        // $message .= 'Content-Transfer-Encoding: base64' . self::CRLF . self::CRLF;
-        // $message .= chunk_split(base64_encode($this->htmlMessage)) . self::CRLF;
 
         $message .= '--alt-' . $boundary . self::CRLF;
         $message .= 'Content-Type: text/html; charset=utf-8' . self::CRLF;

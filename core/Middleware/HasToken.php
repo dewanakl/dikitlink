@@ -21,7 +21,7 @@ trait HasToken
                 pageExpired();
             }
 
-            respond()->terminate(respond()->json(['token' => false], 400));
+            respond()->terminate(json(['token' => false], 400));
         }
 
         if (!$ajax) {

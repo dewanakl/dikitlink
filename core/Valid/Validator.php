@@ -15,14 +15,14 @@ class Validator
      * 
      * @var array $data
      */
-    private array $data = [];
+    private $data;
 
     /**
      * Error tampung disini
      * 
      * @var array $errors
      */
-    private array $errors = [];
+    private $errors;
 
     /**
      * Init object
@@ -35,6 +35,7 @@ class Validator
     {
         $this->data = $data;
         $this->validate($rule);
+        $this->errors = [];
     }
 
     /**
@@ -340,6 +341,7 @@ class Validator
         foreach ($only as $ol) {
             $temp[$ol] = $this->__get($ol);
         }
+
         return $temp;
     }
 

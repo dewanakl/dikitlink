@@ -26,12 +26,12 @@ class LinkController extends Controller
         ]);
 
         if ($valid->fails()) {
-            return $this->json([
+            return json([
                 'error' => $valid->failed()
             ], 400);
         }
 
-        return $this->json(
+        return json(
             Link::leftJoin('stats', 'links.id', 'stats.link_id')
                 ->where('links.user_id', $this->id)
                 ->where('links.name', '%' . $valid->nama . '%', 'LIKE')
@@ -51,7 +51,7 @@ class LinkController extends Controller
         ]);
 
         if ($valid->fails()) {
-            return $this->json([
+            return json([
                 'error' => $valid->failed()
             ], 400);
         }
@@ -82,7 +82,7 @@ class LinkController extends Controller
             ->get()
             ->rowCount();
 
-        return $this->json([
+        return json([
             'last_week' => $lastweek,
             'user_agent' => $get('user_agent'),
             'ip_address' => $get('ip_address'),
@@ -104,7 +104,7 @@ class LinkController extends Controller
         }
 
         if ($valid->fails()) {
-            return $this->json([
+            return json([
                 'error' => $valid->failed()
             ], 400);
         }
@@ -114,7 +114,7 @@ class LinkController extends Controller
 
         $status = Link::create($data);
 
-        return $this->json([
+        return json([
             'status' => (bool) $status
         ]);
     }
@@ -143,7 +143,7 @@ class LinkController extends Controller
         }
 
         if ($valid->fails()) {
-            return $this->json([
+            return json([
                 'error' => $valid->failed()
             ], 400);
         }
@@ -157,7 +157,7 @@ class LinkController extends Controller
             ->where('user_id', $this->id)
             ->update($data);
 
-        return $this->json([
+        return json([
             'status' => $result
         ]);
     }
@@ -169,7 +169,7 @@ class LinkController extends Controller
         ]);
 
         if ($valid->fails()) {
-            return $this->json([
+            return json([
                 'error' => $valid->failed()
             ], 400);
         }
@@ -178,7 +178,7 @@ class LinkController extends Controller
             ->where('user_id', $this->id)
             ->delete();
 
-        return $this->json([
+        return json([
             'status' => $result
         ]);
     }

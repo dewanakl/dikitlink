@@ -53,7 +53,7 @@
                         <td><?= $key + 1 ?></td>
                         <td><?= e($value['file'] ?? '-') ?></td>
                         <td><?= e($value['line'] ?? '-') ?></td>
-                        <td><?= @$value['class'] ? e($value['class'] . $value['type'] . $value['function']) : e($value['function']) ?></td>
+                        <td><?= e(@$value['class'] ? $value['class'] . $value['type'] . $value['function'] : $value['function']) ?></td>
                     </tr>
                 <?php endforeach ?>
             </table>
