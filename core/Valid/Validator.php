@@ -31,11 +31,10 @@ class Validator
      * @param array $rule
      * @return void
      */
-    function __construct(array $data = [], array $rule = [])
+    function __construct(array $data, array $rule)
     {
         $this->data = $data;
         $this->validate($rule);
-        $this->errors = [];
     }
 
     /**
@@ -316,7 +315,7 @@ class Validator
      */
     public function throw(array $error): void
     {
-        $this->errors = array_merge($this->errors, $error);
+        $this->errors = array_merge($this->failed(), $error);
     }
 
     /**
