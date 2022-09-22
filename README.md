@@ -7,7 +7,7 @@ Dikit Link short link gk ada obat dengan Kamu PHP Framework yang powerfull
 - cp .env.example .env
 - php saya key
 - php saya migrasi --gen
-- php coba (run development serve)
+- php saya coba (run development serve)
 
 ## License
 

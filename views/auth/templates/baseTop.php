@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css" integrity="sha256-AbA177XfpSnFEvgpYu1jMygiLabzPCJCRIBtR5jGc0k=" crossorigin="anonymous">
     <link rel="preload" href="<?= asset('css/app.css') ?>" as="style">
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
+    <script src="<?= asset('sw.js') ?>"></script>
     <script>
         if (!navigator.serviceWorker.controller) {
             navigator.serviceWorker.register('sw.js').then((reg) => {

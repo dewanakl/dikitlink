@@ -31,6 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
     <link rel="preload" href="<?= asset('css/app.css') ?>" as="style">
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
+    <script src="<?= asset('sw.js') ?>"></script>
     <script>
         if (!navigator.serviceWorker.controller) {
             navigator.serviceWorker.register('sw.js').then((reg) => {
