@@ -129,9 +129,5 @@
             "src": "/(.*)",
             "dest": "/api/index.php"
         }
-    ],
-    "env": {
-        "APP_NAME": "dikitlink",
-        "BASEURL": "https://dikitlink.vercel.app"
-    }
+    ]
 }
