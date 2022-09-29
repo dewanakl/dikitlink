@@ -32,6 +32,18 @@ class ProfileController extends Controller
             ]);
         }
 
+        if (empty($request->password) && !empty($request->konfirmasi_password)) {
+            $request->validate([
+                'password' => ['required'],
+            ]);
+        }
+
+        if (!empty($request->password) && empty($request->konfirmasi_password)) {
+            $request->validate([
+                'konfirmasi_password' => ['required'],
+            ]);
+        }
+
         if (!empty($request->password) && !empty($request->konfirmasi_password)) {
             $request->validate([
                 'password' => ['trim', 'str', 'min:8', 'max:20'],

@@ -1,4 +1,6 @@
-<?= extend('templates/top', ['title' => 'Profile']) ?>
+<?php parents('layout/home', ['title' => 'Profile']) ?>
+
+<?php section('home') ?>
 
 <div class="card-body rounded-3 p-2 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
     <p class="fw-semibold m-1"><i class="fa-solid fa-address-card mx-2"></i>Profil kamu</p>
@@ -107,4 +109,4 @@
     }
 </script>
 
-<?= extend('templates/down') ?>
+<?php endsection('home') ?>

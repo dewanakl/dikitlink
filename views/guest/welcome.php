@@ -1,11 +1,13 @@
-<?= extend('auth/templates/baseTop', ['title' => 'Dikit Link']) ?>
+<?php parents('layout/app', ['title' => 'Dikit Link']) ?>
+
+<?php section('main') ?>
 
 <div class="container">
-    <div class="pt-5 border-bottom">
+    <header class="pt-5 border-bottom">
         <div class="row align-items-center justify-content-center">
             <div class="col-lg-8 col-xl-7 col-xxl-6">
                 <div class="my-1 text-center text-xl-start">
-                    <h1 class="fw-bold  mt-0 mb-3" style="font-size: 40px;">Link tuh dikit nggak banyak !</h1>
+                    <h1 class="fw-bold  mt-0 mb-3" style="font-size: 40px;">Link tuh dikit nggak banyak !!</h1>
                     <p class="lead" style="font-size: 24px;">
                         Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?
                     </p>
@@ -18,9 +20,9 @@
                 <img class="img-fluid" width="400" loading="lazy" src="<?= asset('link.svg') ?>" alt="link" />
             </div>
         </div>
-    </div>
+    </header>
 
-    <div class="px-4 py-5 border-bottom">
+    <main class="px-4 py-5 border-bottom">
         <div class="row g-4 row-cols-1 row-cols-lg-3">
             <div class="col d-flex align-items-start">
                 <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-2">
@@ -77,7 +79,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer class="p-4">
         <div class="row align-items-center justify-content-between flex-column flex-sm-row">
@@ -161,4 +163,4 @@
     </div>
 </div>
 
-<?= extend('auth/templates/baseDown') ?>
+<?php endsection('main') ?>

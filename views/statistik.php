@@ -1,4 +1,6 @@
-<?= extend('templates/top', ['title' => 'Statistik']) ?>
+<?php parents('layout/home', ['title' => 'Statistik']) ?>
+
+<?php section('home') ?>
 
 <div class="card-body rounded-3 p-2 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
     <div class="d-flex justify-content-between">
@@ -126,4 +128,4 @@
     });
 </script>
 
-<?= extend('templates/down') ?>
+<?php endsection('home') ?>

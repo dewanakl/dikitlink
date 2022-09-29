@@ -1,4 +1,6 @@
-<?= extend('auth/templates/top', ['title' => $opened ? 'Sabar yaa' : 'Maaf yaa', 'img' => 'time.svg']) ?>
+<?php parents('layout/guest', ['title' => $opened ? 'Sabar yaa' : 'Maaf yaa', 'img' => 'time.svg']) ?>
+
+<?php section('guest') ?>
 
 <div class="container">
     <div class="row">
@@ -16,7 +18,7 @@
     </div>
 </div>
 
-<script defer>
+<script>
     let countDownDate = new Date("<?= $time ?>").getTime();
 
     const countDown = () => {
@@ -25,7 +27,7 @@
 
         if (distance < 0) {
             clearInterval(time);
-            window.location.reload();
+            setTimeout(() => window.location.reload(), 1000);
             return false;
         }
 
@@ -48,4 +50,4 @@
     countDown();
 </script>
 
-<?= extend('auth/templates/down') ?>
+<?php endsection('guest') ?>

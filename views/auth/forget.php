@@ -1,10 +1,14 @@
-<?= extend('auth/templates/top', ['title' => 'Reset password', 'img' => 'forget.svg']) ?>
+<?php parents('layout/guest', ['title' => 'Reset password', 'img' => 'forget.svg']) ?>
+
+<?php section('guest') ?>
 
 <div class="container">
+
     <div class="row">
         <div class="col-auto mx-auto">
             <img src="<?= asset('forget.svg') ?>" width="200" class="d-block d-md-none img-fluid ">
         </div>
+
         <div class="col-md-9 col-lg-8 mx-auto">
             <h1 class="fw-bold mt-3 mb-3">
                 Kelupaan ?
@@ -38,7 +42,7 @@
                     <?php endif ?>
                 </div>
                 <div class="d-grid">
-                    <button class="btn btn-warning  fw-bold mb-2" id="button-forget" type="submit">Kirim</button>
+                    <button class="btn btn-warning fw-bold mb-2" id="button-forget" type="submit">Kirim</button>
                 </div>
                 <hr class="text-dark">
                 <div class="d-flex justify-content-center">
@@ -58,4 +62,4 @@
     }
 </script>
 
-<?= extend('auth/templates/down') ?>
+<?php endsection('guest') ?>

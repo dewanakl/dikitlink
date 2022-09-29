@@ -8,6 +8,6 @@ class LandingController extends Controller
 {
     public function __invoke()
     {
-        return $this->view('welcome');
+        return $this->view('guest/welcome');
     }
 }

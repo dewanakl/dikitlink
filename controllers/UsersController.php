@@ -2,6 +2,7 @@
 
 namespace Controllers;
 
+use Core\Database\DB;
 use Core\Routing\Controller;
 use Core\Valid\Validator;
 use Models\Link;
@@ -11,7 +12,8 @@ class UsersController extends Controller
 {
     public function index()
     {
-        $users = User::leftJoin('links', 'users.id', 'links.user_id')
+        $users = DB::table('users')
+            ->leftJoin('links', 'users.id', 'links.user_id')
             ->leftJoin('stats', 'links.id', 'stats.link_id')
             ->where('users.role_id', 2)
             ->groupBy('users.id')
@@ -19,7 +21,7 @@ class UsersController extends Controller
             ->select('users.*', 'count(DISTINCT links.id) as jumlah_link', 'count(stats.id) as jumlah_pengunjung')
             ->get();
 
-        return $this->view('users', compact('users'));
+        return $this->view('admin/users', compact('users'));
     }
 
     public function detail(Link $link, $id)
@@ -27,7 +29,7 @@ class UsersController extends Controller
         $valid = Validator::make([
             'id' => $id
         ], [
-            'id' => ['required', 'int']
+            'id' => ['required', 'max:5', 'int']
         ]);
 
         if ($valid->fails()) {

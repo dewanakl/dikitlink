@@ -1,4 +1,6 @@
-<?= extend('auth/templates/top', ['title' => 'Register', 'img' => 'register.svg']) ?>
+<?php parents('layout/guest', ['title' => 'Register', 'img' => 'register.svg']) ?>
+
+<?php section('guest') ?>
 
 <div class="container">
     <div class="row">
@@ -62,4 +64,4 @@
     }
 </script>
 
-<?= extend('auth/templates/down') ?>
+<?php endsection('guest') ?>

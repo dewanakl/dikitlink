@@ -11,9 +11,10 @@ class DashboardController extends Controller
     public function __invoke()
     {
         $id = Auth::user()->id;
-        $sumstats = (new Link)->sumStats($id);
+        $link = new Link();
 
-        $unique = Link::join('stats', 'links.id', 'stats.link_id')
+        $sumstats = $link->sumStats($id);
+        $unique = $link->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id)
             ->groupBy('stats.user_agent', 'stats.ip_address')
             ->select('COUNT(stats.link_id)')
@@ -21,6 +22,8 @@ class DashboardController extends Controller
             ->rowCount();
 
         $now = date('G');
+        $greeting = null;
+
         if ($now >= 5 && $now < 18) {
             if ($now >= 5 && $now < 10) {
                 $greeting = 'Pagi';

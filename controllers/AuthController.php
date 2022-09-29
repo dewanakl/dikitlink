@@ -68,7 +68,7 @@ class AuthController extends Controller
 
         $user = User::find($request->email, 'email')->fail(fn () => false);
 
-        if (!$user) {
+        if ($user === false) {
             return $this->back()->with('gagal', 'Email tidak ada');
         }
 
@@ -93,17 +93,19 @@ class AuthController extends Controller
 
     public function reset($id)
     {
-        if ($id === session()->get('key')) {
+        $success = false;
+
+        if (hash_equals(session()->get('key', Hash::rand(10)), $id)) {
             Auth::login(User::find(session()->get('email'), 'email'));
-
-            session()->unset('key');
-            session()->unset('email');
-
-            return $this->redirect(route('profile'))->with('berhasil', 'Silahkan ganti password anda !');
+            $success = true;
         }
 
         session()->unset('key');
         session()->unset('email');
+
+        if ($success) {
+            return $this->redirect(route('profile'))->with('berhasil', 'Silahkan ganti password anda !');
+        }
 
         return $this->redirect(route('forget'))->with('gagal', 'Kode tidak valid !');
     }

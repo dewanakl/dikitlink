@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Core\Auth\Auth;
+use Core\Database\DB;
 use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Valid\Validator;
@@ -25,7 +26,8 @@ class StatistikController extends Controller
 
     public function download()
     {
-        $hasil = Link::join('stats', 'links.id', 'stats.link_id')
+        $hasil = DB::table('links')
+            ->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', Auth::user()->id)
             ->select('stats.created_at', 'links.name', 'stats.user_agent', 'stats.ip_address')
             ->get()
@@ -59,17 +61,17 @@ class StatistikController extends Controller
         );
 
         if ($valid->fails()) {
-            return $this->view('hilang');
+            return $this->view('guest/hilang');
         }
 
         $link = Link::find($valid->id, 'name');
 
         if (empty($link->id)) {
-            return $this->view('hilang');
+            return $this->view('guest/hilang');
         }
 
         if (!empty($link->waktu_tutup) && time() >= strtotime($link->waktu_tutup)) {
-            return $this->view('tunggu', [
+            return $this->view('guest/tunggu', [
                 'opened' => false,
                 'name' => $id,
                 'time' => $link->waktu_tutup
@@ -77,7 +79,7 @@ class StatistikController extends Controller
         }
 
         if (!empty($link->waktu_buka) && time() <= strtotime($link->waktu_buka)) {
-            return $this->view('tunggu', [
+            return $this->view('guest/tunggu', [
                 'opened' => true,
                 'name' => $id,
                 'time' => $link->waktu_buka
@@ -85,20 +87,20 @@ class StatistikController extends Controller
         }
 
         if (!empty($link->link_password)) {
-            if (!empty($valid->password)) {
-                if ($link->link_password !== $valid->password) {
-                    return $this->back()->with('gagal', 'Password salah !');
-                }
-            } else {
+            if (empty($valid->password)) {
                 if ($request->method() == 'POST') {
                     $request->validate([
                         'password' => ['required', 'trim', 'str', 'max:25']
                     ]);
                 }
 
-                return $this->view('password', [
+                return $this->view('guest/password', [
                     'name' => $valid->id
                 ]);
+            }
+
+            if (!hash_equals($link->link_password, $valid->password)) {
+                return $this->back()->with('gagal', 'Password salah !');
             }
         }
 

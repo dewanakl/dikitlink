@@ -1,4 +1,6 @@
-<?= extend('templates/top', ['title' => 'Users']) ?>
+<?php parents('layout/home', ['title' => 'Users']) ?>
+
+<?php section('home') ?>
 
 <div class="card-body rounded-3 p-2 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
     <p class="fw-semibold m-1"><i class="fa-solid fa-users mx-2"></i>Daftar user di platform ini</p>
@@ -306,4 +308,4 @@
     });
 </script>
 
-<?= extend('templates/down') ?>
+<?php endsection('home') ?>

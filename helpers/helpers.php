@@ -7,6 +7,7 @@ use Core\Http\Request;
 use Core\Http\Respond;
 use Core\Routing\Route;
 use Core\Http\Session;
+use Core\View\View;
 
 if (!function_exists('app')) {
     /**
@@ -17,11 +18,13 @@ if (!function_exists('app')) {
      */
     function app(?string $class = null): object
     {
+        $app = App::get();
+
         if ($class) {
-            return App::get()->singleton($class);
+            return $app->singleton($class);
         }
 
-        return App::get();
+        return $app;
     }
 }
 
@@ -61,7 +64,7 @@ if (!function_exists('auth')) {
     }
 }
 
-if (!function_exists('extend')) {
+if (!function_exists('render')) {
     /**
      * Baca dari view serta masih bentuk object
      * 
@@ -69,7 +72,7 @@ if (!function_exists('extend')) {
      * @param array $data
      * @return Render
      */
-    function extend(string $path, array $data = []): Render
+    function render(string $path, array $data = []): Render
     {
         $template = new Render($path);
         $template->setData($data);
@@ -79,20 +82,17 @@ if (!function_exists('extend')) {
     }
 }
 
-if (!function_exists('show')) {
+if (!function_exists('clear_ob')) {
     /**
-     * Tampikan hasil dari template html
+     * Hapus cache ob
      * 
-     * @param string $path
-     * @param array $data
      * @return void
      */
-    function show(string $path, array $data = []): void
+    function clear_ob(): void
     {
-        $template = extend($path, $data);
-
-        @ob_end_clean();
-        echo $template;
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
     }
 }
 
@@ -116,10 +116,10 @@ if (!function_exists('e')) {
     /**
      * Tampikan hasil secara aman
      * 
-     * @param ?string $var
+     * @param mixed $var
      * @return string
      */
-    function e(?string $var): string
+    function e(mixed $var): string
     {
         $var = is_null($var) ? '' : $var;
         return htmlspecialchars($var, ENT_QUOTES);
@@ -136,7 +136,8 @@ if (!function_exists('dd')) {
     function dd(mixed ...$param): void
     {
         header('Content-Type: text/html');
-        show('../helpers/errors/dd', [
+        clear_ob();
+        echo render('../helpers/errors/dd', [
             'param' => $param
         ]);
         exit;
@@ -152,7 +153,8 @@ if (!function_exists('abort')) {
     function abort(): void
     {
         header('HTTP/1.1 403 Forbidden', true, 403);
-        show('../helpers/errors/error', [
+        clear_ob();
+        echo render('../helpers/errors/error', [
             'pesan' => 'Forbidden 403'
         ]);
         exit;
@@ -168,7 +170,8 @@ if (!function_exists('notFound')) {
     function notFound(): void
     {
         header('HTTP/1.1 404 Not Found', true, 404);
-        show('../helpers/errors/error', [
+        clear_ob();
+        echo render('../helpers/errors/error', [
             'pesan' => 'Not Found 404'
         ]);
         exit;
@@ -184,7 +187,8 @@ if (!function_exists('notAllowed')) {
     function notAllowed(): void
     {
         header('HTTP/1.1 405 Method Not Allowed', true, 405);
-        show('../helpers/errors/error', [
+        clear_ob();
+        echo render('../helpers/errors/error', [
             'pesan' => 'Method Not Allowed 405'
         ]);
         exit;
@@ -200,7 +204,8 @@ if (!function_exists('pageExpired')) {
     function pageExpired(): void
     {
         header('HTTP/1.1 400 Bad Request', true, 400);
-        show('../helpers/errors/error', [
+        clear_ob();
+        echo render('../helpers/errors/error', [
             'pesan' => 'Page Expired !'
         ]);
         exit;
@@ -216,7 +221,8 @@ if (!function_exists('unavailable')) {
     function unavailable(): void
     {
         header('HTTP/1.1 503 Service Unavailable', true, 503);
-        show('../helpers/errors/error', [
+        clear_ob();
+        echo render('../helpers/errors/error', [
             'pesan' => 'Service Unavailable !'
         ]);
         exit;
@@ -329,7 +335,7 @@ if (!function_exists('old')) {
     function old(string $param): mixed
     {
         $old = session()->get('old');
-        return e($old[$param] ?? '');
+        return e(@$old[$param]);
     }
 }
 
@@ -349,7 +355,7 @@ if (!function_exists('error')) {
             return $error;
         }
 
-        $result = $error[$key] ?? null;
+        $result = @$error[$key];
 
         if ($result && $optional) {
             return $optional;
@@ -371,7 +377,7 @@ if (!function_exists('routeIs')) {
     function routeIs(string $param, ?string $optional = null, bool $notcontains = false): mixed
     {
         $now = app(Request::class)->server('REQUEST_URI');
-        $route = ($notcontains) ? $now == $param : str_contains($now, $param);
+        $route = $notcontains ? $now == $param : str_contains($now, $param);
 
         if ($route && $optional) {
             return $optional;
@@ -411,6 +417,73 @@ if (!function_exists('now')) {
     function now(string $format = 'Y-m-d H:i:s'): string
     {
         return (new DateTime('now'))->format($format);
+    }
+}
+
+if (!function_exists('parents')) {
+    /**
+     * Set parent html
+     * 
+     * @param string $name
+     * @param array $variables
+     * @return void
+     */
+    function parents(string $name, array $variables = []): void
+    {
+        app(View::class)->parents($name, $variables);
+    }
+}
+
+if (!function_exists('section')) {
+    /**
+     * Bagian awal dari html
+     * 
+     * @param string $name
+     * @return void
+     */
+    function section(string $name): void
+    {
+        app(View::class)->section($name);
+    }
+}
+
+if (!function_exists('content')) {
+    /**
+     * Tampilkan bagian dari html
+     * 
+     * @param string $name
+     * @return string|false|null
+     */
+    function content(string $name): string|false|null
+    {
+        return app(View::class)->content($name);
+    }
+}
+
+
+if (!function_exists('endsection')) {
+    /**
+     * Bagian akhir dari html
+     * 
+     * @param string $name
+     * @return void
+     */
+    function endsection(string $name): void
+    {
+        app(View::class)->endsection($name);
+    }
+}
+
+if (!function_exists('including')) {
+    /**
+     * Masukan html opsional
+     * 
+     * @param string $name
+     * @return Render
+     */
+    function including(string $name): Render
+    {
+        return app(View::class)->including($name);
     }
 }
 

@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Core\Auth\Auth;
+use Core\Database\DB;
 use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Valid\Validator;
@@ -32,13 +33,14 @@ class LinkController extends Controller
         }
 
         return json(
-            Link::leftJoin('stats', 'links.id', 'stats.link_id')
+            DB::table('links')
+                ->leftJoin('stats', 'links.id', 'stats.link_id')
                 ->where('links.user_id', $this->id)
                 ->where('links.name', '%' . $valid->nama . '%', 'LIKE')
                 ->groupBy('links.id')
                 ->orderBy('links.id', 'DESC')
                 ->limit($valid->end)
-                ->offset($valid->init)
+                ->offset($valid->init ?? 0)
                 ->select('links.name', 'links.link', 'links.created_at', 'links.link_password', 'links.waktu_buka', 'links.waktu_tutup', 'count(stats.id) as hint')
                 ->get()
         );
@@ -150,8 +152,8 @@ class LinkController extends Controller
 
         $data = $valid->only(['name', 'link']);
         $data['link_password'] = empty($valid->password) ? null : $valid->password;
-        $data['waktu_buka'] = $valid->buka ? implode(' ', explode('T', $valid->buka)) . ':00' : null;
-        $data['waktu_tutup'] = $valid->tutup ? implode(' ', explode('T', $valid->tutup)) . ':00' : null;
+        $data['waktu_buka'] = empty($valid->buka) ? null : implode(' ', explode('T', $valid->buka)) . ':00';
+        $data['waktu_tutup'] = empty($valid->tutup) ? null : implode(' ', explode('T', $valid->tutup)) . ':00';
 
         $result = Link::where('id', Link::find($valid->old, 'name')->id)
             ->where('user_id', $this->id)

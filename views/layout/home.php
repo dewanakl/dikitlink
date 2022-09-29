@@ -1,5 +1,30 @@
-</div>
-</div>
+<?php parents('layout/app') ?>
+
+<?php section('preload.home') ?>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.31/dist/sweetalert2.all.min.js" integrity="sha256-ggd5OAL5qzG/QNS7HMsiPFhPjD0GDS1Lej7cfgR4cv4=" crossorigin="anonymous" as="script" />
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous" as="script" />
+<?php endsection('preload.home') ?>
+
+<?php section('utiltop') ?>
+<!-- Util.js -->
+<script src="<?= asset('js/utiltop.js') ?>"></script>
+<?php endsection('utiltop') ?>
+
+
+<?php section('main') ?>
+<?= including('layout/navbar') ?>
+
+<div class="container mt-3 mb-5">
+    <div class="d-flex d-none d-sm-flex justify-content-between align-items-center mb-4 mt-4">
+        <h4 class="d-none d-sm-block fw-bold mx-1">Dikit<i class="fa-solid fa-link mx-1"></i>Link</h4>
+        <h4 class="text-truncate mx-1">Haii, <?= e(auth()->user()->nama) ?></h4>
+    </div>
+    <div class="row">
+        <?= including('layout/sidebar') ?>
+        <div class="col-md-9">
+            <?= content('home') ?>
+        </div>
+    </div>
 </div>
 
 <div class="offcanvas offcanvas-bottom" style="height: 50vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
@@ -73,4 +98,10 @@
     </div>
 </div>
 
-<?= extend('templates/baseDown') ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.31/dist/sweetalert2.all.min.js" integrity="sha256-ggd5OAL5qzG/QNS7HMsiPFhPjD0GDS1Lej7cfgR4cv4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
+
+<!-- Util.js -->
+<script src="<?= asset('js/utildown.js') ?>"></script>
+
+<?php endsection('main') ?>
