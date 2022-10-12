@@ -19,7 +19,7 @@ final class Link extends Model
     {
         $lastmonth = $this->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id)
-            ->where('stats.created_at', date('Y-m', strtotime('-1 month', strtotime('now'))) . '-01 00:00:00.000000', '>=')
+            ->where('stats.created_at', date('Y-m', strtotime('-1 years', strtotime('now'))) . '-01 00:00:00.000000', '>=')
             ->groupBy('tgl')
             ->select('concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at)) AS tgl', 'count(stats.id) as hint')
             ->get()
