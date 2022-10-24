@@ -14,7 +14,7 @@ return new class implements Migration
     public function up()
     {
         Schema::table('links', function (Table $table) {
-            $table->addColumn(function (Table $table) {
+            $table->addColumn(function () use ($table) {
                 $table->string('link_password', 20)->nullable();
                 $table->dateTime('waktu_buka')->nullable();
                 $table->dateTime('waktu_tutup')->nullable();

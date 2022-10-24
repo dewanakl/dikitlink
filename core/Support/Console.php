@@ -169,6 +169,66 @@ class Console
     }
 
     /**
+     * Load template file
+     *
+     * @param ?string $name
+     * @param int $tipe
+     * @return mixed
+     */
+    private function loadTemplate(?string $name, int $tipe): mixed
+    {
+        $this->exception('Butuh Nama file !', !$name);
+        switch ($tipe) {
+            case 1:
+                $type = 'templateMigrasi.php';
+                break;
+            case 2:
+                $type = 'templateMiddleware.php';
+                break;
+            case 3:
+                $type = 'templateController.php';
+                break;
+            default:
+                $type = 'templateModel.php';
+                break;
+        }
+
+        return require_once __DIR__ . '/../../helpers/templates/' . $type;
+    }
+
+    /**
+     * Save template file
+     *
+     * @param string $name
+     * @param mixed $data
+     * @param int $tipe
+     * @return void
+     */
+    private function saveTemplate(string $name, mixed $data, int $tipe): void
+    {
+        $type = '';
+        $optional = '';
+        switch ($tipe) {
+            case 1:
+                $type = 'database/schema';
+                $optional = strtotime('now') . '_';
+                break;
+            case 2:
+                $type = 'middleware';
+                break;
+            case 3:
+                $type = 'controllers';
+                break;
+            default:
+                $type = 'models';
+                break;
+        }
+
+        $result = file_put_contents(__DIR__ . '/../../' . $type . '/' . $optional . $name . '.php', $data);
+        $this->exception('Gagal membuat ' . $type, !$result, 'Berhasil membuat ' . $type . ' ' . $name);
+    }
+
+    /**
      * Buat file migrasi
      *
      * @param ?string $name
@@ -176,11 +236,10 @@ class Console
      */
     private function createMigrasi(?string $name): void
     {
-        $this->exception('Butuh Nama file !', !$name);
-        $data = require_once __DIR__ . '/../../helpers/templates/templateMigrasi.php';
-        $data = str_replace('NAME', $name, $data);
-        $result = file_put_contents(__DIR__ . '/../../database/schema/' . strtotime('now') . '_' . $name . '.php', $data);
-        $this->exception('Gagal membuat migrasi', !$result, 'Berhasil membuat migrasi ' . $name);
+        $data = $this->loadTemplate($name, 1);
+        $data = str_contains(strtolower($name), 'add') ? $data[1] : $data[0];
+        $data = str_replace('NAME', explode('_', $name)[count(explode('_', $name)) - 1], $data);
+        $this->saveTemplate($name, $data, 1);
     }
 
     /**
@@ -191,11 +250,9 @@ class Console
      */
     private function createMiddleware(?string $name): void
     {
-        $this->exception('Butuh Nama file !', !$name);
-        $data = require_once __DIR__ . '/../../helpers/templates/templateMiddleware.php';
+        $data = $this->loadTemplate($name, 2);
         $data = str_replace('NAME', $name, $data);
-        $result = file_put_contents(__DIR__ . '/../../middleware/' . $name . '.php', $data);
-        $this->exception('Gagal membuat middleware', !$result, 'Berhasil membuat middleware ' . $name);
+        $this->saveTemplate($name, $data, 2);
     }
 
     /**
@@ -206,11 +263,9 @@ class Console
      */
     private function createController(?string $name): void
     {
-        $this->exception('Butuh Nama file !', !$name);
-        $data = require_once __DIR__ . '/../../helpers/templates/templateController.php';
+        $data = $this->loadTemplate($name, 3);
         $data = str_replace('NAME', $name, $data);
-        $result = file_put_contents(__DIR__ . '/../../controllers/' . $name . '.php', $data);
-        $this->exception('Gagal membuat controller', !$result, 'Berhasil membuat controller ' . $name);
+        $this->saveTemplate($name, $data, 3);
     }
 
     /**
@@ -221,12 +276,10 @@ class Console
      */
     private function createModel(?string $name): void
     {
-        $this->exception('Butuh Nama file !', !$name);
-        $data = require_once __DIR__ . '/../../helpers/templates/templateModel.php';
+        $data = $this->loadTemplate($name, 4);
         $data = str_replace('NAME', $name, $data);
         $data = str_replace('NAMe', strtolower($name), $data);
-        $result = file_put_contents(__DIR__ . '/../../models/' . $name . '.php', $data);
-        $this->exception('Gagal membuat model', !$result, 'Berhasil membuat model ' . $name);
+        $this->saveTemplate($name, $data, 4);
     }
 
     /**
@@ -323,8 +376,8 @@ class Console
     {
         switch ($this->command) {
             case 'coba':
-                $location = ($this->options) ? $this->options : 'localhost';
-                shell_exec("php -S $location:8000 -t public");
+                $location = ($this->options) ? $this->options : 'localhost:8000';
+                shell_exec("php -S $location -t public");
                 break;
             case 'key':
                 $this->createKey();

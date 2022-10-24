@@ -2,6 +2,9 @@
 
 namespace Core\Database;
 
+use Closure;
+use Exception;
+
 /**
  * Helper class DB untuk custome nama table
  *
@@ -41,16 +44,53 @@ final class DB
     public static function beginTransaction(): bool
     {
         self::$base = new BaseModel();
-        return self::$base->startTransaction();
+        return self::$base->db()->beginTransaction();
     }
 
     /**
-     * Akhiri transaksinya
+     * Commit transaksinya
      *
      * @return bool
      */
-    public static function endTransaction(): bool
+    public static function commit(): bool
     {
-        return self::$base->endTransaction();
+        return self::$base->db()->commit();
+    }
+
+    /**
+     * Kembalikan transaksinya
+     *
+     * @return bool
+     */
+    public static function rollBack(): bool
+    {
+        return self::$base->db()->rollBack();
+    }
+
+    /**
+     * Tampilkan errornya
+     *
+     * @return void
+     */
+    public static function exception(mixed $e): void
+    {
+        self::$base->db()->catchException($e);
+    }
+
+    /**
+     * DB transaction sederhana
+     *
+     * @return void
+     */
+    public static function transaction(Closure $fn): void
+    {
+        self::beginTransaction();
+        try {
+            $fn();
+            self::commit();
+        } catch (Exception $e) {
+            self::rollBack();
+            self::exception($e);
+        }
     }
 }

@@ -41,7 +41,10 @@ final class Schema
         $table->table($name);
         $attribute($table);
 
-        app(DataBase::class)->exec($table->export());
+        $export = $table->export();
+        if ($export) {
+            app(DataBase::class)->exec($export);
+        }
     }
 
     /**

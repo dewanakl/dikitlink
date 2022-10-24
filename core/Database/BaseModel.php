@@ -5,6 +5,7 @@ namespace Core\Database;
 use ArrayIterator;
 use Closure;
 use Core\Facades\App;
+use Countable;
 use Exception;
 use IteratorAggregate;
 use JsonSerializable;
@@ -17,7 +18,7 @@ use Traversable;
  * @class BaseModel
  * @package Core\Database
  */
-class BaseModel implements IteratorAggregate, JsonSerializable
+class BaseModel implements Countable, IteratorAggregate, JsonSerializable
 {
     /**
      * String query sql
@@ -240,6 +241,16 @@ class BaseModel implements IteratorAggregate, JsonSerializable
     }
 
     /**
+     * Get primaryKey
+     *
+     * @return string
+     */
+    public function getPrimaryKey(): string
+    {
+        return $this->primaryKey;
+    }
+
+    /**
      * Debug querynya
      *
      * @return void
@@ -251,23 +262,23 @@ class BaseModel implements IteratorAggregate, JsonSerializable
     }
 
     /**
-     * Mulai transaksinya
+     * Ambil db object
      *
-     * @return bool
+     * @return DataBase
      */
-    public function startTransaction(): bool
+    public function db(): DataBase
     {
-        return $this->db->startTransaction();
+        return $this->db;
     }
 
     /**
-     * Akhiri transaksinya
+     * Hitung jumlah data attribute
      *
-     * @return bool
+     * @return int
      */
-    public function endTransaction(): bool
+    public function count(): int
     {
-        return $this->db->endTransaction();
+        return count($this->attribute());
     }
 
     /**
@@ -625,6 +636,44 @@ class BaseModel implements IteratorAggregate, JsonSerializable
         }
 
         return (bool) $result;
+    }
+
+    /**
+     * Ambil sebagian dari attribute
+     * 
+     * @param array $only
+     * @return self
+     */
+    public function only(array $only): self
+    {
+        $temp = [];
+        foreach ($only as $ol) {
+            $temp[$ol] = $this->__get($ol);
+        }
+
+        $this->attributes = $temp;
+
+        return $this;
+    }
+
+    /**
+     * Ambil kecuali dari attribute
+     * 
+     * @param array $except
+     * @return self
+     */
+    public function except(array $except): self
+    {
+        $temp = [];
+        foreach ($this->attribute() as $key => $value) {
+            if (!in_array($key, $except)) {
+                $temp[$key] = $value;
+            }
+        }
+
+        $this->attributes = $temp;
+
+        return $this;
     }
 
     /**

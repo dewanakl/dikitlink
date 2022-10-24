@@ -5,6 +5,7 @@ use Controllers\DashboardController;
 use Controllers\LandingController;
 use Controllers\LinkController;
 use Controllers\ProfileController;
+use Controllers\ServerController;
 use Controllers\StatistikController;
 use Controllers\UsersController;
 use Core\Routing\Route;
@@ -16,6 +17,8 @@ use Middleware\GuestMiddleware;
  * Make something great with this app
  * keep simple yahh
  */
+
+Route::get('/server/check', [ServerController::class, 'index']);
 
 // Blom login
 Route::middleware(GuestMiddleware::class)->group(function () {

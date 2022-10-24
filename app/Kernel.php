@@ -65,6 +65,47 @@ class Kernel
     }
 
     /**
+     * Apakah https ?
+     * 
+     * @return bool
+     */
+    private function getHttps(): bool
+    {
+        return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443 || @$_ENV['HTTPS'] == 'true';
+    }
+
+    /**
+     * Dapatkan baseurl
+     * 
+     * @return string
+     */
+    private function getBaseurl(): string
+    {
+        return @$_ENV['BASEURL'] ? rtrim($_ENV['BASEURL'], '/') : (HTTPS ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * Tampilkan errornya
+     * 
+     * @return Closure
+     */
+    private function errorClosure(): \Closure
+    {
+        return function (\Throwable $error) {
+            clear_ob();
+            header('Content-Type: text/html');
+
+            if (!DEBUG) {
+                unavailable();
+            }
+
+            header('HTTP/1.1 500 Internal Server Error', true, 500);
+            echo render('../helpers/errors/trace', compact('error'));
+            exit;
+        };
+    }
+
+    /**
      * Import helper
      * 
      * @return void
@@ -88,30 +129,20 @@ class Kernel
      * Kernel for web
      * 
      * @return object
+     * @throws Exception
      */
     public static function web(): object
     {
         $self = new self();
 
-        define('HTTPS', (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443 || @$_ENV['HTTPS']);
-        define('BASEURL', @$_ENV['BASEURL'] ? rtrim($_ENV['BASEURL'], '/') : (HTTPS ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
+        define('HTTPS', $self->getHttps());
+        define('BASEURL', $self->getBaseurl());
         define('DEBUG', @$_ENV['DEBUG'] == 'true');
 
         error_reporting(DEBUG ? E_ALL : 0);
         $self->helper();
 
-        set_exception_handler(function (\Throwable $error) {
-            header('Content-Type: text/html');
-            clear_ob();
-
-            if (!DEBUG) {
-                unavailable();
-            }
-
-            header('HTTP/1.1 500 Internal Server Error', true, 500);
-            echo render('../helpers/errors/trace', compact('error'));
-            exit;
-        });
+        set_exception_handler($self->errorClosure());
 
         if (!env('APP_KEY')) {
             throw new \Exception('App Key gk ada !');
