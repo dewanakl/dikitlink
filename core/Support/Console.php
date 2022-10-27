@@ -283,6 +283,23 @@ class Console
     }
 
     /**
+     * Buat file mail
+     *
+     * @param ?string $name
+     * @return void
+     */
+    private function createMail(?string $name): void
+    {
+        $this->exception('Butuh Nama file !', !$name);
+        $folder =  __DIR__ . '/../../views/email/';
+        if (!is_dir($folder)) {
+            mkdir($folder, 7777, true);
+        }
+        $result = copy(__DIR__ . '/../../helpers/templates/templateMail.php', $folder . $name . '.php');
+        $this->exception('Gagal membuat email', !$result, 'Berhasil membuat email ' . $name);
+    }
+
+    /**
      * Tampilkan list menu yang ada
      *
      * @return void
@@ -329,6 +346,10 @@ class Console
             [
                 'command' => 'bikin:model',
                 'description' => 'Bikin file model [nama file]'
+            ],
+            [
+                'command' => 'bikin:email',
+                'description' => 'Bikin file email [nama file]'
             ],
         ];
 
@@ -412,6 +433,9 @@ class Console
                 break;
             case 'bikin:model':
                 $this->createModel($this->options);
+                break;
+            case 'bikin:email':
+                $this->createMail($this->options);
                 break;
             default:
                 $this->listMenu();

@@ -504,6 +504,29 @@ if (!function_exists('formatBytes')) {
     }
 }
 
+if (!function_exists('errorClosure')) {
+    /**
+     * Tampilkan errornya
+     * 
+     * @return Closure
+     */
+    function errorClosure(): \Closure
+    {
+        return function (\Throwable $error) {
+            clear_ob();
+            header('Content-Type: text/html');
+
+            if (!DEBUG) {
+                unavailable();
+            }
+
+            header('HTTP/1.1 500 Internal Server Error', true, 500);
+            echo render('../helpers/errors/trace', compact('error'));
+            exit;
+        };
+    }
+}
+
 if (!function_exists('getPageTime')) {
     /**
      * Dapatkan waktu yang dibutuhkan untuk merender halaman

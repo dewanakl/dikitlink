@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Core\Auth\Auth;
+use Core\Database\DB;
 use Core\Routing\Controller;
 use Models\Link;
 
@@ -46,6 +47,7 @@ class DashboardController extends Controller
 
     public function list()
     {
+        DB::table('users')->where('id', auth()->user()->id)->update(['last_active' => now()]);
         return $this->view('list');
     }
 }

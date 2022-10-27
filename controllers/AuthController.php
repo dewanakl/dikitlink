@@ -76,10 +76,13 @@ class AuthController extends Controller
 
         $mail->addTo($request->email)
             ->subjek('Reset Password Dikit Link')
-            ->pesan($this->view('/../helpers/templates/templateMail', [
+            ->pesan($this->view('email/reset', [
                 'nama' => $user->nama,
                 'link' => route('reset', $key)
             ]));
+
+        session()->unset('key');
+        session()->unset('email');
 
         if ($mail->send()) {
             session()->set('key', $key);

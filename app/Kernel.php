@@ -17,6 +17,13 @@ class Kernel
     private $app;
 
     /**
+     * Object kernel
+     * 
+     * @var self $self
+     */
+    private static $self;
+
+    /**
      * Init object
      * 
      * @return void
@@ -77,32 +84,12 @@ class Kernel
     /**
      * Dapatkan baseurl
      * 
+     * @param bool $https
      * @return string
      */
-    private function getBaseurl(): string
+    private function getBaseurl(bool $https): string
     {
-        return @$_ENV['BASEURL'] ? rtrim($_ENV['BASEURL'], '/') : (HTTPS ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
-    }
-
-    /**
-     * Tampilkan errornya
-     * 
-     * @return Closure
-     */
-    private function errorClosure(): \Closure
-    {
-        return function (\Throwable $error) {
-            clear_ob();
-            header('Content-Type: text/html');
-
-            if (!DEBUG) {
-                unavailable();
-            }
-
-            header('HTTP/1.1 500 Internal Server Error', true, 500);
-            echo render('../helpers/errors/trace', compact('error'));
-            exit;
-        };
+        return @$_ENV['BASEURL'] ? rtrim($_ENV['BASEURL'], '/') : ($https ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
     }
 
     /**
@@ -133,16 +120,19 @@ class Kernel
      */
     public static function web(): object
     {
-        $self = new self();
+        if (!(static::$self instanceof self)) {
+            static::$self = new self();
+        }
 
-        define('HTTPS', $self->getHttps());
-        define('BASEURL', $self->getBaseurl());
+        define('HTTPS', static::$self->getHttps());
+        define('BASEURL', static::$self->getBaseurl(HTTPS));
         define('DEBUG', @$_ENV['DEBUG'] == 'true');
 
         error_reporting(DEBUG ? E_ALL : 0);
-        $self->helper();
 
-        set_exception_handler($self->errorClosure());
+        static::$self->helper();
+
+        set_exception_handler(errorClosure());
 
         if (!env('APP_KEY')) {
             throw new \Exception('App Key gk ada !');
@@ -150,7 +140,7 @@ class Kernel
 
         require_once __DIR__ . '/../routes/routes.php';
 
-        return $self->app();
+        return static::$self->app();
     }
 
     /**
@@ -160,8 +150,11 @@ class Kernel
      */
     public static function console(): object
     {
-        $self = new self();
-        $self->helper();
-        return $self->app();
+        if (!(static::$self instanceof self)) {
+            static::$self = new self();
+        }
+
+        static::$self->helper();
+        return static::$self->app();
     }
 }

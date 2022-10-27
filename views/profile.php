@@ -6,11 +6,24 @@
     <p class="fw-semibold m-1"><i class="fa-solid fa-address-card mx-2"></i>Profil kamu</p>
 </div>
 
+<?php if (!auth()->user()->email_verify) : ?>
+    <div class="alert alert-warning fade show" role="alert">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-envelope mx-1"></i>
+            Email berlum terverifikasi !
+            <form action="<?= route('email') ?>" class="ms-2" method="post">
+                <?= csrf() ?>
+                <button type="submit" class="btn btn-danger btn-sm">Kirim !</button>
+            </form>
+        </div>
+    </div>
+<?php endif ?>
+
 <div class="card shadow-sm border-dark mb-4">
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
-                <h5 class="card-title"><i class="fas fa-user"></i> <?= e(auth()->user()->nama) ?></h5>
+                <h5 class="card-title"><?= e(auth()->user()->nama) ?> <?= auth()->user()->email_verify ? '<i class="fa-solid fa-circle-check text-primary"></i>' : '' ?></h5>
                 <hr>
                 <p class="card-text"><i class="fas fa-envelope"></i> <?= e(auth()->user()->email) ?></p>
                 <p class="card-text"><i class="fas fa-user-clock"></i> <?= date("d M Y, H:i", strtotime((auth()->user()->created_at))) ?></p>
@@ -35,7 +48,7 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                        <input type="email" placeholder="Email" class="form-control <?= error('email', 'is-invalid') ?>" name="email" value="<?= e(auth()->user()->email) ?>">
+                        <input type="email" placeholder="Email" class="form-control <?= error('email', 'is-invalid') ?>" name="email" value="<?= e(auth()->user()->email) ?>" <?= auth()->user()->email_verify ? 'disabled' : '' ?>>
 
                         <?php if (error('email')) : ?>
                             <div class="invalid-feedback">

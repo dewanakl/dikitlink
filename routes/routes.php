@@ -5,7 +5,6 @@ use Controllers\DashboardController;
 use Controllers\LandingController;
 use Controllers\LinkController;
 use Controllers\ProfileController;
-use Controllers\ServerController;
 use Controllers\StatistikController;
 use Controllers\UsersController;
 use Core\Routing\Route;
@@ -17,8 +16,6 @@ use Middleware\GuestMiddleware;
  * Make something great with this app
  * keep simple yahh
  */
-
-Route::get('/server/check', [ServerController::class, 'index']);
 
 // Blom login
 Route::middleware(GuestMiddleware::class)->group(function () {
@@ -51,6 +48,8 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update']);
+    Route::post('/profile/email', [ProfileController::class, 'email'])->name('email');
+    Route::get('/profile/email/{id}', [ProfileController::class, 'verify'])->name('verify');
 
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 

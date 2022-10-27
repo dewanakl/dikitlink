@@ -41,7 +41,7 @@ class LinkController extends Controller
                 ->orderBy('links.id', 'DESC')
                 ->limit($valid->end)
                 ->offset($valid->init ?? 0)
-                ->select('links.name', 'links.link', 'links.created_at', 'links.link_password', 'links.waktu_buka', 'links.waktu_tutup', 'count(stats.id) as hint')
+                ->select('links.name', 'links.link', 'links.created_at', 'links.link_password', 'links.waktu_buka', 'links.waktu_tutup', 'links.record_statistics', 'count(stats.id) as hint')
                 ->get()
         );
     }
