@@ -57,9 +57,7 @@ class Kernel
     private function setEnv(): void
     {
         $file = __DIR__ . '/../.env';
-        $lines = file_exists($file)
-            ? file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)
-            : [];
+        $lines = file_exists($file) ? file($file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES) : [];
 
         foreach ($lines as $line) {
             if (strpos(trim($line), '#') === 0) {
@@ -76,7 +74,7 @@ class Kernel
      * 
      * @return bool
      */
-    private function getHttps(): bool
+    public function getHttps(): bool
     {
         return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443 || @$_ENV['HTTPS'] == 'true';
     }
@@ -87,9 +85,32 @@ class Kernel
      * @param bool $https
      * @return string
      */
-    private function getBaseurl(bool $https): string
+    public function getBaseurl(bool $https): string
     {
         return @$_ENV['BASEURL'] ? rtrim($_ENV['BASEURL'], '/') : ($https ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * Tangani errornya
+     * 
+     * @return void
+     */
+    public function errorHandler(): void
+    {
+        error_reporting(DEBUG ? E_ALL : 0);
+
+        set_exception_handler(function (\Throwable $error) {
+            clear_ob();
+            header('Content-Type: text/html');
+
+            if (!DEBUG) {
+                unavailable();
+            }
+
+            header('HTTP/1.1 500 Internal Server Error', true, 500);
+            echo render('../helpers/errors/trace', compact('error'));
+            exit;
+        });
     }
 
     /**
@@ -128,11 +149,8 @@ class Kernel
         define('BASEURL', static::$self->getBaseurl(HTTPS));
         define('DEBUG', @$_ENV['DEBUG'] == 'true');
 
-        error_reporting(DEBUG ? E_ALL : 0);
-
         static::$self->helper();
-
-        set_exception_handler(errorClosure());
+        static::$self->errorHandler();
 
         if (!env('APP_KEY')) {
             throw new \Exception('App Key gk ada !');
