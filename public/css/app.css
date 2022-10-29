@@ -1,5 +1,5 @@
 body {
-    overflow: overlay !important;
+    overflow: overlay;
 }
 
 ::-webkit-scrollbar {
