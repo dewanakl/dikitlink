@@ -122,13 +122,11 @@ class Mail
         $this->username = env('MAIL_USERNAME');
         $this->password = env('MAIL_PASSWORD');
         $this->from = array(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));
-        $protocol = env('MAIL_ENCRYPTION');
+        $this->protocol = env('MAIL_ENCRYPTION');
 
-        if ($protocol == 'tcp') {
+        if ($this->protocol == 'tcp') {
             $this->isTLS = true;
         }
-
-        $this->protocol = $protocol;
     }
 
     /**
@@ -138,7 +136,7 @@ class Mail
      * @param mixed $value
      * @return void
      */
-    private function setHeader(string $key, mixed $value = null): void
+    private function setHeader(string $key, mixed $value): void
     {
         $this->headers[$key] = $value;
     }
@@ -161,7 +159,6 @@ class Mail
     private function getResponse(): string
     {
         $response = '';
-        stream_set_timeout($this->socket, 8);
         while (($line = fgets($this->socket, 515)) !== false) {
             $response .= trim($line) . "\n";
             if (substr($line, 3, 1) == ' ') {
@@ -260,13 +257,7 @@ class Mail
     public function send(): bool
     {
         $message = null;
-        $this->socket = fsockopen(
-            $this->getServer(),
-            $this->port,
-            $errno,
-            $errstr,
-            30
-        );
+        $this->socket = fsockopen($this->getServer(), $this->port);
 
         if (empty($this->socket)) {
             return false;
@@ -293,7 +284,7 @@ class Mail
         $boundary = md5(uniqid(microtime(true), true));
 
         $this->setHeader('MIME-Version', '1.0');
-        $this->setHeader('Message-ID', "<$boundary@$this->hostname>");
+        $this->setHeader('Message-ID', "<{$boundary}@{$this->hostname}>");
         $this->setHeader('Date', date('r') . ' GMT');
         $this->setHeader('Subject', $this->subject);
         $this->setHeader('From', $this->formatAddress($this->from));

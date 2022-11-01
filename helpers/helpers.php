@@ -504,14 +504,28 @@ if (!function_exists('formatBytes')) {
     }
 }
 
+if (!function_exists('diffTime')) {
+    /**
+     * Dapatkan selisih waktu dalam ms
+     * 
+     * @param float $start
+     * @param float $end
+     * @return int
+     */
+    function diffTime(float $start, float $end): int
+    {
+        return intval(floor(floatval(number_format($start - $end, 3, '', ''))));
+    }
+}
+
 if (!function_exists('getPageTime')) {
     /**
-     * Dapatkan waktu yang dibutuhkan untuk merender halaman
+     * Dapatkan waktu yang dibutuhkan untuk merender halaman dalam (ms)
      * 
-     * @return string
+     * @return int
      */
-    function getPageTime(): string
+    function getPageTime(): int
     {
-        return (string) floor(number_format(microtime(true) - START_TIME, 3, ''));
+        return diffTime(microtime(true), START_TIME);
     }
 }

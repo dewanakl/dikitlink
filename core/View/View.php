@@ -45,7 +45,7 @@ class View
      */
     function __toString()
     {
-        $content = $this->content;
+        $content = (string) $this->content;
 
         $this->section = [];
         $this->variables = [];

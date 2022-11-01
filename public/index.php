@@ -14,4 +14,4 @@ require_once __DIR__ . '/../app/Kernel.php';
 
 Kernel::web()
     ->make(\Core\Facades\Service::class)
-    ->run(\Core\Routing\Route::router());
+    ->run();

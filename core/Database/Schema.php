@@ -29,7 +29,7 @@ final class Schema
     }
 
     /**
-     * Bikin tabel baru
+     * Ubah attribute tabelnya
      *
      * @param string $name
      * @param Closure $attribute

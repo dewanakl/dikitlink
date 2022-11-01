@@ -6,20 +6,13 @@ use Closure;
 use Exception;
 
 /**
- * Helper class DB untuk custome nama table
+ * Helper class DB untuk customizable nama table
  *
  * @class DB
  * @package Core\Database
  */
 final class DB
 {
-    /**
-     * Simpan jadi objek tunggal
-     * 
-     * @var BaseModel $base
-     */
-    private static $base;
-
     /**
      * Nama tabelnya apah ?
      *
@@ -28,12 +21,9 @@ final class DB
      */
     public static function table(string $name): BaseModel
     {
-        if (!(self::$base instanceof BaseModel)) {
-            self::$base = new BaseModel();
-        }
-
-        self::$base->table($name);
-        return self::$base;
+        $base = new BaseModel();
+        $base->table($name);
+        return $base;
     }
 
     /**
@@ -43,8 +33,7 @@ final class DB
      */
     public static function beginTransaction(): bool
     {
-        self::$base = new BaseModel();
-        return self::$base->db()->beginTransaction();
+        return app(DataBase::class)->beginTransaction();
     }
 
     /**
@@ -54,7 +43,7 @@ final class DB
      */
     public static function commit(): bool
     {
-        return self::$base->db()->commit();
+        return app(DataBase::class)->commit();
     }
 
     /**
@@ -64,7 +53,7 @@ final class DB
      */
     public static function rollBack(): bool
     {
-        return self::$base->db()->rollBack();
+        return app(DataBase::class)->rollBack();
     }
 
     /**
@@ -74,7 +63,7 @@ final class DB
      */
     public static function exception(mixed $e): void
     {
-        self::$base->db()->catchException($e);
+        app(DataBase::class)->catchException($e);
     }
 
     /**

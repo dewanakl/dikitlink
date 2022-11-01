@@ -87,7 +87,7 @@ class Kernel
      */
     public function getBaseurl(bool $https): string
     {
-        return @$_ENV['BASEURL'] ? rtrim($_ENV['BASEURL'], '/') : ($https ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+        return @$_ENV['BASEURL'] ? rtrim($_ENV['BASEURL'], '/') : ($https ? 'https://' : 'http://') . trim($_SERVER['HTTP_HOST']);
     }
 
     /**
@@ -155,8 +155,6 @@ class Kernel
         if (!env('APP_KEY')) {
             throw new \Exception('App Key gk ada !');
         }
-
-        require_once __DIR__ . '/../routes/routes.php';
 
         return static::$self->app();
     }
