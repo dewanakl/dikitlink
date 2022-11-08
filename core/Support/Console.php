@@ -114,7 +114,7 @@ class Console
     {
         if ($fail) {
             print($this->createColor('red', $message . "\n"));
-            exit();
+            exit;
         }
 
         if ($options) {
@@ -130,7 +130,7 @@ class Console
     private function executeTime(): string
     {
         $now = microtime(true);
-        $result = diffTime($now, $this->timenow);
+        $result = diffTime($this->timenow, $now);
         $this->timenow = $now;
 
         return $this->createColor('cyan', '(' . $result . ' ms)');
@@ -179,22 +179,23 @@ class Console
     private function loadTemplate(?string $name, int $tipe): mixed
     {
         $this->exception('Butuh Nama file !', !$name);
+        $type = '';
         switch ($tipe) {
             case 1:
-                $type = 'templateMigrasi.php';
+                $type = 'templateMigrasi';
                 break;
             case 2:
-                $type = 'templateMiddleware.php';
+                $type = 'templateMiddleware';
                 break;
             case 3:
-                $type = 'templateController.php';
+                $type = 'templateController';
                 break;
             default:
-                $type = 'templateModel.php';
+                $type = 'templateModel';
                 break;
         }
 
-        return require_once __DIR__ . '/../../helpers/templates/' . $type;
+        return require_once __DIR__ . '/../../helpers/templates/' . $type . '.php';
     }
 
     /**
@@ -296,6 +297,7 @@ class Console
         if (!is_dir($folder)) {
             mkdir($folder, 7777, true);
         }
+
         $result = copy(__DIR__ . '/../../helpers/templates/templateMail.php', $folder . $name . '.php');
         $this->exception('Gagal membuat email', !$result, 'Berhasil membuat email ' . $name);
     }

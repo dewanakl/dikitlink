@@ -4,6 +4,7 @@ namespace Core\Facades;
 
 use Closure;
 use Exception;
+use InvalidArgumentException;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
@@ -95,6 +96,10 @@ class Application
             $this->objectPool[$name] = $this->getConstructor($name, $param);
         }
 
+        if (!is_object($this->objectPool[$name])) {
+            $this->objectPool[$name] = $this->getConstructor($this->objectPool[$name]);
+        }
+
         return $this->objectPool[$name];
     }
 
@@ -173,15 +178,24 @@ class Application
      *
      * @param string $interface
      * @param Closure|string $class
-     * @param array $param
      * @return void
+     * 
+     * @throws InvalidArgumentException
      */
-    public function bind(string $interface, Closure|string $class, array $param = []): void
+    public function bind(string $interface, Closure|string $class): void
     {
-        $object = ($class instanceof Closure) ? $this->resolve($class) : $this->getConstructor($class, $param);
-
         if (empty($this->objectPool[$interface])) {
-            $this->objectPool[$interface] = $object;
+            if ($class instanceof Closure) {
+                $result = $this->resolve($class);
+
+                if (!is_object($result)) {
+                    throw new InvalidArgumentException('Return value harus sebuah object !');
+                }
+
+                $class = $result;
+            }
+
+            $this->objectPool[$interface] = $class;
         }
     }
 }

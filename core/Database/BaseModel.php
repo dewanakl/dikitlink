@@ -596,7 +596,7 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
 
         $id = $this->db->lastInsertId();
         if ($id) {
-            $this->attributes[$this->primaryKey] = (int) $id;
+            $this->attributes[$this->primaryKey] = intval($id);
         }
 
         return $this;
@@ -620,7 +620,7 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
         $this->bind(str_replace('WHERE', $setQuery, $query), array_merge($data, $this->param ?? []));
         $result = $this->db->execute();
 
-        return (bool) $result;
+        return boolval($result);
     }
 
     /**
@@ -635,7 +635,7 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
         $this->bind($query, $this->param ?? []);
         $result = $this->db->execute();
 
-        return (bool) $result;
+        return boolval($result);
     }
 
     /**

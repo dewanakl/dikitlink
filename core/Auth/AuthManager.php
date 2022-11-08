@@ -57,9 +57,9 @@ class AuthManager
     /**
      * Dapatkan obejek usernya
      * 
-     * @return mixed
+     * @return BaseModel|null
      */
-    public function user(): mixed
+    public function user(): BaseModel|null
     {
         if (!empty($this->user)) {
             return $this->user;
@@ -99,7 +99,7 @@ class AuthManager
         }
 
         $this->logout();
-        $this->user = $user->only([$user->getPrimaryKey()]);;
+        $this->user = $user->only([$user->getPrimaryKey()]);
         $this->session->set('_user', serialize($this->user));
     }
 

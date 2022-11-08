@@ -117,7 +117,7 @@ class Mail
     function __construct()
     {
         $this->server = env('MAIL_HOST');
-        $this->port = (int) env('MAIL_PORT');
+        $this->port = intval(env('MAIL_PORT'));
         $this->hostname = parse_url(BASEURL, PHP_URL_HOST);
         $this->username = env('MAIL_USERNAME');
         $this->password = env('MAIL_PASSWORD');
@@ -244,7 +244,7 @@ class Mail
      */
     public function pesan(mixed $message): self
     {
-        $this->htmlMessage = (string) $message;
+        $this->htmlMessage = strval($message);
 
         return $this;
     }

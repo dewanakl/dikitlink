@@ -9,7 +9,6 @@ use Core\Http\Request;
 use Core\Http\Respond;
 use Core\Middleware\Middleware;
 use Core\Routing\Route;
-use InvalidArgumentException;
 use Middleware\CorsMiddleware;
 use Middleware\CsrfMiddleware;
 
@@ -96,17 +95,15 @@ class Service
      *
      * @param array $route
      * @return void
-     * 
-     * @throws InvalidArgumentException
      */
     private function invokeMiddleware(array $route): void
     {
-        $middlewares = array_merge([
+        $middlewares = [
             CorsMiddleware::class,
             CsrfMiddleware::class
-        ], $route['middleware']);
+        ];
 
-        $middlewarePool = array_map(fn (string $middleware) => new $middleware(), $middlewares);
+        $middlewarePool = array_map(fn ($middleware) => new $middleware(), array_merge($middlewares, $route['middleware']));
 
         $middleware = new Middleware($middlewarePool);
         $middleware->handle($this->request);

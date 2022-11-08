@@ -95,7 +95,6 @@ class Table
     public function export(): string|null
     {
         if ($this->alter != null) {
-            $isRunMigrasi = true;
             $db = app(DataBase::class);
 
             foreach ($this->columns as $value) {
@@ -110,17 +109,12 @@ class Table
                 $jumlahColumn = $db->rowCount();
 
                 if ($jumlahColumn != 0) {
-                    $isRunMigrasi = false;
-                    break;
+                    $this->query = [];
+                    $this->alter = null;
+                    $this->columns = [];
+                    return null;
                 }
             }
-        }
-
-        if (!$isRunMigrasi) {
-            $this->query = [];
-            $this->alter = null;
-            $this->columns = [];
-            return null;
         }
 
         $query = 'ALTER TABLE ' . $this->table . ' ';

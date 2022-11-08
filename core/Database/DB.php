@@ -59,6 +59,7 @@ final class DB
     /**
      * Tampilkan errornya
      *
+     * @param mixed $e
      * @return void
      */
     public static function exception(mixed $e): void
@@ -69,12 +70,13 @@ final class DB
     /**
      * DB transaction sederhana
      *
+     * @param Closure $fn
      * @return void
      */
     public static function transaction(Closure $fn): void
     {
-        self::beginTransaction();
         try {
+            self::beginTransaction();
             $fn();
             self::commit();
         } catch (Exception $e) {
