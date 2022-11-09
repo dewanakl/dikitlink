@@ -9,18 +9,18 @@ use Core\Routing\Controller;
 use Core\Valid\Validator;
 use Models\Link;
 use Models\Stat;
+use Repository\RepositoryContract;
 
 class StatistikController extends Controller
 {
-    public function index(Link $link)
+    public function index(RepositoryContract $link)
     {
         $id = Auth::user()->id;
-        $getstats = $link->getStats($id);
 
         return $this->view('statistik', [
             'last_month' => $link->lastMonth($id),
-            'user_agent' => $getstats('user_agent'),
-            'ip_address' => $getstats('ip_address')
+            'user_agent' => $link->getStats($id)('user_agent'),
+            'ip_address' => $link->getStats($id)('ip_address')
         ]);
     }
 
@@ -52,11 +52,15 @@ class StatistikController extends Controller
         $valid = Validator::make(
             [
                 'id' => $id,
-                'password' => $request->password
+                'password' => $request->password,
+                'user' => $request->server('HTTP_USER_AGENT'),
+                'ip' => $request->ip()
             ],
             [
                 'id' => ['trim', 'slug', 'str', 'min:3', 'max:30'],
-                'password' => ['trim', 'str', 'max:25']
+                'password' => ['trim', 'str', 'max:25'],
+                'user' => ['trim', 'str', 'max:250'],
+                'ip' => ['trim', 'str', 'max:15']
             ]
         );
 
@@ -64,7 +68,10 @@ class StatistikController extends Controller
             return $this->view('guest/hilang');
         }
 
-        $link = Link::find($valid->id, 'name');
+        $link = Link::join('users', 'links.user_id', 'users.id')
+            ->where('links.name', $valid->id)
+            ->select('links.*', 'users.statistics')
+            ->first();
 
         if (empty($link->id)) {
             return $this->view('guest/hilang');
@@ -104,11 +111,15 @@ class StatistikController extends Controller
             }
         }
 
-        Stat::create([
-            'link_id' => $link->id,
-            'user_agent' => $request->server('HTTP_USER_AGENT'),
-            'ip_address' => $request->ip()
-        ]);
+        if (!empty($link->statistics)) {
+            if (!empty($link->record_statistics)) {
+                Stat::create([
+                    'link_id' => $link->id,
+                    'user_agent' => $valid->user,
+                    'ip_address' => $valid->ip
+                ]);
+            }
+        }
 
         header_remove();
 

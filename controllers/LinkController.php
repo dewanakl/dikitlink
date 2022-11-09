@@ -8,6 +8,7 @@ use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Valid\Validator;
 use Models\Link;
+use Repository\RepositoryContract;
 
 class LinkController extends Controller
 {
@@ -48,14 +49,14 @@ class LinkController extends Controller
                     'links.link_password',
                     'links.waktu_buka',
                     'links.waktu_tutup',
-                    'links.record_statistics',
+                    'links.record_statistics as stats',
                     'count(stats.id) as hint',
                 ])
                 ->get()
         );
     }
 
-    public function detail(Request $request)
+    public function detail(Request $request, RepositoryContract $repository)
     {
         $valid = Validator::make($request->only(['name']), [
             'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25']
@@ -67,37 +68,11 @@ class LinkController extends Controller
             ], 400);
         }
 
-        $base = fn () => Link::join('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', $this->id)
-            ->where('links.name', $valid->name);
-
-        $lastweek = $base()
-            ->where('stats.created_at', date('Y-m-d', strtotime('-1 week', strtotime('now'))) . ' 00:00:00.000000', '>=')
-            ->groupBy('tgl')
-            ->select('concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at), \'-\', extract(DAY from stats.created_at)) AS tgl', 'count(stats.id) as hint')
-            ->get()
-            ->toArray();
-
-        usort($lastweek, fn ($a, $b) => strtotime($a['tgl']) - strtotime($b['tgl']));
-
-        $get = fn (string $select) => $base()
-            ->groupBy('stats.' . $select)
-            ->orderBy('hint', 'DESC')
-            ->select('stats.' . $select, 'count(stats.id) as hint')
-            ->limit(5)
-            ->get();
-
-        $unique = $base()
-            ->groupBy('stats.user_agent', 'stats.ip_address')
-            ->select('COUNT(stats.link_id)')
-            ->get()
-            ->rowCount();
-
         return json([
-            'last_week' => $lastweek,
-            'user_agent' => $get('user_agent'),
-            'ip_address' => $get('ip_address'),
-            'unique' => $unique ?? 0
+            'last_week' => $repository->lastWeek($this->id, $valid->name),
+            'user_agent' => $repository->getStats($this->id, $valid->name, 5)('user_agent'),
+            'ip_address' => $repository->getStats($this->id, $valid->name, 5)('ip_address'),
+            'unique' => $repository->countUnique($this->id, $valid->name)
         ]);
     }
 
@@ -138,7 +113,8 @@ class LinkController extends Controller
             'link' => ['required', 'trim', 'url', 'str', 'min:5'],
             'password' => ['trim', 'str', 'max:20'],
             'buka' => ['trim', 'str', 'max:16'],
-            'tutup' => ['trim', 'str', 'max:16']
+            'tutup' => ['trim', 'str', 'max:16'],
+            'stats' => ['trim', 'str', 'max:4']
         ]);
 
         if (str_contains($valid->link, BASEURL)) {
@@ -161,6 +137,7 @@ class LinkController extends Controller
 
         $data = $valid->only(['name', 'link']);
         $data['link_password'] = empty($valid->password) ? null : $valid->password;
+        $data['record_statistics'] = $valid->stats == 'true';
         $data['waktu_buka'] = empty($valid->buka) ? null : implode(' ', explode('T', $valid->buka)) . ':00';
         $data['waktu_tutup'] = empty($valid->tutup) ? null : implode(' ', explode('T', $valid->tutup)) . ':00';
 

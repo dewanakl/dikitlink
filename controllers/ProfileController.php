@@ -16,6 +16,16 @@ class ProfileController extends Controller
         return $this->view('profile');
     }
 
+    public function setting()
+    {
+        return $this->view('pengaturan');
+    }
+
+    public function delete()
+    {
+        //
+    }
+
     public function update(Request $request)
     {
         $credential = $request->validate([

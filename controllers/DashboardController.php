@@ -2,26 +2,14 @@
 
 namespace Controllers;
 
-use Core\Auth\Auth;
 use Core\Database\DB;
 use Core\Routing\Controller;
-use Models\Link;
+use Repository\RepositoryContract;
 
 class DashboardController extends Controller
 {
-    public function __invoke()
+    public function __invoke(RepositoryContract $repository)
     {
-        $id = Auth::user()->id;
-        $link = new Link();
-
-        $sumstats = $link->sumStats($id);
-        $unique = $link->join('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', $id)
-            ->groupBy('stats.user_agent', 'stats.ip_address')
-            ->select('COUNT(stats.link_id)')
-            ->get()
-            ->rowCount();
-
         $now = date('G');
         $greeting = null;
 
@@ -37,11 +25,13 @@ class DashboardController extends Controller
             $greeting = 'Malam';
         }
 
+        $sumstats = $repository->sumStats(auth()->user()->id);
+
         return $this->view('dashboard', [
             'salam' => $greeting,
             'jumlah_link' => $sumstats->jumlah_link ?? 0,
             'total_pengunjung' => $sumstats->total_pengunjung ?? 0,
-            'unique_pengunjung' => $unique ?? 0
+            'unique_pengunjung' => $repository->countUnique(auth()->user()->id)
         ]);
     }
 

@@ -5,8 +5,8 @@ namespace Controllers;
 use Core\Database\DB;
 use Core\Routing\Controller;
 use Core\Valid\Validator;
-use Models\Link;
 use Models\User;
+use Repository\RepositoryContract;
 
 class UsersController extends Controller
 {
@@ -24,7 +24,7 @@ class UsersController extends Controller
         return $this->view('admin/users', compact('users'));
     }
 
-    public function detail(Link $link, $id)
+    public function detail(RepositoryContract $link, $id)
     {
         $valid = Validator::make([
             'id' => $id
@@ -41,20 +41,13 @@ class UsersController extends Controller
         $getstats = $link->getStats($valid->id);
         $sumstats = $link->sumStats($valid->id);
 
-        $unique = $link->join('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', $valid->id)
-            ->groupBy('stats.user_agent', 'stats.ip_address')
-            ->select('COUNT(stats.link_id)')
-            ->get()
-            ->rowCount();
-
         return json([
             'last_month' => $link->lastMonth($valid->id),
             'user_agent' => $getstats('user_agent'),
             'ip_address' => $getstats('ip_address'),
             'jumlah_link' => $sumstats->jumlah_link ?? 0,
             'total_pengunjung' => $sumstats->total_pengunjung ?? 0,
-            'unique_pengunjung' => $unique ?? 0
+            'unique_pengunjung' => $link->countUnique($valid->id)
         ]);
     }
 

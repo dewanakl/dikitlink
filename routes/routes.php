@@ -10,6 +10,7 @@ use Controllers\UsersController;
 use Core\Routing\Route;
 use Middleware\AdminMiddleware;
 use Middleware\AuthMiddleware;
+use Middleware\EmailMiddleware;
 use Middleware\GuestMiddleware;
 
 /**
@@ -48,8 +49,13 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile', [ProfileController::class, 'update']);
-    Route::post('/profile/email', [ProfileController::class, 'email'])->name('email');
-    Route::get('/profile/email/{id}', [ProfileController::class, 'verify'])->name('verify');
+
+    Route::middleware(EmailMiddleware::class)->group(function () {
+        Route::post('/profile/email', [ProfileController::class, 'email'])->name('email');
+        Route::get('/profile/email/{id}', [ProfileController::class, 'verify'])->name('verify');
+    });
+
+    Route::get('/pengaturan', [ProfileController::class, 'setting']);
 
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 
