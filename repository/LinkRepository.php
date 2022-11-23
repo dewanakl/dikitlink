@@ -2,6 +2,7 @@
 
 namespace Repository;
 
+use Closure;
 use Models\Link;
 
 class LinkRepository implements RepositoryContract
@@ -13,7 +14,7 @@ class LinkRepository implements RepositoryContract
         $this->link = $link;
     }
 
-    public function lastMonth(int $id)
+    public function lastMonth(int $id): array
     {
         $lastmonth = $this->link->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id)
@@ -30,7 +31,7 @@ class LinkRepository implements RepositoryContract
         return $lastmonth;
     }
 
-    public function getStats(int $id, mixed $name = null, int $limit = 10)
+    public function getStats(int $id, mixed $name = null, int $limit = 10): Closure
     {
         return function (string $select) use ($id, $name, $limit) {
             $data = $this->link->join('stats', 'links.id', 'stats.link_id')
@@ -51,7 +52,7 @@ class LinkRepository implements RepositoryContract
         };
     }
 
-    public function sumStats(int $id)
+    public function sumStats(int $id): object
     {
         return $this->link->leftJoin('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id)
@@ -63,7 +64,7 @@ class LinkRepository implements RepositoryContract
             ->first();
     }
 
-    public function countUnique(int $id, mixed $name = null)
+    public function countUnique(int $id, mixed $name = null): int
     {
         $data = $this->link->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id);
@@ -78,7 +79,7 @@ class LinkRepository implements RepositoryContract
             ->rowCount() ?? 0;
     }
 
-    public function lastWeek(int $id, string $link)
+    public function lastWeek(int $id, string $link): array
     {
         $lastweek = $this->link->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', $id)

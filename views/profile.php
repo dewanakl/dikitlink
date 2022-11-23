@@ -95,6 +95,15 @@
     </div>
 </div>
 
+<form action="<?= route('hapus.profile') ?>" method="post">
+    <?= csrf() ?>
+    <input type="text" name="mypassword" class="form-control" />
+    <?php if (error('mypassword')) : ?>
+        <?= error('mypassword') ?>
+    <?php endif ?>
+    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+</form>
+
 <div class="d-grid d-block d-sm-none mb-4">
     <a href="javascript:void(0);" class="btn btn-danger  fw-semibold" data-bs-toggle="modal" data-bs-target="#logoutModal">
         <i class="fas fa-sign-out-alt ms-2 me-1"></i>Logout
@@ -107,6 +116,18 @@
             Swal.fire({
                 title: `<?= $pesan ?>`,
                 icon: 'success',
+                confirmButtonText: '<i class="fas fa-check"></i> Oke',
+            });
+        });
+    </script>
+<?php endif ?>
+
+<?php if ($pesan = flash('gagal')) : ?>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', () => {
+            Swal.fire({
+                title: `<?= $pesan ?>`,
+                icon: 'error',
                 confirmButtonText: '<i class="fas fa-check"></i> Oke',
             });
         });

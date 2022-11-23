@@ -93,7 +93,8 @@ const refreshTable = async () => {
                         data.hint,
                         data.link_password,
                         data.waktu_buka,
-                        data.waktu_tutup
+                        data.waktu_tutup,
+                        data.stats
                     ]);
 
                     TABELS.appendChild(renderCard(data, each));
@@ -118,6 +119,7 @@ const edit = async (button, id) => {
     document.getElementById('valueeditname').value = DATA[id][0];
     document.getElementById('valueeditlink').value = escapeHtml(DATA[id][1]);
     document.getElementById('valueeditpassword').value = DATA[id][3];
+    document.getElementById("statistik").checked = DATA[id][6];
 
     let now = new Date(DATA[id][4] ?? '');
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -144,6 +146,7 @@ const update = async () => {
     const PASS = document.getElementById('valueeditpassword');
     const BUKA = document.getElementById('valueeditbuka');
     const TUTUP = document.getElementById('valueedittutup');
+    const CHECK = document.getElementById("statistik").checked;
 
     const old = OLD.value ? OLD.value.replace(/[^\w-]/gi, '') : Math.random().toString(36).slice(2, 8);
     const name = NAME.value ? NAME.value.replace(/[^\w-]/gi, '') : Math.random().toString(36).slice(2, 8);
@@ -160,7 +163,8 @@ const update = async () => {
             link: LINK.value,
             password: PASS.value,
             buka: BUKA.value,
-            tutup: TUTUP.value
+            tutup: TUTUP.value,
+            stats: CHECK
         })
     };
 

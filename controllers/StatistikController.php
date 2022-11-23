@@ -57,10 +57,10 @@ class StatistikController extends Controller
                 'ip' => $request->ip()
             ],
             [
-                'id' => ['trim', 'slug', 'str', 'min:3', 'max:30'],
-                'password' => ['trim', 'str', 'max:25'],
-                'user' => ['trim', 'str', 'max:250'],
-                'ip' => ['trim', 'str', 'max:15']
+                'id' => ['str', 'trim', 'slug', 'min:3', 'max:30'],
+                'password' => ['str', 'trim', 'max:25'],
+                'user' => ['str', 'trim', 'max:250'],
+                'ip' => ['str', 'trim', 'max:15']
             ]
         );
 
@@ -77,20 +77,24 @@ class StatistikController extends Controller
             return $this->view('guest/hilang');
         }
 
-        if (!empty($link->waktu_tutup) && time() >= strtotime($link->waktu_tutup)) {
-            return $this->view('guest/tunggu', [
-                'opened' => false,
-                'name' => $id,
-                'time' => $link->waktu_tutup
-            ]);
+        if (!empty($link->waktu_tutup)) {
+            if (time() >= strtotime($link->waktu_tutup)) {
+                return $this->view('guest/tunggu', [
+                    'opened' => false,
+                    'name' => $id,
+                    'time' => $link->waktu_tutup
+                ]);
+            }
         }
 
-        if (!empty($link->waktu_buka) && time() <= strtotime($link->waktu_buka)) {
-            return $this->view('guest/tunggu', [
-                'opened' => true,
-                'name' => $id,
-                'time' => $link->waktu_buka
-            ]);
+        if (!empty($link->waktu_buka)) {
+            if (time() <= strtotime($link->waktu_buka)) {
+                return $this->view('guest/tunggu', [
+                    'opened' => true,
+                    'name' => $id,
+                    'time' => $link->waktu_buka
+                ]);
+            }
         }
 
         if (!empty($link->link_password)) {

@@ -35,17 +35,23 @@
                         <textarea class="form-control" id="valueeditlink" placeholder="https://www.google.com/" required></textarea>
                     </div>
                     <hr>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="statistik">
+                        <label class="form-check-label" for="statistik">Simpan Statistik</label>
+                    </div>
                     <div class="mb-3">
                         <label for="valueeditpassword">Password</label>
                         <input type="text" class="form-control" id="valueeditpassword" placeholder="Password">
                     </div>
-                    <div class="mb-3">
-                        <label for="valueeditbuka">Waktu Buka</label>
-                        <input type="datetime-local" class="form-control" id="valueeditbuka">
-                    </div>
-                    <div class="mb-3">
-                        <label for="valueedittutup">Waktu Tutup</label>
-                        <input type="datetime-local" class="form-control" id="valueedittutup">
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="valueeditbuka">Waktu Buka</label>
+                            <input type="datetime-local" class="form-control" id="valueeditbuka">
+                        </div>
+                        <div class="col mb-3">
+                            <label for="valueedittutup">Waktu Tutup</label>
+                            <input type="datetime-local" class="form-control" id="valueedittutup">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

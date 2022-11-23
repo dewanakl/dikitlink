@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Core\Auth\Auth;
+use Core\Database\DB;
 use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Support\Mail;
@@ -16,25 +17,29 @@ class ProfileController extends Controller
         return $this->view('profile');
     }
 
-    public function setting()
+    public function delete(Request $request)
     {
-        return $this->view('pengaturan');
-    }
+        $request->validate([
+            'mypassword' => ['required', 'str', 'slug', 'min:3']
+        ]);
 
-    public function delete()
-    {
-        //
+        if (Hash::check($request->mypassword, Auth::user()->password)) {
+            DB::table('users')->where('id', auth()->user()->id)->delete();
+            return $this->redirect(route('login'))->with('berhasil', 'Berhasil menghapus akun !');
+        }
+
+        return $this->redirect(route('profile'))->with('gagal', 'Password salah !');
     }
 
     public function update(Request $request)
     {
         $credential = $request->validate([
-            'nama' => ['required', 'trim', 'str', 'min:2', 'max:20'],
+            'nama' => ['required', 'str', 'trim', 'min:2', 'max:20'],
         ]);
 
         if (!auth()->user()->email_verify) {
             $request->validate([
-                'email' => ['required', 'trim', 'email', 'dns', 'str', 'min:5', 'max:50'],
+                'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'email', 'dns'],
             ]);
 
             $email = User::where('email', $request->email)
@@ -65,8 +70,8 @@ class ProfileController extends Controller
 
         if (!empty($request->password) && !empty($request->konfirmasi_password)) {
             $request->validate([
-                'password' => ['trim', 'str', 'min:8', 'max:20'],
-                'konfirmasi_password' => ['trim', 'str', 'min:8', 'max:20', 'sama:password', 'hash']
+                'password' => ['str', 'trim', 'min:8', 'max:20'],
+                'konfirmasi_password' => ['str', 'trim', 'min:8', 'max:20', 'sama:password', 'hash']
             ]);
 
             $credential['password'] = $request->konfirmasi_password;

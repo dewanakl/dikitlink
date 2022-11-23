@@ -22,9 +22,9 @@ class LinkController extends Controller
     public function show(Request $request)
     {
         $valid = $this->validate($request, [
-            'nama' => ['slug', 'trim', 'str', 'max:25'],
-            'init' => ['trim', 'max:3', 'int'],
-            'end' => ['required', 'trim', 'max:3', 'int']
+            'nama' => ['str', 'trim', 'slug', 'max:25'],
+            'init' => ['max:3', 'int'],
+            'end' => ['required', 'max:3', 'int']
         ]);
 
         if ($valid->fails()) {
@@ -59,7 +59,7 @@ class LinkController extends Controller
     public function detail(Request $request, RepositoryContract $repository)
     {
         $valid = Validator::make($request->only(['name']), [
-            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25']
+            'name' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25']
         ]);
 
         if ($valid->fails()) {
@@ -79,8 +79,8 @@ class LinkController extends Controller
     public function create(Request $request)
     {
         $valid = $this->validate($request, [
-            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25', 'unik:link'],
-            'link' => ['required', 'trim', 'url', 'str', 'min:5']
+            'name' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25', 'unik:link'],
+            'link' => ['required', 'str', 'trim', 'min:5', 'url']
         ]);
 
         if (str_contains($valid->link, BASEURL)) {
@@ -108,13 +108,13 @@ class LinkController extends Controller
     public function update(Request $request)
     {
         $valid = $this->validate($request, [
-            'old' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
-            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25'],
-            'link' => ['required', 'trim', 'url', 'str', 'min:5'],
-            'password' => ['trim', 'str', 'max:20'],
-            'buka' => ['trim', 'str', 'max:16'],
-            'tutup' => ['trim', 'str', 'max:16'],
-            'stats' => ['trim', 'str', 'max:4']
+            'old' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25'],
+            'name' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25'],
+            'link' => ['required', 'str', 'trim', 'min:5', 'url'],
+            'password' => ['str', 'trim', 'max:20'],
+            'buka' => ['str', 'trim', 'max:16'],
+            'tutup' => ['str', 'trim', 'max:16'],
+            'stats' => ['bool']
         ]);
 
         if (str_contains($valid->link, BASEURL)) {
@@ -137,7 +137,7 @@ class LinkController extends Controller
 
         $data = $valid->only(['name', 'link']);
         $data['link_password'] = empty($valid->password) ? null : $valid->password;
-        $data['record_statistics'] = $valid->stats == 'true';
+        $data['record_statistics'] = $valid->stats;
         $data['waktu_buka'] = empty($valid->buka) ? null : implode(' ', explode('T', $valid->buka)) . ':00';
         $data['waktu_tutup'] = empty($valid->tutup) ? null : implode(' ', explode('T', $valid->tutup)) . ':00';
 
@@ -153,7 +153,7 @@ class LinkController extends Controller
     public function delete(Request $request)
     {
         $valid = Validator::make($request->only(['name']), [
-            'name' => ['required', 'slug', 'trim', 'str', 'min:3', 'max:25']
+            'name' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25']
         ]);
 
         if ($valid->fails()) {

@@ -41,22 +41,29 @@ Route::middleware(GuestMiddleware::class)->group(function () {
 
 // Udah login
 Route::middleware(AuthMiddleware::class)->group(function () {
+    // dashboard
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
+    // list
     Route::get('/list', [DashboardController::class, 'list'])->name('list');
 
+    // statistik
     Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik');
     Route::get('/statistik/download', [StatistikController::class, 'download'])->name('statistik.download');
 
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile', [ProfileController::class, 'update']);
+    // profile
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/profile', 'index')->name('profile');
+        Route::put('/profile', 'update');
+        Route::post('/profile/delete', 'delete')->name('hapus.profile');
 
-    Route::middleware(EmailMiddleware::class)->group(function () {
-        Route::post('/profile/email', [ProfileController::class, 'email'])->name('email');
-        Route::get('/profile/email/{id}', [ProfileController::class, 'verify'])->name('verify');
+        Route::middleware(EmailMiddleware::class)->group(function () {
+            Route::post('/profile/email', 'email')->name('email');
+            Route::get('/profile/email/{id}', 'verify')->name('verify');
+        });
     });
 
-    Route::get('/pengaturan', [ProfileController::class, 'setting']);
-
+    // logout
     Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // CRUD Link API
