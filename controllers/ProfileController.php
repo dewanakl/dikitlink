@@ -31,6 +31,21 @@ class ProfileController extends Controller
         return $this->redirect(route('profile'))->with('gagal', 'Password salah !');
     }
 
+    public function statistik(Request $request)
+    {
+        $request->validate([
+            'check' => ['bool']
+        ]);
+
+        return json([
+            'status' => DB::table('users')
+                ->where('id', auth()->user()->id)
+                ->update([
+                    'statistics' => $request->check
+                ])
+        ]);
+    }
+
     public function update(Request $request)
     {
         $credential = $request->validate([

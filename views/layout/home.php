@@ -1,7 +1,7 @@
 <?php parents('layout/app') ?>
 
 <?php section('preload.home') ?>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.31/dist/sweetalert2.all.min.js" integrity="sha256-ggd5OAL5qzG/QNS7HMsiPFhPjD0GDS1Lej7cfgR4cv4=" crossorigin="anonymous" as="script" />
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js" integrity="sha256-jdigguLi6jfU4MpneGQwiKMuuRlSmNmdJTw2e4VDHPc=" crossorigin="anonymous" as="script" />
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous" as="script" />
 <?php endsection('preload.home') ?>
 
@@ -44,7 +44,7 @@
                 <textarea class="form-control" id="valueaddlinkmobile" placeholder="https://www.google.com/" required></textarea>
             </div>
             <div class="d-grid text-center mb-0">
-                <button type="submit" class="btn btn-success" id="valueaddtambahmobile"><i class="fas fa-plus mx-1"></i>Tambah</button>
+                <button type="submit" class="btn btn-success" id="valueaddtambahmobile"><i class="fas fa-plus me-1"></i>Tambah</button>
             </div>
         </form>
     </div>
@@ -69,8 +69,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="valueaddbatal" data-bs-dismiss="modal"><i class="fas fa-times mx-1"></i>Batal</button>
-                    <button type="submit" class="btn btn-success" id="valueaddtambah"><i class="fas fa-plus mx-1"></i>Tambah</button>
+                    <button type="button" class="btn btn-secondary" id="valueaddbatal" data-bs-dismiss="modal"><i class="fas fa-times me-1"></i>Batal</button>
+                    <button type="submit" class="btn btn-success" id="valueaddtambah"><i class="fas fa-plus me-1"></i>Tambah</button>
                 </div>
             </form>
         </div>
@@ -87,18 +87,18 @@
                 <h5>Apakah anda ingin Logout ?</h5>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="button-logout-batal"><i class="fas fa-times mx-1"></i>Batal</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="button-logout-batal"><i class="fas fa-times me-1"></i>Batal</button>
                 <form action="<?= route('logout') ?>" method="post" onsubmit="logout()">
                     <?= csrf() ?>
                     <?= method('delete') ?>
-                    <button type="submit" class="btn btn-danger" id="button-logout"><i class="fas fa-sign-out-alt mx-1"></i>Logout</button>
+                    <button type="submit" class="btn btn-danger" id="button-logout"><i class="fas fa-sign-out-alt me-1"></i>Logout</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.31/dist/sweetalert2.all.min.js" integrity="sha256-ggd5OAL5qzG/QNS7HMsiPFhPjD0GDS1Lej7cfgR4cv4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js" integrity="sha256-jdigguLi6jfU4MpneGQwiKMuuRlSmNmdJTw2e4VDHPc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
 
 <!-- Util.js -->

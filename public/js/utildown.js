@@ -19,7 +19,7 @@ const tambahModal = async () => {
 
     BATAL.disabled = true
     TAMBAH.disabled = true;
-    TAMBAH.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Loading...`;
+    TAMBAH.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
     await fetch(`${URI}/api/link/create`, REQ)
         .then((res) => res.json())
@@ -48,7 +48,7 @@ const tambahModal = async () => {
 
     BATAL.disabled = false;
     TAMBAH.disabled = false;
-    TAMBAH.innerHTML = '<i class="fas fa-plus"></i> Tambah';
+    TAMBAH.innerHTML = '<i class="fas fa-plus me-1"></i>Tambah';
 }
 
 const tambahMobile = async () => {
@@ -70,7 +70,7 @@ const tambahMobile = async () => {
     };
 
     TAMBAH.disabled = true;
-    TAMBAH.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Loading...`;
+    TAMBAH.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
     await fetch(`${URI}/api/link/create`, REQ)
         .then((res) => res.json())
@@ -98,7 +98,7 @@ const tambahMobile = async () => {
         .catch((err) => showModal(err, 'error'));
 
     TAMBAH.disabled = false;
-    TAMBAH.innerHTML = '<i class="fas fa-plus"></i> Tambah';
+    TAMBAH.innerHTML = '<i class="fas fa-plus me-1"></i>Tambah';
 }
 
 const logout = () => {
@@ -106,7 +106,7 @@ const logout = () => {
     let btn = document.getElementById('button-logout');
     btn.disabled = true;
     btnbatal.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
 }
 
 document.getElementById('addlink').addEventListener('submit', event => {

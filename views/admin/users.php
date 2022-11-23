@@ -199,7 +199,7 @@
 
         refreshChart();
 
-        await fetch(`${window.location.origin}/users/${id}/detail`)
+        await fetch(`${window.location.origin}/admin/users/${id}/detail`)
             .then((res) => res.json())
             .then((res) => {
                 // chart

@@ -1,5 +1,6 @@
 <?php
 
+use Controllers\AdminController;
 use Controllers\AuthController;
 use Controllers\DashboardController;
 use Controllers\LandingController;
@@ -55,6 +56,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::controller(ProfileController::class)->group(function () {
         Route::get('/profile', 'index')->name('profile');
         Route::put('/profile', 'update');
+        Route::post('/profile/statistik', 'statistik')->name('statistik.profile');
         Route::post('/profile/delete', 'delete')->name('hapus.profile');
 
         Route::middleware(EmailMiddleware::class)->group(function () {
@@ -76,12 +78,14 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     });
 
     // Admin only
-    Route::middleware(AdminMiddleware::class)->group(function () {
+    Route::middleware(AdminMiddleware::class)->prefix('/admin')->group(function () {
         Route::controller(UsersController::class)->prefix('/users')->group(function () {
             Route::get('/', 'index')->name('users');
             Route::get('/{id}/detail', 'detail');
             Route::delete('/{id}/delete', 'delete')->name('delete.users');
         });
+
+        Route::get('/statistik', [AdminController::class, 'index'])->name('statistik.admin');
     });
 });
 

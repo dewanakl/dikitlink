@@ -14,7 +14,7 @@
             <i class="fas fa-list ms-2 me-1"></i>List
         </a>
 
-        <a class="list-group-item list-menu <?= routeIs('statistik', 'active disabled') ?> dropdown-item fw-semibold my-1 rounded-2 border border-0" href="<?= route('statistik') ?>">
+        <a class="list-group-item list-menu <?= routeIs('/statistik', 'active disabled', true) ?> dropdown-item fw-semibold my-1 rounded-2 border border-0" href="<?= route('statistik') ?>">
             <i class="fa-solid fa-chart-column ms-2 me-1"></i>Statistik
         </a>
 
@@ -29,6 +29,10 @@
 
             <a class="list-group-item list-menu <?= routeIs('users', 'active disabled') ?> dropdown-item fw-semibold my-1 rounded-2 border border-0" href="<?= route('users') ?>">
                 <i class="fa-solid fa-users ms-2 me-1"></i>Users
+            </a>
+
+            <a class="list-group-item list-menu <?= routeIs('admin/statistik', 'active disabled') ?> dropdown-item fw-semibold my-1 rounded-2 border border-0" href="<?= route('statistik.admin') ?>">
+                <i class="fa-solid fa-square-poll-vertical ms-2 me-1"></i>Statistik
             </a>
         <?php endif ?>
 
