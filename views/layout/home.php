@@ -15,9 +15,12 @@
 <?= including('layout/navbar') ?>
 
 <div class="container mt-3 mb-5">
-    <div class="d-flex d-none d-sm-flex justify-content-between align-items-center mb-4 mt-4">
-        <h4 class="d-none d-sm-block fw-bold mx-1">Dikit<i class="fa-solid fa-link mx-1"></i>Link</h4>
-        <h4 class="text-truncate mx-1">Haii, <?= e(auth()->user()->nama) ?></h4>
+    <div class="d-flex d-none d-sm-flex justify-content-between align-items-center mt-4 mb-5">
+        <h3 class="d-none d-sm-block fw-bold m-0 p-0">Dikit<i class="fa-solid fa-link mx-2 my-0"></i>Link</h3>
+        <div class="d-flex justify-content-between align-items-center">
+            <img src="<?= route('avatar') ?>" class="ms-auto my-0 d-block rounded-circle" width="35">
+            <h5 class="ms-2 my-0 p-0 text-truncate">Haii, <?= e(auth()->user()->nama) ?></h5>
+        </div>
     </div>
     <div class="row">
         <?= including('layout/sidebar') ?>
@@ -100,7 +103,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js" integrity="sha256-jdigguLi6jfU4MpneGQwiKMuuRlSmNmdJTw2e4VDHPc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
-
 <!-- Util.js -->
 <script src="<?= asset('js/utildown.js') ?>"></script>
 

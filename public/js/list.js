@@ -32,41 +32,42 @@ const renderCard = (data, key) => {
     DIV.classList.add('col-12');
     DIV.classList.add('mb-3');
     DIV.innerHTML = `
-    <div class="card shadow-sm border-secondary">
+    <div class="card shadow">
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="card-title my-1 mx-0">
+                <h4 class="card-title m-0 p-0">
                     <strong class="text-truncate mx-0">${data.name}</strong>
-                </h5>
-                <small class="text-dark">
-                    ${(data.waktu_buka || data.waktu_tutup) ? '<i class="fa-solid fa-stopwatch mx-1"></i>' : ''}
-                    ${(data.link_password) ? '<i class="fa-solid fa-lock mx-1"></i>' : ''}
-                    <i class="fa-solid fa-computer-mouse me-1"></i>${data.hint}
+                </h4>
+                <small class="text-dark rounded m-0 p-1" style="background-color: var(--bs-gray-200)">
+                    ${(data.waktu_buka || data.waktu_tutup) ? '<i class="fa-solid fa-stopwatch my-0 p-0 mx-1"></i>' : ''}
+                    ${(data.link_password) ? '<i class="fa-solid fa-lock my-0 p-0 mx-1"></i>' : ''}
+                    <i class="fa-solid fa-computer-mouse my-0 p-0 mx-1"></i>
+                    <span class="fw-bold me-1 my-0 p-0">${data.hint}</span>
                 </small>
             </div>
-            <p class="text-truncate my-1 mx-0">${escapeHtml(data.link)}</p>
+            <p class="text-truncate mt-2 mb-1 mx-0 p-0">${escapeHtml(data.link)}</p>
             <hr class="mt-2 mb-3">
-            <div class="d-flex justify-content-between align-items-center mx-0">
-                <small class="text-dark text-opacity-75 m-0"><i class="fa-solid fa-clock ms-0 me-1"></i>${(new Date(data.created_at)).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
+            <div class="d-flex justify-content-between align-items-center m-0 p-0">
+                <small class="text-dark text-opacity-75 m-0 p-0"><i class="fa-solid fa-clock ms-0 me-1"></i>${(new Date(data.created_at)).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
                 <div class="btn-group btn-group-sm m-0" role="group">
                     <a onclick="copy(${key})" class="btn btn-outline-secondary">
                         <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-copy mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Salin</span>
+                            <i class="fas fa-copy mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Salin</span>
                         </div>
                     </a>
                     <a onclick="detail(this, ${key})" class="btn btn-outline-success">
                         <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-info-circle mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Detail</span>
+                            <i class="fas fa-info-circle mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Detail</span>
                         </div>
                     </a>
                     <a onclick="edit(this, ${key})" class="btn btn-outline-warning">
                         <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-pen-to-square mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Edit</span>
+                            <i class="fas fa-pen-to-square mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Edit</span>
                         </div>
                     </a>
                     <a onclick="hapus(this, ${key})" class="btn btn-outline-danger">
                         <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-trash mx-1 my-0"></i> <span class="d-none d-md-inline m-0">Hapus</span>
+                            <i class="fas fa-trash mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Hapus</span>
                         </div>
                     </a>
                 </div>
@@ -80,7 +81,7 @@ const refreshTable = async () => {
     const TABELS = document.getElementById('tables');
     let nama = document.getElementById('nama').value;
     LOAD.disabled = true;
-    LOAD.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+    LOAD.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
 
     await fetch(`${URI}/api/link/show?nama=${nama}&init=${init}&end=${end}`)
         .then((res) => res.json())
@@ -119,7 +120,7 @@ const edit = async (button, id) => {
     document.getElementById('valueeditname').value = DATA[id][0];
     document.getElementById('valueeditlink').value = escapeHtml(DATA[id][1]);
     document.getElementById('valueeditpassword').value = DATA[id][3];
-    document.getElementById("statistik").checked = DATA[id][6];
+    document.getElementById('statistik').checked = DATA[id][6];
 
     let now = new Date(DATA[id][4] ?? '');
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -146,7 +147,7 @@ const update = async () => {
     const PASS = document.getElementById('valueeditpassword');
     const BUKA = document.getElementById('valueeditbuka');
     const TUTUP = document.getElementById('valueedittutup');
-    const CHECK = document.getElementById("statistik").checked;
+    const CHECK = document.getElementById('statistik').checked;
 
     const old = OLD.value ? OLD.value.replace(/[^\w-]/gi, '') : Math.random().toString(36).slice(2, 8);
     const name = NAME.value ? NAME.value.replace(/[^\w-]/gi, '') : Math.random().toString(36).slice(2, 8);
@@ -170,7 +171,7 @@ const update = async () => {
 
     BATAL.disabled = true;
     EDIT.disabled = true;
-    EDIT.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Loading...`;
+    EDIT.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
     await fetch(`${URI}/api/link/update`, REQ)
         .then((res) => res.json())
@@ -199,7 +200,7 @@ const update = async () => {
 
     BATAL.disabled = false;
     EDIT.disabled = false;
-    EDIT.innerHTML = '<i class="fas fa-pen-to-square"></i> Edit';
+    EDIT.innerHTML = '<i class="fas fa-pen-to-square me-1"></i>Edit';
 }
 
 const detail = async (button, id) => {
@@ -212,8 +213,8 @@ const detail = async (button, id) => {
     id = DATA[id][0];
     myModal.show();
 
-    AGENT.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
-    IP.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+    AGENT.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
+    IP.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     TITLE.innerText = `Detail ${id}`;
     button.disabled = true;
 
@@ -318,7 +319,7 @@ const destroy = async () => {
 
     BATAL.disabled = true;
     HAPUS.disabled = true;
-    HAPUS.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Loading...`;
+    HAPUS.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
     await fetch(`${URI}/api/link/delete`, REQ)
         .then((res) => res.json())
@@ -339,7 +340,7 @@ const destroy = async () => {
 
     BATAL.disabled = false;
     HAPUS.disabled = false;
-    HAPUS.innerHTML = '<i class="fas fa-trash"></i> Hapus';
+    HAPUS.innerHTML = '<i class="fas fa-trash me-1"></i>Hapus';
 }
 
 const reset = (show = true) => {
@@ -352,7 +353,7 @@ const reset = (show = true) => {
     if (show) {
         LOAD.disabled = true;
         LOAD.style.visibility = 'visible';
-        LOAD.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+        LOAD.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     } else {
         LOAD.style.visibility = 'hidden';
     }

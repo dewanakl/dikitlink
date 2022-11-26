@@ -2,7 +2,7 @@
 
 <?php section('home') ?>
 
-<div class="card-body rounded-3 p-2 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
+<div class="card-body rounded-3 p-2 mb-3" style="background-color: var(--bs-gray-200)">
     <p class="fw-semibold m-1"><i class="fa-solid fa-square-poll-vertical mx-2"></i>Statistik penggunaan</p>
 </div>
 

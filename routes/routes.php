@@ -48,26 +48,6 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     // list
     Route::get('/list', [DashboardController::class, 'list'])->name('list');
 
-    // statistik
-    Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik');
-    Route::get('/statistik/download', [StatistikController::class, 'download'])->name('statistik.download');
-
-    // profile
-    Route::controller(ProfileController::class)->group(function () {
-        Route::get('/profile', 'index')->name('profile');
-        Route::put('/profile', 'update');
-        Route::post('/profile/statistik', 'statistik')->name('statistik.profile');
-        Route::post('/profile/delete', 'delete')->name('hapus.profile');
-
-        Route::middleware(EmailMiddleware::class)->group(function () {
-            Route::post('/profile/email', 'email')->name('email');
-            Route::get('/profile/email/{id}', 'verify')->name('verify');
-        });
-    });
-
-    // logout
-    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
-
     // CRUD Link API
     Route::controller(LinkController::class)->prefix('/api/link')->group(function () {
         Route::get('/show', 'show')->name('show.link');
@@ -77,8 +57,29 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::delete('/delete', 'delete')->name('delete.link');
     });
 
+    // statistik
+    Route::get('/statistik', [StatistikController::class, 'index'])->name('statistik');
+    Route::get('/statistik/download', [StatistikController::class, 'download'])->name('statistik.download');
+
+    // profile
+    Route::controller(ProfileController::class)->prefix('/profile')->group(function () {
+        Route::get('/', 'index')->name('profile');
+        Route::put('/', 'update');
+        Route::get('/avatar', 'avatar')->name('avatar');
+        Route::post('/statistik', 'statistik')->name('statistik.profile');
+        Route::post('/delete', 'delete')->name('hapus.profile');
+
+        Route::middleware(EmailMiddleware::class)->group(function () {
+            Route::post('/email', 'email')->name('email');
+            Route::get('/email/{id}', 'verify')->name('verify');
+        });
+    });
+
+    // logout
+    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
+
     // Admin only
-    Route::middleware(AdminMiddleware::class)->prefix('/admin')->group(function () {
+    Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function () {
         Route::controller(UsersController::class)->prefix('/users')->group(function () {
             Route::get('/', 'index')->name('users');
             Route::get('/{id}/detail', 'detail');

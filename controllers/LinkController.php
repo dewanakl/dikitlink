@@ -89,6 +89,14 @@ class LinkController extends Controller
             ]);
         }
 
+        if (is_null(auth()->user()->email_verify)) {
+            if (Link::where('user_id', $this->id)->select('count(link) as jumlah')->first()->jumlah >= 3) {
+                $valid->throw([
+                    'link' => 'Verifikasi akun untuk menambahkan lagi'
+                ]);
+            }
+        }
+
         if ($valid->fails()) {
             return json([
                 'error' => $valid->failed()

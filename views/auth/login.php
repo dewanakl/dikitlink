@@ -49,14 +49,14 @@
                     <?php endif ?>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <p class="fw-semibold my-2"><a href="<?= route('forget') ?>" class="text-decoration-none text-primary">Lupa password?</a></p>
+                    <p class="fw-semibold my-2"><a href="<?= route('forget') ?>" class="hover p-1 rounded text-decoration-none text-primary">Lupa password?</a></p>
                 </div>
                 <div class="d-grid">
-                    <button class="btn btn-primary  fw-bold mb-2 " id="button-login" type="submit">Masuk</button>
+                    <button class="btn btn-primary fw-bold my-2 " id="button-login" type="submit">Masuk</button>
                 </div>
                 <hr class="text-dark">
                 <div class="d-flex justify-content-center">
-                    <p class="fw-semibold">Belum punya akun? <a href="<?= route('register') ?>" class="text-decoration-none text-primary">Register</a></p>
+                    <p class="fw-semibold">Belum punya akun?<a href="<?= route('register') ?>" class="hover mx-1 p-1 rounded text-decoration-none text-primary">Register</a></p>
                 </div>
             </form>
         </div>

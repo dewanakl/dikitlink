@@ -49,7 +49,7 @@ class AuthController extends Controller
     public function submit(Request $request)
     {
         $credential = $request->validate([
-            'nama' => ['required', 'str', 'trim', 'min:2', 'max:20'],
+            'nama' => ['required', 'str', 'trim', 'min:2', 'max:25'],
             'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'email', 'dns', 'unik'],
             'password' => ['required', 'str', 'trim', 'min:8', 'max:20', 'hash']
         ]);

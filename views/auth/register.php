@@ -42,13 +42,13 @@
                         </div>
                     <?php endif ?>
                 </div>
-                <small class="text-dark">Dengan mendaftar, Anda setuju <a href="/" class="text-decoration-none text-primary">term & conditions</a> dan <a href="/" class="text-decoration-none text-primary">privacy policy</a> kami.</small>
+                <small class="text-dark">Dengan mendaftar, Anda setuju<a href="/" class="hover p-1 rounded text-decoration-none text-primary">term & conditions</a> dan<a href="/" class="hover p-1 rounded text-decoration-none text-primary">privacy policy</a>kami.</small>
                 <div class="d-grid mt-3">
                     <button class="btn btn-success  fw-bold mb-2" id="button-register" type="submit">Daftar</button>
                 </div>
                 <hr class="text-dark">
                 <div class="d-flex justify-content-center">
-                    <p class="fw-semibold">Sudah punya akun? <a href="<?= route('login') ?>" class="text-decoration-none text-primary">Masuk</a></p>
+                    <p class="fw-semibold">Sudah punya akun?<a href="<?= route('login') ?>" class="hover mx-1 p-1 rounded text-decoration-none text-primary">Masuk</a></p>
                 </div>
             </form>
         </div>

@@ -49,7 +49,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $credential = $request->validate([
-            'nama' => ['required', 'str', 'trim', 'min:2', 'max:20'],
+            'nama' => ['required', 'str', 'trim', 'min:2', 'max:25'],
         ]);
 
         if (!auth()->user()->email_verify) {
@@ -137,5 +137,14 @@ class ProfileController extends Controller
         }
 
         return $this->redirect(route('profile'))->with('gagal', 'Kode tidak valid !');
+    }
+
+    public function avatar()
+    {
+        header_remove();
+        header('Content-Type: image/svg+xml');
+        respond()->terminate($this->view('avatar/avatar', [
+            'nama' => implode('', array_map(fn ($name) => $name[0], explode(' ', auth()->user()->nama)))
+        ]));
     }
 }

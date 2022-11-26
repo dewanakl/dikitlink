@@ -89,29 +89,14 @@
                 </span>
             </div>
             <div class="col-auto">
-                <a class="link-dark" href="#" data-bs-toggle="modal" data-bs-target="#staticPrivacy">Privacy</a>
+                <a class="link-dark hover p-1 rounded text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#staticPrivacy">Privacy</a>
                 <span class="text-dark h5 mx-1">&middot;</span>
-                <a class="link-dark" href="#" data-bs-toggle="modal" data-bs-target="#staticTerms">Terms</a>
+                <a class="link-dark hover p-1 rounded text-decoration-none" href="#" data-bs-toggle="modal" data-bs-target="#staticTerms">Terms</a>
                 <span class="text-dark h5 mx-1">&middot;</span>
-                <a class="link-dark" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Github</a>
+                <a class="link-dark hover p-1 rounded text-decoration-none" target="_blank" rel="noopener noreferrer" href="https://dikit.my.id/github_Dikit-Link">Github</a>
             </div>
         </div>
     </footer>
-</div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sabar..</h5>
-            </div>
-            <div class="modal-body">
-                <h5>Cuma <strong>kamu</strong>. Nggak laravel, CI, atau lainnya.</h5>
-                <hr>
-                <h6>Kalau udah stabil aku publish ko :)</h6>
-            </div>
-        </div>
-    </div>
 </div>
 
 <div class="modal fade" id="staticPrivacy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticPrivacyLabel" aria-hidden="true">

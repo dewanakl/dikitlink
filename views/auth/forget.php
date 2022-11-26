@@ -46,7 +46,7 @@
                 </div>
                 <hr class="text-dark">
                 <div class="d-flex justify-content-center">
-                    <p class="fw-semibold">Tiba tiba ingat lagi? <a href="<?= route('login') ?>" class="text-decoration-none text-primary">Login</a></p>
+                    <p class="fw-semibold">Tiba tiba ingat lagi?<a href="<?= route('login') ?>" class="hover mx-1 p-1 rounded text-decoration-none text-primary">Login</a></p>
                 </div>
             </form>
         </div>

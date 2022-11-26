@@ -1,21 +1,23 @@
 body {
     overflow: overlay;
+    font-family: 'Nunito', sans-serif;
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #fff;
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--bs-gray-500);
+    background-color: var(--bs-gray-400);
+    border-radius: 8px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--bs-secondary);
+    background: var(--bs-gray-500);
 }
 
 .list-menu:hover {
@@ -25,4 +27,8 @@ body {
 .list-menu.danger:hover {
     background-color: var(--bs-danger);
     color: var(--bs-white);
+}
+
+.hover:hover {
+    background: var(--bs-gray-200);
 }

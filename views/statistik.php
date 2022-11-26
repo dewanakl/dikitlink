@@ -2,10 +2,10 @@
 
 <?php section('home') ?>
 
-<div class="card-body rounded-3 p-2 shadow-sm mb-3" style="background-color: var(--bs-gray-200)">
+<div class="card-body rounded-3 p-2 mb-3" style="background-color: var(--bs-gray-200)">
     <div class="d-flex justify-content-between">
         <p class="fw-semibold m-1"><i class="fa-solid fa-chart-column mx-2"></i>Statistik penggunaan</p>
-        <a class="btn btn-success shadow-sm btn-sm m-0" target="_blank" href="<?= route('statistik.download') ?>">
+        <a class="btn btn-success btn-sm m-0" target="_blank" href="<?= route('statistik.download') ?>">
             <i class="fa-solid fa-download mx-1"></i>
             <span class="d-none d-sm-inline">Download</span>
         </a>
