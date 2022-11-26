@@ -142,6 +142,7 @@ class ProfileController extends Controller
     public function avatar()
     {
         header_remove();
+        header('Cache-Control: public, max-age=86400, immutable');
         header('Content-Type: image/svg+xml');
         respond()->terminate($this->view('avatar/avatar', [
             'nama' => implode('', array_map(fn ($name) => $name[0], explode(' ', auth()->user()->nama)))

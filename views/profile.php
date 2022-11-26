@@ -143,7 +143,7 @@
                 <div class="modal-body">
                     <div class="input-group mb-2">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" placeholder="Password" class="form-control" name="mypassword" required>
+                        <input type="password" placeholder="Password" class="form-control" name="mypassword" autocomplete="off" required>
                     </div>
                     <small class="text-danger">Dengan menghapus akun bearti menghapus semua data pada database kami.</small>
                 </div>
