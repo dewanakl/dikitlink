@@ -28,7 +28,7 @@
 
 <div class="row align-items-center">
     <div class="col-3">
-        <img src="<?= route('avatar') ?>" class="mx-auto d-block rounded-circle w-75">
+        <img src="<?= route('avatar') ?>" loading="eager" class="mx-auto d-block rounded-circle w-75">
     </div>
     <div class="col-9">
         <h2 class="fw-bold"><?= e(auth()->user()->nama) ?><?= auth()->user()->email_verify ? '<i class="fa-solid fa-circle-check text-success ms-2"></i>' : '' ?></h2>
