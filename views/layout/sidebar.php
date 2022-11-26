@@ -2,7 +2,7 @@
     <div class="d-grid mb-3">
         <button class="btn btn-warning btn-lg fw-semibold" data-bs-toggle="modal" data-bs-target="#addlinkmodal">
             <i class="fas fa-plus mx-1"></i>
-            <span class="d-none d-md-inline">Tambah </span>Link
+            <span class="d-none d-lg-inline">Tambah </span>Link
         </button>
     </div>
     <ul class="list-group">
