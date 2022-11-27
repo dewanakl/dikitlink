@@ -35,7 +35,7 @@
                         <textarea class="form-control" id="valueeditlink" placeholder="https://www.google.com/" required></textarea>
                     </div>
                     <hr>
-                    <div class="form-check form-switch">
+                    <div class="form-check form-switch mb-3">
                         <input class="form-check-input" type="checkbox" role="switch" id="statistik">
                         <label class="form-check-label" for="statistik">Simpan Statistik</label>
                     </div>
@@ -75,8 +75,8 @@
                     <h4 id="valuehapusname"></h4>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="valuehapusbatal" data-bs-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
-                    <button type="submit" class="btn btn-danger" id="hapus"><i class="fas fa-trash"></i> Hapus</button>
+                    <button type="button" class="btn btn-secondary" id="valuehapusbatal" data-bs-dismiss="modal"><i class="fas fa-times me-1"></i>Batal</button>
+                    <button type="submit" class="btn btn-danger" id="hapus"><i class="fas fa-trash me-1"></i>Hapus</button>
                 </div>
             </form>
         </div>
@@ -105,7 +105,7 @@
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="ms-1 me-auto">
-                                    <div class="fw-bold"><i class="fa-solid fa-computer-mouse"></i> Klik</div>
+                                    <div class="fw-bold"><i class="fa-solid fa-chart-simple"></i> Klik</div>
                                     <small>Klik link ini</small>
                                 </div>
                                 <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="klik"></span></h5>

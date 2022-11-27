@@ -67,7 +67,7 @@
     const login = () => {
         let btn = document.getElementById('button-login');
         btn.disabled = true;
-        btn.className = 'btn btn-primary  active disabled fw-bold mb-2'
+        btn.className = 'btn btn-primary active disabled fw-bold my-2'
         btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
     }
 </script>

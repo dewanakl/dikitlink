@@ -103,7 +103,7 @@
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     <div class="ms-2 me-auto">
-                                        <div class="fw-bold"><i class="fa-solid fa-computer-mouse"></i> Klik</div>
+                                        <div class="fw-bold"><i class="fa-solid fa-chart-simple"></i> Klik</div>
                                         <small>Jumlah klik semua link</small>
                                     </div>
                                     <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="totalpengunjung"></span></h5>

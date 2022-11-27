@@ -39,10 +39,11 @@ const renderCard = (data, key) => {
                     <strong class="text-truncate mx-0">${data.name}</strong>
                 </h4>
                 <small class="text-dark rounded m-0 p-1" style="background-color: var(--bs-gray-200)">
+                    ${(data.stats) ? '' : '<i class="fa-solid fa-ban my-0 p-0 mx-1"></i>'}
                     ${(data.waktu_buka || data.waktu_tutup) ? '<i class="fa-solid fa-stopwatch my-0 p-0 mx-1"></i>' : ''}
                     ${(data.link_password) ? '<i class="fa-solid fa-lock my-0 p-0 mx-1"></i>' : ''}
-                    <i class="fa-solid fa-computer-mouse my-0 p-0 mx-1"></i>
-                    <span class="fw-bold me-1 my-0 p-0">${data.hint}</span>
+                    <i class="fa-solid fa-chart-simple my-0 p-0 mx-1"></i>
+                    <span class="fw-bold ms-0 me-1 my-0 p-0">${data.hint}</span>
                 </small>
             </div>
             <p class="text-truncate mt-2 mb-1 mx-0 p-0">${escapeHtml(data.link)}</p>

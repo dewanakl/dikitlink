@@ -45,7 +45,7 @@
     <div class="spinner-border spinner-border-sm" id="loading-switch" style="display: none;" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
-    <label class="form-check-label" for="flexSwitchCheckChecked">Simpan Statistik</label>
+    <label class="form-check-label" for="flexSwitchCheckChecked">Simpan Semua Statistik</label>
 </div>
 
 <hr>
@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-sm " id="button-update">
+                <button type="submit" class="btn btn-primary btn-sm" id="button-update">
                     <i class="fas fa-check mx-1"></i>Simpan
                 </button>
             </div>

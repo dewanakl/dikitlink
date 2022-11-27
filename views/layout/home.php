@@ -16,11 +16,8 @@
 
 <div class="container mt-3 mb-5">
     <div class="d-flex d-none d-sm-flex justify-content-between align-items-center mt-4 mb-5">
-        <h3 class="d-none d-sm-block fw-bold m-0 p-0">Dikit<i class="fa-solid fa-link mx-2 my-0"></i>Link</h3>
-        <div class="d-flex justify-content-between align-items-center">
-            <img src="<?= route('avatar') ?>" loading="eager" class="ms-auto my-0 d-block rounded-circle" width="35">
-            <h5 class="ms-2 my-0 p-0 text-truncate">Haii, <?= e(auth()->user()->nama) ?></h5>
-        </div>
+        <h3 class="d-none d-sm-block fw-bold m-0 p-0">Dikit<i class="fa-solid fa-link mx-2 my-0 p-0"></i>Link</h3>
+        <h4 class="m-0 p-0 text-truncate">Haii, <?= e(auth()->user()->nama) ?></h4>
     </div>
     <div class="row">
         <?= including('layout/sidebar') ?>
