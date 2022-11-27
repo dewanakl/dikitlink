@@ -117,6 +117,7 @@ const refreshTable = async () => {
 const edit = async (button, id) => {
     button.disabled = true;
 
+    document.getElementById('editlinkLabel').innerText = 'Edit link ' + DATA[id][0];
     document.getElementById('valueeditid').value = DATA[id][0];
     document.getElementById('valueeditname').value = DATA[id][0];
     document.getElementById('valueeditlink').value = escapeHtml(DATA[id][1]);
@@ -130,6 +131,7 @@ const edit = async (button, id) => {
 
     now = new Date(DATA[id][5] ?? '');
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
     document.getElementById('valueedittutup').value = DATA[id][5] ? now.toISOString().slice(0, 16) : null;
 
     const myModal = new bootstrap.Modal(document.getElementById('editlinkmodal'));

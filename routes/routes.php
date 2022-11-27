@@ -49,7 +49,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     Route::get('/list', [DashboardController::class, 'list'])->name('list');
 
     // CRUD Link API
-    Route::controller(LinkController::class)->prefix('/api/link')->group(function () {
+    Route::prefix('/api/link')->controller(LinkController::class)->group(function () {
         Route::get('/show', 'show')->name('show.link');
         Route::get('/detail', 'detail')->name('detail.link');
         Route::post('/create', 'create')->name('create.link');
@@ -80,7 +80,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     // Admin only
     Route::prefix('/admin')->middleware(AdminMiddleware::class)->group(function () {
-        Route::controller(UsersController::class)->prefix('/users')->group(function () {
+        Route::prefix('/users')->controller(UsersController::class)->group(function () {
             Route::get('/', 'index')->name('users');
             Route::get('/{id}/detail', 'detail');
             Route::delete('/{id}/delete', 'delete')->name('delete.users');

@@ -10,10 +10,10 @@ final class EmailMiddleware implements MiddlewareInterface
 {
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->email_verify) {
-            respond()->redirect(route('profile'));
+        if (!auth()->user()->email_verify) {
+            return $next($request);
         }
 
-        return $next($request);
+        respond()->redirect(route('profile'));
     }
 }

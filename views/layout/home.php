@@ -1,5 +1,13 @@
 <?php parents('layout/app') ?>
 
+<?php section('preload.alert') ?>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js" integrity="sha256-jdigguLi6jfU4MpneGQwiKMuuRlSmNmdJTw2e4VDHPc=" crossorigin="anonymous" as="script" />
+<?php endsection('preload.alert') ?>
+
+<?php section('preload.chart') ?>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous" as="script" />
+<?php endsection('preload.chart') ?>
+
 <?php section('utiltop') ?>
 <script src="<?= asset('js/utiltop.js') ?>"></script>
 <?php endsection('utiltop') ?>

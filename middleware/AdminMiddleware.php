@@ -14,6 +14,6 @@ final class AdminMiddleware implements MiddlewareInterface
             return $next($request);
         }
 
-        return abort();
+        abort();
     }
 }

@@ -21,7 +21,7 @@
         <div class="modal-content">
             <form id="editlink">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editlinkLabel">Edit Link</h5>
+                    <h5 class="modal-title" id="editlinkLabel">Edit link</h5>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" id="valueeditid">
@@ -55,8 +55,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="valueeditbatal" data-bs-dismiss="modal"><i class="fas fa-times"></i> Batal</button>
-                    <button type="submit" class="btn btn-success" id="edit"><i class="fas fa-pen-to-square"></i> Edit</button>
+                    <button type="button" class="btn btn-secondary" id="valueeditbatal" data-bs-dismiss="modal"><i class="fas fa-times me-1"></i>Batal</button>
+                    <button type="submit" class="btn btn-success" id="edit"><i class="fas fa-pen-to-square me-1"></i>Edit</button>
                 </div>
             </form>
         </div>
@@ -90,22 +90,22 @@
                 <h5 class="modal-title" id="detaillinkLabel"></h5>
             </div>
             <div class="modal-body">
-                <div class="row mb-4">
+                <div class="row mb-4 p-0">
                     <div class="col-md-8">
                         <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
                     </div>
-                    <div class="col-md-4 ms-auto">
+                    <div class="col-md-4">
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="ms-1 me-auto">
-                                    <div class="fw-bold"><i class="fa-solid fa-fingerprint"></i> Unik</div>
+                                    <div class="fw-bold"><i class="fa-solid fa-fingerprint me-1"></i>Unik</div>
                                     <small>Pengunjung unik</small>
                                 </div>
                                 <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="unik"></span></h5>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div class="ms-1 me-auto">
-                                    <div class="fw-bold"><i class="fa-solid fa-chart-simple"></i> Klik</div>
+                                    <div class="fw-bold"><i class="fa-solid fa-chart-simple me-1"></i>Klik</div>
                                     <small>Klik link ini</small>
                                 </div>
                                 <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="klik"></span></h5>
@@ -113,8 +113,8 @@
                         </ul>
                     </div>
                 </div>
-                <hr class="text-dark">
-                <div class="row">
+                <hr class="text-dark p-0">
+                <div class="row p-0">
                     <div class="col-md-8">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -128,7 +128,7 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-4 ms-auto">
+                    <div class="col-md-4">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead>
@@ -144,7 +144,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fas fa-check"></i> Oke</button>
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fas fa-check me-1"></i>Oke</button>
             </div>
         </div>
     </div>
