@@ -3,7 +3,7 @@
 <?php section('home') ?>
 
 <div class="card-body rounded-3 p-2 mb-3" style="background-color: var(--bs-gray-200)">
-    <p class="fw-semibold m-1"> <i class="fa-solid fa-list mx-2"></i>Daftar link saat ini</p>
+    <p class="fw-semibold m-1"><i class="fa-solid fa-list mx-2"></i>Daftar link saat ini</p>
 </div>
 
 <div class="input-group mb-3">

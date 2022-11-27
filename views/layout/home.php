@@ -1,18 +1,15 @@
 <?php parents('layout/app') ?>
 
-<?php section('preload.home') ?>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js" integrity="sha256-jdigguLi6jfU4MpneGQwiKMuuRlSmNmdJTw2e4VDHPc=" crossorigin="anonymous" as="script" />
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous" as="script" />
-<?php endsection('preload.home') ?>
-
 <?php section('utiltop') ?>
-<!-- Util.js -->
 <script src="<?= asset('js/utiltop.js') ?>"></script>
 <?php endsection('utiltop') ?>
 
 
 <?php section('main') ?>
-<?= including('layout/navbar') ?>
+
+<nav class="navbar navbar-dark bg-dark navbar-expand fixed-bottom d-md-none d-lg-none d-xl-none m-0 p-0">
+    <?= including('layout/navbar') ?>
+</nav>
 
 <div class="container mt-3 mb-5">
     <div class="d-flex d-none d-sm-flex justify-content-between align-items-center mt-4 mb-5">
@@ -20,7 +17,9 @@
         <h4 class="m-0 p-0 text-truncate">Haii, <?= e(auth()->user()->nama) ?></h4>
     </div>
     <div class="row">
-        <?= including('layout/sidebar') ?>
+        <div class="col-md-3 pe-5 d-none d-md-inline">
+            <?= including('layout/sidebar') ?>
+        </div>
         <div class="col-md-9">
             <?= content('home') ?>
         </div>
@@ -100,7 +99,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js" integrity="sha256-jdigguLi6jfU4MpneGQwiKMuuRlSmNmdJTw2e4VDHPc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
-<!-- Util.js -->
 <script src="<?= asset('js/utildown.js') ?>"></script>
 
 <?php endsection('main') ?>

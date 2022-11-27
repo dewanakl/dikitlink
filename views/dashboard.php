@@ -58,6 +58,5 @@
         </div>
     </div>
 </div>
-</div>
 
 <?php endsection('home') ?>
