@@ -7,10 +7,11 @@
 </div>
 
 <div class="card-body rounded-3 p-4 mb-4" style="background-color: var(--bs-gray-200)">
-    <h1 class="text-truncate fw-bold"><?= $salam ?>, <?= e(auth()->user()->nama) ?></h1>
+    <h2 class="text-truncate fw-bold"><?= $salam ?>, <?= e(auth()->user()->nama) ?></h2>
     <p class="fw-semibold mb-0">Selamat datang di halaman utama dikit link, yukss bikin link yang banyak !</p>
 </div>
 
+<h5>Overview</h5>
 <div class="row">
     <div class="col-md-4 mb-4">
         <div class="card-body rounded-3 shadow p-3" style="background: #8D9EFF;">

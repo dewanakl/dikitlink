@@ -222,11 +222,10 @@
                     'rgba(255, 99, 132, 1)'
                 ];
 
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'
-                ];
+                const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
                 res.last_month.forEach((key) => {
-                    labels.push(monthNames[(new Date(key.tgl + '-01').getMonth())] + ' ' + (new Date(key.tgl + '-01').getFullYear()));
+                    labels.push(monthNames[(new Date(key.tgl + '-01').getMonth())] + ' ' + ((new Date(key.tgl + '-01')).getFullYear().toString().substring(2, 4)));
                     values.push(key.hint);
                 });
 

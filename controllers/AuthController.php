@@ -7,6 +7,8 @@ use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Support\Mail;
 use Core\Valid\Hash;
+use Core\Valid\Validator;
+use Models\Log;
 use Models\User;
 
 class AuthController extends Controller
@@ -34,12 +36,32 @@ class AuthController extends Controller
 
     public function auth(Request $request)
     {
-        $credential = $request->validate([
-            'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'email'],
-            'password' => ['required', 'str', 'trim', 'min:8', 'max:20']
-        ]);
+        $valid = Validator::make(
+            [
+                'email' => $request->email,
+                'password' => $request->password,
+                'user' => $request->server('HTTP_USER_AGENT'),
+                'ip' => $request->ip()
+            ],
+            [
+                'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'email'],
+                'password' => ['required', 'str', 'trim', 'min:8', 'max:20'],
+                'user' => ['str', 'trim', 'max:150'],
+                'ip' => ['str', 'trim', 'max:15']
+            ]
+        );
 
-        if (Auth::attempt($credential)) {
+        if ($valid->fails()) {
+            $request->throw($valid);
+        }
+
+        if (Auth::attempt($valid->only(['email', 'password']))) {
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'user_agent' => $valid->user,
+                'ip_address' => $valid->ip
+            ]);
+
             return $this->redirect(route('dashboard'));
         }
 
@@ -94,12 +116,29 @@ class AuthController extends Controller
         return $this->back()->with('gagal', 'Gagal mengirim email');
     }
 
-    public function reset($id)
+    public function reset(Request $request, $id)
     {
         $success = false;
 
         if (hash_equals(session()->get('key', Hash::rand(10)), $id)) {
+            $valid = Validator::make(
+                [
+                    'user' => $request->server('HTTP_USER_AGENT'),
+                    'ip' => $request->ip()
+                ],
+                [
+                    'user' => ['str', 'trim', 'max:150'],
+                    'ip' => ['str', 'trim', 'max:15']
+                ]
+            );
+
             Auth::login(User::find(session()->get('email'), 'email'));
+            Log::create([
+                'user_id' => Auth::user()->id,
+                'user_agent' => $valid->user,
+                'ip_address' => $valid->ip
+            ]);
+
             $success = true;
         }
 
