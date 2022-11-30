@@ -7,7 +7,7 @@
 </div>
 
 <div class="card-body rounded-3 p-4 mb-4" style="background-color: var(--bs-gray-200)">
-    <h2 class="text-truncate fw-bold"><?= $salam ?>, <?= e(auth()->user()->nama) ?></h2>
+    <h2 class="text-truncate fw-bold"><?= $salam . ', ' . e(auth()->user()->nama) ?></h2>
     <p class="fw-semibold mb-0">Selamat datang di halaman utama dikit link, yukss bikin link yang banyak !</p>
 </div>
 
@@ -23,7 +23,7 @@
                     <div class="h5 mb-0 fw-bold"><?= $jumlah_link ?></div>
                 </div>
                 <div class="col-auto">
-                    <i class="fa-solid fa-link fa-2x mx-1"></i>
+                    <i class="fa-solid fa-link fa-2x me-2"></i>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
                     <div class="h5 mb-0 fw-bold"><?= $unique_pengunjung ?></div>
                 </div>
                 <div class="col-auto">
-                    <i class="fa-solid fa-fingerprint fa-2x mx-1"></i>
+                    <i class="fa-solid fa-fingerprint fa-2x me-2"></i>
                 </div>
             </div>
         </div>
@@ -53,7 +53,7 @@
                     <div class="h5 mb-0 fw-bold"><?= $total_pengunjung ?></div>
                 </div>
                 <div class="col-auto">
-                    <i class="fa-solid fa-chart-simple fa-2x mx-1"></i>
+                    <i class="fa-solid fa-chart-simple fa-2x me-2"></i>
                 </div>
             </div>
         </div>

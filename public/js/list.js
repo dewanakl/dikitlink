@@ -48,7 +48,7 @@ const renderCard = (data, key) => {
         <p class="text-truncate mt-2 mb-1 mx-0 p-0">${escapeHtml(data.link)}</p>
         <hr class="mt-2 mb-3">
         <div class="d-flex justify-content-between align-items-center m-0 p-0">
-            <small class="text-dark text-opacity-75 m-0 p-0"><i class="fa-solid fa-clock ms-0 me-1"></i>${(new Date(data.created_at)).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
+            <small class="text-dark text-opacity-75 m-0 p-0"><i class="fa-solid fa-clock ms-0 me-1"></i>${(new Date(data.created_at)).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
             <div class="btn-group btn-group-sm m-0" role="group">
                 <a onclick="copy(${key})" class="btn btn-outline-secondary">
                     <div class="d-flex justify-content-center align-items-center">

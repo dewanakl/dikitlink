@@ -6,24 +6,24 @@
     <p class="fw-semibold m-1"><i class="fa-solid fa-list mx-2"></i>Daftar link saat ini</p>
 </div>
 
-<div class="input-group mb-3">
+<div class="input-group mb-3 shadow-sm">
     <span class="input-group-text"><i class="fas fa-search"></i></span>
     <input type="text" class="form-control" onkeyup="cariNama()" id="nama" placeholder="Cari disini..">
 </div>
 
 <div class="row" id="tables"></div>
-<div class="d-grid mb-2">
+<div class="d-grid mb-2 mt-1">
     <button class="btn btn-primary btn-sm fw-bold mb-3" id="loadmore" onclick="loadMore()">Muat lebih banyak</button>
 </div>
 
-<div class="modal fade" id="editlinkmodal" tabindex="-1" aria-labelledby="editlinkLabel" aria-hidden="true">
+<div class="modal fade overlay" id="editlinkmodal" tabindex="-1" aria-labelledby="editlinkLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form id="editlink">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editlinkLabel">Edit link</h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body overlay">
                     <input type="hidden" id="valueeditid">
                     <div class="mb-3">
                         <label for="valueeditname">Nama</label>
@@ -32,10 +32,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="valueeditlink">Link</label>
-                        <textarea class="form-control" id="valueeditlink" placeholder="https://www.google.com/" required></textarea>
+                        <textarea class="form-control" id="valueeditlink" placeholder="https://www.google.com/" <?= is_null(auth()->user()->email_verify) ? 'disabled' : 'required' ?>></textarea>
+                        <?php if (is_null(auth()->user()->email_verify)) : ?>
+                            <small class="text-dark">*Verifikasi email untuk memperbaharui link tujuan</small>
+                        <?php endif ?>
                     </div>
                     <hr>
-                    <div class="form-check form-switch mb-3">
+                    <div class="form-check form-switch mb-2">
                         <input class="form-check-input" type="checkbox" role="switch" id="statistik">
                         <label class="form-check-label" for="statistik">Simpan Statistik</label>
                     </div>
@@ -63,7 +66,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="hapuslinkmodal" tabindex="-1" aria-labelledby="hapuslinkLabel" aria-hidden="true">
+<div class="modal fade overlay" id="hapuslinkmodal" tabindex="-1" aria-labelledby="hapuslinkLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <form id="hapuslink">
@@ -83,41 +86,52 @@
     </div>
 </div>
 
-<div class="modal fade" id="detaillinkmodal" tabindex="-1" aria-labelledby="detaillinkLabel" aria-hidden="true">
+<div class="modal fade overlay" id="detaillinkmodal" tabindex="-1" aria-labelledby="detaillinkLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="detaillinkLabel"></h5>
             </div>
-            <div class="modal-body">
-                <div class="row mb-4 p-0">
-                    <div class="col-md-8">
-                        <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
+            <div class="modal-body overlay">
+                <div class="row mb-3 p-0">
+                    <div class="col-lg-8">
+                        <h6 class="ms-1">Grafik 7 hari terakhir</h6>
+                        <canvas style="height:inherit; width:inherit;" id="myChart" class="shadow p-3 rounded-3 border border-opacity-25"></canvas>
                     </div>
-                    <div class="col-md-4">
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div class="ms-1 me-auto">
-                                    <div class="fw-bold"><i class="fa-solid fa-fingerprint me-1"></i>Unik</div>
-                                    <small>Pengunjung unik</small>
+                    <div class="col-lg-4 mt-1">
+                        <div class="card-body rounded-3 shadow p-2 mt-4 mb-2" style="background: #A084CA;">
+                            <div class="row align-items-center text-light">
+                                <div class="col">
+                                    <h6 class="fw-bold mb-1">
+                                        Pengunjung unik
+                                    </h6>
+                                    <div class="h5 mb-0 fw-bold" id="unik"></div>
                                 </div>
-                                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="unik"></span></h5>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <div class="ms-1 me-auto">
-                                    <div class="fw-bold"><i class="fa-solid fa-chart-simple me-1"></i>Klik</div>
-                                    <small>Klik link ini</small>
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-fingerprint fa-2x me-2"></i>
                                 </div>
-                                <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="klik"></span></h5>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
+                        <div class="card-body rounded-3 shadow p-2 mb-2" style="background: #645CAA;">
+                            <div class="row align-items-center text-light">
+                                <div class="col">
+                                    <h6 class="fw-bold mb-1">
+                                        Klik semua link
+                                    </h6>
+                                    <div class="h5 mb-0 fw-bold" id="klik"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-chart-simple fa-2x me-2"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <hr class="text-dark p-0">
                 <div class="row p-0">
-                    <div class="col-md-8">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                    <div class="col-lg-8">
+                        <h6>User Agent</h6>
+                        <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
+                            <table class="table table-striped table-sm table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Hint</th>
@@ -128,9 +142,10 @@
                             </table>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                    <div class="col-lg-4">
+                        <h6>IP Address</h6>
+                        <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
+                            <table class="table table-striped table-sm table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Hint</th>
@@ -143,8 +158,10 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fas fa-check me-1"></i>Oke</button>
+            <div class="modal-footer d-inline d-lg-flex">
+                <div class="d-grid">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fas fa-check me-1"></i>Oke</button>
+                </div>
             </div>
         </div>
     </div>

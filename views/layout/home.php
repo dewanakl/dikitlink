@@ -57,7 +57,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="addlinkmodal" tabindex="-1" aria-labelledby="addlinkLabel" aria-hidden="true">
+<div class="modal fade overlay" id="addlinkmodal" tabindex="-1" aria-labelledby="addlinkLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-sm-down modal-lg">
         <div class="modal-content">
             <form id="addlink">
@@ -84,7 +84,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+<div class="modal fade overlay" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

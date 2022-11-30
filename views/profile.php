@@ -31,7 +31,7 @@
         <img src="<?= route('avatar') ?>" loading="eager" class="mx-auto d-block rounded-circle w-75">
     </div>
     <div class="col-9">
-        <h2 class="fw-bold"><?= e(auth()->user()->nama) ?><?= auth()->user()->email_verify ? '<i class="fa-solid fa-circle-check text-success ms-2"></i>' : '' ?></h2>
+        <h3 class="fw-bold"><?= e(auth()->user()->nama) ?><?= auth()->user()->email_verify ? '<i class="fa-solid fa-circle-check text-success ms-2"></i>' : '' ?></h3>
         <p class="d-block m-0 p-0"><i class="fas fa-envelope me-1"></i><?= e(auth()->user()->email) ?></p>
         <small class="d-block"><i class="fas fa-user-clock me-1"></i><?= date("d M Y, H:i", strtotime((auth()->user()->created_at))) ?></small>
     </div>
@@ -46,6 +46,24 @@
         <span class="visually-hidden">Loading...</span>
     </div>
     <label class="form-check-label" for="flexSwitchCheckChecked">Simpan Semua Statistik</label>
+</div>
+
+<button type="button" class="btn btn-outline-success btn-sm mt-2" onclick="riwayatlogin()"><i class="fa-solid fa-clock-rotate-left me-1"></i>Riwayat Login</button>
+<div class="modal fade overlay" id="riwayatloginModal" tabindex="-1" aria-labelledby="riwayatloginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="riwayatloginModalLabel">Riwayat Login</h1>
+            </div>
+            <div class="modal-body overlay" id="riwayatid">
+            </div>
+            <div class="modal-footer d-inline d-lg-flex">
+                <div class="d-grid">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fas fa-check me-1"></i>Oke</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <hr>
@@ -132,7 +150,7 @@
         <i class="fa-solid fa-triangle-exclamation me-1"></i>Hapus Akun
     </button>
 </div>
-<div class="modal fade" id="hapusakun" tabindex="-1" aria-labelledby="hapusakunLabel" aria-hidden="true">
+<div class="modal fade overlay" id="hapusakun" tabindex="-1" aria-labelledby="hapusakunLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form action="<?= route('hapus.profile') ?>" method="post">
             <?= csrf() ?>
@@ -193,10 +211,44 @@
 <?php endif ?>
 
 <script defer>
+    const renderCard = (data) => {
+        const DIV = document.createElement('div');
+        DIV.classList.add('mb-3');
+        DIV.innerHTML = `
+        <div class="card-body shadow p-3 rounded-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h6 class="m-0 p-0">
+                    <strong class="text-truncate mx-0">${data.ip_address}</strong>
+                </h6>
+                <small class="text-dark rounded m-0" style="background-color: var(--bs-gray-200)">
+                    <i class="fa-solid fa-clock mx-1"></i>
+                    <span class="ms-0 me-1 my-0 p-0">${(new Date(data.created_at)).toLocaleString('id-ID')}</span>
+                </small>
+            </div>
+            <hr>
+            <small class="mt-2 mb-1 mx-0 p-0">${data.user_agent}</small>
+        </div>`;
+        return DIV;
+    }
+
+    const riwayatlogin = async () => {
+        const myModal = new bootstrap.Modal(document.getElementById('riwayatloginModal'));
+        const RIWAYAT = document.getElementById('riwayatid');
+
+        await fetch(`<?= route('log') ?>`)
+            .then((data) => data.json())
+            .then((data) => {
+                RIWAYAT.innerHTML = null;
+                data.forEach((data) => RIWAYAT.appendChild(renderCard(data)));
+            })
+            .catch((err) => showModal(err, 'error'));
+        myModal.show();
+    }
+
     const update = () => {
         let btn = document.getElementById('button-update');
         btn.disabled = true;
-        btn.className = 'btn btn-primary btn-sm  active';
+        btn.className = 'btn btn-primary btn-sm active';
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     };
 

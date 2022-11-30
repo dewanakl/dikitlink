@@ -12,12 +12,14 @@
     </div>
 </div>
 
-<canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
+<h6 class="ms-1">Grafik 1 tahun terakhir</h6>
+<canvas style="height:inherit; width:inherit;" id="myChart" class="p-3 rounded-3 shadow border border-opacity-25 mb-4"></canvas>
 
-<div class="row mb-4">
-    <div class="col-md-9">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
+<div class="row mb-3">
+    <div class="col-lg-9">
+        <h6>User Agent</h6>
+        <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
+            <table class="table table-striped table-sm table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Hint</th>
@@ -35,9 +37,10 @@
             </table>
         </div>
     </div>
-    <div class="col-md-3 ms-auto">
-        <div class="table-responsive">
-            <table class="table table-striped table-hover">
+    <div class="col-lg-3">
+        <h6>IP Address</h6>
+        <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
+            <table class="table table-striped table-sm table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Hint</th>
@@ -79,12 +82,10 @@
         'rgba(255, 99, 132, 1)'
     ];
 
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     DATA.forEach((key) => {
-        labels.push(monthNames[(new Date(key.tgl + '-01').getMonth())] + ' ' + (new Date(key.tgl + '-01').getFullYear()));
+        labels.push(monthNames[(new Date(key.tgl + '-01').getMonth())] + ' ' + ((new Date(key.tgl + '-01')).getFullYear().toString().substring(2, 4)));
         values.push(key.hint);
     });
 

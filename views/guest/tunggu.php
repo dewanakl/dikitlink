@@ -2,23 +2,21 @@
 
 <?php section('guest') ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-auto mx-auto">
-            <img src="<?= asset('time.svg') ?>" width="200" class="d-block d-md-none img-fluid ">
-        </div>
-        <div class="col-md-9 col-lg-8 mx-auto">
-            <h1 class="fw-bold mt-3 mb-1">
-                <?= $opened ? 'Sabar yaa' : 'Maaf yaa' ?>
-            </h1>
-            <h5 class="fw-bold mb-4 mt-3">Link "<?= e($name) ?>" <span class="text-<?= $opened ? 'success' : 'danger' ?>"><?= $opened ? 'Akan dibuka' : 'Sudah di tutup' ?></span> dalam
-                <span id="demo"></span> <?= $opened ? ' Lagi..' : 'yang lalu..' ?>
-            </h5>
-        </div>
+<div class="row">
+    <div class="col-auto mx-auto">
+        <img src="<?= asset('time.svg') ?>" width="200" class="d-block d-md-none img-fluid ">
+    </div>
+    <div class="col-md-9 col-lg-8 mx-auto">
+        <h1 class="fw-bold mt-3 mb-1">
+            <?= $opened ? 'Sabar yaa' : 'Maaf yaa' ?>
+        </h1>
+        <h5 class="fw-bold mb-4 mt-3">Link "<?= e($name) ?>" <span class="text-<?= $opened ? 'success' : 'danger' ?>"><?= $opened ? 'Akan dibuka' : 'Sudah di tutup' ?></span> dalam
+            <span id="demo"></span> <?= $opened ? ' Lagi..' : 'yang lalu..' ?>
+        </h5>
     </div>
 </div>
 
-<script>
+<script defer>
     let countDownDate = new Date("<?= $time ?>").getTime();
 
     const countDown = () => {

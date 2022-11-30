@@ -3,33 +3,34 @@
 <?php section('main') ?>
 
 <div class="container">
-    <header class="pt-5 border-bottom">
+    <header class="pt-5 px-2 border-bottom">
+        <img src="<?= asset('link.svg') ?>" style="width: 65%;" class="d-block d-lg-none mb-3 img-fluid mx-auto">
         <div class="row align-items-center justify-content-center">
-            <div class="col-lg-8 col-xl-7 col-xxl-6">
-                <div class="my-1 text-center text-xl-start">
-                    <h1 class="fw-bold  mt-0 mb-3" style="font-size: 40px;">Link tuh dikit nggak banyak !!</h1>
-                    <p class="lead" style="font-size: 24px;">
+            <div class="col">
+                <div class="text-center text-lg-start">
+                    <h1 class="fw-bold mt-0 mb-3" style="font-size: 2.3rem;">Link tuh dikit nggak banyak !!</h1>
+                    <p class="lead" style="font-size: 1.2rem;">
                         Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?
                     </p>
-                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                    <div class="d-grid d-sm-flex justify-content-sm-center justify-content-lg-start mb-3">
                         <a class="btn btn-primary btn-lg fw-bold" href="<?= route('login') ?>">Coba Sekarang !</a>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-                <img class="img-fluid" width="400" loading="lazy" src="<?= asset('link.svg') ?>" alt="link" />
+            <div class="col d-none d-lg-block mt-auto text-center">
+                <img class="img-fluid" style="width: 65%;" loading="lazy" src="<?= asset('link.svg') ?>" alt="link" />
             </div>
         </div>
     </header>
 
-    <main class="px-4 py-5 border-bottom">
+    <main class="px-3 py-4 border-bottom">
         <div class="row g-4 row-cols-1 row-cols-lg-3">
             <div class="col d-flex align-items-start">
                 <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-2">
                     <i class="fa-solid fa-rotate"></i>
                 </div>
                 <div class="mt-0">
-                    <h3>Tanpa Batas</h3>
+                    <h4>Tanpa Batas</h4>
                     <p>Bikin link sampai ribuan juga boleh banget, intinya sampai kamu cape sendiri.</p>
                 </div>
             </div>
@@ -38,7 +39,7 @@
                     <i class="fa-solid fa-chart-column"></i>
                 </div>
                 <div class="mt-0">
-                    <h3>Statistik</h3>
+                    <h4>Statistik</h4>
                     <p>Kamu juga bisa langsung stalking. Seperti jumlah kliknya, pake device apa, dll.</p>
                 </div>
             </div>
@@ -47,7 +48,7 @@
                     <i class="fa-solid fa-sack-dollar"></i>
                 </div>
                 <div class="mt-0">
-                    <h3>100% Gratis</h3>
+                    <h4>100% Gratis</h4>
                     <p>Asli gk bohong, coba dulu baru bilang.... tuhkan gratis tanpa butuh apa apa.</p>
                 </div>
             </div>
@@ -56,7 +57,7 @@
                     <i class="fa-solid fa-thumbs-up"></i>
                 </div>
                 <div class="mt-0">
-                    <h3>Mudah</h3>
+                    <h4>Mudah</h4>
                     <p>Sat set sat set, hiyaaa.... mudah bangett kan bikin linknya ?.</p>
                 </div>
             </div>
@@ -65,7 +66,7 @@
                     <i class="fa-solid fa-link"></i>
                 </div>
                 <div class="mt-0">
-                    <h3>Bebas</h3>
+                    <h4>Bebas</h4>
                     <p>Yoiii, bebas dan terserah mau dikasih nama apa untuk alias linknya.</p>
                 </div>
             </div>
@@ -74,14 +75,14 @@
                     <i class="fa-solid fa-bolt"></i>
                 </div>
                 <div class="mt-0">
-                    <h3>Cepat</h3>
+                    <h4>Cepat</h4>
                     <p>Perasaan baru klik ini tombol kok udah muncul selesai ? Gile cepet bangettt.</p>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="p-4">
+    <footer class="py-4">
         <div class="row align-items-center justify-content-between flex-column flex-sm-row">
             <div class="col-auto">
                 <span class="text-dark">
@@ -99,7 +100,7 @@
     </footer>
 </div>
 
-<div class="modal fade" id="staticPrivacy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticPrivacyLabel" aria-hidden="true">
+<div class="modal fade overlay" id="staticPrivacy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticPrivacyLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -130,7 +131,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="staticTerms" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticTermsLabel" aria-hidden="true">
+<div class="modal fade overlay" id="staticTerms" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticTermsLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
