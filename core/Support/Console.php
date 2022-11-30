@@ -59,8 +59,8 @@ class Console
         $this->command = $argv[0] ?? null;
         $this->options = $argv[1] ?? null;
 
-        print($this->createColor('green', "Kamu PHP Framework v1.0\n"));
-        print($this->createColor('yellow', "Saya Console v1.0\n\n"));
+        print($this->createColor('green', "Kamu PHP Framework v1.0.0\n"));
+        print($this->createColor('yellow', "Saya Console v1.0.0\n\n"));
     }
 
     /**
@@ -239,7 +239,7 @@ class Console
     private function createMigrasi(?string $name): void
     {
         $data = $this->loadTemplate($name, 1);
-        $data = str_contains(strtolower($name), 'add') ? $data[1] : $data[0];
+        $data = substr_count($name, '_') != 1 ? $data[1] : $data[0];
         $data = str_replace('NAME', explode('_', $name)[count(explode('_', $name)) - 1], $data);
         $this->saveTemplate($name, $data, 1);
     }

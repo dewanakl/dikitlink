@@ -8,6 +8,7 @@ use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Support\Mail;
 use Core\Valid\Hash;
+use Models\Log;
 use Models\User;
 
 class ProfileController extends Controller
@@ -24,7 +25,7 @@ class ProfileController extends Controller
         ]);
 
         if (Hash::check($request->mypassword, Auth::user()->password)) {
-            DB::table('users')->where('id', auth()->user()->id)->delete();
+            User::destroy(Auth::user()->id);
             return $this->redirect(route('login'))->with('berhasil', 'Berhasil menghapus akun !');
         }
 
@@ -144,7 +145,21 @@ class ProfileController extends Controller
         header_remove();
         header('Content-Type: image/svg+xml');
         respond()->terminate($this->view('avatar/avatar', [
-            'nama' => implode('', array_map(fn ($name) => $name[0], explode(' ', auth()->user()->nama)))
+            'nama' => implode(array_map(fn ($name) => $name[0], explode(' ', Auth::user()->nama)))
         ]));
+    }
+
+    public function log()
+    {
+        return json(
+            Log::where('user_id', Auth::user()->id)
+                ->orderBy('id', 'DESC')
+                ->select([
+                    'created_at',
+                    'ip_address',
+                    'user_agent'
+                ])
+                ->get()
+        );
     }
 }

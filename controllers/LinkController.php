@@ -90,7 +90,7 @@ class LinkController extends Controller
         }
 
         if (is_null(auth()->user()->email_verify)) {
-            if (Link::where('user_id', $this->id)->select('count(link) as jumlah')->first()->jumlah >= 3) {
+            if (Link::where('user_id', $this->id)->counts('link')->first()->link >= 3) {
                 $valid->throw([
                     'link' => 'Verifikasi akun untuk menambahkan lagi'
                 ]);
@@ -143,7 +143,12 @@ class LinkController extends Controller
             ], 400);
         }
 
-        $data = $valid->only(['name', 'link']);
+        $data = $valid->only(['name']);
+
+        if (!is_null(auth()->user()->email_verify)) {
+            $data['link'] = $valid->link;
+        }
+
         $data['link_password'] = empty($valid->password) ? null : $valid->password;
         $data['record_statistics'] = $valid->stats;
         $data['waktu_buka'] = empty($valid->buka) ? null : implode(' ', explode('T', $valid->buka)) . ':00';

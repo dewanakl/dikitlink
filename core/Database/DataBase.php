@@ -25,7 +25,7 @@ class DataBase
     /**
      * Statement dari query 
      * 
-     * @var PDOStatement|false $stmt
+     * @var \PDOStatement|false $stmt
      */
     private $stmt;
 
@@ -133,10 +133,14 @@ class DataBase
      */
     public function exec(string $command): mixed
     {
+        $result = null;
+
         try {
-            return $this->pdo->exec($command);
+            $result = $this->pdo->exec($command);
         } catch (Throwable $e) {
             $this->catchException($e);
+        } finally {
+            return $result;
         }
     }
 
@@ -190,10 +194,14 @@ class DataBase
      */
     public function execute(): mixed
     {
+        $result = null;
+
         try {
-            return $this->stmt->execute();
+            $result = $this->stmt->execute();
         } catch (Exception $e) {
             $this->catchException($e);
+        } finally {
+            return $result;
         }
     }
 

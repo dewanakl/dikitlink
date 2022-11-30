@@ -53,7 +53,7 @@ class UsersController extends Controller
 
     public function delete($id)
     {
-        User::where('id', $id)->delete();
+        User::destroy($id);
         return $this->back()->with('berhasil', 'Berhasil menghapus user');
     }
 }

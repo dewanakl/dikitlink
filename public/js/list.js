@@ -32,46 +32,44 @@ const renderCard = (data, key) => {
     DIV.classList.add('col-12');
     DIV.classList.add('mb-3');
     DIV.innerHTML = `
-    <div class="card shadow">
-        <div class="card-body">
-            <div class="d-flex justify-content-between align-items-center">
-                <h4 class="card-title m-0 p-0">
-                    <strong class="text-truncate mx-0">${data.name}</strong>
-                </h4>
-                <small class="text-dark rounded m-0 p-1" style="background-color: var(--bs-gray-200)">
-                    ${(data.stats) ? '' : '<i class="fa-solid fa-ban my-0 p-0 mx-1"></i>'}
-                    ${(data.waktu_buka || data.waktu_tutup) ? '<i class="fa-solid fa-stopwatch my-0 p-0 mx-1"></i>' : ''}
-                    ${(data.link_password) ? '<i class="fa-solid fa-lock my-0 p-0 mx-1"></i>' : ''}
-                    <i class="fa-solid fa-chart-simple my-0 p-0 mx-1"></i>
-                    <span class="fw-bold ms-0 me-1 my-0 p-0">${data.hint}</span>
-                </small>
-            </div>
-            <p class="text-truncate mt-2 mb-1 mx-0 p-0">${escapeHtml(data.link)}</p>
-            <hr class="mt-2 mb-3">
-            <div class="d-flex justify-content-between align-items-center m-0 p-0">
-                <small class="text-dark text-opacity-75 m-0 p-0"><i class="fa-solid fa-clock ms-0 me-1"></i>${(new Date(data.created_at)).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
-                <div class="btn-group btn-group-sm m-0" role="group">
-                    <a onclick="copy(${key})" class="btn btn-outline-secondary">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-copy mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Salin</span>
-                        </div>
-                    </a>
-                    <a onclick="detail(this, ${key})" class="btn btn-outline-success">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-info-circle mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Detail</span>
-                        </div>
-                    </a>
-                    <a onclick="edit(this, ${key})" class="btn btn-outline-warning">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-pen-to-square mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Edit</span>
-                        </div>
-                    </a>
-                    <a onclick="hapus(this, ${key})" class="btn btn-outline-danger">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <i class="fas fa-trash mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Hapus</span>
-                        </div>
-                    </a>
-                </div>
+    <div class="card-body shadow p-3 rounded-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="m-0 p-0">
+                <strong class="text-truncate mx-0">${data.name}</strong>
+            </h4>
+            <small class="text-dark rounded m-0 p-1" style="background-color: var(--bs-gray-200)">
+                ${(data.stats) ? '' : '<i class="fa-solid fa-ban my-0 p-0 mx-1"></i>'}
+                ${(data.waktu_buka || data.waktu_tutup) ? '<i class="fa-solid fa-stopwatch my-0 p-0 mx-1"></i>' : ''}
+                ${(data.link_password) ? '<i class="fa-solid fa-lock my-0 p-0 mx-1"></i>' : ''}
+                <i class="fa-solid fa-chart-simple my-0 p-0 mx-1"></i>
+                <span class="fw-bold ms-0 me-1 my-0 p-0">${data.hint}</span>
+            </small>
+        </div>
+        <p class="text-truncate mt-2 mb-1 mx-0 p-0">${escapeHtml(data.link)}</p>
+        <hr class="mt-2 mb-3">
+        <div class="d-flex justify-content-between align-items-center m-0 p-0">
+            <small class="text-dark text-opacity-75 m-0 p-0"><i class="fa-solid fa-clock ms-0 me-1"></i>${(new Date(data.created_at)).toLocaleDateString('en-us', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
+            <div class="btn-group btn-group-sm m-0" role="group">
+                <a onclick="copy(${key})" class="btn btn-outline-secondary">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fas fa-copy mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Salin</span>
+                    </div>
+                </a>
+                <a onclick="detail(this, ${key})" class="btn btn-outline-success">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fas fa-info-circle mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Detail</span>
+                    </div>
+                </a>
+                <a onclick="edit(this, ${key})" class="btn btn-outline-warning">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fas fa-pen-to-square mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Edit</span>
+                    </div>
+                </a>
+                <a onclick="hapus(this, ${key})" class="btn btn-outline-danger">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <i class="fas fa-trash mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Hapus</span>
+                    </div>
+                </a>
             </div>
         </div>
     </div>`;
@@ -246,9 +244,8 @@ const detail = async (button, id) => {
                 'rgba(255, 99, 132, 1)'
             ];
 
-            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-                'July', 'August', 'September', 'October', 'November', 'December'
-            ];
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
             res.last_week.forEach((key) => {
                 labels.push((new Date(key.tgl)).getDate() + ' ' + monthNames[(new Date(key.tgl)).getMonth()]);
                 values.push(key.hint);
@@ -295,7 +292,7 @@ const hapus = async (button, id) => {
     button.disabled = true;
 
     id = DATA[id][0];
-    document.getElementById('valuehapusname').innerText = `Ingin hapus "${id}" ?`;
+    document.getElementById('valuehapusname').innerHTML = `Ingin hapus "<strong>${id}</strong>" ?`;
     document.getElementById('valuehapusid').value = id;
 
     const myModal = new bootstrap.Modal(document.getElementById('hapuslinkmodal'));
