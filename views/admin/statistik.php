@@ -11,7 +11,7 @@
 <div class="row mb-4">
     <div class="col-md-9">
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Hint</th>
@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-3 ms-auto">
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">Hint</th>

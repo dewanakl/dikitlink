@@ -1,4 +1,4 @@
-<?php parents('layout/app', ['title' => 'Dikit Link']) ?>
+<?php parents('layout/app', ['title' => 'Dikit Link - Link tuh dikit']) ?>
 
 <?php section('main') ?>
 

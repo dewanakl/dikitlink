@@ -25,7 +25,7 @@
         <h4 class="m-0 p-0 text-truncate">Haii, <?= e(auth()->user()->nama) ?></h4>
     </div>
     <div class="row">
-        <div class="col-md-3 pe-5 d-none d-md-inline">
+        <div class="col-md-3 d-none d-md-block pe-5">
             <?= including('layout/sidebar') ?>
         </div>
         <div class="col-md-9">
@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div class="offcanvas offcanvas-bottom" style="height: 60vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+<div class="offcanvas offcanvas-bottom" style="height: 55vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasBottomLabel">Tambah Link</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="<?= csrf_token() ?>">
-    <title><?= $title ?? 'Dikit Link' ?></title>
+    <title><?= $title ?? 'Dikit Link - Link tuh dikit' ?></title>
 
     <!-- SEO -->
     <meta name="robots" content="index, follow" />
     <meta name="description" content="Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?" />
     <meta name="keywords" content="dikitlink, dikit.my.id, dikit, pemendek-url, pemendek, url" />
     <meta name="author" content="dewanakl" />
-    <meta property="og:title" content="Dikit Link" />
+    <meta property="og:title" content="Dikit Link - Link tuh dikit" />
     <meta property="og:keywords" content="dikitlink, dikit.my.id, dikit, pemendek-url, pemendek, url" />
     <meta property="og:description" content="Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?" />
     <meta property="og:image" content="<?= asset('icon-512x512.png') ?>" />
@@ -23,15 +23,16 @@
     <meta property="og:locale" content="id_ID" />
     <meta property="og:site_name" content="dikit" />
     <meta property="og:url" content="<?= asset('/') ?>" />
-    <meta name="twitter:title" content="Dikit Link" />
-    <meta name="twitter:description" content="Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?" />
-    <meta name="twitter:image" content="<?= asset('icon-512x512.png') ?>" />
-    <meta name="twitter:site" content="<?= asset('/') ?>" />
+    <meta property="twitter:title" content="Dikit Link - Link tuh dikit" />
+    <meta property="twitter:description" content="Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?" />
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="<?= asset('icon-512x512.png') ?>" />
+    <meta property="twitter:site" content="<?= asset('/') ?>" />
 
     <!-- PWA -->
-    <meta name="theme-color" content="#fff" />
+    <meta name="theme-color" content="#ffffff" />
     <link rel="manifest" href="<?= asset('manifest.webmanifest') ?>">
-    <link rel="apple-touch-icon" href="<?= asset('icon-192x192.png') ?>">
+    <link rel="apple-touch-icon" sizes="192x192" href="<?= asset('icon-192x192.png') ?>">
     <link rel="icon" type="image/png" href="<?= asset('icon-192x192.png') ?>">
 
     <!-- Cache -->
@@ -63,10 +64,7 @@
 </head>
 
 <body>
-    <!-- Main Content -->
     <?= content('main') ?>
-
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-lSABj6XYH05NydBq+1dvkMu6uiCc/MbLYOFGRkf3iQs=" crossorigin="anonymous"></script>
 </body>
 

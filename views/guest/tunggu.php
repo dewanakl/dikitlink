@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-auto mx-auto">
-        <img src="<?= asset('time.svg') ?>" width="200" class="d-block d-md-none img-fluid ">
+        <img src="<?= asset('time.svg') ?>" style="width: 65%;" class="d-block d-md-none img-fluid mx-auto">
     </div>
     <div class="col-md-9 col-lg-8 mx-auto">
         <h1 class="fw-bold mt-3 mb-1">

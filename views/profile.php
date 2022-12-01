@@ -126,16 +126,18 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary btn-sm" id="button-update">
-                    <i class="fas fa-check mx-1"></i>Simpan
-                </button>
+            <div class="modal-footer d-inline d-md-flex">
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-sm" id="button-update">
+                        <i class="fas fa-check mx-1"></i>Simpan
+                    </button>
+                </div>
             </div>
         </form>
     </div>
 </div>
 
-<div class="d-grid d-block d-sm-none">
+<div class="d-grid d-block d-md-none">
     <hr>
     <h5>Logout</h5>
     <a href="javascript:void(0);" class="btn btn-danger fw-semibold" data-bs-toggle="modal" data-bs-target="#logoutModal">
@@ -225,7 +227,7 @@
                     <span class="ms-0 me-1 my-0 p-0">${(new Date(data.created_at)).toLocaleString('id-ID')}</span>
                 </small>
             </div>
-            <hr>
+            <hr class="mb-2">
             <small class="mt-2 mb-1 mx-0 p-0">${data.user_agent}</small>
         </div>`;
         return DIV;
@@ -233,16 +235,21 @@
 
     const riwayatlogin = async () => {
         const myModal = new bootstrap.Modal(document.getElementById('riwayatloginModal'));
+        myModal.show();
+
         const RIWAYAT = document.getElementById('riwayatid');
+        RIWAYAT.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
         await fetch(`<?= route('log') ?>`)
             .then((data) => data.json())
             .then((data) => {
                 RIWAYAT.innerHTML = null;
                 data.forEach((data) => RIWAYAT.appendChild(renderCard(data)));
+                if (data.length == 0) {
+                    RIWAYAT.innerHTML = `<div class="h6 text-center">Tidak ada data</div>`;
+                }
             })
             .catch((err) => showModal(err, 'error'));
-        myModal.show();
     }
 
     const update = () => {

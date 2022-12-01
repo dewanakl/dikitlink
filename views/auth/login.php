@@ -31,10 +31,10 @@
             </div>
         <?php endif ?>
 
-        <form method="POST" onsubmit="login()" autocomplete="on">
+        <form method="POST" onsubmit="login()">
             <?= csrf() ?>
             <div class="form-floating mb-3">
-                <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputlogin" placeholder="Email" value="<?= old('email') ?>">
+                <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputlogin" placeholder="Email" value="<?= old('email') ?>" autocomplete="on">
                 <label for="floatingInputlogin" class="form-label"><i class="fa-solid fa-envelope mx-1"></i>Email</label>
                 <?php if (error('email')) : ?>
                     <div class="invalid-feedback">
@@ -43,7 +43,7 @@
                 <?php endif ?>
             </div>
             <div class="form-floating mb-3">
-                <input type="password" name="password" class="form-control <?= error('password', 'is-invalid') ?>" id="floatingPasswordlogin" placeholder="Password">
+                <input type="password" name="password" class="form-control <?= error('password', 'is-invalid') ?>" id="floatingPasswordlogin" placeholder="Password" autocomplete="on">
                 <label for="floatingPasswordlogin" class="form-label"><i class="fa-solid fa-lock mx-1"></i>Kata
                     sandi</label>
                 <?php if (error('password')) : ?>

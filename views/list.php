@@ -131,7 +131,7 @@
                     <div class="col-lg-8">
                         <h6>User Agent</h6>
                         <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
-                            <table class="table table-striped table-sm table-hover">
+                            <table class="table table-sm table-hover" style="font-size: 0.9rem;">
                                 <thead>
                                     <tr>
                                         <th scope="col">Hint</th>
@@ -145,7 +145,7 @@
                     <div class="col-lg-4">
                         <h6>IP Address</h6>
                         <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
-                            <table class="table table-striped table-sm table-hover">
+                            <table class="table table-sm table-hover" style="font-size: 0.9rem;">
                                 <thead>
                                     <tr>
                                         <th scope="col">Hint</th>

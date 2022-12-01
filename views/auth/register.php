@@ -12,10 +12,10 @@
                 Register
             </h1>
         </div>
-        <form method="POST" onsubmit="register()" autocomplete="on">
+        <form method="POST" onsubmit="register()">
             <?= csrf() ?>
             <div class="form-floating mb-3">
-                <input type="text" name="nama" class="form-control <?= error('nama', 'is-invalid') ?>" id="floatingNama" placeholder="Nama" value="<?= old('nama') ?>">
+                <input type="text" name="nama" class="form-control <?= error('nama', 'is-invalid') ?>" id="floatingNama" placeholder="Nama" value="<?= old('nama') ?>" autocomplete="on">
                 <label for="floatingNama"><i class="fa-solid fa-user mx-1"></i>Nama</label>
                 <?php if (error('nama')) : ?>
                     <div class="invalid-feedback">
@@ -24,7 +24,7 @@
                 <?php endif ?>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingEmail" placeholder="Email" value="<?= old('email') ?>">
+                <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingEmail" placeholder="Email" value="<?= old('email') ?>" autocomplete="on">
                 <label for="floatingEmail"><i class="fa-solid fa-envelope mx-1"></i>Email</label>
                 <?php if (error('email')) : ?>
                     <div class="invalid-feedback">
@@ -33,7 +33,7 @@
                 <?php endif ?>
             </div>
             <div class="form-floating mb-4">
-                <input type="password" name="password" class="form-control <?= error('password', 'is-invalid') ?>" id="floatingPassword" placeholder="Password">
+                <input type="password" name="password" class="form-control <?= error('password', 'is-invalid') ?>" id="floatingPassword" placeholder="Password" autocomplete="on">
                 <label for="floatingPassword"><i class="fa-solid fa-lock mx-1"></i>Kata sandi</label>
                 <?php if (error('password')) : ?>
                     <div class="invalid-feedback">
