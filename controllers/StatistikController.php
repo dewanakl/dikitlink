@@ -125,8 +125,6 @@ class StatistikController extends Controller
             }
         }
 
-        header_remove();
-
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s', 0) . ' GMT');
         header('Expires: ' . gmdate('D, d M Y H:i:s', 0) . ' GMT');
         header('Cache-Control: no-store, no-cache, must-revalidate');
@@ -135,5 +133,6 @@ class StatistikController extends Controller
         http_response_code(301);
         header('HTTP/1.1 301 Moved Permanently', true, 301);
         header('Location: ' . trim($link->link), true, 301);
+        respond()->terminate();
     }
 }
