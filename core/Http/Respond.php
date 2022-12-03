@@ -125,6 +125,8 @@ class Respond
         if (!is_null($respond)) {
             dd($respond);
         }
+
+        $this->terminate();
     }
 
     /**

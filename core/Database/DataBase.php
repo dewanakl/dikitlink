@@ -139,9 +139,9 @@ class DataBase
             $result = $this->pdo->exec($command);
         } catch (Throwable $e) {
             $this->catchException($e);
-        } finally {
-            return $result;
         }
+
+        return $result;
     }
 
     /**
@@ -200,9 +200,9 @@ class DataBase
             $result = $this->stmt->execute();
         } catch (Exception $e) {
             $this->catchException($e);
-        } finally {
-            return $result;
         }
+
+        return $result;
     }
 
     /**

@@ -15,7 +15,7 @@ class StatistikController extends Controller
 {
     public function index(RepositoryContract $link)
     {
-        $id = Auth::user()->id;
+        $id = Auth::id();
 
         return $this->view('statistik', [
             'last_month' => $link->lastMonth($id),
@@ -28,13 +28,12 @@ class StatistikController extends Controller
     {
         $hasil = DB::table('links')
             ->join('stats', 'links.id', 'stats.link_id')
-            ->where('links.user_id', Auth::user()->id)
+            ->where('links.user_id', Auth::id())
             ->select('stats.created_at', 'links.name', 'stats.user_agent', 'stats.ip_address')
             ->get()
             ->toArray();
 
-        header_remove();
-        header('Content-Type: application/csv; charset=UTF-8');
+        header('Content-Type: application/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename="statistik_' . now('Y-m-d_H-i-s') . '.csv";');
 
         $handle = fopen('php://output', 'w');
@@ -45,6 +44,7 @@ class StatistikController extends Controller
         }
 
         fclose($handle);
+        respond()->terminate();
     }
 
     public function click(Request $request, $id)

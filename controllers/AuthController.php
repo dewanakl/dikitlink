@@ -57,7 +57,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($valid->only(['email', 'password']))) {
             Log::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => Auth::id(),
                 'user_agent' => $valid->user,
                 'ip_address' => $valid->ip
             ]);
@@ -134,7 +134,7 @@ class AuthController extends Controller
 
             Auth::login(User::find(session()->get('email'), 'email'));
             Log::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => Auth::id(),
                 'user_agent' => $valid->user,
                 'ip_address' => $valid->ip
             ]);

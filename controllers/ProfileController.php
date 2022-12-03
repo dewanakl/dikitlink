@@ -25,7 +25,7 @@ class ProfileController extends Controller
         ]);
 
         if (Hash::check($request->mypassword, Auth::user()->password)) {
-            User::destroy(Auth::user()->id);
+            User::destroy(Auth::id());
             return $this->redirect(route('login'))->with('berhasil', 'Berhasil menghapus akun !');
         }
 
@@ -40,7 +40,7 @@ class ProfileController extends Controller
 
         return json([
             'status' => DB::table('users')
-                ->where('id', auth()->user()->id)
+                ->where('id', Auth::id())
                 ->update([
                     'statistics' => $request->check
                 ])
@@ -59,7 +59,7 @@ class ProfileController extends Controller
             ]);
 
             $email = User::where('email', $request->email)
-                ->where('id', Auth::user()->id, '!=')
+                ->where('id', auth()->id(), '!=')
                 ->limit(1)
                 ->first();
 
@@ -93,7 +93,7 @@ class ProfileController extends Controller
             $credential['password'] = $request->konfirmasi_password;
         }
 
-        User::where('id', Auth::user()->id)->update($credential);
+        User::id(Auth::id())->update($credential);
 
         return $this->back()->with('berhasil', 'Berhasil mengupdate profil');
     }
@@ -124,7 +124,7 @@ class ProfileController extends Controller
         $success = false;
 
         if (hash_equals(session()->get('key', Hash::rand(10)), $id)) {
-            $user = User::find(auth()->user()->id);
+            $user = User::find(Auth::id());
             $user->email_verify = true;
             $user->save();
 
@@ -151,7 +151,7 @@ class ProfileController extends Controller
     public function log()
     {
         return json(
-            Log::where('user_id', Auth::user()->id)
+            Log::where('user_id', Auth::id())
                 ->orderBy('id', 'DESC')
                 ->select([
                     'created_at',

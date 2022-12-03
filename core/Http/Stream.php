@@ -83,9 +83,6 @@ class Stream
             notFound();
         }
 
-        header_remove();
-        header('Cache-Control: public');
-
         $timeFile = filemtime($file);
         $hashFile = md5($file);
 
@@ -289,6 +286,8 @@ class Stream
         if ($this->type == 'application/octet-stream') {
             header(sprintf('Content-Disposition: attachment; filename="%s"', $this->name));
             header('Content-Transfer-Encoding: binary');
+        } else {
+            header('Cache-Control: max-age=86400');
         }
 
         if ($t > 0) {

@@ -31,6 +31,7 @@
 
     <!-- PWA -->
     <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light" />
     <link rel="manifest" href="<?= asset('manifest.webmanifest') ?>">
     <link rel="apple-touch-icon" sizes="192x192" href="<?= asset('icon-192x192.png') ?>">
     <link rel="icon" type="image/png" href="<?= asset('icon-192x192.png') ?>">

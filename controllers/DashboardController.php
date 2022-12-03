@@ -25,13 +25,13 @@ class DashboardController extends Controller
             $greeting = 'Malam';
         }
 
-        $sumstats = $repository->sumStats(auth()->user()->id);
+        $sumstats = $repository->sumStats(auth()->id());
 
         return $this->view('dashboard', [
             'salam' => $greeting,
             'jumlah_link' => $sumstats->jumlah_link ?? 0,
             'total_pengunjung' => $sumstats->total_pengunjung ?? 0,
-            'unique_pengunjung' => $repository->countUnique(auth()->user()->id)
+            'unique_pengunjung' => $repository->countUnique(auth()->id())
         ]);
     }
 
