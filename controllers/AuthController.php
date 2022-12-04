@@ -44,8 +44,8 @@ class AuthController extends Controller
                 'ip' => $request->ip()
             ],
             [
-                'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'email'],
-                'password' => ['required', 'str', 'trim', 'min:8', 'max:20'],
+                'email' => ['required', 'str', 'trim', 'min:5', 'max:100', 'email'],
+                'password' => ['required', 'str', 'trim', 'min:8', 'max:25'],
                 'user' => ['str', 'trim'],
                 'ip' => ['str', 'trim', 'max:50']
             ]
@@ -72,8 +72,8 @@ class AuthController extends Controller
     {
         $credential = $request->validate([
             'nama' => ['required', 'str', 'trim', 'min:2', 'max:25'],
-            'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'email', 'dns', 'unik'],
-            'password' => ['required', 'str', 'trim', 'min:8', 'max:20', 'hash']
+            'email' => ['required', 'str', 'trim', 'min:5', 'max:100', 'email', 'dns', 'unik'],
+            'password' => ['required', 'str', 'trim', 'min:8', 'max:25', 'hash']
         ]);
 
         $credential['role_id'] = 2;
@@ -85,7 +85,7 @@ class AuthController extends Controller
     public function send(Request $request, Mail $mail)
     {
         $request->validate([
-            'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'dns', 'email']
+            'email' => ['required', 'str', 'trim', 'min:5', 'max:100', 'dns', 'email']
         ]);
 
         $user = User::find($request->email, 'email')->fail(fn () => false);

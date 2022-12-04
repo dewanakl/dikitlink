@@ -154,7 +154,7 @@
 </div>
 <div class="modal fade overlay" id="hapusakun" tabindex="-1" aria-labelledby="hapusakunLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="<?= route('hapus.profile') ?>" method="post">
+        <form action="<?= route('hapus.profile') ?>" method="post" onsubmit="deleteakun()">
             <?= csrf() ?>
             <div class="modal-content">
                 <div class="modal-header">
@@ -168,8 +168,8 @@
                     <small class="text-danger">Dengan menghapus akun bearti menghapus semua data pada database kami.</small>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="fas fa-times me-1"></i>Batal</button>
-                    <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash me-1"></i>Hapus</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="button-deleteakun-batal"><i class="fas fa-times me-1"></i>Batal</button>
+                    <button type="submit" class="btn btn-danger" id="button-deleteakun"><i class="fa-solid fa-trash me-1"></i>Hapus</button>
                 </div>
             </div>
         </form>
@@ -250,6 +250,14 @@
                 }
             })
             .catch((err) => showModal(err, 'error'));
+    }
+
+    const deleteakun = () => {
+        let btnbatal = document.getElementById('button-deleteakun-batal');
+        let btn = document.getElementById('button-deleteakun');
+        btn.disabled = true;
+        btnbatal.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     }
 
     const update = () => {

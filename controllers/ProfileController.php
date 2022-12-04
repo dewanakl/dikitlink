@@ -21,7 +21,7 @@ class ProfileController extends Controller
     public function delete(Request $request)
     {
         $request->validate([
-            'mypassword' => ['required', 'str', 'slug', 'min:3']
+            'mypassword' => ['required', 'str', 'slug', 'min:8', 'max:25']
         ]);
 
         if (Hash::check($request->mypassword, Auth::user()->password)) {
@@ -55,7 +55,7 @@ class ProfileController extends Controller
 
         if (!auth()->user()->email_verify) {
             $request->validate([
-                'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'email', 'dns'],
+                'email' => ['required', 'str', 'trim', 'min:5', 'max:100', 'email', 'dns'],
             ]);
 
             $email = User::where('email', $request->email)
@@ -86,8 +86,8 @@ class ProfileController extends Controller
 
         if (!empty($request->password) && !empty($request->konfirmasi_password)) {
             $request->validate([
-                'password' => ['str', 'trim', 'min:8', 'max:20'],
-                'konfirmasi_password' => ['str', 'trim', 'min:8', 'max:20', 'sama:password', 'hash']
+                'password' => ['str', 'trim', 'min:8', 'max:25'],
+                'konfirmasi_password' => ['str', 'trim', 'min:8', 'max:25', 'sama:password', 'hash']
             ]);
 
             $credential['password'] = $request->konfirmasi_password;

@@ -109,7 +109,7 @@ class LinkController extends Controller
         $status = Link::create($data);
 
         return json([
-            'status' => (bool) $status
+            'status' => boolval($status)
         ]);
     }
 
@@ -119,7 +119,7 @@ class LinkController extends Controller
             'old' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25'],
             'name' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25'],
             'link' => ['required', 'str', 'trim', 'min:5', 'url'],
-            'password' => ['str', 'trim', 'max:20'],
+            'password' => ['str', 'trim', 'max:25'],
             'buka' => ['str', 'trim', 'max:16'],
             'tutup' => ['str', 'trim', 'max:16'],
             'stats' => ['bool']

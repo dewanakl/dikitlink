@@ -57,7 +57,7 @@ class StatistikController extends Controller
                 'ip' => $request->ip()
             ],
             [
-                'id' => ['str', 'trim', 'slug', 'min:3', 'max:30'],
+                'id' => ['str', 'trim', 'slug', 'min:3', 'max:25'],
                 'password' => ['str', 'trim', 'max:25'],
                 'user' => ['str', 'trim'],
                 'ip' => ['str', 'trim', 'max:50']
@@ -101,7 +101,7 @@ class StatistikController extends Controller
             if (empty($valid->password)) {
                 if ($request->method() == 'POST') {
                     $request->validate([
-                        'password' => ['required', 'trim', 'str', 'max:25']
+                        'password' => ['required', 'str', 'trim', 'max:25']
                     ]);
                 }
 
