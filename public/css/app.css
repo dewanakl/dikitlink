@@ -1,6 +1,7 @@
 body {
     overflow: overlay;
     font-family: 'Nunito', sans-serif;
+    padding: 0px !important;
 }
 
 *::-webkit-scrollbar {
