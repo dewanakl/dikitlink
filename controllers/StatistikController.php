@@ -59,8 +59,8 @@ class StatistikController extends Controller
             [
                 'id' => ['str', 'trim', 'slug', 'min:3', 'max:30'],
                 'password' => ['str', 'trim', 'max:25'],
-                'user' => ['str', 'trim', 'max:150'],
-                'ip' => ['str', 'trim', 'max:15']
+                'user' => ['str', 'trim'],
+                'ip' => ['str', 'trim', 'max:50']
             ]
         );
 

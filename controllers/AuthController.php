@@ -46,8 +46,8 @@ class AuthController extends Controller
             [
                 'email' => ['required', 'str', 'trim', 'min:5', 'max:50', 'email'],
                 'password' => ['required', 'str', 'trim', 'min:8', 'max:20'],
-                'user' => ['str', 'trim', 'max:150'],
-                'ip' => ['str', 'trim', 'max:15']
+                'user' => ['str', 'trim'],
+                'ip' => ['str', 'trim', 'max:50']
             ]
         );
 
@@ -127,8 +127,8 @@ class AuthController extends Controller
                     'ip' => $request->ip()
                 ],
                 [
-                    'user' => ['str', 'trim', 'max:150'],
-                    'ip' => ['str', 'trim', 'max:15']
+                    'user' => ['str', 'trim'],
+                    'ip' => ['str', 'trim', 'max:50']
                 ]
             );
 
