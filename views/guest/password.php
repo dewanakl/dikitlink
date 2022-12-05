@@ -38,7 +38,7 @@
                 <?php endif ?>
             </div>
             <div class="d-grid">
-                <button class="btn btn-success fw-bold mb-2" id="button-passwordd" type="submit">Kirim</button>
+                <button class="btn btn-success fw-bold mt-1 mb-2" id="button-passwordd" type="submit">Kirim</button>
             </div>
         </form>
     </div>

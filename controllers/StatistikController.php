@@ -58,7 +58,7 @@ class StatistikController extends Controller
             ],
             [
                 'id' => ['str', 'trim', 'slug', 'min:3', 'max:25'],
-                'password' => ['str', 'trim', 'max:25'],
+                'password' => ['str', 'trim'],
                 'user' => ['str', 'trim'],
                 'ip' => ['str', 'trim', 'max:50']
             ]
@@ -98,17 +98,15 @@ class StatistikController extends Controller
         }
 
         if (!empty($link->link_password)) {
-            if (empty($valid->password)) {
-                if ($request->method() == 'POST') {
-                    $request->validate([
-                        'password' => ['required', 'str', 'trim', 'max:25']
-                    ]);
-                }
-
+            if ($request->method() == 'GET') {
                 return $this->view('guest/password', [
                     'name' => $valid->id
                 ]);
             }
+
+            $request->validate([
+                'password' => ['required', 'str', 'trim', 'max:25']
+            ]);
 
             if (!hash_equals($link->link_password, $valid->password)) {
                 return $this->back()->with('gagal', 'Password salah !');
@@ -127,8 +125,8 @@ class StatistikController extends Controller
 
         header('Last-Modified: ' . gmdate('D, d M Y H:i:s', 0) . ' GMT');
         header('Expires: ' . gmdate('D, d M Y H:i:s', 0) . ' GMT');
-        header('Cache-Control: no-store, no-cache, must-revalidate');
-        header('Pragma: no-cache');
+        header('Cache-Control: no-store');
+        header('Age: 0');
 
         http_response_code(301);
         header('HTTP/1.1 301 Moved Permanently', true, 301);

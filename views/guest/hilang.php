@@ -11,7 +11,7 @@
             Ada yang nggak betul nich...
         </h1>
         <p class="text-dark fw-bold" style="font-size: 1.2rem;">
-            Anda tersesat. Coba teliti lagi linknya, karena ini sangat sensitif
+            Kamu tersesat. Coba teliti lagi linknya, karena ini sangat sensitif
         </p>
     </div>
 </div>

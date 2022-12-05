@@ -7,12 +7,9 @@
         <img src="<?= asset('time.svg') ?>" style="width: 65%;" class="d-block d-md-none img-fluid mx-auto">
     </div>
     <div class="col-md-9 col-lg-8 mx-auto">
-        <h1 class="fw-bold mt-3 mb-1">
-            <?= $opened ? 'Sabar yaa' : 'Maaf yaa' ?>
-        </h1>
-        <h5 class="fw-bold mb-4 mt-3">Link "<?= e($name) ?>" <span class="text-<?= $opened ? 'success' : 'danger' ?>"><?= $opened ? 'Akan dibuka' : 'Sudah di tutup' ?></span> dalam
-            <span id="demo"></span> <?= $opened ? ' Lagi..' : 'yang lalu..' ?>
-        </h5>
+        <h1 class="fw-bold"><?= $opened ? 'Sabar yaa' : 'Maaf yaa' ?></h1>
+        <h4 class="mt-2 mb-4"><span class="badge fw-normal text-bg-<?= $opened ? 'success' : 'danger' ?>" id="demo"></span></h4>
+        <h5>Link <strong>"<?= e($name) ?>"</strong> <?= $opened ? 'akan dibuka' : 'sudah di tutup' ?></h5>
     </div>
 </div>
 

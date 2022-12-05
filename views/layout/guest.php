@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-5 col-lg-6">
             <div class="d-md-flex d-sm-none d-none align-items-center justify-content-center" style="height: 100vh;">
-                <img src="<?= asset($img) ?>" width="450" class="img-fluid">
+                <img src="<?= asset($img) ?>" width="400" class="img-fluid">
             </div>
         </div>
         <div class="col-md-7 col-lg-6">
