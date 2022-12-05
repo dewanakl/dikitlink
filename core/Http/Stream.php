@@ -225,10 +225,10 @@ class Stream
     /**
      * Get type file
      * 
-     * @param ?string $typeFile
+     * @param mixed $typeFile
      * @return string
      */
-    private function ftype(?string $typeFile = null): string
+    private function ftype(mixed $typeFile = null): string
     {
         if ($this->download) {
             return 'application/octet-stream';
@@ -304,9 +304,9 @@ class Stream
     /**
      * Download file
      * 
-     * @return self
+     * @return Stream
      */
-    public function download(): self
+    public function download(): Stream
     {
         $this->download = true;
         $this->type = $this->ftype();
@@ -317,9 +317,9 @@ class Stream
      * Send file
      * 
      * @param string $filename
-     * @return self
+     * @return Stream
      */
-    public function send(string $filename): self
+    public function send(string $filename): Stream
     {
         $this->init($filename);
         return $this;
