@@ -34,15 +34,21 @@ class ProfileController extends Controller
 
     public function statistik(Request $request)
     {
-        $request->validate([
+        $valid = $this->validate($request, [
             'check' => ['bool']
         ]);
+
+        if ($valid->fails()) {
+            return json([
+                'error' => $valid->failed()
+            ], 400);
+        }
 
         return json([
             'status' => DB::table('users')
                 ->where('id', Auth::id())
                 ->update([
-                    'statistics' => $request->check
+                    'statistics' => $valid->check
                 ])
         ]);
     }

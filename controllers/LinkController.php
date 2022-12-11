@@ -143,23 +143,23 @@ class LinkController extends Controller
             ], 400);
         }
 
-        $data = $valid->only(['name']);
+        $result = Link::where('name', $valid->old)
+            ->where('user_id', $this->id)
+            ->first();
+
+        $result->name = $valid->name;
 
         if (!is_null(auth()->user()->email_verify)) {
-            $data['link'] = $valid->link;
+            $result->link = $valid->link;
         }
 
-        $data['link_password'] = empty($valid->password) ? null : $valid->password;
-        $data['record_statistics'] = $valid->stats;
-        $data['waktu_buka'] = empty($valid->buka) ? null : implode(' ', explode('T', $valid->buka)) . ':00';
-        $data['waktu_tutup'] = empty($valid->tutup) ? null : implode(' ', explode('T', $valid->tutup)) . ':00';
-
-        $result = Link::where('id', Link::find($valid->old, 'name')->id)
-            ->where('user_id', $this->id)
-            ->update($data);
+        $result->link_password = empty($valid->password) ? null : $valid->password;
+        $result->record_statistics = $valid->stats;
+        $result->waktu_buka = empty($valid->buka) ? null : implode(' ', explode('T', $valid->buka)) . ':00';
+        $result->waktu_tutup = empty($valid->tutup) ? null : implode(' ', explode('T', $valid->tutup)) . ':00';
 
         return json([
-            'status' => $result
+            'status' => $result->save()
         ]);
     }
 
