@@ -132,9 +132,7 @@ class ProfileController extends Controller
         if (hash_equals(session()->get('key', Hash::rand(10)), $id)) {
             $user = User::find(Auth::id());
             $user->email_verify = true;
-            $user->save();
-
-            $success = true;
+            $success = $user->save();
         }
 
         session()->unset('key');
