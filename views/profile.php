@@ -219,12 +219,12 @@
         DIV.innerHTML = `
         <div class="card-body shadow p-3 rounded-3">
             <div class="d-flex justify-content-between align-items-center">
-                <h6 class="m-0 p-0">
-                    <strong class="text-truncate mx-0">${data.ip_address}</strong>
+                <h6 class="text-truncate m-0 p-0" style="max-width: 40%;">
+                    <strong>${data.ip_address}</strong>
                 </h6>
                 <small class="text-dark rounded m-0" style="background-color: var(--bs-gray-200)">
                     <i class="fa-solid fa-clock mx-1"></i>
-                    <span class="ms-0 me-1 my-0 p-0">${(new Date(data.created_at)).toLocaleString('id-ID')}</span>
+                    <span class="ms-0 me-1 my-0 p-0">${data.created_at}</span>
                 </small>
             </div>
             <hr class="mb-2">

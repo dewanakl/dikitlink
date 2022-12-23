@@ -2,16 +2,9 @@
 
 <?php section('guest') ?>
 
-<div class="row">
-    <div class="col-auto mx-auto">
-        <img src="<?= asset('time.svg') ?>" style="width: 65%;" class="d-block d-md-none img-fluid mx-auto">
-    </div>
-    <div class="col-md-9 col-lg-8 mx-auto">
-        <h1 class="fw-bold"><?= $opened ? 'Sabar yaa' : 'Maaf yaa' ?></h1>
-        <h4 class="mt-2 mb-4"><span class="badge fw-normal text-bg-<?= $opened ? 'success' : 'danger' ?>" id="demo"></span></h4>
-        <h5>Link <strong>"<?= e($name) ?>"</strong> <?= $opened ? 'akan dibuka' : 'sudah di tutup' ?></h5>
-    </div>
-</div>
+<h1 class="fw-bold"><?= $opened ? 'Sabar yaa' : 'Maaf yaa' ?></h1>
+<h4 class="mt-2 mb-4"><span class="badge fw-normal text-bg-<?= $opened ? 'success' : 'danger' ?>" id="demo"></span></h4>
+<h5>Link <strong>"<?= e($name) ?>"</strong> <?= $opened ? 'akan dibuka' : 'sudah di tutup' ?></h5>
 
 <script defer>
     let countDownDate = new Date("<?= $time ?>").getTime();

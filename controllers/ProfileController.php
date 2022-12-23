@@ -8,6 +8,7 @@ use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Support\Mail;
 use Core\Valid\Hash;
+use DateTime;
 use Models\Log;
 use Models\User;
 
@@ -154,15 +155,19 @@ class ProfileController extends Controller
 
     public function log()
     {
-        return json(
-            Log::where('user_id', Auth::id())
-                ->orderBy('id', 'DESC')
-                ->select([
-                    'created_at',
-                    'ip_address',
-                    'user_agent'
-                ])
-                ->get()
-        );
+        $data = Log::where('user_id', Auth::id())
+            ->orderBy('id', 'DESC')
+            ->select([
+                'created_at',
+                'ip_address',
+                'user_agent'
+            ])
+            ->get();
+
+        foreach ($data as $id => $date) {
+            $data->{$id}->created_at = (new DateTime($date->created_at))->format('Y M d H:i');
+        }
+
+        return json($data);
     }
 }

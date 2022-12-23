@@ -3,6 +3,7 @@
 namespace Repository;
 
 use Closure;
+use DateTime;
 use Models\Link;
 
 class LinkRepository implements RepositoryContract
@@ -95,5 +96,23 @@ class LinkRepository implements RepositoryContract
 
         usort($lastweek, fn ($a, $b) => strtotime($a['tgl']) - strtotime($b['tgl']));
         return $lastweek;
+    }
+
+    public function lastClick(int $id, string $link): string|null
+    {
+        $time = Link::join('stats', 'links.id', 'stats.link_id')
+            ->where('links.user_id', $id)
+            ->where('links.name', $link)
+            ->orderBy('stats.id', 'DESC')
+            ->limit(1)
+            ->select('stats.created_at')
+            ->first()
+            ->created_at;
+
+        if ($time) {
+            return (new DateTime($time))->format('Y M d H:i');
+        }
+
+        return null;
     }
 }

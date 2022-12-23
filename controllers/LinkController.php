@@ -73,7 +73,8 @@ class LinkController extends Controller
             'last_week' => $repository->lastWeek($this->id, $valid->name),
             'user_agent' => $repository->getStats($this->id, $valid->name, 5)('user_agent'),
             'ip_address' => $repository->getStats($this->id, $valid->name, 5)('ip_address'),
-            'unique' => $repository->countUnique($this->id, $valid->name)
+            'unique' => $repository->countUnique($this->id, $valid->name),
+            'last_click' => $repository->lastClick($this->id, $valid->name)
         ]);
     }
 

@@ -34,7 +34,7 @@ const renderCard = (data, key) => {
     DIV.innerHTML = `
     <div class="card-body shadow p-3 rounded-3">
         <div class="d-flex justify-content-between align-items-center">
-            <h4 class="text-truncate m-0 p-0" style="max-width: 65%;">
+            <h4 class="text-truncate m-0 p-0" style="max-width: 50%;">
                 <strong>${data.name}</strong>
             </h4>
             <small class="text-dark rounded m-0 p-1" style="background-color: var(--bs-gray-200)">
@@ -276,6 +276,7 @@ const detail = async (button, id) => {
             myChart.update();
 
             document.getElementById('unik').innerText = res.unique;
+            document.getElementById('lastclick').innerText = res.last_click ?? 'Tidak Terlihat';
 
             AGENT.innerHTML = null;
             res.user_agent.forEach((data) => AGENT.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.user_agent}</td></tr>`);

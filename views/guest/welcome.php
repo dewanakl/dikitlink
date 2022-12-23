@@ -12,7 +12,7 @@
                     <p class="lead" style="font-size: 1.2rem;">
                         Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?
                     </p>
-                    <div class="d-grid d-sm-flex justify-content-sm-center justify-content-lg-start mb-3">
+                    <div class="d-grid justify-content-xl-start mb-3">
                         <a class="btn btn-primary btn-lg fw-bold" href="<?= route('login') ?>">Coba Sekarang !</a>
                     </div>
                 </div>
@@ -24,9 +24,9 @@
     </header>
 
     <main class="px-3 py-4 border-bottom">
-        <div class="row g-4 row-cols-1 row-cols-lg-3">
+        <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
             <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-2">
+                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-rotate"></i>
                 </div>
                 <div class="mt-0">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-2">
+                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-chart-column"></i>
                 </div>
                 <div class="mt-0">
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-2">
+                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-sack-dollar"></i>
                 </div>
                 <div class="mt-0">
@@ -53,7 +53,7 @@
                 </div>
             </div>
             <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-2">
+                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-thumbs-up"></i>
                 </div>
                 <div class="mt-0">
@@ -62,16 +62,16 @@
                 </div>
             </div>
             <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-2">
-                    <i class="fa-solid fa-link"></i>
+                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
+                    <i class="fa-solid fa-lock"></i>
                 </div>
                 <div class="mt-0">
-                    <h4>Bebas</h4>
-                    <p>Yoiii, bebas dan terserah mau dikasih nama apa untuk alias linknya.</p>
+                    <h4>Aman</h4>
+                    <p>Yoiii, open source lagi, kalau ada apa apa bisa langsung dibenerin.</p>
                 </div>
             </div>
             <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-2">
+                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-bolt"></i>
                 </div>
                 <div class="mt-0">

@@ -99,26 +99,39 @@
                         <canvas style="height:inherit; width:inherit;" id="myChart" class="shadow p-3 rounded-3 border border-opacity-25"></canvas>
                     </div>
                     <div class="col-lg-4 mt-1">
-                        <div class="card-body rounded-3 shadow p-2 mt-4 mb-2" style="background: #A084CA;">
+                        <div class="card-body rounded-3 shadow p-2 mt-4 mb-3" style="background: #EC9E69;">
+                            <div class="row align-items-center text-light">
+                                <div class="col">
+                                    <h6 class="fw-bold mb-1">
+                                        Terakhir klik
+                                    </h6>
+                                    <div class="h6 mb-0 mt-2" id="lastclick"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-clock fa-2x me-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body rounded-3 shadow p-2 mb-3" style="background: #D56073;">
                             <div class="row align-items-center text-light">
                                 <div class="col">
                                     <h6 class="fw-bold mb-1">
                                         Pengunjung unik
                                     </h6>
-                                    <div class="h5 mb-0 fw-bold" id="unik"></div>
+                                    <div class="h5 mb-0" id="unik"></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa-solid fa-fingerprint fa-2x me-2"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body rounded-3 shadow p-2 mb-2" style="background: #645CAA;">
+                        <div class="card-body rounded-3 shadow p-2 mb-3" style="background: #7A4579;">
                             <div class="row align-items-center text-light">
                                 <div class="col">
                                     <h6 class="fw-bold mb-1">
                                         Klik semua link
                                     </h6>
-                                    <div class="h5 mb-0 fw-bold" id="klik"></div>
+                                    <div class="h5 mb-0" id="klik"></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fa-solid fa-chart-simple fa-2x me-2"></i>

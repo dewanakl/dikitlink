@@ -18,7 +18,7 @@
 
 <h5>Overview</h5>
 <div class="row">
-    <div class="col-lg-4 mb-4">
+    <div class="col-lg-4 mb-3">
         <div class="card-body rounded-3 shadow p-3 border-0" style="background: #8D9EFF;">
             <div class="row align-items-center text-light">
                 <div class="col">
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 mb-4">
+    <div class="col-lg-4 mb-3">
         <div class="card-body rounded-3 shadow p-3 border-0" style="background: #8D72E1;">
             <div class="row align-items-center text-light">
                 <div class="col">
@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 mb-4">
+    <div class="col-lg-4 mb-3">
         <div class="card-body rounded-3 shadow p-3 border-0" style="background: #6C4AB6;">
             <div class="row align-items-center text-light">
                 <div class="col">

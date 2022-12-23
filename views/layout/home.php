@@ -1,11 +1,11 @@
 <?php parents('layout/app') ?>
 
 <?php section('preload.alert') ?>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js" integrity="sha256-jdigguLi6jfU4MpneGQwiKMuuRlSmNmdJTw2e4VDHPc=" crossorigin="anonymous" as="script" />
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.16/dist/sweetalert2.all.min.js" integrity="sha256-b+fVEXPbYTCRvyFMiFsP3TAaUr7X3fbvPaPg5JqwsDw=" crossorigin="anonymous" as="script" />
 <?php endsection('preload.alert') ?>
 
 <?php section('preload.chart') ?>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous" as="script" />
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.js" integrity="sha256-l5LW9aB/BWnxagS2D7wr3hmEIn9r0avEf/OosPYOUZM=" crossorigin="anonymous" as="script" />
 <?php endsection('preload.chart') ?>
 
 <?php section('utiltop') ?>
@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<div class="offcanvas offcanvas-bottom" style="height: 55vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+<div class="offcanvas offcanvas-bottom" style="height: 50vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasBottomLabel">Tambah Link</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -105,8 +105,8 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.11/dist/sweetalert2.all.min.js" integrity="sha256-jdigguLi6jfU4MpneGQwiKMuuRlSmNmdJTw2e4VDHPc=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js" integrity="sha256-+8RZJua0aEWg+QVVKg4LEzEEm/8RFez5Tb4JBNiV5xA=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.16/dist/sweetalert2.all.min.js" integrity="sha256-b+fVEXPbYTCRvyFMiFsP3TAaUr7X3fbvPaPg5JqwsDw=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.js" integrity="sha256-l5LW9aB/BWnxagS2D7wr3hmEIn9r0avEf/OosPYOUZM=" crossorigin="anonymous"></script>
 <script src="<?= asset('js/utildown.js') ?>"></script>
 
 <?php endsection('main') ?>
