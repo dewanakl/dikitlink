@@ -1,7 +1,6 @@
 <div class="d-grid mb-3">
     <button class="btn btn-warning btn-lg fw-semibold" data-bs-toggle="modal" data-bs-target="#addlinkmodal">
-        <i class="fas fa-plus mx-1"></i>
-        <span class="d-none d-lg-inline">Tambah </span>Link
+        <i class="fas fa-plus me-2"></i><span class="d-none d-lg-inline">Tambah </span>Link
     </button>
 </div>
 
@@ -23,20 +22,18 @@
     </a>
 
     <?php if (auth()->user()->role_id == 1) : ?>
-        <hr class="m-2">
-
-        <span class="badge text-bg-success fw-semibold mb-2">ADMIN</span>
+        <hr class="my-2">
 
         <a class="list-group-item list-menu <?= routeIs('users', 'active disabled') ?> dropdown-item fw-semibold my-1 rounded-3 border-0" href="<?= route('users') ?>">
             <i class="fa-solid fa-users mx-2"></i>Users
         </a>
 
         <a class="list-group-item list-menu <?= routeIs('admin/statistik', 'active disabled') ?> dropdown-item fw-semibold my-1 rounded-3 border-0" href="<?= route('statistik.admin') ?>">
-            <i class="fa-solid fa-square-poll-vertical mx-2"></i>Statistik
+            <i class="fa-solid fa-square-poll-vertical mx-2"></i>Stats
         </a>
     <?php endif ?>
 
-    <hr class="m-2">
+    <hr class="my-2">
 
     <a class="list-group-item list-menu danger dropdown-item fw-semibold my-1 rounded-3 border-0" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#logoutModal">
         <i class="fas fa-sign-out-alt mx-2"></i>Logout

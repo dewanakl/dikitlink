@@ -29,6 +29,7 @@ body {
 
 .list-menu:hover {
     background-color: var(--bs-gray-200);
+    color: #000000;
 }
 
 .list-menu.danger:hover {
@@ -38,8 +39,4 @@ body {
 
 .hover:hover {
     background: var(--bs-gray-200);
-}
-
-.overlay {
-    overflow: overlay !important;
 }

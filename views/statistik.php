@@ -4,20 +4,20 @@
 
 <div class="card-body rounded-3 p-2 mb-3" style="background-color: var(--bs-gray-200)">
     <div class="d-flex justify-content-between">
-        <p class="fw-semibold m-1"><i class="fa-solid fa-chart-column mx-2"></i>Statistik penggunaan</p>
+        <p class="fw-semibold text-dark m-1"><i class="fa-solid fa-chart-column mx-2"></i>Statistik penggunaan</p>
         <a class="btn btn-success btn-sm m-0" target="_blank" href="<?= route('statistik.download') ?>">
-            <i class="fa-solid fa-download mx-1"></i>
+            <i class="fa-solid fa-download me-1"></i>
             <span class="d-none d-sm-inline">Download</span>
         </a>
     </div>
 </div>
 
-<h6 class="ms-1">Grafik 1 tahun terakhir</h6>
+<h6 class="ms-1"><i class="fa-solid fa-chart-column me-1"></i>Grafik 1 tahun terakhir</h6>
 <canvas style="height:inherit; width:inherit;" id="myChart" class="p-3 rounded-3 shadow border border-opacity-25 mb-4"></canvas>
 
 <div class="row mb-3">
     <div class="col-lg-9">
-        <h6>User Agent</h6>
+        <h6><i class="fa-solid fa-mobile-screen me-1"></i>Top 10 User Agent</h6>
         <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
             <table class="table table-sm table-hover" style="font-size: 0.9rem;">
                 <thead>
@@ -38,7 +38,7 @@
         </div>
     </div>
     <div class="col-lg-3">
-        <h6>IP Address</h6>
+        <h6><i class="fa-solid fa-location-dot me-1"></i>Top 10 IP Address</h6>
         <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
             <table class="table table-sm table-hover" style="font-size: 0.9rem;">
                 <thead>

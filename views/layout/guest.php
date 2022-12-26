@@ -13,7 +13,7 @@
             <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
                 <div class="container">
                     <div class="row">
-                        <div class="col-auto mx-auto">
+                        <div class="col-auto mx-auto mb-3">
                             <img src="<?= asset($img) ?>" loading="lazy" style="width: 65%;" class="d-block d-md-none img-fluid mx-auto">
                         </div>
                         <div class="col-md-12 col-lg-9 col-xl-8 mx-auto">

@@ -165,7 +165,7 @@ class ProfileController extends Controller
             ->get();
 
         foreach ($data as $id => $date) {
-            $data->{$id}->created_at = (new DateTime($date->created_at))->format('Y M d H:i');
+            $data->{$id}->created_at = (new DateTime($date->created_at))->format('d M Y, H:i');
         }
 
         return json($data);

@@ -253,7 +253,7 @@
   ),
   21 => 
   array (
-    'method' => 'POST',
+    'method' => 'PUT',
     'path' => '/profile/statistik',
     'controller' => 'Controllers\\ProfileController',
     'function' => 'statistik',

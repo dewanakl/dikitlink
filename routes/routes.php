@@ -67,7 +67,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         Route::put('/', 'update');
         Route::get('/avatar', 'avatar')->name('avatar');
         Route::get('/log', 'log')->name('log');
-        Route::post('/statistik', 'statistik')->name('statistik.profile');
+        Route::put('/statistik', 'statistik')->name('statistik.profile');
         Route::post('/delete', 'delete')->name('hapus.profile');
 
         Route::middleware(EmailMiddleware::class)->group(function () {

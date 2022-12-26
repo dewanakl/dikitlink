@@ -21,12 +21,14 @@
 
 <div class="container mt-3 mb-5">
     <div class="d-flex d-none d-sm-flex justify-content-between align-items-center mt-4 mb-5">
-        <h3 class="d-none d-sm-block fw-bold m-0 p-0">Dikit<i class="fa-solid fa-link mx-2 my-0 p-0"></i>Link</h3>
+        <h3 class="d-none d-sm-block fw-bold m-0 p-0">Dikit<i class="fa-solid fa-link mx-2"></i>Link</h3>
         <h4 class="m-0 p-0 text-truncate">Haii, <?= e(auth()->user()->nama) ?></h4>
     </div>
     <div class="row">
-        <div class="col-md-3 d-none d-md-block pe-5">
-            <?= including('layout/sidebar') ?>
+        <div class="col-md-3 d-none d-md-block">
+            <div class="px-3">
+                <?= including('layout/sidebar') ?>
+            </div>
         </div>
         <div class="col-md-9">
             <?= content('home') ?>
@@ -42,22 +44,22 @@
     <div class="offcanvas-body pt-0">
         <form id="addlinkmobile">
             <div class="mb-3">
-                <label for="valueaddnamemobile">Nama</label>
+                <label for="valueaddnamemobile"><i class="fa-solid fa-quote-left me-1"></i>Nama</label>
                 <input type="text" class="form-control" id="valueaddnamemobile" placeholder="Nama">
                 <small class="text-danger">*Acak jika kosong dan karakter ilegal dihapus</small>
             </div>
             <div class="mb-3">
-                <label for="valueaddlinkmobile">Link</label>
+                <label for="valueaddlinkmobile"><i class="fa-solid fa-link me-1"></i>Link</label>
                 <textarea class="form-control" id="valueaddlinkmobile" placeholder="https://www.google.com/" required></textarea>
             </div>
-            <div class="d-grid text-center mb-0">
+            <div class="d-grid text-center">
                 <button type="submit" class="btn btn-success" id="valueaddtambahmobile"><i class="fas fa-plus me-1"></i>Tambah</button>
             </div>
         </form>
     </div>
 </div>
 
-<div class="modal fade overlay" id="addlinkmodal" tabindex="-1" aria-labelledby="addlinkLabel" aria-hidden="true">
+<div class="modal fade" id="addlinkmodal" tabindex="-1" aria-labelledby="addlinkLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-sm-down modal-lg">
         <div class="modal-content">
             <form id="addlink">
@@ -66,12 +68,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="valueaddname">Nama</label>
+                        <label for="valueaddname"><i class="fa-solid fa-quote-left me-1"></i>Nama</label>
                         <input type="text" class="form-control" id="valueaddname" placeholder="Name">
                         <small class="text-danger">*Acak jika kosong dan karakter ilegal dihapus</small>
                     </div>
                     <div class="mb-3">
-                        <label for="valueaddlink">Link</label>
+                        <label for="valueaddlink"><i class="fa-solid fa-link me-1"></i>Link</label>
                         <textarea class="form-control" id="valueaddlink" placeholder="https://www.google.com/" required></textarea>
                     </div>
                 </div>
@@ -84,7 +86,7 @@
     </div>
 </div>
 
-<div class="modal fade overlay" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

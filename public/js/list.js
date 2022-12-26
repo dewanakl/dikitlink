@@ -38,10 +38,11 @@ const renderCard = (data, key) => {
                 <strong>${data.name}</strong>
             </h4>
             <small class="text-dark rounded m-0 p-1" style="background-color: var(--bs-gray-200)">
-                ${(data.stats) ? '' : '<i class="fa-solid fa-ban my-0 p-0 mx-1"></i>'}
-                ${(data.waktu_buka || data.waktu_tutup) ? '<i class="fa-solid fa-stopwatch my-0 p-0 mx-1"></i>' : ''}
-                ${(data.link_password) ? '<i class="fa-solid fa-lock my-0 p-0 mx-1"></i>' : ''}
-                <i class="fa-solid fa-chart-simple my-0 p-0 mx-1"></i>
+                ${(data.stats) ? '' : '<i class="fa-solid fa-ban my-0 p-0 ms-1"></i>'}
+                ${(data.waktu_buka) ? '<i class="fa-solid fa-calendar-check my-0 p-0 ms-1"></i>' : ''}
+                ${(data.waktu_tutup) ? '<i class="fa-solid fa-calendar-xmark my-0 p-0 ms-1"></i>' : ''}
+                ${(data.link_password) ? '<i class="fa-solid fa-lock my-0 p-0 ms-1"></i>' : ''}
+                <i class="fa-solid fa-chart-simple my-0 p-0 ms-1"></i>
                 <span class="fw-bold ms-0 me-1 my-0 p-0">${data.hint}</span>
             </small>
         </div>
@@ -210,18 +211,19 @@ const detail = async (button, id) => {
     const IP = document.getElementById('ip-address');
     const TITLE = document.getElementById('detaillinkLabel');
 
-    document.getElementById('klik').innerText = DATA[id][2];
-    id = DATA[id][0];
+    document.getElementById('klik').innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+    document.getElementById('unik').innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+    document.getElementById('lastclick').innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
     myModal.show();
 
-    AGENT.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
-    IP.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
-    TITLE.innerText = `Detail ${id}`;
+    AGENT.innerHTML = null;
+    IP.innerHTML = null;
+    TITLE.innerText = `Detail ${DATA[id][0]}`;
     button.disabled = true;
 
     refreshChart();
 
-    await fetch(`${URI}/api/link/detail?name=${id}`)
+    await fetch(`${URI}/api/link/detail?name=${DATA[id][0]}`)
         .then((res) => res.json())
         .then((res) => {
             // chart
@@ -275,13 +277,11 @@ const detail = async (button, id) => {
             }];
             myChart.update();
 
-            document.getElementById('unik').innerText = res.unique;
-            document.getElementById('lastclick').innerText = res.last_click ?? 'Tidak Terlihat';
+            document.getElementById('klik').innerHTML = DATA[id][2];
+            document.getElementById('unik').innerHTML = res.unique;
+            document.getElementById('lastclick').innerHTML = res.last_click ?? 'Tidak Terlihat';
 
-            AGENT.innerHTML = null;
             res.user_agent.forEach((data) => AGENT.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.user_agent}</td></tr>`);
-
-            IP.innerHTML = null;
             res.ip_address.forEach((data) => IP.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.ip_address}</td></tr>`);
         })
         .catch((err) => showModal(err, 'error'));

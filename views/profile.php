@@ -3,7 +3,7 @@
 <?php section('home') ?>
 
 <div class="card-body rounded-3 p-2 mb-3" style="background-color: var(--bs-gray-200)">
-    <p class="fw-semibold m-1"><i class="fa-solid fa-address-card mx-2"></i>Profil kamu</p>
+    <p class="fw-semibold text-dark m-1"><i class="fa-solid fa-address-card mx-2"></i>Profil kamu</p>
 </div>
 
 <?php if (!auth()->user()->email_verify) : ?>
@@ -28,7 +28,7 @@
 
 <div class="row align-items-center">
     <div class="col-3">
-        <img src="<?= route('avatar') ?>" loading="eager" class="mx-auto d-block rounded-circle w-75">
+        <img src="<?= route('avatar') ?>" loading="eager" class="mx-auto d-block rounded-circle" style="width: 65%;">
     </div>
     <div class="col-9">
         <h3 class="fw-bold"><?= e(auth()->user()->nama) ?><?= auth()->user()->email_verify ? '<i class="fa-solid fa-circle-check text-success ms-2"></i>' : '' ?></h3>
@@ -40,7 +40,7 @@
 <hr>
 <h5>Pengaturan</h5>
 
-<div class="form-check form-switch">
+<div class="form-check form-switch mb-3">
     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" <?= !auth()->user()->statistics ?: 'checked' ?>>
     <div class="spinner-border spinner-border-sm" id="loading-switch" style="display: none;" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -48,15 +48,14 @@
     <label class="form-check-label" for="flexSwitchCheckChecked">Simpan Semua Statistik</label>
 </div>
 
-<button type="button" class="btn btn-outline-success btn-sm mt-2" onclick="riwayatlogin()"><i class="fa-solid fa-clock-rotate-left me-1"></i>Riwayat Login</button>
-<div class="modal fade overlay" id="riwayatloginModal" tabindex="-1" aria-labelledby="riwayatloginModalLabel" aria-hidden="true">
+<button type="button" class="btn btn-outline-success btn-sm" onclick="riwayatlogin()"><i class="fa-solid fa-clock-rotate-left me-1"></i>Riwayat Login</button>
+<div class="modal fade" id="riwayatloginModal" tabindex="-1" aria-labelledby="riwayatloginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="riwayatloginModalLabel">Riwayat Login</h1>
             </div>
-            <div class="modal-body overlay" id="riwayatid">
-            </div>
+            <div class="modal-body" id="riwayatid" style="overflow: overlay;"></div>
             <div class="modal-footer d-inline d-lg-flex">
                 <div class="d-grid">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal"><i class="fas fa-check me-1"></i>Oke</button>
@@ -77,24 +76,18 @@
 
             <div class="input-group mb-3">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input type="text" placeholder="Nama" class="form-control <?= error('nama', 'is-invalid') ?>" name="nama" value="<?= e(auth()->user()->nama) ?>">
-
+                <input type="text" placeholder="Nama" class="form-control <?= error('nama', 'is-invalid') ?>" name="nama" value="<?= e(auth()->user()->nama) ?>" required>
                 <?php if (error('nama')) : ?>
-                    <div class="invalid-feedback">
-                        <?= error('nama') ?>
-                    </div>
+                    <div class="invalid-feedback"><?= error('nama') ?></div>
                 <?php endif ?>
             </div>
 
             <?php if (is_null(auth()->user()->email_verify)) : ?>
                 <div class="input-group mb-3">
                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                    <input type="email" placeholder="Email" class="form-control <?= error('email', 'is-invalid') ?>" name="email" value="<?= e(auth()->user()->email) ?>">
-
+                    <input type="email" placeholder="Email" class="form-control <?= error('email', 'is-invalid') ?>" name="email" value="<?= e(auth()->user()->email) ?>" required>
                     <?php if (error('email')) : ?>
-                        <div class="invalid-feedback">
-                            <?= error('email') ?>
-                        </div>
+                        <div class="invalid-feedback"><?= error('email') ?></div>
                     <?php endif ?>
                 </div>
             <?php endif ?>
@@ -104,24 +97,17 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
                         <input type="password" placeholder="Password" class="form-control <?= error('password', 'is-invalid') ?>" name="password" autocomplete="off">
-
                         <?php if (error('password')) : ?>
-                            <div class="invalid-feedback">
-                                <?= error('password') ?>
-                            </div>
+                            <div class="invalid-feedback"><?= error('password') ?></div>
                         <?php endif ?>
                     </div>
                 </div>
-
                 <div class="col-lg-6 col-12">
                     <div class="input-group mb-3">
                         <span class="input-group-text"><i class="fas fa-redo"></i></span>
                         <input type="password" placeholder="Repeat" class="form-control  <?= error('konfirmasi_password', 'is-invalid') ?>" name="konfirmasi_password" autocomplete="off">
-
                         <?php if (error('konfirmasi_password')) : ?>
-                            <div class="invalid-feedback">
-                                <?= error('konfirmasi_password') ?>
-                            </div>
+                            <div class="invalid-feedback"><?= error('konfirmasi_password') ?></div>
                         <?php endif ?>
                     </div>
                 </div>
@@ -129,7 +115,7 @@
             <div class="modal-footer d-inline d-md-flex">
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary btn-sm" id="button-update">
-                        <i class="fas fa-check mx-1"></i>Simpan
+                        <i class="fas fa-check me-1"></i>Simpan
                     </button>
                 </div>
             </div>
@@ -141,7 +127,7 @@
     <hr>
     <h5>Logout</h5>
     <a href="javascript:void(0);" class="btn btn-danger fw-semibold" data-bs-toggle="modal" data-bs-target="#logoutModal">
-        <i class="fas fa-sign-out-alt ms-2 me-1"></i>Logout
+        <i class="fas fa-sign-out-alt me-1"></i>Logout
     </a>
 </div>
 
@@ -152,7 +138,7 @@
         <i class="fa-solid fa-triangle-exclamation me-1"></i>Hapus Akun
     </button>
 </div>
-<div class="modal fade overlay" id="hapusakun" tabindex="-1" aria-labelledby="hapusakunLabel" aria-hidden="true">
+<div class="modal fade" id="hapusakun" tabindex="-1" aria-labelledby="hapusakunLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form action="<?= route('hapus.profile') ?>" method="post" onsubmit="deleteakun()">
             <?= csrf() ?>
@@ -223,7 +209,7 @@
                     <strong>${data.ip_address}</strong>
                 </h6>
                 <small class="text-dark rounded m-0" style="background-color: var(--bs-gray-200)">
-                    <i class="fa-solid fa-clock mx-1"></i>
+                    <i class="fa-solid fa-clock ms-1"></i>
                     <span class="ms-0 me-1 my-0 p-0">${data.created_at}</span>
                 </small>
             </div>
@@ -231,7 +217,7 @@
             <small class="mt-2 mb-1 mx-0 p-0">${data.user_agent}</small>
         </div>`;
         return DIV;
-    }
+    };
 
     const riwayatlogin = async () => {
         const myModal = new bootstrap.Modal(document.getElementById('riwayatloginModal'));
@@ -250,7 +236,7 @@
                 }
             })
             .catch((err) => showModal(err, 'error'));
-    }
+    };
 
     const deleteakun = () => {
         let btnbatal = document.getElementById('button-deleteakun-batal');
@@ -258,7 +244,7 @@
         btn.disabled = true;
         btnbatal.disabled = true;
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
-    }
+    };
 
     const update = () => {
         let btn = document.getElementById('button-update');
@@ -278,7 +264,7 @@
         }
 
         const REQ = {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'token': TOKEN

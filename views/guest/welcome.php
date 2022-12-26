@@ -1,10 +1,10 @@
-<?php parents('layout/app', ['title' => 'Dikit Link - Link tuh dikit']) ?>
+<?php parents('layout/app', ['title' => 'Dikit Link']) ?>
 
 <?php section('main') ?>
 
 <div class="container">
     <header class="pt-5 px-2 border-bottom">
-        <img src="<?= asset('link.svg') ?>" style="width: 65%;" class="d-block d-lg-none mb-3 img-fluid mx-auto">
+        <img src="<?= asset('link.svg') ?>" style="width: 65%;" loading="lazy" class="d-block d-lg-none mb-3 img-fluid mx-auto">
         <div class="row align-items-center justify-content-center">
             <div class="col">
                 <div class="text-center text-lg-start">
@@ -100,7 +100,7 @@
     </footer>
 </div>
 
-<div class="modal fade overlay" id="staticPrivacy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticPrivacyLabel" aria-hidden="true">
+<div class="modal fade" id="staticPrivacy" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticPrivacyLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -115,8 +115,7 @@
                 </ol>
                 <p>Kami adalah pemilik tunggal dari informasi yang dikumpulkan di situs ini. Kami hanya memiliki akses informasi yang anda berikan secara sukarela kepada kami melalui email. Kami tidak akan menjual atau menyewakan informasi ini kepada siapa pun dan tidak akan membagikan informasi anda dengan pihak ketiga mana pun di luar organisasi kami.</p>
                 <h5>Keamanan</h5>
-                <p>Kami mengambil tindakan pencegahan untuk melindungi informasi Anda. Ketika Anda mengirimkan informasi sensitif melalui situs web, informasi Anda dilindungi baik online maupun offline.</p>
-                <p>Meskipun kami menggunakan enkripsi untuk melindungi informasi sensitif yang dikirimkan secara online, kami juga melindungi informasi Anda secara offline. Server tempat kami menyimpan informasi identitas pribadi disimpan dalam lingkungan yang aman.</p>
+                <p>Kami mengambil tindakan pencegahan untuk melindungi informasi Anda. Ketika Anda mengirimkan informasi sensitif melalui situs web, informasi Anda dilindungi baik online maupun offline. Meskipun kami menggunakan enkripsi untuk melindungi informasi sensitif yang dikirimkan secara online, kami juga melindungi informasi Anda secara offline. Server tempat kami menyimpan informasi identitas pribadi disimpan dalam lingkungan yang aman.</p>
                 <h5>Link</h5>
                 <p>Situs web ini berisi tautan ke situs lain. Harap perhatikan bahwa kami tidak bertanggung jawab atas konten atau praktik privasi dari situs lain tersebut. Kami mendorong pengguna kami untuk berhati-hati ketika mereka meninggalkan situs kami dan membaca pernyataan privasi dari situs lain yang mengumpulkan informasi identitas pribadi.</p>
                 <h5>Perbaruan</h5>
@@ -131,7 +130,7 @@
     </div>
 </div>
 
-<div class="modal fade overlay" id="staticTerms" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticTermsLabel" aria-hidden="true">
+<div class="modal fade" id="staticTerms" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticTermsLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">

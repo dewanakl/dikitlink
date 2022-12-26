@@ -2,47 +2,31 @@
 
 <?php section('guest') ?>
 
+<h1 class="fw-bold">Sebentar</h1>
+<h6 class="my-3">Link "<?= e($name) ?>" diproteksi oleh password untuk membukanya !</h6>
 
-<h1 class="fw-bold mt-3 mb-1">
-    Sebentar
-</h1>
-<h6 class="mb-4 mt-3">Link "<?= e($name) ?>" diproteksi oleh password untuk membukanya !</h6>
+<?= including('layout/alert') ?>
 
-<?php if ($pesan = flash('berhasil')) : ?>
-    <div class="alert alert-success d-flex align-items-center" role="alert">
-        <i class="fa-solid fa-circle-check mx-1 my-0"></i>
-        <strong class="mx-1 my-0"><?= $pesan ?></strong>
-    </div>
-<?php endif ?>
-
-<?php if ($pesan = flash('gagal')) : ?>
-    <div class="alert alert-danger d-flex align-items-center" role="alert">
-        <i class="fa-solid fa-triangle-exclamation mx-1 my-0"></i>
-        <strong class="mx-1 my-0"><?= $pesan ?></strong>
-    </div>
-<?php endif ?>
-
-<form method="POST" action="<?= route('click', $name) ?>" onsubmit="passwordd()">
+<form method="POST" action="<?= route('click', $name) ?>" onsubmit="passworddd()">
     <?= csrf() ?>
     <div class="form-floating mb-3">
-        <input type="password" name="password" class="form-control <?= error('password', 'is-invalid') ?> shadow-sm" id="floatingInputpassword" placeholder="Password">
+        <input type="password" name="password" class="form-control <?= error('password', 'is-invalid') ?>" id="floatingInputpassword" placeholder="Password" required>
         <label for="floatingInputpassword" class="form-label"><i class="fa-solid fa-lock mx-1"></i>Password</label>
         <?php if (error('password')) : ?>
-            <div class="invalid-feedback">
-                <?= error('password') ?>
-            </div>
+            <div class="invalid-feedback"><?= error('password') ?></div>
         <?php endif ?>
     </div>
     <div class="d-grid">
-        <button class="btn btn-success fw-bold mt-1 mb-2" id="button-passwordd" type="submit">Kirim</button>
+        <button class="btn btn-success fw-bold my-2" id="button-passworddd" type="submit">Kirim</button>
     </div>
 </form>
 
 <script>
-    const passwordd = () => {
-        let btn = document.getElementById('button-passwordd');
+    const passworddd = () => {
+        let btn = document.getElementById('button-passworddd');
         btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Loading...';
+        btn.className = 'btn btn-success active disabled fw-bold my-2'
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     }
 </script>
 
