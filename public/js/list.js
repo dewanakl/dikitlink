@@ -2,7 +2,7 @@ const DATA = [];
 const LOAD = document.getElementById('loadmore');
 
 let init = 0;
-let end = 6;
+let end = 4;
 let each = 0;
 let myChart = null;
 let timeout = null;
@@ -346,7 +346,7 @@ const destroy = async () => {
 
 const reset = (show = true) => {
     init = 0;
-    end = 6;
+    end = 4;
     each = 0;
 
     DATA.splice(0, DATA.length);

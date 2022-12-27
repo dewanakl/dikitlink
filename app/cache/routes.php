@@ -355,7 +355,7 @@
   29 => 
   array (
     'method' => 'GET',
-    'path' => '/admin/statistik',
+    'path' => '/admin/stats',
     'controller' => 'Controllers\\AdminController',
     'function' => 'index',
     'middleware' => 
@@ -363,7 +363,7 @@
       0 => 'Middleware\\AuthMiddleware',
       1 => 'Middleware\\AdminMiddleware',
     ),
-    'name' => 'statistik.admin',
+    'name' => 'stats',
   ),
   30 => 
   array (

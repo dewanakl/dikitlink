@@ -3,11 +3,11 @@
 <?php section('home') ?>
 
 <div class="card-body rounded-3 p-2 mb-3" style="background-color: var(--bs-gray-200)">
-    <p class="fw-semibold m-1"><i class="fa-solid fa-users mx-2"></i>Daftar user di platform ini</p>
+    <p class="fw-semibold text-dark m-1"><i class="fa-solid fa-users mx-2"></i>Daftar user di platform ini</p>
 </div>
 
 <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-sm table-hover" style="font-size: 0.9rem;">
         <thead>
             <tr>
                 <th scope="col">No</th>
@@ -22,24 +22,24 @@
         </thead>
         <tbody class="table-group-divider">
             <?php foreach ($users as $idx => $user) : ?>
-                <tr>
+                <tr <?= $user->email_verify ? 'class="table-success"' : '' ?>>
                     <th><?= $idx + 1 ?></th>
                     <td><?= e($user->nama) ?></td>
                     <td><?= e($user->email) ?></td>
-                    <td><?= date("d M Y, H:i", strtotime(($user->created_at))) ?></td>
-                    <td><?= date("d M Y, H:i", strtotime(($user->last_active))) ?></td>
+                    <td><?= $user->created_at ? date("d M Y, H:i", strtotime(($user->created_at))) : '-' ?></td>
+                    <td><?= $user->last_active ? date("d M Y, H:i", strtotime(($user->last_active))) : '-' ?></td>
                     <td><?= $user->jumlah_link ?></td>
                     <td><?= $user->jumlah_pengunjung ?></td>
                     <td>
                         <div class="btn-group btn-group-sm" role="group">
-                            <button class="btn btn-outline-success detail" data-id="<?= $user->id ?>" data-nama="<?= e($user->nama) ?>">
+                            <button class="btn btn-outline-success btn-sm detail" data-id="<?= $user->id ?>" data-nama="<?= e($user->nama) ?>">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <li class="fas fa-info-circle mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Detail</span>
+                                    <li class="fas fa-info-circle mx-1 my-0"></li><span class="d-none d-md-inline m-0">Detail</span>
                                 </div>
                             </button>
-                            <button class="btn btn-outline-danger hapus" data-nama="<?= e($user->nama) ?>" data-url="<?= route('delete.users', $user->id) ?>">
+                            <button class="btn btn-outline-danger btn-sm hapus" data-nama="<?= e($user->nama) ?>" data-url="<?= route('delete.users', $user->id) ?>">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <li class="fas fa-trash mx-1 my-0"></li> <span class="d-none d-md-inline m-0">Hapus</span>
+                                    <li class="fas fa-trash mx-1 my-0"></li><span class="d-none d-md-inline m-0">Hapus</span>
                                 </div>
                             </button>
                         </div>
@@ -74,69 +74,80 @@
 </div>
 
 <div class="modal fade" id="detaillinkmodal" tabindex="-1" aria-labelledby="detaillinkLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-fullscreen">
+    <div class="modal-dialog modal-dialog-scrollable modal-fullscreen-sm-down modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="detaillinkLabel"></h5>
             </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-9">
-                            <canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
+            <div class="modal-body" style="overflow: overlay;">
+                <div class="row mb-3 p-0">
+                    <div class="col-lg-8">
+                        <h6 class="ms-1"><i class="fa-solid fa-chart-column me-1"></i>Grafik pengguna</h6>
+                        <canvas id="myChart" class="w-full shadow p-3 rounded-3 border border-opacity-25"></canvas>
+                    </div>
+                    <div class="col-lg-4 mt-1">
+                        <div class="card-body rounded-3 shadow p-2 mt-4 mb-3" style="background: #EC9E69;">
+                            <div class="row align-items-center text-light">
+                                <div class="col">
+                                    <h6 class="fw-bold">Jumlah link</h6>
+                                    <div class="h6 mb-0 mt-2 fw-semibold" id="jumlahlink"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-link fa-2x me-2"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3 ms-auto">
-                            <ul class="list-group mt-4">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold"><i class="fa-solid fa-link"></i> Link</div>
-                                        <small>Jumlah link saat ini</small>
-                                    </div>
-                                    <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="jumlahlink"></span></h5>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="ms-1 me-auto">
-                                        <div class="fw-bold"><i class="fa-solid fa-fingerprint"></i> Unik</div>
-                                        <small>Jumlah pengunjung unik</small>
-                                    </div>
-                                    <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="linkunik"></span></h5>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold"><i class="fa-solid fa-chart-simple"></i> Klik</div>
-                                        <small>Jumlah klik semua link</small>
-                                    </div>
-                                    <h5 class="m-0 text-center"><span class="badge text-bg-primary mx-1" id="totalpengunjung"></span></h5>
-                                </li>
-                            </ul>
+                        <div class="card-body rounded-3 shadow p-2 mb-3" style="background: #D56073;">
+                            <div class="row align-items-center text-light">
+                                <div class="col">
+                                    <h6 class="fw-bold">Pengunjung unik</h6>
+                                    <div class="h6 mb-0 mt-2 fw-semibold" id="linkunik"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-fingerprint fa-2x me-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body rounded-3 shadow p-2" style="background: #7A4579;">
+                            <div class="row align-items-center text-light">
+                                <div class="col">
+                                    <h6 class="fw-bold">Klik semua link</h6>
+                                    <div class="h6 mb-0 mt-2 fw-semibold" id="totalpengunjung"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-chart-simple fa-2x me-2"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-9">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Hint</th>
-                                            <th scope="col">User Agent</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-group-divider" id="user-agent"></tbody>
-                                </table>
-                            </div>
+                </div>
+                <div class="row p-0">
+                    <div class="col-lg-8">
+                        <h6 class="mt-2"><i class="fa-solid fa-mobile-screen me-1"></i>Top 5 User Agent</h6>
+                        <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
+                            <table class="table table-sm table-hover" style="font-size: 0.85rem;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Hint</th>
+                                        <th scope="col">User Agent</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider" id="user-agent"></tbody>
+                            </table>
                         </div>
-                        <div class="col-md-3 ms-auto">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Hint</th>
-                                            <th scope="col">IP Address</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="table-group-divider" id="ip-address"></tbody>
-                                </table>
-                            </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <h6 class="mt-2"><i class="fa-solid fa-location-dot me-1"></i>Top 5 IP Address</h6>
+                        <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
+                            <table class="table table-sm table-hover" style="font-size: 0.85rem;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Hint</th>
+                                        <th scope="col">IP Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider" id="ip-address"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -163,7 +174,7 @@
 <script defer>
     const HAPUS = document.querySelectorAll('.hapus');
     const DETAIL = document.querySelectorAll('.detail');
-    let myChart;
+    let myChart = null;
 
     const hapus = () => {
         let btnbatal = document.getElementById('button-hapus-batal');

@@ -87,7 +87,7 @@ Route::middleware(AuthMiddleware::class)->group(function () {
             Route::delete('/{id}/delete', 'delete')->name('delete.users');
         });
 
-        Route::get('/statistik', [AdminController::class, 'index'])->name('statistik.admin');
+        Route::get('/stats', [AdminController::class, 'index'])->name('stats');
     });
 });
 

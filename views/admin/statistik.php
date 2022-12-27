@@ -3,15 +3,17 @@
 <?php section('home') ?>
 
 <div class="card-body rounded-3 p-2 mb-3" style="background-color: var(--bs-gray-200)">
-    <p class="fw-semibold m-1"><i class="fa-solid fa-square-poll-vertical mx-2"></i>Statistik penggunaan</p>
+    <p class="fw-semibold text-dark m-1"><i class="fa-solid fa-square-poll-vertical mx-2"></i>Statistik semua penggunaan</p>
 </div>
 
-<canvas style="height:inherit; width:inherit;" id="myChart"></canvas>
+<h6 class="ms-1"><i class="fa-solid fa-chart-column me-1"></i>Grafik 1 tahun terakhir keseluruhan</h6>
+<canvas style="height:inherit; width:inherit;" id="myChart" class="p-3 rounded-3 shadow border border-opacity-25 mb-4"></canvas>
 
-<div class="row mb-4">
-    <div class="col-md-9">
-        <div class="table-responsive">
-            <table class="table table-hover">
+<div class="row mb-3">
+    <div class="col-lg-9">
+        <h6><i class="fa-solid fa-mobile-screen me-1"></i>Top 10 User Agent</h6>
+        <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
+            <table class="table table-sm table-hover" style="font-size: 0.9rem;">
                 <thead>
                     <tr>
                         <th scope="col">Hint</th>
@@ -29,9 +31,10 @@
             </table>
         </div>
     </div>
-    <div class="col-md-3 ms-auto">
-        <div class="table-responsive">
-            <table class="table table-hover">
+    <div class="col-lg-3">
+        <h6><i class="fa-solid fa-location-dot me-1"></i>Top 10 IP Address</h6>
+        <div class="table-responsive mb-3 shadow-sm border border-opacity-25 p-2 rounded">
+            <table class="table table-sm table-hover" style="font-size: 0.9rem;">
                 <thead>
                     <tr>
                         <th scope="col">Hint</th>

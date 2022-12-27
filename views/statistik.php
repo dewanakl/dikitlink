@@ -6,8 +6,8 @@
     <div class="d-flex justify-content-between">
         <p class="fw-semibold text-dark m-1"><i class="fa-solid fa-chart-column mx-2"></i>Statistik penggunaan</p>
         <a class="btn btn-success btn-sm m-0" target="_blank" href="<?= route('statistik.download') ?>">
-            <i class="fa-solid fa-download me-1"></i>
-            <span class="d-none d-sm-inline">Download</span>
+            <i class="fa-solid fa-download"></i>
+            <span class="d-none d-sm-inline ms-1">Download</span>
         </a>
     </div>
 </div>
