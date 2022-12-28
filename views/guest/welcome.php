@@ -4,7 +4,7 @@
 
 <div class="container">
     <header class="pt-5 px-2 border-bottom">
-        <img src="<?= asset('link.svg') ?>" style="width: 65%;" loading="lazy" class="d-block d-lg-none mb-3 img-fluid mx-auto">
+        <img src="<?= asset('link.svg') ?>" alt="dikitlink" width="400" height="300" class="d-block d-lg-none mb-3 img-fluid mx-auto" style="width: 65%;" loading="lazy">
         <div class="row align-items-center justify-content-center">
             <div class="col">
                 <div class="text-center text-lg-start">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col d-none d-lg-block mt-auto text-center">
-                <img class="img-fluid" style="width: 65%;" loading="lazy" src="<?= asset('link.svg') ?>" alt="link" />
+                <img src="<?= asset('link.svg') ?>" alt="dikitlink" width="400" height="300" class="img-fluid" style="width: 65%;" loading="lazy">
             </div>
         </div>
     </header>
@@ -29,8 +29,8 @@
                 <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-rotate"></i>
                 </div>
-                <div class="mt-0">
-                    <h4>Tanpa Batas</h4>
+                <div class="my-0">
+                    <div class="h4">Tanpa Batas</div>
                     <p>Bikin link sampai ribuan juga boleh banget, intinya sampai kamu cape sendiri.</p>
                 </div>
             </div>
@@ -38,8 +38,8 @@
                 <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-chart-column"></i>
                 </div>
-                <div class="mt-0">
-                    <h4>Statistik</h4>
+                <div class="my-0">
+                    <div class="h4">Statistik</div>
                     <p>Kamu juga bisa langsung stalking. Seperti jumlah kliknya, pake device apa, dll.</p>
                 </div>
             </div>
@@ -47,8 +47,8 @@
                 <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-sack-dollar"></i>
                 </div>
-                <div class="mt-0">
-                    <h4>100% Gratis</h4>
+                <div class="my-0">
+                    <div class="h4">100% Gratis</div>
                     <p>Asli gk bohong, coba dulu baru bilang.... tuhkan gratis tanpa butuh apa apa.</p>
                 </div>
             </div>
@@ -56,8 +56,8 @@
                 <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-thumbs-up"></i>
                 </div>
-                <div class="mt-0">
-                    <h4>Mudah</h4>
+                <div class="my-0">
+                    <div class="h4">Mudah</div>
                     <p>Sat set sat set, hiyaaa.... mudah bangett kan bikin linknya ?.</p>
                 </div>
             </div>
@@ -65,8 +65,8 @@
                 <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-lock"></i>
                 </div>
-                <div class="mt-0">
-                    <h4>Aman</h4>
+                <div class="my-0">
+                    <div class="h4">Aman</div>
                     <p>Yoiii, open source lagi, kalau ada apa apa bisa langsung dibenerin.</p>
                 </div>
             </div>
@@ -74,8 +74,8 @@
                 <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
                     <i class="fa-solid fa-bolt"></i>
                 </div>
-                <div class="mt-0">
-                    <h4>Cepat</h4>
+                <div class="my-0">
+                    <div class="h4">Cepat</div>
                     <p>Perasaan baru klik ini tombol kok udah muncul selesai ? Gile cepet bangettt.</p>
                 </div>
             </div>
@@ -114,11 +114,11 @@
                     <li>Pengumpulan, Penggunaan, dan Berbagi Informasi</li>
                 </ol>
                 <p>Kami adalah pemilik tunggal dari informasi yang dikumpulkan di situs ini. Kami hanya memiliki akses informasi yang anda berikan secara sukarela kepada kami melalui email. Kami tidak akan menjual atau menyewakan informasi ini kepada siapa pun dan tidak akan membagikan informasi anda dengan pihak ketiga mana pun di luar organisasi kami.</p>
-                <h5>Keamanan</h5>
+                <div class="h6 fw-bold">Keamanan</div>
                 <p>Kami mengambil tindakan pencegahan untuk melindungi informasi Anda. Ketika Anda mengirimkan informasi sensitif melalui situs web, informasi Anda dilindungi baik online maupun offline. Meskipun kami menggunakan enkripsi untuk melindungi informasi sensitif yang dikirimkan secara online, kami juga melindungi informasi Anda secara offline. Server tempat kami menyimpan informasi identitas pribadi disimpan dalam lingkungan yang aman.</p>
-                <h5>Link</h5>
+                <div class="h6 fw-bold">Link</div>
                 <p>Situs web ini berisi tautan ke situs lain. Harap perhatikan bahwa kami tidak bertanggung jawab atas konten atau praktik privasi dari situs lain tersebut. Kami mendorong pengguna kami untuk berhati-hati ketika mereka meninggalkan situs kami dan membaca pernyataan privasi dari situs lain yang mengumpulkan informasi identitas pribadi.</p>
-                <h5>Perbaruan</h5>
+                <div class="h6 fw-bold">Perbaruan</div>
                 <p>Kebijakan Privasi kami dapat berubah dari waktu ke waktu dan semua pembaruan akan diposting di halaman ini.</p>
             </div>
             <div class="modal-footer d-inline d-sm-flex">
