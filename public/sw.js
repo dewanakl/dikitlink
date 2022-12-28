@@ -1,4 +1,6 @@
-const filesToCache = [
+const PRECACHE = 'app';
+
+const PRECACHE_URLS = [
     '/css/app.css',
     '/js/utiltop.js',
     '/js/utildown.js',
@@ -18,8 +20,7 @@ const filesToCache = [
 ];
 
 const preLoad = async () => {
-    return caches.open('offline').then((cache) => {
-        // caching index and important routes
+    return caches.open(PRECACHE).then((cache) => {
         return cache.addAll(filesToCache);
     });
 };
@@ -41,7 +42,7 @@ const checkResponse = (request) => {
 };
 
 const addToCache = async (request) => {
-    return caches.open('offline').then(async (cache) => {
+    return caches.open(PRECACHE).then(async (cache) => {
         return fetch(request).then((response) => {
             return cache.put(request, response);
         });
@@ -49,7 +50,7 @@ const addToCache = async (request) => {
 };
 
 const returnFromCache = async (request) => {
-    return caches.open('offline').then(async (cache) => {
+    return caches.open(PRECACHE).then(async (cache) => {
         return cache.match(request).then((matching) => {
             if (!matching || matching.status === 404) {
                 return cache.match('offline.html');
@@ -61,11 +62,9 @@ const returnFromCache = async (request) => {
 };
 
 self.addEventListener('fetch', (event) => {
-    event.respondWith(checkResponse(event.request).catch(() => {
-        return returnFromCache(event.request);
-    }));
+    event.respondWith(checkResponse(event.request).catch(() => returnFromCache(event.request)));
 
-    if (!event.request.url.startsWith('http')) {
+    if (!event.request.url.startsWith(self.location.origin)) {
         event.waitUntil(addToCache(event.request));
     }
 });
