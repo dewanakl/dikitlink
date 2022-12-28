@@ -8,10 +8,6 @@
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.js" integrity="sha256-l5LW9aB/BWnxagS2D7wr3hmEIn9r0avEf/OosPYOUZM=" as="script" crossorigin="anonymous">
 <?php endsection('preload.chart') ?>
 
-<?php section('preload.bootstrap') ?>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-lSABj6XYH05NydBq+1dvkMu6uiCc/MbLYOFGRkf3iQs=" as="script" crossorigin="anonymous">
-<?php endsection('preload.bootstrap') ?>
-
 <?php section('utiltop') ?>
 <script src="<?= asset('js/utiltop.js') ?>"></script>
 <?php endsection('utiltop') ?>
@@ -113,7 +109,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.16/dist/sweetalert2.all.min.js" integrity="sha256-b+fVEXPbYTCRvyFMiFsP3TAaUr7X3fbvPaPg5JqwsDw=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.js" integrity="sha256-l5LW9aB/BWnxagS2D7wr3hmEIn9r0avEf/OosPYOUZM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha256-lSABj6XYH05NydBq+1dvkMu6uiCc/MbLYOFGRkf3iQs=" crossorigin="anonymous"></script>
 <script src="<?= asset('js/utildown.js') ?>"></script>
 
 <?php endsection('main') ?>
