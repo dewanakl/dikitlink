@@ -15,6 +15,7 @@
     <meta name="description" content="Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?">
     <meta name="keywords" content="dikitlink, dikit.my.id, dikit, pemendek-url, pemendek, shortenlink, linktuhdikit">
     <meta name="author" content="dewanakl">
+    <meta name="google-site-verification" content="Z6IeT2dBLq3zI_KsN5F42gvyqycrI5JuqG7dtQoVnw0">
     <meta property="og:title" content="<?= $title . ' - Link tuh dikit' ?>">
     <meta property="og:keywords" content="dikitlink, dikit.my.id, dikit, pemendek-url, pemendek, shortenlink, linktuhdikit">
     <meta property="og:description" content="Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?">
