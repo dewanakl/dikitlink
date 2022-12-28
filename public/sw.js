@@ -21,7 +21,7 @@ const PRECACHE_URLS = [
 
 const preLoad = async () => {
     return caches.open(PRECACHE).then((cache) => {
-        return cache.addAll(filesToCache);
+        return cache.addAll(PRECACHE_URLS);
     });
 };
 
