@@ -29,7 +29,12 @@ class StatistikController extends Controller
         $hasil = DB::table('links')
             ->join('stats', 'links.id', 'stats.link_id')
             ->where('links.user_id', Auth::id())
-            ->select('stats.created_at', 'links.name', 'stats.user_agent', 'stats.ip_address')
+            ->select([
+                'stats.created_at',
+                'links.name',
+                'stats.user_agent',
+                'stats.ip_address'
+            ])
             ->get()
             ->toArray();
 
@@ -70,7 +75,7 @@ class StatistikController extends Controller
 
         $link = Link::join('users', 'links.user_id', 'users.id')
             ->where('links.name', $valid->id)
-            ->select('links.*', 'users.statistics')
+            ->select(['links.*', 'users.statistics'])
             ->first();
 
         if (empty($link->id)) {

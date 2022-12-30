@@ -18,7 +18,11 @@ class UsersController extends Controller
             ->where('users.role_id', 2)
             ->groupBy('users.id')
             ->orderBy('users.id')
-            ->select('users.*', 'count(DISTINCT links.id) as jumlah_link', 'count(stats.id) as jumlah_pengunjung')
+            ->select([
+                'users.*',
+                'count(DISTINCT links.id) as jumlah_link',
+                'count(stats.id) as jumlah_pengunjung'
+            ])
             ->get();
 
         return $this->view('admin/users', compact('users'));
