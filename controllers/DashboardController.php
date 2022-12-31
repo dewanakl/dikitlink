@@ -15,14 +15,14 @@ class DashboardController extends Controller
 
         if ($now >= 5 && $now < 18) {
             if ($now >= 5 && $now < 10) {
-                $greeting = 'Pagi';
+                $greeting = '<i class="fa-solid fa-mug-saucer me-2"></i>Pagi';
             } else if ($now >= 10 && $now < 15) {
-                $greeting = 'Siang';
+                $greeting = '<i class="fa-solid fa-sun me-2"></i>Siang';
             } else {
-                $greeting = 'Sore';
+                $greeting = '<i class="fa-solid fa-mountain-sun me-2"></i>Sore';
             }
         } else {
-            $greeting = 'Malam';
+            $greeting = '<i class="fa-solid fa-moon me-2"></i>Malam';
         }
 
         $sumstats = $repository->sumStats(auth()->id());

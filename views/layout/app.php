@@ -32,8 +32,8 @@
     <meta property="twitter:url" content="<?= asset('/') ?>">
 
     <!-- PWA -->
-    <meta name="theme-color" content="#ffffff">
-    <meta name="color-scheme" content="light">
+    <meta name="theme-color" content="#<?= session()->get('dark') ? '000000' : 'ffffff' ?>">
+    <meta name="color-scheme" content="<?= session()->get('dark') ? 'dark' : 'light' ?>">
     <link rel="manifest" href="<?= asset('manifest.webmanifest') ?>">
     <link rel="apple-touch-icon" sizes="192x192" href="<?= asset('icon-192x192.png') ?>">
     <link rel="icon" type="image/png" href="<?= asset('icon-192x192.png') ?>">

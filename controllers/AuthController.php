@@ -31,6 +31,7 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
+        session()->set('dark', false);
         return $this->redirect(route('login'))->with('berhasil', 'Berhasil logout');
     }
 

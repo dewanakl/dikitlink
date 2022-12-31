@@ -6,9 +6,12 @@
     <p class="fw-semibold text-dark m-1"><i class="fa-solid fa-home mx-2"></i>Halaman utama</p>
 </div>
 
-<div class="card-body rounded-3 p-4 mb-4" style="background-color: var(--bs-gray-200)">
-    <h2 class="text-truncate fw-bold text-dark"><?= $salam . ', ' . e(auth()->user()->nama) ?></h2>
-    <p class="fw-semibold mb-0 text-dark">Selamat datang di halaman utama dikit link, yukss bikin link yang banyak !</p>
+<div class="card-body rounded-3 p-3 mb-4" style="background-color: var(--bs-gray-200)">
+    <div class="d-none d-md-block p-2">
+        <h4 class="text-truncate fw-bold text-dark"><?= $salam . ', ' . e(auth()->user()->nama) ?></h4>
+        <p class="fw-semibold mb-0 text-dark">Selamat datang di halaman utama dikit link, yukss bikin link yang banyak !</p>
+    </div>
+    <p class="text-truncate fw-bold d-block d-md-none m-0 text-dark"><?= $salam . ', ' . e(auth()->user()->nama) ?></p>
 </div>
 
 <h5>Overview</h5>

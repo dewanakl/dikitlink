@@ -10,14 +10,14 @@
 <form method="POST" onsubmit="forget()" id="submit-form">
     <?= csrf() ?>
     <div class="form-floating mb-3">
-        <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputforget" placeholder="Email" value="<?= old('email') ?>" autocomplete="on" required>
+        <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputforget" placeholder="Email" value="<?= old('email') ?>" autocomplete="on">
         <label for="floatingInputforget" class="form-label"><i class="fa-solid fa-envelope mx-1"></i>Email</label>
         <?php if (error('email')) : ?>
             <div class="invalid-feedback"><?= error('email') ?></div>
         <?php endif ?>
     </div>
     <div class="d-grid">
-        <button class="g-recaptcha btn btn-warning fw-bold my-2" id="button-forget" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="forget()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="submit" <?php endif ?>>Kirim</button>
+        <button class="g-recaptcha btn btn-warning fw-bold my-2" id="button-forget" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="forget()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="forget" <?php endif ?>>Kirim</button>
     </div>
     <hr class="text-dark">
     <div class="d-flex justify-content-center">
