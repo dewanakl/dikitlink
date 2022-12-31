@@ -212,6 +212,7 @@
     'middleware' => 
     array (
       0 => 'Middleware\\AuthMiddleware',
+      1 => 'Middleware\\TemaMiddleware',
     ),
     'name' => 'profile',
   ),
@@ -224,6 +225,7 @@
     'middleware' => 
     array (
       0 => 'Middleware\\AuthMiddleware',
+      1 => 'Middleware\\TemaMiddleware',
     ),
     'name' => NULL,
   ),

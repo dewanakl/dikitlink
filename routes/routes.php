@@ -13,6 +13,7 @@ use Middleware\AdminMiddleware;
 use Middleware\AuthMiddleware;
 use Middleware\EmailMiddleware;
 use Middleware\GuestMiddleware;
+use Middleware\TemaMiddleware;
 
 /**
  * Make something great with this app
@@ -63,8 +64,10 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     // profile
     Route::controller(ProfileController::class)->prefix('/profile')->group(function () {
-        Route::get('/', 'index')->name('profile');
-        Route::put('/', 'update');
+        Route::middleware(TemaMiddleware::class)->group(function () {
+            Route::get('/', 'index')->name('profile');
+            Route::put('/', 'update');
+        });
         Route::get('/avatar', 'avatar')->name('avatar');
         Route::get('/log', 'log')->name('log');
         Route::put('/statistik', 'statistik')->name('statistik.profile');

@@ -8,6 +8,12 @@
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.js" integrity="sha256-l5LW9aB/BWnxagS2D7wr3hmEIn9r0avEf/OosPYOUZM=" as="script" crossorigin="anonymous">
 <?php endsection('preload.chart') ?>
 
+<?php if (session()->get('dark')) : ?>
+    <?php section('preload.alert.dark') ?>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5.0.15/dark.min.css" integrity="sha256-Dtn0fzAID6WRybYFj3UI5JDBy9kE2adX1xPUlW+B4XQ=" as="style" crossorigin="anonymous">
+    <?php endsection('preload.alert.dark') ?>
+<?php endif ?>
+
 <?php section('utiltop') ?>
 <script src="<?= asset('js/utiltop.js') ?>"></script>
 <?php endsection('utiltop') ?>
@@ -108,6 +114,9 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.16/dist/sweetalert2.all.min.js" integrity="sha256-b+fVEXPbYTCRvyFMiFsP3TAaUr7X3fbvPaPg5JqwsDw=" crossorigin="anonymous"></script>
+<?php if (session()->get('dark')) : ?>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5.0.15/dark.min.css" integrity="sha256-Dtn0fzAID6WRybYFj3UI5JDBy9kE2adX1xPUlW+B4XQ=" crossorigin="anonymous">
+<?php endif ?>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.1.1/dist/chart.umd.js" integrity="sha256-l5LW9aB/BWnxagS2D7wr3hmEIn9r0avEf/OosPYOUZM=" crossorigin="anonymous"></script>
 <script src="<?= asset('js/utildown.js') ?>"></script>
 

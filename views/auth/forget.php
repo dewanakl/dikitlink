@@ -7,7 +7,7 @@
 
 <?= including('layout/alert') ?>
 
-<form method="POST" onsubmit="forget()">
+<form method="POST" onsubmit="forget()" id="submit-form">
     <?= csrf() ?>
     <div class="form-floating mb-3">
         <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputforget" placeholder="Email" value="<?= old('email') ?>" autocomplete="on" required>
@@ -17,7 +17,7 @@
         <?php endif ?>
     </div>
     <div class="d-grid">
-        <button class="btn btn-warning fw-bold my-2" id="button-forget" type="submit">Kirim</button>
+        <button class="g-recaptcha btn btn-warning fw-bold my-2" id="button-forget" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="forget()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="submit" <?php endif ?>>Kirim</button>
     </div>
     <hr class="text-dark">
     <div class="d-flex justify-content-center">
@@ -29,9 +29,18 @@
     const forget = () => {
         let btn = document.getElementById('button-forget');
         btn.disabled = true;
-        btn.className = 'btn btn-warning active disabled fw-bold my-2'
+        btn.className = 'g-recaptcha btn btn-warning active disabled fw-bold my-2'
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     }
 </script>
+
+<?php if (env('CAPTCHA_WEB')) : ?>
+    <script>
+        function onSubmit(token) {
+            document.getElementById('submit-form').submit();
+        }
+    </script>
+    <script src="https://google.com/recaptcha/api.js"></script>
+<?php endif ?>
 
 <?php endsection('guest') ?>

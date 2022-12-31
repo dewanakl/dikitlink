@@ -6,7 +6,7 @@
 
 <?= including('layout/alert') ?>
 
-<form method="POST" onsubmit="login()">
+<form method="POST" onsubmit="login()" id="submit-form">
     <?= csrf() ?>
     <div class="form-floating mb-3">
         <input type="email" name="email" class="form-control <?= error('email', 'is-invalid') ?>" id="floatingInputlogin" placeholder="Email" value="<?= old('email') ?>" autocomplete="on" required>
@@ -26,7 +26,7 @@
         <p class="fw-semibold my-2"><a href="<?= route('forget') ?>" class="hover p-1 rounded text-decoration-none text-primary">Lupa kata sandi?</a></p>
     </div>
     <div class="d-grid">
-        <button class="btn btn-primary fw-bold my-2" id="button-login" type="submit">Masuk</button>
+        <button class="g-recaptcha btn btn-primary fw-bold my-2" id="button-login" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="login()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="submit" <?php endif ?>>Masuk</button>
     </div>
     <hr class="text-dark">
     <div class="d-flex justify-content-center">
@@ -38,9 +38,18 @@
     const login = () => {
         let btn = document.getElementById('button-login');
         btn.disabled = true;
-        btn.className = 'btn btn-primary active disabled fw-bold my-2'
+        btn.className = 'g-recaptcha btn btn-primary active disabled fw-bold my-2'
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     }
 </script>
+
+<?php if (env('CAPTCHA_WEB')) : ?>
+    <script>
+        function onSubmit(token) {
+            document.getElementById('submit-form').submit();
+        }
+    </script>
+    <script src="https://google.com/recaptcha/api.js"></script>
+<?php endif ?>
 
 <?php endsection('guest') ?>

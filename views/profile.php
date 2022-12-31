@@ -40,12 +40,20 @@
 <hr>
 <h5>Pengaturan</h5>
 
-<div class="form-check form-switch mb-3">
+<div class="form-check form-switch mb-2">
     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" <?= !auth()->user()->statistics ?: 'checked' ?>>
     <div class="spinner-border spinner-border-sm" id="loading-switch" style="display: none;" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
     <label class="form-check-label" for="flexSwitchCheckChecked">Simpan Semua Statistik</label>
+</div>
+
+<div class="form-check form-switch mb-3">
+    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckCheckedTheme" <?= !session()->get('dark') ?: 'checked' ?>>
+    <div class="spinner-border spinner-border-sm" id="loading-switch-theme" style="display: none;" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <label class="form-check-label" for="flexSwitchCheckCheckedTheme">Tampilan Gelap</label>
 </div>
 
 <button type="button" class="btn btn-outline-success btn-sm" onclick="riwayatlogin()"><i class="fa-solid fa-clock-rotate-left me-1"></i>Riwayat Login</button>
@@ -287,6 +295,19 @@
 
         checkbox.disabled = false;
         document.getElementById('loading-switch').style.display = 'none';
+    });
+
+    const checkboxtheme = document.getElementById('flexSwitchCheckCheckedTheme');
+    checkboxtheme.addEventListener('change', async (event) => {
+        checkboxtheme.disabled = true;
+        document.getElementById('loading-switch-theme').style.display = 'inline-block';
+
+        let check = 'light';
+        if (event.currentTarget.checked) {
+            check = 'dark';
+        }
+
+        window.location.href = window.location.href + '?' + check;
     });
 </script>
 

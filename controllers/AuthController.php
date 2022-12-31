@@ -55,6 +55,10 @@ class AuthController extends Controller
             $request->throw($valid);
         }
 
+        if (!$this->captcha($request)) {
+            return $this->back()->with('gagal', 'Captcha Salah !');
+        }
+
         if (Auth::attempt($valid->only(['email', 'password']))) {
             Log::create([
                 'user_id' => Auth::id(),
@@ -70,6 +74,10 @@ class AuthController extends Controller
 
     public function submit(Request $request)
     {
+        if (!$this->captcha($request)) {
+            return $this->back()->with('gagal', 'Captcha Salah !');
+        }
+
         $credential = $request->validate([
             'nama' => ['required', 'str', 'trim', 'min:2', 'max:25'],
             'email' => ['required', 'str', 'trim', 'min:5', 'max:100', 'email', 'dns', 'unik'],
@@ -87,6 +95,10 @@ class AuthController extends Controller
         $request->validate([
             'email' => ['required', 'str', 'trim', 'min:5', 'max:100', 'dns', 'email']
         ]);
+
+        if (!$this->captcha($request)) {
+            return $this->back()->with('gagal', 'Captcha Salah !');
+        }
 
         $user = User::find($request->email, 'email')->fail(fn () => false);
 
@@ -150,5 +162,32 @@ class AuthController extends Controller
         }
 
         return $this->redirect(route('forget'))->with('gagal', 'Kode tidak valid !');
+    }
+
+    private function captcha($request)
+    {
+        if (!env('CAPTCHA')) {
+            return true;
+        }
+
+        $url = 'https://google.com/recaptcha/api/siteverify';
+        $context  = stream_context_create([
+            'http' => [
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query([
+                    'secret' => env('CAPTCHA'),
+                    'response' => $request->get('g-recaptcha-response'),
+                    'remoteip' => $request->ip()
+                ])
+            ]
+        ]);
+
+        $res = json_decode(file_get_contents($url, false, $context));
+        if ($res->success && $res->score >= 0.5) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -4,7 +4,7 @@
 
 <h1 class="fw-bold mb-3">Register</h1>
 
-<form method="POST" onsubmit="register()">
+<form method="POST" onsubmit="register()" id="submit-form">
     <?= csrf() ?>
     <div class="form-floating mb-3">
         <input type="text" name="nama" class="form-control <?= error('nama', 'is-invalid') ?>" id="floatingNama" placeholder="Nama" value="<?= old('nama') ?>" autocomplete="on" required>
@@ -29,7 +29,7 @@
     </div>
     <small class="text-dark">Dengan mendaftar, Anda setuju <a href="/" class="text-decoration-none text-primary">term & conditions</a> dan <a href="/" class="text-decoration-none text-primary">privacy policy</a> kami.</small>
     <div class="d-grid">
-        <button class="btn btn-success fw-bold mt-3 mb-2" id="button-register" type="submit">Daftar</button>
+        <button class="g-recaptcha btn btn btn-success fw-bold mt-3 mb-2" id="button-register" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="register()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="submit" <?php endif ?>>Daftar</button>
     </div>
     <hr class="text-dark">
     <div class="d-flex justify-content-center">
@@ -41,9 +41,18 @@
     const register = () => {
         let btn = document.getElementById('button-register');
         btn.disabled = true;
-        btn.className = 'btn btn-success active disabled fw-bold mt-3 mb-2'
+        btn.className = 'g-recaptcha btn btn-success active disabled fw-bold mt-3 mb-2'
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     }
 </script>
+
+<?php if (env('CAPTCHA_WEB')) : ?>
+    <script>
+        function onSubmit(token) {
+            document.getElementById('submit-form').submit();
+        }
+    </script>
+    <script src="https://google.com/recaptcha/api.js"></script>
+<?php endif ?>
 
 <?php endsection('guest') ?>
