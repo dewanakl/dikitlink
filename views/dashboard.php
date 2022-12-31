@@ -3,7 +3,7 @@
 <?php section('home') ?>
 
 <div class="d-block d-sm-none card-body rounded-3 p-2 mb-3" style="background-color: var(--bs-gray-200)">
-    <p class="fw-semibold m-1"><i class="fa-solid fa-home mx-2"></i>Halaman utama</p>
+    <p class="fw-semibold text-dark m-1"><i class="fa-solid fa-home mx-2"></i>Halaman utama</p>
 </div>
 
 <div class="card-body rounded-3 p-4 mb-4" style="background-color: var(--bs-gray-200)">

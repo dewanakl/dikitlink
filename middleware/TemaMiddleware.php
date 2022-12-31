@@ -10,12 +10,12 @@ final class TemaMiddleware implements MiddlewareInterface
 {
     public function handle(Request $request, Closure $next)
     {
-        if (isset($request->dark)) {
+        if (!is_null($request->get('dark'))) {
             session()->set('dark', true);
-            respond()->redirect($request->server('PATH_INFO'));
-        } else if (isset($request->light)) {
+            respond()->redirect(route('profile'));
+        } else if (!is_null($request->get('light'))) {
             session()->set('dark', false);
-            respond()->redirect($request->server('PATH_INFO'));
+            respond()->redirect(route('profile'));
         }
 
         return $next($request);
