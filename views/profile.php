@@ -31,9 +31,9 @@
         <img src="<?= route('avatar') ?>" loading="eager" class="mx-auto d-block rounded-circle" style="width: 60%;">
     </div>
     <div class="col-9">
-        <h3 class="fw-bold"><?= e(auth()->user()->nama) ?><?= auth()->user()->email_verify ? '<i class="fa-solid fa-circle-check text-success ms-2"></i>' : '' ?></h3>
+        <h4 class="fw-bold"><?= e(auth()->user()->nama) ?><?= auth()->user()->email_verify ? '<i class="fa-solid fa-circle-check text-success ms-2"></i>' : '' ?></h4>
         <p class="d-block m-0 p-0"><i class="fas fa-envelope me-1"></i><?= e(auth()->user()->email) ?></p>
-        <small class="d-block"><i class="fas fa-user-clock me-1"></i><?= date("d M Y, H:i", strtotime((auth()->user()->created_at))) ?></small>
+        <small class="d-block"><i class="fas fa-user-clock me-1"></i><?= date('d M Y, H:i', strtotime((auth()->user()->created_at))) ?></small>
     </div>
 </div>
 

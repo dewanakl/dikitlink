@@ -109,12 +109,12 @@ const logout = () => {
     btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
 }
 
-document.getElementById('addlink').addEventListener('submit', event => {
+document.getElementById('addlink').addEventListener('submit', (event) => {
     event.preventDefault();
     tambahModal();
 });
 
-document.getElementById('addlinkmobile').addEventListener('submit', event => {
+document.getElementById('addlinkmobile').addEventListener('submit', (event) => {
     event.preventDefault();
     tambahMobile();
 });

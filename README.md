@@ -1,13 +1,32 @@
+<p align="center">
+<img src="public/icon-384x384.png" width="200" alt="dikit">
+</p>
+
 ## About Dikit Link
 
-Dikit Link short link gk ada obat dengan Kamu PHP Framework yang powerfull
+Dikit Link adalah aplikasi shortlink gk ada obat dengan Kamu PHP Framework.
 
-## How to run ?
-- clone or download this repository
-- cp .env.example .env
-- php saya key
-- php saya migrasi --gen
-- php saya coba (run development serve)
+## Get Started Project
+- Clone or download this repository
+    ```bash
+    $ git clone https://github.com/dewanakl/DikitLink.git
+    ```
+- Create .env file
+    ```bash
+    $ cp .env.example .env
+    ```
+- Create key application
+    ```bash
+    $ php saya key
+    ```
+- Create table in database
+    ```bash
+    $ php saya migrasi --gen
+    ```
+- Run in development server
+    ```bash
+    $ php saya coba
+    ```
 
 ## License
 

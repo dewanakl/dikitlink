@@ -2,7 +2,7 @@ const DATA = [];
 const LOAD = document.getElementById('loadmore');
 
 let init = 0;
-let end = 4;
+let end = 5;
 let each = 0;
 let myChart = null;
 let timeout = null;
@@ -211,16 +211,17 @@ const detail = async (button, id) => {
     const IP = document.getElementById('ip-address');
     const TITLE = document.getElementById('detaillinkLabel');
 
+    button.disabled = true;
+
     document.getElementById('klik').innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
     document.getElementById('unik').innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
     document.getElementById('lastclick').innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
-    myModal.show();
 
     AGENT.innerHTML = null;
     IP.innerHTML = null;
     TITLE.innerText = `Detail ${DATA[id][0]}`;
-    button.disabled = true;
 
+    myModal.show();
     refreshChart();
 
     await fetch(`${URI}/api/link/detail?name=${DATA[id][0]}`)
@@ -346,7 +347,7 @@ const destroy = async () => {
 
 const reset = (show = true) => {
     init = 0;
-    end = 4;
+    end = 5;
     each = 0;
 
     DATA.splice(0, DATA.length);
@@ -371,12 +372,12 @@ const loadMore = () => {
     refreshTable();
 }
 
-document.getElementById('editlink').addEventListener('submit', event => {
+document.getElementById('editlink').addEventListener('submit', (event) => {
     event.preventDefault();
     update();
 });
 
-document.getElementById('hapuslink').addEventListener('submit', event => {
+document.getElementById('hapuslink').addEventListener('submit', (event) => {
     event.preventDefault();
     destroy();
 });

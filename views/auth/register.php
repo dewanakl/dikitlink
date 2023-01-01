@@ -29,7 +29,7 @@
     </div>
     <small class="text-dark">Dengan mendaftar, Anda setuju <a href="/" class="text-decoration-none text-primary">term & conditions</a> dan <a href="/" class="text-decoration-none text-primary">privacy policy</a> kami.</small>
     <div class="d-grid">
-        <button class="g-recaptcha btn btn btn-success fw-bold mt-3 mb-2" id="button-register" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="register()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="register" <?php endif ?>>Daftar</button>
+        <button class="g-recaptcha btn btn-success fw-bold mt-3 mb-2" id="button-register" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="register()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="register" <?php endif ?>>Daftar</button>
     </div>
     <hr class="text-dark">
     <div class="d-flex justify-content-center">
