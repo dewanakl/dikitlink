@@ -88,6 +88,16 @@ const refreshTable = async () => {
         .then((res) => {
             if (res.length > 0) {
                 res.forEach((data) => {
+                    let check = data.stats;
+                    if (typeof check === 'string' || check instanceof String) {
+                        if (check == '1') {
+                            check = true;
+                        } else {
+                            check = false;
+                        }
+                    }
+                    data.stats = check;
+
                     DATA.push([
                         data.name,
                         data.link,
