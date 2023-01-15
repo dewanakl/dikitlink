@@ -2,9 +2,15 @@
 
 namespace Core\Database;
 
+use ArrayIterator;
+use Closure;
+use Core\Facades\App;
 use Exception;
+use IteratorAggregate;
+use JsonSerializable;
 use ReflectionClass;
-use ReflectionException;
+use ReturnTypeWillChange;
+use Traversable;
 
 /**
  * Representasi model database
@@ -15,23 +21,20 @@ use ReflectionException;
  * @method static \Core\Database\BaseModel rightJoin(string $table, string $column, string $refers, string $param = '=')
  * @method static \Core\Database\BaseModel fullJoin(string $table, string $column, string $refers, string $param = '=')
  * @method static \Core\Database\BaseModel orderBy(string $name, string $order = 'ASC')
- * @method static \Core\Database\BaseModel groupBy(string ...$param)
  * @method static \Core\Database\BaseModel limit(int $param)
  * @method static \Core\Database\BaseModel offset(int $param)
- * @method static \Core\Database\BaseModel select(string|array ...$param)
- * @method static \Core\Database\BaseModel counts(string $name = '*')
+ * @method static \Core\Database\BaseModel select(string|array $param)
+ * @method static \Core\Database\BaseModel count(string $name = '*')
  * @method static \Core\Database\BaseModel max(string $name)
  * @method static \Core\Database\BaseModel min(string $name)
  * @method static \Core\Database\BaseModel avg(string $name)
  * @method static \Core\Database\BaseModel sum(string $name)
- * @method static \Core\Database\BaseModel get()
- * @method static \Core\Database\BaseModel first()
- * @method static \Core\Database\BaseModel all()
+ * @method static \Core\Database\BaseModel|\Core\Database\Model get()
+ * @method static \Core\Database\BaseModel|\Core\Database\Model first()
  * @method static \Core\Database\BaseModel id(mixed $id, mixed $where = null)
- * @method static \Core\Database\BaseModel find(mixed $id, mixed $where = null)
- * @method static mixed findOrFail(mixed $id, mixed $where = null)
+ * @method static \Core\Database\BaseModel|\Core\Database\Model find(mixed $id, mixed $where = null)
  * @method static bool destroy(int $id)
- * @method static mixed create(array $data)
+ * @method static \Core\Database\BaseModel|\Core\Database\Model create(array $data)
  * @method static bool update(array $data)
  * @method static bool delete()
  * 
@@ -40,49 +43,31 @@ use ReflectionException;
  * @class Model
  * @package \Core\Database
  */
-abstract class Model
+abstract class Model implements IteratorAggregate, JsonSerializable
 {
     /**
-     * Ambil properti dari child class
-     *
-     * @param string $class
-     * @param string $name
-     * @return mixed
+     * Attributes hasil query
      * 
-     * @throws Exception
+     * @var mixed $attributes
      */
-    protected static function getPropertyChild(string $class, string $name): mixed
-    {
-        $result = null;
-
-        try {
-            $reflect = new ReflectionClass($class);
-            $property = $reflect->getProperty($name);
-            $property->setAccessible(true);
-            $result = $property->getValue($reflect->newInstance());
-        } catch (ReflectionException $e) {
-            throw new Exception($e->getMessage());
-        }
-
-        return $result;
-    }
+    protected $attributes;
 
     /**
-     * Eksekusi method pada basemodel
-     *
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
+     * Primary key tabelnya
+     * 
+     * @var string $primaryKey
      */
-    private static function call(string $method, array $parameters): mixed
-    {
-        $base = app()->make(BaseModel::class);
-        $base->table(self::getPropertyChild(get_called_class(), 'table'));
-        $base->dates(self::getPropertyChild(get_called_class(), 'dates'));
-        $base->primaryKey(self::getPropertyChild(get_called_class(), 'primaryKey'));
+    protected $primaryKey = 'id';
 
-        return app()->invoke($base, $method, $parameters);
-    }
+    /**
+     * Waktu bikin dan update
+     * 
+     * @var array $dates
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
 
     /**
      * Panggil method secara static
@@ -93,7 +78,7 @@ abstract class Model
      */
     public static function __callStatic(string $method, array $parameters): mixed
     {
-        return self::call($method, $parameters);
+        return App::get()->make(get_called_class())->__call($method, $parameters);
     }
 
     /**
@@ -105,6 +90,174 @@ abstract class Model
      */
     public function __call(string $method, array $parameters): mixed
     {
-        return self::call($method, $parameters);
+        $child = get_called_class();
+        $app = App::get();
+
+        $base = $app->singleton(BaseModel::class);
+        $base->setAttribute($this->attributes);
+        $base->table($this->table);
+        $base->primaryKey($this->primaryKey);
+        $base->dates($this->dates);
+
+        $data = $app->invoke($base->reflect(new ReflectionClass($child)), $method, $parameters);
+        if (!is_object($data)) {
+            return $data;
+        }
+
+        $app->bind($child, fn () => $data);
+        return $app->singleton($child);
+    }
+
+    /**
+     * Ambil attribute
+     *
+     * @return array
+     */
+    public function attribute(): array
+    {
+        if (is_bool($this->attributes)) {
+            return [];
+        }
+
+        return $this->attributes ?? [];
+    }
+
+    /**
+     * Ubah objek agar bisa iterasi
+     *
+     * @return Traversable
+     */
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->attribute());
+    }
+
+    /**
+     * Ubah objek ke json secara langsung
+     *
+     * @return array
+     */
+    #[ReturnTypeWillChange]
+    public function jsonSerialize(): array
+    {
+        return $this->attribute();
+    }
+
+    /**
+     * Ubah objek ke array
+     *
+     * @return array
+     */
+    public function __serialize(): array
+    {
+        return $this->attribute();
+    }
+
+    /**
+     * Kebalikan dari serialize
+     *
+     * @param array $data
+     * @return void
+     */
+    public function __unserialize(array $data): void
+    {
+        $this->attributes = $data;
+    }
+
+    /**
+     * Ambil sebagian dari attribute
+     * 
+     * @param array $only
+     * @return Model
+     */
+    public function only(array $only): Model
+    {
+        $temp = [];
+        foreach ($only as $ol) {
+            $temp[$ol] = $this->__get($ol);
+        }
+
+        $this->attributes = $temp;
+
+        return $this;
+    }
+
+    /**
+     * Ambil kecuali dari attribute
+     * 
+     * @param array $except
+     * @return Model
+     */
+    public function except(array $except): Model
+    {
+        $temp = [];
+        foreach ($this->attribute() as $key => $value) {
+            if (!in_array($key, $except)) {
+                $temp[$key] = $value;
+            }
+        }
+
+        $this->attributes = $temp;
+
+        return $this;
+    }
+
+    /**
+     * Error dengan fungsi
+     *
+     * @param Closure $fn
+     * @return mixed
+     */
+    public function fail(Closure $fn): mixed
+    {
+        if (!$this->attributes) {
+            return $fn();
+        }
+
+        return $this;
+    }
+
+    /**
+     * Ambil nilai dari attribute
+     * 
+     * @param string $name
+     * @return mixed
+     */
+    public function __get(string $name): mixed
+    {
+        if ($this->__isset($name)) {
+            return $this->attributes[$name];
+        }
+
+        return null;
+    }
+
+    /**
+     * Isi nilai ke model ini
+     *
+     * @param string $name
+     * @param mixed $value
+     * @return void
+     * 
+     * @throws Exception
+     */
+    public function __set(string $name, mixed $value): void
+    {
+        if ($this->primaryKey == $name) {
+            throw new Exception('Nilai primary key tidak bisa di ubah !');
+        }
+
+        $this->attributes[$name] = $value;
+    }
+
+    /**
+     * Cek nilai dari attribute
+     * 
+     * @param string $name
+     * @return bool
+     */
+    public function __isset(string $name): bool
+    {
+        return isset($this->attributes[$name]);
     }
 }

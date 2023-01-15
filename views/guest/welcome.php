@@ -8,6 +8,7 @@
         <div class="row align-items-center justify-content-center">
             <div class="col">
                 <div class="text-center text-lg-start">
+                    <h1 class="fw-bold mt-0 mb-3" style="font-size: 2.3rem;">Dikit Link</h1>
                     <h1 class="fw-bold mt-0 mb-3" style="font-size: 2.3rem;">Link tuh dikit nggak banyak !!</h1>
                     <p class="lead" style="font-size: 1.2rem;">
                         Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?

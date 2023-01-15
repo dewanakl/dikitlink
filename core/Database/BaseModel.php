@@ -3,9 +3,7 @@
 namespace Core\Database;
 
 use ArrayIterator;
-use Closure;
 use Core\Facades\App;
-use Countable;
 use Exception;
 use IteratorAggregate;
 use JsonSerializable;
@@ -18,7 +16,7 @@ use Traversable;
  * @class BaseModel
  * @package \Core\Database
  */
-class BaseModel implements Countable, IteratorAggregate, JsonSerializable
+class BaseModel implements IteratorAggregate, JsonSerializable
 {
     /**
      * String query sql
@@ -58,7 +56,7 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     /**
      * Attributes hasil query
      * 
-     * @var array $attributes
+     * @var mixed $attributes
      */
     private $attributes;
 
@@ -70,21 +68,18 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     private $db;
 
     /**
+     * Object reflect
+     * 
+     * @var Model $reflect
+     */
+    private $reflect;
+
+    /**
      * Buat objek basemodel
      *
      * @return void
      */
     function __construct()
-    {
-        $this->connect();
-    }
-
-    /**
-     * Koneksi ke DataBase
-     *
-     * @return void
-     */
-    private function connect(): void
     {
         if (!($this->db instanceof DataBase)) {
             $this->db = App::get()->singleton(DataBase::class);
@@ -158,36 +153,6 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     }
 
     /**
-     * Ubah objek ke array
-     *
-     * @return array
-     */
-    public function __serialize(): array
-    {
-        return [$this->attribute(), $this->table, $this->dates, $this->primaryKey];
-    }
-
-    /**
-     * Kebalikan dari serialize
-     *
-     * @param array $data
-     * @return void
-     */
-    public function __unserialize(array $data): void
-    {
-        $this->connect();
-        $this->query = null;
-        $this->param = [];
-
-        list(
-            $this->attributes,
-            $this->table,
-            $this->dates,
-            $this->primaryKey
-        ) = $data;
-    }
-
-    /**
      * Eksport to json
      *
      * @return string|false
@@ -205,6 +170,51 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     public function toArray(): array
     {
         return json_decode($this->toJson(), true);
+    }
+
+    /**
+     * Set attribute ke model reflect
+     *
+     * @return Model|BaseModel
+     */
+    private function setAttributeModel(): Model|BaseModel
+    {
+        if (is_null($this->reflect)) {
+            return $this;
+        }
+
+        $instance = $this->reflect->newInstance();
+
+        try {
+            $this->reflect->getProperty('attributes')->setValue($instance, $this->attributes);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage(), 0, $e);
+        }
+
+        return $instance;
+    }
+
+    /**
+     * Set attribute dari model reflect
+     *
+     * @param array|null $attributes
+     * @return void
+     */
+    public function setAttribute(array|null $attributes): void
+    {
+        $this->attributes = $attributes;
+    }
+
+    /**
+     * Set dari model reflect
+     *
+     * @param object $reflect
+     * @return BaseModel
+     */
+    public function reflect(object $reflect): BaseModel
+    {
+        $this->reflect = $reflect;
+        return $this;
     }
 
     /**
@@ -262,23 +272,13 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     }
 
     /**
-     * Hitung jumlah data attribute
-     *
-     * @return int
-     */
-    public function count(): int
-    {
-        return count($this->attribute());
-    }
-
-    /**
      * Refresh attributnya
      *
-     * @return BaseModel
+     * @return Model|BaseModel
      */
-    public function refresh(): BaseModel
+    public function refresh(): Model|BaseModel
     {
-        return $this->find($this->__get($this->primaryKey));
+        return $this->find($this->attributes[$this->primaryKey]);
     }
 
     /**
@@ -456,7 +456,7 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
      * @param string $name
      * @return BaseModel
      */
-    public function counts(string $name = '*'): BaseModel
+    public function count(string $name = '*'): BaseModel
     {
         return $this->select('COUNT(' . $name . ')' . ($name == '*' ? null : ' AS ' . $name));
     }
@@ -518,70 +518,27 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     /**
      * Ambil semua data
      *
-     * @return BaseModel
+     * @return Model|BaseModel
      */
-    public function get(): BaseModel
+    public function get(): Model|BaseModel
     {
         $this->checkSelect();
-
         $this->bind($this->query, $this->param ?? []);
         $this->attributes = $this->db->all();
-
-        return $this;
+        return $this->setAttributeModel();
     }
 
     /**
      * Ambil satu data aja paling atas
      *
-     * @return BaseModel
+     * @return Model|BaseModel
      */
-    public function first(): BaseModel
+    public function first(): Model|BaseModel
     {
         $this->checkSelect();
-
         $this->bind($this->query, $this->param ?? []);
         $this->attributes = $this->db->first();
-
-        return $this;
-    }
-
-    /**
-     * Ambil semua datanya dari tabel ini
-     *
-     * @return BaseModel
-     */
-    public function all(): BaseModel
-    {
-        return $this->get();
-    }
-
-    /**
-     * Ambil atau error "tidak ada"
-     *
-     * @return mixed
-     */
-    public function firstOrFail(): mixed
-    {
-        return $this->first()->fail(
-            function () {
-                notFound();
-            }
-        );
-    }
-
-    /**
-     * Error dengan fungsi
-     *
-     * @param Closure $fn
-     * @return mixed
-     */
-    public function fail(Closure $fn): mixed
-    {
-        if (!$this->attributes) {
-            return $fn();
-        }
-
-        return $this;
+        return $this->setAttributeModel();
     }
 
     /**
@@ -607,23 +564,11 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
      *
      * @param mixed $id
      * @param mixed $where
-     * @return BaseModel
+     * @return Model|BaseModel
      */
-    public function find(mixed $id, mixed $where = null): BaseModel
+    public function find(mixed $id, mixed $where = null): Model|BaseModel
     {
         return $this->id($id, $where)->limit(1)->first();
-    }
-
-    /**
-     * Cari berdasarkan id atau error "tidak ada"
-     *
-     * @param mixed $id
-     * @param mixed $where
-     * @return mixed
-     */
-    public function findOrFail(mixed $id, mixed $where = null): mixed
-    {
-        return $this->id($id, $where)->limit(1)->firstOrFail();
     }
 
     /**
@@ -635,11 +580,14 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
      */
     public function save(): bool
     {
-        if (empty($this->primaryKey) || empty($this->__get($this->primaryKey))) {
+        if (empty($this->primaryKey) || empty($this->attributes[$this->primaryKey])) {
             throw new Exception('Nilai primary key tidak ada !');
         }
 
-        return $this->id($this->__get($this->primaryKey))->update($this->except([$this->primaryKey])->attribute());
+        $att = $this->attribute();
+        unset($att[$this->primaryKey]);
+
+        return $this->id($this->attributes[$this->primaryKey])->update($att);
     }
 
     /**
@@ -657,9 +605,11 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
      * Isi datanya
      * 
      * @param array $data
-     * @return mixed
+     * @return Model|BaseModel
+     * 
+     * @throws Exception
      */
-    public function create(array $data): mixed
+    public function create(array $data): Model|BaseModel
     {
         if ($this->dates) {
             $now = now('Y-m-d H:i:s.u');
@@ -679,17 +629,16 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
         $result = $this->db->execute();
 
         if ($result === false) {
-            return false;
+            throw new Exception('Error Insert new data ' . implode(', ', $keys));
         }
-
-        $this->attributes = $data;
 
         $id = $this->db->lastInsertId();
         if ($id) {
-            $this->attributes[$this->primaryKey] = intval($id);
+            $data[$this->primaryKey] = $id;
         }
 
-        return $this;
+        $this->attributes = $data;
+        return $this->setAttributeModel();
     }
 
     /**
@@ -729,44 +678,6 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     }
 
     /**
-     * Ambil sebagian dari attribute
-     * 
-     * @param array $only
-     * @return BaseModel
-     */
-    public function only(array $only): BaseModel
-    {
-        $temp = [];
-        foreach ($only as $ol) {
-            $temp[$ol] = $this->__get($ol);
-        }
-
-        $this->attributes = $temp;
-
-        return $this;
-    }
-
-    /**
-     * Ambil kecuali dari attribute
-     * 
-     * @param array $except
-     * @return BaseModel
-     */
-    public function except(array $except): BaseModel
-    {
-        $temp = [];
-        foreach ($this->attribute() as $key => $value) {
-            if (!in_array($key, $except)) {
-                $temp[$key] = $value;
-            }
-        }
-
-        $this->attributes = $temp;
-
-        return $this;
-    }
-
-    /**
      * Ambil nilai dari attribute
      * 
      * @param string $name
@@ -774,39 +685,6 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
      */
     public function __get(string $name): mixed
     {
-        if ($this->__isset($name)) {
-            return $this->attributes[$name];
-        }
-
-        return null;
-    }
-
-    /**
-     * Isi nilai ke model ini
-     *
-     * @param string $name
-     * @param mixed $value
-     * @return void
-     * 
-     * @throws Exception
-     */
-    public function __set(string $name, mixed $value): void
-    {
-        if ($this->primaryKey == $name) {
-            throw new Exception('Nilai primary key tidak bisa di ubah !');
-        }
-
-        $this->attributes[$name] = $value;
-    }
-
-    /**
-     * Cek nilai dari attribute
-     * 
-     * @param string $name
-     * @return bool
-     */
-    public function __isset(string $name): bool
-    {
-        return isset($this->attributes[$name]);
+        return $this->attributes[$name] ?? null;
     }
 }

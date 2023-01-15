@@ -21,7 +21,7 @@
 
 <?php section('main') ?>
 
-<nav class="navbar navbar-dark bg-dark navbar-expand fixed-bottom d-md-none d-lg-none d-xl-none m-0 p-0">
+<nav class="navbar navbar-<?= session()->get('dark') ? 'dark' : 'light' ?> bg-<?= session()->get('dark') ? 'dark' : 'light' ?> navbar-expand fixed-bottom d-md-none d-lg-none d-xl-none m-0 p-0">
     <?= including('layout/navbar') ?>
 </nav>
 
@@ -42,7 +42,7 @@
     </div>
 </div>
 
-<div class="offcanvas offcanvas-bottom" style="height: 50vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+<div class="offcanvas offcanvas-bottom rounded-top-4" style="height: 50vh;" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasBottomLabel">Tambah Link</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
