@@ -2,10 +2,6 @@
 
 namespace Core\Database;
 
-use Exception;
-use ReflectionClass;
-use ReflectionException;
-
 /**
  * Representasi model database
  * 
@@ -42,47 +38,14 @@ use ReflectionException;
  */
 abstract class Model
 {
-    /**
-     * Ambil properti dari child class
-     *
-     * @param string $class
-     * @param string $name
-     * @return mixed
-     * 
-     * @throws Exception
-     */
-    protected static function getPropertyChild(string $class, string $name): mixed
-    {
-        $result = null;
+    protected $table;
 
-        try {
-            $reflect = new ReflectionClass($class);
-            $property = $reflect->getProperty($name);
-            $property->setAccessible(true);
-            $result = $property->getValue($reflect->newInstance());
-        } catch (ReflectionException $e) {
-            throw new Exception($e->getMessage());
-        }
+    protected string $primaryKey = 'id';
 
-        return $result;
-    }
-
-    /**
-     * Eksekusi method pada basemodel
-     *
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
-     */
-    private static function call(string $method, array $parameters): mixed
-    {
-        $base = app()->make(BaseModel::class);
-        $base->table(self::getPropertyChild(get_called_class(), 'table'));
-        $base->dates(self::getPropertyChild(get_called_class(), 'dates'));
-        $base->primaryKey(self::getPropertyChild(get_called_class(), 'primaryKey'));
-
-        return app()->invoke($base, $method, $parameters);
-    }
+    protected array $dates = [
+        'created_at',
+        'updated_at',
+    ];
 
     /**
      * Panggil method secara static
@@ -93,7 +56,7 @@ abstract class Model
      */
     public static function __callStatic(string $method, array $parameters): mixed
     {
-        return self::call($method, $parameters);
+        return app()->singleton(get_called_class())->__call($method, $parameters);
     }
 
     /**
@@ -105,6 +68,11 @@ abstract class Model
      */
     public function __call(string $method, array $parameters): mixed
     {
-        return self::call($method, $parameters);
+        $base = app()->make(BaseModel::class);
+        $base->table($this->table);
+        $base->dates($this->dates);
+        $base->primaryKey($this->primaryKey);
+
+        return app()->invoke($base, $method, $parameters);
     }
 }

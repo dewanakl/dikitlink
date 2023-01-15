@@ -29,7 +29,7 @@ class LinkService implements ServiceContract
         }
 
         if (is_null(auth()->user()->email_verify)) {
-            if (Link::where('user_id', $id)->counts('link')->first()->link >= 3) {
+            if (Link::where('user_id', $id)->count('link')->first()->link >= 3) {
                 $valid->throw([
                     'link' => 'Verifikasi akun untuk menambahkan lagi'
                 ]);

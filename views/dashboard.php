@@ -11,7 +11,7 @@
         <h4 class="text-truncate fw-bold text-dark"><?= $salam . ', ' . e(auth()->user()->nama) ?></h4>
         <p class="fw-semibold mb-0 text-dark">Selamat datang di halaman utama dikit link, yukss bikin link yang banyak !</p>
     </div>
-    <p class="text-truncate fw-bold d-block d-md-none m-0 text-dark"><?= $salam . ', ' . e(auth()->user()->nama) ?></p>
+    <p class="text-truncate fw-bold d-block d-md-none ms-1 me-0 my-0 text-dark"><?= $salam . ', ' . e(auth()->user()->nama) ?></p>
 </div>
 
 <h5>Overview</h5>

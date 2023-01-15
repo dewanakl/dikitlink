@@ -20,18 +20,6 @@ namespace Core\Auth;
 final class Auth
 {
     /**
-     * Eksekusi method pada AuthManager
-     *
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
-     */
-    private static function call(string $method, array $parameters): mixed
-    {
-        return app()->invoke(AuthManager::class, $method, $parameters);
-    }
-
-    /**
      * Panggil method secara static
      *
      * @param string $method
@@ -40,7 +28,7 @@ final class Auth
      */
     public static function __callStatic(string $method, array $parameters): mixed
     {
-        return self::call($method, $parameters);
+        return app()->singleton(self::class)->__call($method, $parameters);
     }
 
     /**
@@ -52,6 +40,6 @@ final class Auth
      */
     public function __call(string $method, array $parameters): mixed
     {
-        return self::call($method, $parameters);
+        return app()->invoke(AuthManager::class, $method, $parameters);
     }
 }

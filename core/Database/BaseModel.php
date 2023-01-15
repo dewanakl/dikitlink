@@ -5,7 +5,6 @@ namespace Core\Database;
 use ArrayIterator;
 use Closure;
 use Core\Facades\App;
-use Countable;
 use Exception;
 use IteratorAggregate;
 use JsonSerializable;
@@ -18,7 +17,7 @@ use Traversable;
  * @class BaseModel
  * @package \Core\Database
  */
-class BaseModel implements Countable, IteratorAggregate, JsonSerializable
+class BaseModel implements IteratorAggregate, JsonSerializable
 {
     /**
      * String query sql
@@ -262,16 +261,6 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     }
 
     /**
-     * Hitung jumlah data attribute
-     *
-     * @return int
-     */
-    public function count(): int
-    {
-        return count($this->attribute());
-    }
-
-    /**
      * Refresh attributnya
      *
      * @return BaseModel
@@ -384,7 +373,7 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
     /**
      * Group By syntax sql
      *
-     * @param string $param
+     * @param string ...$param
      * @return BaseModel
      */
     public function groupBy(string ...$param): BaseModel
@@ -456,7 +445,7 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
      * @param string $name
      * @return BaseModel
      */
-    public function counts(string $name = '*'): BaseModel
+    public function count(string $name = '*'): BaseModel
     {
         return $this->select('COUNT(' . $name . ')' . ($name == '*' ? null : ' AS ' . $name));
     }
@@ -543,16 +532,6 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
         $this->attributes = $this->db->first();
 
         return $this;
-    }
-
-    /**
-     * Ambil semua datanya dari tabel ini
-     *
-     * @return BaseModel
-     */
-    public function all(): BaseModel
-    {
-        return $this->get();
     }
 
     /**
@@ -657,9 +636,11 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
      * Isi datanya
      * 
      * @param array $data
-     * @return mixed
+     * @return BaseModel
+     * 
+     * @throws Exception
      */
-    public function create(array $data): mixed
+    public function create(array $data): BaseModel
     {
         if ($this->dates) {
             $now = now('Y-m-d H:i:s.u');
@@ -679,14 +660,14 @@ class BaseModel implements Countable, IteratorAggregate, JsonSerializable
         $result = $this->db->execute();
 
         if ($result === false) {
-            return false;
+            throw new Exception('Error insert new data [' . implode(', ', $keys) . ']');
         }
 
         $this->attributes = $data;
 
         $id = $this->db->lastInsertId();
         if ($id) {
-            $this->attributes[$this->primaryKey] = intval($id);
+            $this->attributes[$this->primaryKey] = $id;
         }
 
         return $this;

@@ -26,8 +26,8 @@
                     <th><?= $idx + 1 ?></th>
                     <td><?= e($user->nama) ?></td>
                     <td><?= e($user->email) ?></td>
-                    <td><?= $user->created_at ? date("d M Y, H:i", strtotime(($user->created_at))) : '-' ?></td>
-                    <td><?= $user->last_active ? date("d M Y, H:i", strtotime(($user->last_active))) : '-' ?></td>
+                    <td><?= $user->created_at ? date('d M Y, H:i', strtotime(($user->created_at))) : '-' ?></td>
+                    <td><?= $user->last_active ? date('d M Y, H:i', strtotime(($user->last_active))) : '-' ?></td>
                     <td><?= $user->jumlah_link ?></td>
                     <td><?= $user->jumlah_pengunjung ?></td>
                     <td>
