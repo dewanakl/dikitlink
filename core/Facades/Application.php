@@ -59,7 +59,7 @@ class Application
 
             $result = $reflector->newInstanceArgs($this->getDependencies($args, $param));
         } catch (ReflectionException $e) {
-            throw new Exception($e->getMessage());
+            throw new Exception($e->getMessage(), 0, $e);
         }
 
         return $result;
@@ -152,7 +152,7 @@ class Application
             $params = $this->getDependencies($reflector->getMethod($method)->getParameters(), $value);
             $result = $reflectionMethod->invokeArgs($name, $params);
         } catch (ReflectionException $e) {
-            throw new Exception($e->getMessage());
+            throw new Exception($e->getMessage(), 0, $e);
         }
 
         return $result;
@@ -188,7 +188,7 @@ class Application
             $reflector = new ReflectionFunction($name);
             $result = $reflector->invokeArgs($this->getDependencies($reflector->getParameters(), $param));
         } catch (ReflectionException $e) {
-            throw new Exception($e->getMessage());
+            throw new Exception($e->getMessage(), 0, $e);
         }
 
         return $result;
@@ -205,18 +205,16 @@ class Application
      */
     public function bind(string $interface, Closure|string $class): void
     {
-        if (empty($this->objectPool[$interface])) {
-            if ($class instanceof Closure) {
-                $result = $this->resolve($class, array($this));
+        if ($class instanceof Closure) {
+            $result = $this->resolve($class, array($this));
 
-                if (!is_object($result)) {
-                    throw new InvalidArgumentException('Return value harus sebuah object !');
-                }
-
-                $class = $result;
+            if (!is_object($result)) {
+                throw new InvalidArgumentException('Return value harus sebuah object !');
             }
 
-            $this->objectPool[$interface] = $class;
+            $class = $result;
         }
+
+        $this->objectPool[$interface] = $class;
     }
 }
