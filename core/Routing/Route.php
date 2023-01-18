@@ -2,6 +2,8 @@
 
 namespace Core\Routing;
 
+use Core\Facades\App;
+
 /**
  * Helper class untuk routing url
  *
@@ -124,6 +126,6 @@ final class Route
      */
     public static function router(): Router
     {
-        return app(Router::class);
+        return App::get()->singleton(Router::class);
     }
 }

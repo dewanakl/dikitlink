@@ -1,6 +1,6 @@
 <?php
 
-use Core\Database\DB;
+use Core\Model\DB;
 use Core\Database\Generator;
 use Models\User;
 

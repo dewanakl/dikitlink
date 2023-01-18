@@ -9,25 +9,6 @@ use Core\Routing\Route;
 use Core\Http\Session;
 use Core\View\View;
 
-if (!function_exists('app')) {
-    /**
-     * Helper method untuk membuat objek secara tunggal
-     * 
-     * @param mixed $class
-     * @return object
-     */
-    function app(mixed $class = null): object
-    {
-        $app = App::get();
-
-        if ($class) {
-            return $app->singleton($class);
-        }
-
-        return $app;
-    }
-}
-
 if (!function_exists('session')) {
     /**
      * Helper method untuk membuat objek session
@@ -36,7 +17,7 @@ if (!function_exists('session')) {
      */
     function session(): Session
     {
-        return app(Session::class);
+        return App::get()->singleton(Session::class);
     }
 }
 
@@ -48,7 +29,7 @@ if (!function_exists('respond')) {
      */
     function respond(): Respond
     {
-        return app(Respond::class);
+        return App::get()->singleton(Respond::class);
     }
 }
 
@@ -60,7 +41,7 @@ if (!function_exists('auth')) {
      */
     function auth(): AuthManager
     {
-        return app(AuthManager::class);
+        return App::get()->singleton(AuthManager::class);
     }
 }
 
@@ -401,7 +382,7 @@ if (!function_exists('routeIs')) {
      */
     function routeIs(string $param, mixed $optional = null, bool $notcontains = false): mixed
     {
-        $now = app(Request::class)->server('REQUEST_URI');
+        $now = App::get()->singleton(Request::class)->server('REQUEST_URI');
         $route = $notcontains ? $now == $param : str_contains($now, $param);
 
         if ($route && $optional) {
@@ -455,7 +436,7 @@ if (!function_exists('parents')) {
      */
     function parents(string $name, array $variables = []): void
     {
-        app(View::class)->parents($name, $variables);
+        App::get()->singleton(View::class)->parents($name, $variables);
     }
 }
 
@@ -468,7 +449,7 @@ if (!function_exists('section')) {
      */
     function section(string $name): void
     {
-        app(View::class)->section($name);
+        App::get()->singleton(View::class)->section($name);
     }
 }
 
@@ -481,7 +462,7 @@ if (!function_exists('content')) {
      */
     function content(string $name): string|null
     {
-        return app(View::class)->content($name);
+        return App::get()->singleton(View::class)->content($name);
     }
 }
 
@@ -494,7 +475,7 @@ if (!function_exists('endsection')) {
      */
     function endsection(string $name): void
     {
-        app(View::class)->endsection($name);
+        App::get()->singleton(View::class)->endsection($name);
     }
 }
 
@@ -507,7 +488,7 @@ if (!function_exists('including')) {
      */
     function including(string $name): Render
     {
-        return app(View::class)->including($name);
+        return App::get()->singleton(View::class)->including($name);
     }
 }
 

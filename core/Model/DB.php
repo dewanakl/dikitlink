@@ -1,15 +1,16 @@
 <?php
 
-namespace Core\Database;
+namespace Core\Model;
 
 use Closure;
+use Core\Facades\App;
 use Exception;
 
 /**
  * Helper class DB untuk customizable nama table
  *
  * @class DB
- * @package \Core\Database
+ * @package \Core\Model
  */
 final class DB
 {
@@ -33,7 +34,7 @@ final class DB
      */
     public static function beginTransaction(): bool
     {
-        return app(DataBase::class)->beginTransaction();
+        return App::get()->singleton(DataBase::class)->beginTransaction();
     }
 
     /**
@@ -43,7 +44,7 @@ final class DB
      */
     public static function commit(): bool
     {
-        return app(DataBase::class)->commit();
+        return App::get()->singleton(DataBase::class)->commit();
     }
 
     /**
@@ -53,7 +54,7 @@ final class DB
      */
     public static function rollBack(): bool
     {
-        return app(DataBase::class)->rollBack();
+        return App::get()->singleton(DataBase::class)->rollBack();
     }
 
     /**
@@ -64,7 +65,7 @@ final class DB
      */
     public static function exception(mixed $e): void
     {
-        app(DataBase::class)->catchException($e);
+        App::get()->singleton(DataBase::class)->catchException($e);
     }
 
     /**

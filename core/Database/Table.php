@@ -3,6 +3,7 @@
 namespace Core\Database;
 
 use Closure;
+use Core\Facades\App;
 
 /**
  * Membuat tabel dengan mudah
@@ -93,7 +94,7 @@ class Table
     public function export(): string|null
     {
         if ($this->alter == 'ADD') {
-            $db = app(DataBase::class);
+            $db = App::get()->singleton(DataBase::class);
 
             foreach ($this->columns as $value) {
                 if ($this->type == 'pgsql') {

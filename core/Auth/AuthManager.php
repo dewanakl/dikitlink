@@ -2,7 +2,8 @@
 
 namespace Core\Auth;
 
-use Core\Database\BaseModel;
+use Core\Model\BaseModel;
+use Core\Facades\App;
 use Core\Http\Session;
 use Core\Valid\Hash;
 use Exception;
@@ -47,22 +48,22 @@ class AuthManager
      */
     public function check(): bool
     {
-        return empty($this->user()) ? false : !empty($this->user->fail(
-            function () {
-                $this->logout();
-                return false;
-            }
-        ));
+        $check = empty($this->user()) ? false : !empty($this->user->fail(fn () => false));
+        if (!$check) {
+            $this->logout();
+        }
+
+        return $check;
     }
 
     /**
      * Dapatkan id usernya
      * 
-     * @return int|null
+     * @return int|string|null
      */
-    public function id(): int|null
+    public function id(): int|string|null
     {
-        return empty($this->user) ? null : intval($this->user->{$this->user->getPrimaryKey()});
+        return empty($this->user) ? null : $this->user->{$this->user->getPrimaryKey()};
     }
 
     /**
@@ -72,12 +73,10 @@ class AuthManager
      */
     public function user(): BaseModel|null
     {
-        if ($this->user instanceof BaseModel) {
-            return $this->user;
+        if (!($this->user instanceof BaseModel)) {
+            $user = $this->session->get('_user');
+            $this->user = empty($user) ? null : unserialize($user)->refresh();
         }
-
-        $user = $this->session->get('_user');
-        $this->user = empty($user) ? null : unserialize($user)->refresh();
 
         return $this->user;
     }
@@ -123,7 +122,7 @@ class AuthManager
     {
         list($first, $last) = array_keys($credential);
 
-        $user = app($model)->find($credential[$first], $first);
+        $user = App::get()->singleton($model)->find($credential[$first], $first);
         $this->logout();
 
         if ($user->fail(fn () => false)) {

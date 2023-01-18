@@ -74,7 +74,7 @@ class LinkRepository implements RepositoryContract
             $data = $data->where('links.name', $name);
         }
 
-        return $data->groupBy('stats.user_agent', 'stats.ip_address')
+        return $data->groupBy(['stats.user_agent', 'stats.ip_address'])
             ->select('COUNT(stats.link_id)')
             ->get()
             ->rowCount() ?? 0;

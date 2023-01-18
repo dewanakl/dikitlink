@@ -108,6 +108,7 @@ class Service
         $middleware = new Middleware($middlewarePool);
         $middleware->handle($this->request);
         unset($middleware);
+        unset($middlewarePool);
     }
 
     /**
@@ -177,7 +178,7 @@ class Service
         $routes = Route::router()->routes();
         foreach ($routes as $route) {
             $pattern = '#^' . $route['path'] . '$#';
-            $variables = null;
+            $variables = [];
 
             if (preg_match($pattern, $path, $variables)) {
                 $routeMatch = true;

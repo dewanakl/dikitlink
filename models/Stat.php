@@ -2,7 +2,7 @@
 
 namespace Models;
 
-use Core\Database\Model;
+use Core\Model\Model;
 
 final class Stat extends Model
 {

@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-use Core\Database\DB;
+use Core\Model\DB;
 use Core\Routing\Controller;
 use Repository\RepositoryContract;
 

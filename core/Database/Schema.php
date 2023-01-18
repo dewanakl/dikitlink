@@ -3,6 +3,7 @@
 namespace Core\Database;
 
 use Closure;
+use Core\Facades\App;
 
 /**
  * Helper class untuk skema tabel
@@ -21,11 +22,11 @@ final class Schema
      */
     public static function create(string $name, Closure $attribute): void
     {
-        $table = app(Table::class);
+        $table = App::get()->singleton(Table::class);
         $table->table($name);
-        app()->resolve($attribute);
+        App::get()->resolve($attribute);
 
-        app(DataBase::class)->exec($table->create());
+        App::get()->singleton(DataBase::class)->exec($table->create());
     }
 
     /**
@@ -37,13 +38,13 @@ final class Schema
      */
     public static function table(string $name, Closure $attribute): void
     {
-        $table = app(Table::class);
+        $table = App::get()->singleton(Table::class);
         $table->table($name);
-        app()->resolve($attribute);
+        App::get()->resolve($attribute);
 
         $export = $table->export();
         if ($export) {
-            app(DataBase::class)->exec($export);
+            App::get()->singleton(DataBase::class)->exec($export);
         }
     }
 
@@ -55,7 +56,7 @@ final class Schema
      */
     public static function drop(string $name): void
     {
-        app(DataBase::class)->exec('DROP TABLE IF EXISTS ' . $name . ';');
+        App::get()->singleton(DataBase::class)->exec('DROP TABLE IF EXISTS ' . $name . ';');
     }
 
     /**
@@ -67,6 +68,6 @@ final class Schema
      */
     public static function rename(string $from, string $to): void
     {
-        app(DataBase::class)->exec('ALTER TABLE ' . $from . ' RENAME TO ' . $to . ';');
+        App::get()->singleton(DataBase::class)->exec('ALTER TABLE ' . $from . ' RENAME TO ' . $to . ';');
     }
 }

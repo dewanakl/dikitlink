@@ -2,6 +2,7 @@
 
 namespace Core\Routing;
 
+use Core\Facades\App;
 use Core\Http\Request;
 use Core\Http\Respond;
 use Core\Valid\Validator;
@@ -24,7 +25,7 @@ abstract class Controller
      */
     protected function view(string $path, array $data = []): View
     {
-        $view = app(View::class);
+        $view = App::get()->singleton(View::class);
         $view->variables($data);
         $view->show($path);
 
@@ -39,7 +40,7 @@ abstract class Controller
      */
     protected function redirect(string $prm): Respond
     {
-        return app(Respond::class)->to($prm);
+        return App::get()->singleton(Respond::class)->to($prm);
     }
 
     /**
@@ -49,7 +50,7 @@ abstract class Controller
      */
     protected function back(): Respond
     {
-        return app(Respond::class)->back();
+        return App::get()->singleton(Respond::class)->back();
     }
 
     /**

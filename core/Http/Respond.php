@@ -2,6 +2,7 @@
 
 namespace Core\Http;
 
+use Core\Facades\App;
 use Core\View\Render;
 use Core\View\View;
 
@@ -102,7 +103,7 @@ class Respond
     {
         if (is_string($respond) || $respond instanceof Render || $respond instanceof View) {
             if ($respond instanceof Render || $respond instanceof View) {
-                $this->session->set('_oldroute', app(Request::class)->server('REQUEST_URI'));
+                $this->session->set('_oldroute', App::get()->singleton(Request::class)->server('REQUEST_URI'));
                 $this->session->unset('old');
                 $this->session->unset('error');
             }

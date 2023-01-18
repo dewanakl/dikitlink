@@ -11,7 +11,7 @@ class AdminController extends Controller
     public function index()
     {
         $lastmonth = Link::join('stats', 'links.id', 'stats.link_id')
-            ->where('stats.created_at', date('Y-m', strtotime('-1 years', strtotime('now'))) . '-01 00:00:00.000000', '>=')
+            ->where('stats.created_at', date('Y-m', strtotime('-1 years', strtotime('now'))) . '-01 00:00:00.000000', '>')
             ->groupBy('tgl')
             ->select([
                 'concat(extract(YEAR from stats.created_at), \'-\', extract(MONTH from stats.created_at)) AS tgl',

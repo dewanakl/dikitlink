@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use Core\Auth\Auth;
-use Core\Database\DB;
+use Core\Model\DB;
 use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Valid\Validator;

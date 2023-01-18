@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use Core\Auth\Auth;
-use Core\Database\DB;
+use Core\Model\DB;
 use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Support\Mail;
@@ -27,6 +27,7 @@ class ProfileController extends Controller
 
         if (Hash::check($request->mypassword, Auth::user()->password)) {
             User::destroy(Auth::id());
+            session()->set('dark', false);
             return $this->redirect(route('login'))->with('berhasil', 'Berhasil menghapus akun !');
         }
 
