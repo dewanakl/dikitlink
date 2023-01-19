@@ -2,7 +2,7 @@
 
 use Core\Model\DB;
 use Core\Database\Generator;
-use Models\User;
+use App\Models\User;
 
 return new class implements Generator
 {

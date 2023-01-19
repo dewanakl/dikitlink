@@ -4,7 +4,7 @@ namespace Repository;
 
 use Closure;
 use DateTime;
-use Models\Link;
+use App\Models\Link;
 
 class LinkRepository implements RepositoryContract
 {

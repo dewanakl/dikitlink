@@ -11,7 +11,7 @@ use Service\ServiceContract;
 class AppServiceProvider extends Provider
 {
     /**
-     * Registrasi apa aja disini
+     * Registrasi apa aja disini.
      *
      * @return void
      */
@@ -22,7 +22,7 @@ class AppServiceProvider extends Provider
     }
 
     /**
-     * Jalankan sewaktu aplikasi dinyalakan
+     * Jalankan sewaktu aplikasi dinyalakan.
      *
      * @return void
      */

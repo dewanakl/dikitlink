@@ -4,7 +4,7 @@ namespace Service;
 
 use Core\Http\Request;
 use Core\Valid\Validator;
-use Models\Link;
+use App\Models\Link;
 
 class LinkService implements ServiceContract
 {
@@ -22,7 +22,7 @@ class LinkService implements ServiceContract
             'link' => ['required', 'str', 'trim', 'min:5', 'url']
         ]);
 
-        if (str_contains($valid->link, BASEURL)) {
+        if (str_contains($valid->link, baseurl())) {
             $valid->throw([
                 'link' => 'Link ilegal'
             ]);
@@ -59,7 +59,7 @@ class LinkService implements ServiceContract
             'stats' => ['bool']
         ]);
 
-        if (str_contains($valid->link, BASEURL)) {
+        if (str_contains($valid->link, baseurl())) {
             $valid->throw([
                 'link' => 'Link ilegal'
             ]);

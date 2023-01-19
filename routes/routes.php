@@ -1,19 +1,19 @@
 <?php
 
-use Controllers\AdminController;
-use Controllers\AuthController;
-use Controllers\DashboardController;
-use Controllers\LandingController;
-use Controllers\LinkController;
-use Controllers\ProfileController;
-use Controllers\StatistikController;
-use Controllers\UsersController;
+use App\Controllers\AdminController;
+use App\Controllers\AuthController;
+use App\Controllers\DashboardController;
+use App\Controllers\LandingController;
+use App\Controllers\LinkController;
+use App\Controllers\ProfileController;
+use App\Controllers\StatistikController;
+use App\Controllers\UsersController;
 use Core\Routing\Route;
-use Middleware\AdminMiddleware;
-use Middleware\AuthMiddleware;
-use Middleware\EmailMiddleware;
-use Middleware\GuestMiddleware;
-use Middleware\TemaMiddleware;
+use App\Middleware\AdminMiddleware;
+use App\Middleware\AuthMiddleware;
+use App\Middleware\EmailMiddleware;
+use App\Middleware\GuestMiddleware;
+use App\Middleware\TemaMiddleware;
 
 /**
  * Make something great with this app

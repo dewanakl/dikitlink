@@ -4,10 +4,10 @@
     'method' => 'GET',
     'path' => '/',
     'controller' => NULL,
-    'function' => 'Controllers\\LandingController',
+    'function' => 'App\\Controllers\\LandingController',
     'middleware' => 
     array (
-      0 => 'Middleware\\GuestMiddleware',
+      0 => 'App\\Middleware\\GuestMiddleware',
     ),
     'name' => 'landing',
   ),
@@ -15,11 +15,11 @@
   array (
     'method' => 'GET',
     'path' => '/login',
-    'controller' => 'Controllers\\AuthController',
+    'controller' => 'App\\Controllers\\AuthController',
     'function' => 'login',
     'middleware' => 
     array (
-      0 => 'Middleware\\GuestMiddleware',
+      0 => 'App\\Middleware\\GuestMiddleware',
     ),
     'name' => 'login',
   ),
@@ -27,11 +27,11 @@
   array (
     'method' => 'POST',
     'path' => '/login',
-    'controller' => 'Controllers\\AuthController',
+    'controller' => 'App\\Controllers\\AuthController',
     'function' => 'auth',
     'middleware' => 
     array (
-      0 => 'Middleware\\GuestMiddleware',
+      0 => 'App\\Middleware\\GuestMiddleware',
     ),
     'name' => NULL,
   ),
@@ -39,11 +39,11 @@
   array (
     'method' => 'GET',
     'path' => '/register',
-    'controller' => 'Controllers\\AuthController',
+    'controller' => 'App\\Controllers\\AuthController',
     'function' => 'register',
     'middleware' => 
     array (
-      0 => 'Middleware\\GuestMiddleware',
+      0 => 'App\\Middleware\\GuestMiddleware',
     ),
     'name' => 'register',
   ),
@@ -51,11 +51,11 @@
   array (
     'method' => 'POST',
     'path' => '/register',
-    'controller' => 'Controllers\\AuthController',
+    'controller' => 'App\\Controllers\\AuthController',
     'function' => 'submit',
     'middleware' => 
     array (
-      0 => 'Middleware\\GuestMiddleware',
+      0 => 'App\\Middleware\\GuestMiddleware',
     ),
     'name' => NULL,
   ),
@@ -63,11 +63,11 @@
   array (
     'method' => 'GET',
     'path' => '/forget',
-    'controller' => 'Controllers\\AuthController',
+    'controller' => 'App\\Controllers\\AuthController',
     'function' => 'forget',
     'middleware' => 
     array (
-      0 => 'Middleware\\GuestMiddleware',
+      0 => 'App\\Middleware\\GuestMiddleware',
     ),
     'name' => 'forget',
   ),
@@ -75,11 +75,11 @@
   array (
     'method' => 'POST',
     'path' => '/forget',
-    'controller' => 'Controllers\\AuthController',
+    'controller' => 'App\\Controllers\\AuthController',
     'function' => 'send',
     'middleware' => 
     array (
-      0 => 'Middleware\\GuestMiddleware',
+      0 => 'App\\Middleware\\GuestMiddleware',
     ),
     'name' => NULL,
   ),
@@ -87,11 +87,11 @@
   array (
     'method' => 'GET',
     'path' => '/reset/([\\w-]*)',
-    'controller' => 'Controllers\\AuthController',
+    'controller' => 'App\\Controllers\\AuthController',
     'function' => 'reset',
     'middleware' => 
     array (
-      0 => 'Middleware\\GuestMiddleware',
+      0 => 'App\\Middleware\\GuestMiddleware',
     ),
     'name' => 'reset',
   ),
@@ -100,10 +100,10 @@
     'method' => 'GET',
     'path' => '/dashboard',
     'controller' => NULL,
-    'function' => 'Controllers\\DashboardController',
+    'function' => 'App\\Controllers\\DashboardController',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'dashboard',
   ),
@@ -111,11 +111,11 @@
   array (
     'method' => 'GET',
     'path' => '/list',
-    'controller' => 'Controllers\\DashboardController',
+    'controller' => 'App\\Controllers\\DashboardController',
     'function' => 'list',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'list',
   ),
@@ -123,11 +123,11 @@
   array (
     'method' => 'GET',
     'path' => '/api/link/show',
-    'controller' => 'Controllers\\LinkController',
+    'controller' => 'App\\Controllers\\LinkController',
     'function' => 'show',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'show.link',
   ),
@@ -135,11 +135,11 @@
   array (
     'method' => 'GET',
     'path' => '/api/link/detail',
-    'controller' => 'Controllers\\LinkController',
+    'controller' => 'App\\Controllers\\LinkController',
     'function' => 'detail',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'detail.link',
   ),
@@ -147,11 +147,11 @@
   array (
     'method' => 'POST',
     'path' => '/api/link/create',
-    'controller' => 'Controllers\\LinkController',
+    'controller' => 'App\\Controllers\\LinkController',
     'function' => 'create',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'create.link',
   ),
@@ -159,11 +159,11 @@
   array (
     'method' => 'PUT',
     'path' => '/api/link/update',
-    'controller' => 'Controllers\\LinkController',
+    'controller' => 'App\\Controllers\\LinkController',
     'function' => 'update',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'update.link',
   ),
@@ -171,11 +171,11 @@
   array (
     'method' => 'DELETE',
     'path' => '/api/link/delete',
-    'controller' => 'Controllers\\LinkController',
+    'controller' => 'App\\Controllers\\LinkController',
     'function' => 'delete',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'delete.link',
   ),
@@ -183,11 +183,11 @@
   array (
     'method' => 'GET',
     'path' => '/statistik',
-    'controller' => 'Controllers\\StatistikController',
+    'controller' => 'App\\Controllers\\StatistikController',
     'function' => 'index',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'statistik',
   ),
@@ -195,11 +195,11 @@
   array (
     'method' => 'GET',
     'path' => '/statistik/download',
-    'controller' => 'Controllers\\StatistikController',
+    'controller' => 'App\\Controllers\\StatistikController',
     'function' => 'download',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'statistik.download',
   ),
@@ -207,12 +207,12 @@
   array (
     'method' => 'GET',
     'path' => '/profile',
-    'controller' => 'Controllers\\ProfileController',
+    'controller' => 'App\\Controllers\\ProfileController',
     'function' => 'index',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
-      1 => 'Middleware\\TemaMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\TemaMiddleware',
     ),
     'name' => 'profile',
   ),
@@ -220,12 +220,12 @@
   array (
     'method' => 'PUT',
     'path' => '/profile',
-    'controller' => 'Controllers\\ProfileController',
+    'controller' => 'App\\Controllers\\ProfileController',
     'function' => 'update',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
-      1 => 'Middleware\\TemaMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\TemaMiddleware',
     ),
     'name' => NULL,
   ),
@@ -233,11 +233,11 @@
   array (
     'method' => 'GET',
     'path' => '/profile/avatar',
-    'controller' => 'Controllers\\ProfileController',
+    'controller' => 'App\\Controllers\\ProfileController',
     'function' => 'avatar',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'avatar',
   ),
@@ -245,11 +245,11 @@
   array (
     'method' => 'GET',
     'path' => '/profile/log',
-    'controller' => 'Controllers\\ProfileController',
+    'controller' => 'App\\Controllers\\ProfileController',
     'function' => 'log',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'log',
   ),
@@ -257,11 +257,11 @@
   array (
     'method' => 'PUT',
     'path' => '/profile/statistik',
-    'controller' => 'Controllers\\ProfileController',
+    'controller' => 'App\\Controllers\\ProfileController',
     'function' => 'statistik',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'statistik.profile',
   ),
@@ -269,11 +269,11 @@
   array (
     'method' => 'POST',
     'path' => '/profile/delete',
-    'controller' => 'Controllers\\ProfileController',
+    'controller' => 'App\\Controllers\\ProfileController',
     'function' => 'delete',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'hapus.profile',
   ),
@@ -281,12 +281,12 @@
   array (
     'method' => 'POST',
     'path' => '/profile/email',
-    'controller' => 'Controllers\\ProfileController',
+    'controller' => 'App\\Controllers\\ProfileController',
     'function' => 'email',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
-      1 => 'Middleware\\EmailMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\EmailMiddleware',
     ),
     'name' => 'email',
   ),
@@ -294,12 +294,12 @@
   array (
     'method' => 'GET',
     'path' => '/profile/email/([\\w-]*)',
-    'controller' => 'Controllers\\ProfileController',
+    'controller' => 'App\\Controllers\\ProfileController',
     'function' => 'verify',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
-      1 => 'Middleware\\EmailMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\EmailMiddleware',
     ),
     'name' => 'verify',
   ),
@@ -307,11 +307,11 @@
   array (
     'method' => 'DELETE',
     'path' => '/logout',
-    'controller' => 'Controllers\\AuthController',
+    'controller' => 'App\\Controllers\\AuthController',
     'function' => 'logout',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
     ),
     'name' => 'logout',
   ),
@@ -319,12 +319,12 @@
   array (
     'method' => 'GET',
     'path' => '/admin/users',
-    'controller' => 'Controllers\\UsersController',
+    'controller' => 'App\\Controllers\\UsersController',
     'function' => 'index',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
-      1 => 'Middleware\\AdminMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\AdminMiddleware',
     ),
     'name' => 'users',
   ),
@@ -332,12 +332,12 @@
   array (
     'method' => 'GET',
     'path' => '/admin/users/([\\w-]*)/detail',
-    'controller' => 'Controllers\\UsersController',
+    'controller' => 'App\\Controllers\\UsersController',
     'function' => 'detail',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
-      1 => 'Middleware\\AdminMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\AdminMiddleware',
     ),
     'name' => NULL,
   ),
@@ -345,12 +345,12 @@
   array (
     'method' => 'DELETE',
     'path' => '/admin/users/([\\w-]*)/delete',
-    'controller' => 'Controllers\\UsersController',
+    'controller' => 'App\\Controllers\\UsersController',
     'function' => 'delete',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
-      1 => 'Middleware\\AdminMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\AdminMiddleware',
     ),
     'name' => 'delete.users',
   ),
@@ -358,12 +358,12 @@
   array (
     'method' => 'GET',
     'path' => '/admin/stats',
-    'controller' => 'Controllers\\AdminController',
+    'controller' => 'App\\Controllers\\AdminController',
     'function' => 'index',
     'middleware' => 
     array (
-      0 => 'Middleware\\AuthMiddleware',
-      1 => 'Middleware\\AdminMiddleware',
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\AdminMiddleware',
     ),
     'name' => 'stats',
   ),
@@ -371,7 +371,7 @@
   array (
     'method' => 'GET',
     'path' => '/([\\w-]*)',
-    'controller' => 'Controllers\\StatistikController',
+    'controller' => 'App\\Controllers\\StatistikController',
     'function' => 'click',
     'middleware' => 
     array (
@@ -382,7 +382,7 @@
   array (
     'method' => 'POST',
     'path' => '/([\\w-]*)',
-    'controller' => 'Controllers\\StatistikController',
+    'controller' => 'App\\Controllers\\StatistikController',
     'function' => 'click',
     'middleware' => 
     array (
