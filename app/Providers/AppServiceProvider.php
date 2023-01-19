@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
+use App\Repositories\LinkRepository;
+use App\Repositories\RepositoryContract;
+use App\Services\LinkService;
+use App\Services\ServiceContract;
 use Core\Facades\Provider;
-use Repository\LinkRepository;
-use Repository\RepositoryContract;
-use Service\LinkService;
-use Service\ServiceContract;
 
 class AppServiceProvider extends Provider
 {

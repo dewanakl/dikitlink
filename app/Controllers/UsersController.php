@@ -6,7 +6,7 @@ use Core\Model\DB;
 use Core\Routing\Controller;
 use Core\Valid\Validator;
 use App\Models\User;
-use Repository\RepositoryContract;
+use App\Repositories\RepositoryContract;
 
 class UsersController extends Controller
 {

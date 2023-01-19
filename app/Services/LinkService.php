@@ -1,6 +1,6 @@
 <?php
 
-namespace Service;
+namespace App\Services;
 
 use Core\Http\Request;
 use Core\Valid\Validator;

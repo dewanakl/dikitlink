@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use Core\Model\DB;
 use Core\Routing\Controller;
-use Repository\RepositoryContract;
+use App\Repositories\RepositoryContract;
 
 class DashboardController extends Controller
 {

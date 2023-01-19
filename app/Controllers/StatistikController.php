@@ -9,7 +9,7 @@ use Core\Routing\Controller;
 use Core\Valid\Validator;
 use App\Models\Link;
 use App\Models\Stat;
-use Repository\RepositoryContract;
+use App\Repositories\RepositoryContract;
 
 class StatistikController extends Controller
 {

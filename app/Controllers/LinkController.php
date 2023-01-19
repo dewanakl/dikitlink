@@ -8,8 +8,8 @@ use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Valid\Validator;
 use App\Models\Link;
-use Repository\RepositoryContract;
-use Service\ServiceContract;
+use App\Repositories\RepositoryContract;
+use App\Services\ServiceContract;
 
 class LinkController extends Controller
 {
