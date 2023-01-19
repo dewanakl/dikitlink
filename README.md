@@ -9,24 +9,37 @@ Dikit Link adalah aplikasi shortlink gk ada obat dengan Kamu PHP Framework.
 ## Get Started Project
 - Clone or download this repository
     ```bash
-    $ git clone https://github.com/dewanakl/DikitLink.git
+    git clone https://github.com/dewanakl/DikitLink.git
+    ```
+- Install package
+    ```bash
+    composer install
     ```
 - Create .env file
     ```bash
-    $ cp .env.example .env
+    cp .env.example .env
     ```
 - Create key application
     ```bash
-    $ php saya key
+    php saya key
     ```
 - Create table in database
     ```bash
-    $ php saya migrasi --gen
+    php saya migrasi --gen
     ```
 - Run in development server
     ```bash
-    $ php saya coba
+    php saya coba
     ```
+
+
+## Contributing
+
+I'm very open to those of you who want to contribute to Kamu framework!
+
+## Security Vulnerabilities
+
+If you find a security vulnerability in this Kamu, please email DKL via [dewanakretarta29@gmail.com](mailto:dewanakretarta29@gmail.com).
 
 ## License
 
