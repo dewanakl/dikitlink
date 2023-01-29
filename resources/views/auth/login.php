@@ -26,7 +26,7 @@
         <p class="fw-semibold my-2"><a href="<?= route('forget') ?>" class="hover p-1 rounded text-decoration-none text-primary">Lupa kata sandi?</a></p>
     </div>
     <div class="d-grid">
-        <button class="g-recaptcha btn btn-primary fw-bold my-2" id="button-login" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="login()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="login" <?php endif ?>>Masuk</button>
+        <button class="g-recaptcha btn btn-primary fw-bold shadow-sm my-2" id="button-login" type="submit" <?php if (env('CAPTCHA_WEB')) : ?> onclick="login()" data-sitekey="<?= env('CAPTCHA_WEB') ?>" data-callback="onSubmit" data-action="login" <?php endif ?>>Masuk</button>
     </div>
     <hr class="text-dark">
     <div class="d-flex justify-content-center">
@@ -38,7 +38,7 @@
     const login = () => {
         let btn = document.getElementById('button-login');
         btn.disabled = true;
-        btn.className = 'g-recaptcha btn btn-primary active disabled fw-bold my-2'
+        btn.className = 'g-recaptcha btn btn-primary active disabled fw-bold shadow-sm my-2'
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     }
 </script>
