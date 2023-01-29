@@ -74,10 +74,10 @@ class LinkRepository implements RepositoryContract
             $data = $data->where('links.name', $name);
         }
 
-        return $data->groupBy(['stats.user_agent', 'stats.ip_address'])
-            ->select('COUNT(stats.link_id)')
+        return count($data->groupBy(['stats.user_agent', 'stats.ip_address'])
+            ->select('stats.ip_address')
             ->get()
-            ->rowCount() ?? 0;
+            ->toArray());
     }
 
     public function lastWeek(int $id, string $link): array
