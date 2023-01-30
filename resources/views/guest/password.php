@@ -10,14 +10,14 @@
 <form method="POST" action="<?= route('click', $name) ?>" onsubmit="passworddd()">
     <?= csrf() ?>
     <div class="form-floating mb-3">
-        <input type="password" name="password" class="form-control <?= error('password', 'is-invalid') ?>" id="floatingInputpassword" placeholder="Password" required>
+        <input type="password" name="password" class="form-control shadow-sm <?= error('password', 'is-invalid') ?>" id="floatingInputpassword" placeholder="Password" required>
         <label for="floatingInputpassword" class="form-label"><i class="fa-solid fa-lock mx-1"></i>Password</label>
         <?php if (error('password')) : ?>
             <div class="invalid-feedback"><?= error('password') ?></div>
         <?php endif ?>
     </div>
     <div class="d-grid">
-        <button class="btn btn-success fw-bold my-2" id="button-passworddd" type="submit">Kirim</button>
+        <button class="btn btn-success fw-bold shadow my-2" id="button-passworddd" type="submit">Kirim</button>
     </div>
 </form>
 
@@ -25,7 +25,7 @@
     const passworddd = () => {
         let btn = document.getElementById('button-passworddd');
         btn.disabled = true;
-        btn.className = 'btn btn-success active disabled fw-bold my-2'
+        btn.className = 'btn btn-success active disabled fw-bold shadow my-2'
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
     }
 </script>
