@@ -149,9 +149,9 @@ class ProfileController extends Controller
     public function avatar()
     {
         header('Content-Type: image/svg+xml');
-        respond()->terminate($this->view('avatar/avatar', [
+        echo $this->view('avatar/avatar', [
             'nama' => implode(array_map(fn ($name) => $name[0], explode(' ', Auth::user()->nama)))
-        ]));
+        ]);
     }
 
     public function log()

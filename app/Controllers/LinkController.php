@@ -9,7 +9,6 @@ use Core\Routing\Controller;
 use Core\Valid\Validator;
 use App\Models\Link;
 use App\Repositories\RepositoryContract;
-use App\Services\ServiceContract;
 
 class LinkController extends Controller
 {
@@ -78,17 +77,92 @@ class LinkController extends Controller
         ]);
     }
 
-    public function create(ServiceContract $service)
+    public function create(Request $request)
     {
+        $valid = Validator::make($request->only(['name', 'link']), [
+            'name' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25', 'unik:link'],
+            'link' => ['required', 'str', 'trim', 'min:5', 'url']
+        ]);
+
+        if (str_contains($valid->link, baseurl())) {
+            $valid->throw([
+                'link' => 'Link ilegal'
+            ]);
+        }
+
+        if (is_null(auth()->user()->email_verify)) {
+            if (Link::where('user_id', $this->id)->count('link')->first()->link >= 3) {
+                $valid->throw([
+                    'link' => 'Verifikasi akun untuk menambahkan lagi'
+                ]);
+            }
+        }
+
+        if ($valid->fails()) {
+            return json([
+                'error' => $valid->failed()
+            ], 400);
+        }
+
+        $data = $valid->only(['name', 'link']);
+        $data['user_id'] = $this->id;
+
+        $status = Link::create($data);
+
         return json([
-            'status' => boolval(Link::create($service->create($this->id)))
+            'status' => $status
         ]);
     }
 
-    public function update(ServiceContract $service)
+    public function update(Request $request)
     {
+        $valid = Validator::make($request->all(), [
+            'old' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25'],
+            'name' => ['required', 'str', 'trim', 'slug', 'min:3', 'max:25'],
+            'link' => ['required', 'str', 'trim', 'min:5', 'url'],
+            'password' => ['str', 'trim', 'max:25'],
+            'buka' => ['str', 'trim', 'max:16'],
+            'tutup' => ['str', 'trim', 'max:16'],
+            'stats' => ['bool']
+        ]);
+
+        if (str_contains($valid->link, baseurl())) {
+            $valid->throw([
+                'link' => 'Link ilegal'
+            ]);
+        }
+
+        if ($valid->old != $valid->name) {
+            $valid->validate([
+                'name' => ['unik:link']
+            ]);
+        }
+
+        if ($valid->fails()) {
+            return json([
+                'error' => $valid->failed()
+            ], 400);
+        }
+
+        $result = Link::where('name', $valid->old)
+            ->where('user_id', $this->id)
+            ->first();
+
+        $result->name = $valid->name;
+
+        if (!is_null(auth()->user()->email_verify)) {
+            $result->link = $valid->link;
+        }
+
+        $result->link_password = empty($valid->password) ? null : $valid->password;
+        $result->record_statistics = $valid->stats;
+        $result->waktu_buka = empty($valid->buka) ? null : str_replace('T', ' ', $valid->buka) . ':00';
+        $result->waktu_tutup = empty($valid->tutup) ? null : str_replace('T', ' ', $valid->tutup) . ':00';
+
+        $status = $result->save();
+
         return json([
-            'status' => $service->update($this->id)
+            'status' => $status
         ]);
     }
 

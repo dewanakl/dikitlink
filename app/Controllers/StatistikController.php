@@ -35,8 +35,7 @@ class StatistikController extends Controller
                 'stats.user_agent',
                 'stats.ip_address'
             ])
-            ->get()
-            ->toArray();
+            ->get();
 
         header('Content-Type: application/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename="statistik_' . now('Y-m-d_H-i-s') . '.csv";');
@@ -45,11 +44,10 @@ class StatistikController extends Controller
 
         fputcsv($handle, ['time', 'name', 'user_agent', 'ip_address']);
         foreach ($hasil as $value) {
-            fputcsv($handle, array_values($value));
+            fputcsv($handle, array_values(get_object_vars($value)));
         }
 
         fclose($handle);
-        respond()->terminate();
     }
 
     public function click(Request $request, $id)
@@ -136,6 +134,5 @@ class StatistikController extends Controller
         http_response_code(301);
         header('HTTP/1.1 301 Moved Permanently', true, 301);
         header('Location: ' . trim($link->link), true, 301);
-        respond()->terminate();
     }
 }
