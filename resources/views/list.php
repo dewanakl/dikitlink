@@ -42,6 +42,10 @@
                         <input class="form-check-input" type="checkbox" role="switch" id="statistik">
                         <label class="form-check-label" for="statistik"><i class="fa-solid fa-chart-simple me-1"></i>Simpan Statistik</label>
                     </div>
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" role="switch" id="query">
+                        <label class="form-check-label" for="query"><i class="fa-solid fa-gear me-1"></i>Query Param</label>
+                    </div>
                     <div class="mb-3">
                         <label for="valueeditpassword"><i class="fa-solid fa-lock me-1"></i>Password</label>
                         <input type="text" class="form-control" id="valueeditpassword" placeholder="Password">

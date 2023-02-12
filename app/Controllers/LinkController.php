@@ -49,6 +49,7 @@ class LinkController extends Controller
                     'links.link_password',
                     'links.waktu_buka',
                     'links.waktu_tutup',
+                    'links.query_param',
                     'links.record_statistics as stats',
                     'count(stats.id) as hint',
                 ])
@@ -123,7 +124,8 @@ class LinkController extends Controller
             'password' => ['str', 'trim', 'max:25'],
             'buka' => ['str', 'trim', 'max:16'],
             'tutup' => ['str', 'trim', 'max:16'],
-            'stats' => ['bool']
+            'stats' => ['bool'],
+            'query' => ['bool'],
         ]);
 
         if (str_contains($valid->link, baseurl())) {
@@ -156,6 +158,7 @@ class LinkController extends Controller
 
         $result->link_password = empty($valid->password) ? null : $valid->password;
         $result->record_statistics = $valid->stats;
+        $result->query_param = $valid->query;
         $result->waktu_buka = empty($valid->buka) ? null : str_replace('T', ' ', $valid->buka) . ':00';
         $result->waktu_tutup = empty($valid->tutup) ? null : str_replace('T', ' ', $valid->tutup) . ':00';
 
