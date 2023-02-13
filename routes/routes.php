@@ -7,6 +7,7 @@ use App\Controllers\LandingController;
 use App\Controllers\LinkController;
 use App\Controllers\ProfileController;
 use App\Controllers\StatistikController;
+use App\Controllers\TestController;
 use App\Controllers\UsersController;
 use Core\Routing\Route;
 use App\Middleware\AdminMiddleware;
@@ -19,6 +20,8 @@ use App\Middleware\TemaMiddleware;
  * Make something great with this app
  * keep simple yahh
  */
+
+Route::get('/debug/all', TestController::class);
 
 // Blom login
 Route::middleware(GuestMiddleware::class)->group(function () {
