@@ -88,15 +88,25 @@ const refreshTable = async () => {
         .then((res) => {
             if (res.length > 0) {
                 res.forEach((data) => {
-                    let check = data.stats;
-                    if (typeof check === 'string' || check instanceof String) {
-                        if (check == '1') {
-                            check = true;
+                    let stats = data.stats;
+                    if (typeof stats === 'string' || stats instanceof String) {
+                        if (stats == '1') {
+                            stats = true;
                         } else {
-                            check = false;
+                            stats = false;
                         }
                     }
-                    data.stats = check;
+                    data.stats = stats;
+
+                    let query = data.query_param;
+                    if (typeof query === 'string' || query instanceof String) {
+                        if (query == '1') {
+                            query = true;
+                        } else {
+                            query = false;
+                        }
+                    }
+                    data.query_param = query;
 
                     DATA.push([
                         data.name,

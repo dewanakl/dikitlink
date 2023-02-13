@@ -2,17 +2,6 @@
   0 => 
   array (
     'method' => 'GET',
-    'path' => '/debug/all',
-    'controller' => NULL,
-    'function' => 'App\\Controllers\\TestController',
-    'middleware' => 
-    array (
-    ),
-    'name' => NULL,
-  ),
-  1 => 
-  array (
-    'method' => 'GET',
     'path' => '/',
     'controller' => NULL,
     'function' => 'App\\Controllers\\LandingController',
@@ -22,7 +11,7 @@
     ),
     'name' => 'landing',
   ),
-  2 => 
+  1 => 
   array (
     'method' => 'GET',
     'path' => '/login',
@@ -34,7 +23,7 @@
     ),
     'name' => 'login',
   ),
-  3 => 
+  2 => 
   array (
     'method' => 'POST',
     'path' => '/login',
@@ -46,7 +35,7 @@
     ),
     'name' => NULL,
   ),
-  4 => 
+  3 => 
   array (
     'method' => 'GET',
     'path' => '/register',
@@ -58,7 +47,7 @@
     ),
     'name' => 'register',
   ),
-  5 => 
+  4 => 
   array (
     'method' => 'POST',
     'path' => '/register',
@@ -70,7 +59,7 @@
     ),
     'name' => NULL,
   ),
-  6 => 
+  5 => 
   array (
     'method' => 'GET',
     'path' => '/forget',
@@ -82,7 +71,7 @@
     ),
     'name' => 'forget',
   ),
-  7 => 
+  6 => 
   array (
     'method' => 'POST',
     'path' => '/forget',
@@ -94,7 +83,7 @@
     ),
     'name' => NULL,
   ),
-  8 => 
+  7 => 
   array (
     'method' => 'GET',
     'path' => '/reset/([\\w-]*)',
@@ -106,7 +95,7 @@
     ),
     'name' => 'reset',
   ),
-  9 => 
+  8 => 
   array (
     'method' => 'GET',
     'path' => '/dashboard',
@@ -118,7 +107,7 @@
     ),
     'name' => 'dashboard',
   ),
-  10 => 
+  9 => 
   array (
     'method' => 'GET',
     'path' => '/list',
@@ -130,7 +119,7 @@
     ),
     'name' => 'list',
   ),
-  11 => 
+  10 => 
   array (
     'method' => 'GET',
     'path' => '/api/link/show',
@@ -142,7 +131,7 @@
     ),
     'name' => 'show.link',
   ),
-  12 => 
+  11 => 
   array (
     'method' => 'GET',
     'path' => '/api/link/detail',
@@ -154,7 +143,7 @@
     ),
     'name' => 'detail.link',
   ),
-  13 => 
+  12 => 
   array (
     'method' => 'POST',
     'path' => '/api/link/create',
@@ -166,7 +155,7 @@
     ),
     'name' => 'create.link',
   ),
-  14 => 
+  13 => 
   array (
     'method' => 'PUT',
     'path' => '/api/link/update',
@@ -178,7 +167,7 @@
     ),
     'name' => 'update.link',
   ),
-  15 => 
+  14 => 
   array (
     'method' => 'DELETE',
     'path' => '/api/link/delete',
@@ -190,7 +179,7 @@
     ),
     'name' => 'delete.link',
   ),
-  16 => 
+  15 => 
   array (
     'method' => 'GET',
     'path' => '/statistik',
@@ -202,7 +191,7 @@
     ),
     'name' => 'statistik',
   ),
-  17 => 
+  16 => 
   array (
     'method' => 'GET',
     'path' => '/statistik/download',
@@ -214,7 +203,7 @@
     ),
     'name' => 'statistik.download',
   ),
-  18 => 
+  17 => 
   array (
     'method' => 'GET',
     'path' => '/profile',
@@ -227,7 +216,7 @@
     ),
     'name' => 'profile',
   ),
-  19 => 
+  18 => 
   array (
     'method' => 'PUT',
     'path' => '/profile',
@@ -240,7 +229,7 @@
     ),
     'name' => NULL,
   ),
-  20 => 
+  19 => 
   array (
     'method' => 'GET',
     'path' => '/profile/avatar',
@@ -252,7 +241,7 @@
     ),
     'name' => 'avatar',
   ),
-  21 => 
+  20 => 
   array (
     'method' => 'GET',
     'path' => '/profile/log',
@@ -264,7 +253,7 @@
     ),
     'name' => 'log',
   ),
-  22 => 
+  21 => 
   array (
     'method' => 'PUT',
     'path' => '/profile/statistik',
@@ -276,7 +265,7 @@
     ),
     'name' => 'statistik.profile',
   ),
-  23 => 
+  22 => 
   array (
     'method' => 'POST',
     'path' => '/profile/delete',
@@ -288,7 +277,7 @@
     ),
     'name' => 'hapus.profile',
   ),
-  24 => 
+  23 => 
   array (
     'method' => 'POST',
     'path' => '/profile/email',
@@ -301,7 +290,7 @@
     ),
     'name' => 'email',
   ),
-  25 => 
+  24 => 
   array (
     'method' => 'GET',
     'path' => '/profile/email/([\\w-]*)',
@@ -314,7 +303,7 @@
     ),
     'name' => 'verify',
   ),
-  26 => 
+  25 => 
   array (
     'method' => 'DELETE',
     'path' => '/logout',
@@ -326,7 +315,7 @@
     ),
     'name' => 'logout',
   ),
-  27 => 
+  26 => 
   array (
     'method' => 'GET',
     'path' => '/admin/users',
@@ -339,7 +328,7 @@
     ),
     'name' => 'users',
   ),
-  28 => 
+  27 => 
   array (
     'method' => 'GET',
     'path' => '/admin/users/([\\w-]*)/detail',
@@ -352,7 +341,7 @@
     ),
     'name' => NULL,
   ),
-  29 => 
+  28 => 
   array (
     'method' => 'DELETE',
     'path' => '/admin/users/([\\w-]*)/delete',
@@ -365,7 +354,7 @@
     ),
     'name' => 'delete.users',
   ),
-  30 => 
+  29 => 
   array (
     'method' => 'GET',
     'path' => '/admin/stats',
@@ -378,7 +367,7 @@
     ),
     'name' => 'stats',
   ),
-  31 => 
+  30 => 
   array (
     'method' => 'GET',
     'path' => '/([\\w-]*)',
@@ -389,7 +378,7 @@
     ),
     'name' => 'click',
   ),
-  32 => 
+  31 => 
   array (
     'method' => 'POST',
     'path' => '/([\\w-]*)',

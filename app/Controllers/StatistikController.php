@@ -130,7 +130,7 @@ class StatistikController extends Controller
         if (!empty($link->query_param)) {
             if (!empty($request->except([session()->getName()]))) {
                 $link->link .= parse_url($link->link, PHP_URL_QUERY) ? '&' : '?';
-                $link->link .= http_build_query($request->all());
+                $link->link .= http_build_query($request->except([session()->getName()]));
             }
         }
 

@@ -21,8 +21,6 @@ use App\Middleware\TemaMiddleware;
  * keep simple yahh
  */
 
-Route::get('/debug/all', TestController::class);
-
 // Blom login
 Route::middleware(GuestMiddleware::class)->group(function () {
     // Landing page
