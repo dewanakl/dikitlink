@@ -39,9 +39,10 @@ const renderCard = (data, key) => {
             </h4>
             <small class="text-dark rounded m-0 p-1" style="background-color: var(--bs-gray-200)">
                 ${(data.stats) ? '' : '<i class="fa-solid fa-ban my-0 p-0 ms-1"></i>'}
+                ${(data.query_param) ? '<i class="fa-solid fa-gear my-0 p-0 ms-1"></i>' : ''}
+                ${(data.link_password) ? '<i class="fa-solid fa-lock my-0 p-0 ms-1"></i>' : ''}
                 ${(data.waktu_buka) ? '<i class="fa-solid fa-calendar-check my-0 p-0 ms-1"></i>' : ''}
                 ${(data.waktu_tutup) ? '<i class="fa-solid fa-calendar-xmark my-0 p-0 ms-1"></i>' : ''}
-                ${(data.link_password) ? '<i class="fa-solid fa-lock my-0 p-0 ms-1"></i>' : ''}
                 <i class="fa-solid fa-chart-simple my-0 p-0 ms-1"></i>
                 <span class="fw-bold ms-0 me-1 my-0 p-0">${data.hint}</span>
             </small>
