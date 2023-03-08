@@ -7,7 +7,6 @@ use App\Controllers\LandingController;
 use App\Controllers\LinkController;
 use App\Controllers\ProfileController;
 use App\Controllers\StatistikController;
-use App\Controllers\TestController;
 use App\Controllers\UsersController;
 use Core\Routing\Route;
 use App\Middleware\AdminMiddleware;
