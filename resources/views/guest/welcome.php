@@ -9,7 +9,7 @@
             <div class="col">
                 <div class="text-center text-lg-start">
                     <h1 class="fw-bold my-2" style="font-size: 2.3rem;">Dikit Link</h1>
-                    <h2 class="mt-1 mb-3" style="font-size: 2rem;">Link tuh dikit nggak banyak !!</h2>
+                    <h2 class="mt-0 mb-3" style="font-size: 2rem;">Link tuh dikit nggak banyak !!</h2>
                     <p class="lead my-4" style="font-size: 1.2rem;">
                         Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail. Cobain dehhh, seriuss !!!
                     </p>

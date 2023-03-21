@@ -198,6 +198,7 @@ const update = async () => {
 
     BATAL.disabled = true;
     EDIT.disabled = true;
+    let tmp = EDIT.innerHTML;
     EDIT.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
     await fetch(`${URI}/api/link`, REQ)
@@ -227,7 +228,7 @@ const update = async () => {
 
     BATAL.disabled = false;
     EDIT.disabled = false;
-    EDIT.innerHTML = '<i class="fas fa-pen-to-square me-1"></i>Edit';
+    EDIT.innerHTML = tmp;
 }
 
 const detail = async (button, id) => {
@@ -346,6 +347,7 @@ const destroy = async () => {
 
     BATAL.disabled = true;
     HAPUS.disabled = true;
+    let tmp = HAPUS.innerHTML;
     HAPUS.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
     await fetch(`${URI}/api/link`, REQ)
@@ -367,7 +369,7 @@ const destroy = async () => {
 
     BATAL.disabled = false;
     HAPUS.disabled = false;
-    HAPUS.innerHTML = '<i class="fas fa-trash me-1"></i>Hapus';
+    HAPUS.innerHTML = tmp;
 }
 
 const reset = (show = true) => {
