@@ -14,6 +14,13 @@
             "dest": "/public/$1/$2"
         },
         {
+            "src": "/robots.txt",
+            "headers": {
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/robots.txt"
+        },
+        {
             "src": "/404.svg",
             "headers": {
                 "Cache-Control": "public, max-age=31556952, immutable"
