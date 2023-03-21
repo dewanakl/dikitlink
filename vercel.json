@@ -21,6 +21,13 @@
             "dest": "/public/robots.txt"
         },
         {
+            "src": "/sitemap.xml",
+            "headers": {
+                "Cache-Control": "public, max-age=31556952, immutable"
+            },
+            "dest": "/public/sitemap.xml"
+        },
+        {
             "src": "/404.svg",
             "headers": {
                 "Cache-Control": "public, max-age=31556952, immutable"
