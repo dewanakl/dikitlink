@@ -4,7 +4,7 @@
 
 <div class="container">
     <header class="pt-5 px-2 border-bottom">
-        <img src="<?= asset('link.svg') ?>" alt="dikitlink" width="400" height="300" class="d-block d-lg-none mb-3 img-fluid mx-auto" style="width: 65%;" loading="lazy">
+        <img src="<?= asset('link.svg') ?>" alt="dikitlink" width="400" height="400" class="d-block d-lg-none mb-3 img-fluid mx-auto" style="width: 70%;" loading="lazy">
         <div class="row align-items-center justify-content-center">
             <div class="col">
                 <div class="text-center text-lg-start">
@@ -19,7 +19,7 @@
                 </div>
             </div>
             <div class="col d-none d-lg-block mt-auto text-center">
-                <img src="<?= asset('link.svg') ?>" alt="dikitlink" width="400" height="300" class="img-fluid" style="width: 65%;" loading="lazy">
+                <img src="<?= asset('link.svg') ?>" alt="dikitlink" width="400" height="400" class="img-fluid" style="width: 70%;" loading="lazy">
             </div>
         </div>
     </header>

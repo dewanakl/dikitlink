@@ -7,7 +7,7 @@
 
 <?= including('layout/alert') ?>
 
-<form method="POST" action="<?= route('click', $name) ?>" onsubmit="passworddd()">
+<form method="POST" action="<?= route('click', $name) ?>" onsubmit="passwordlink()">
     <?= csrf() ?>
     <div class="form-floating mb-3">
         <input type="password" name="password" class="form-control shadow-sm <?= error('password', 'is-invalid') ?>" id="floatingInputpassword" placeholder="Password" required>
@@ -17,13 +17,13 @@
         <?php endif ?>
     </div>
     <div class="d-grid">
-        <button class="btn btn-success fw-bold shadow my-2" id="button-passworddd" type="submit">Kirim</button>
+        <button class="btn btn-success fw-bold shadow my-2" id="button-passwordlink" type="submit">Kirim</button>
     </div>
 </form>
 
 <script>
-    const passworddd = () => {
-        let btn = document.getElementById('button-passworddd');
+    const passwordlink = () => {
+        let btn = document.getElementById('button-passwordlink');
         btn.disabled = true;
         btn.className = 'btn btn-success active disabled fw-bold shadow my-2'
         btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';

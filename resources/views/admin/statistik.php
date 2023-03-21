@@ -1,4 +1,4 @@
-<?php parents('layout/home', ['title' => 'Statistik']) ?>
+<?php parents('layout/home', ['title' => 'Stats']) ?>
 
 <?php section('home') ?>
 
