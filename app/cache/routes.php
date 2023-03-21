@@ -122,7 +122,7 @@
   10 => 
   array (
     'method' => 'GET',
-    'path' => '/api/link/show',
+    'path' => '/api/link',
     'controller' => 'App\\Controllers\\LinkController',
     'function' => 'show',
     'middleware' => 
@@ -146,7 +146,7 @@
   12 => 
   array (
     'method' => 'POST',
-    'path' => '/api/link/create',
+    'path' => '/api/link',
     'controller' => 'App\\Controllers\\LinkController',
     'function' => 'create',
     'middleware' => 
@@ -158,7 +158,7 @@
   13 => 
   array (
     'method' => 'PUT',
-    'path' => '/api/link/update',
+    'path' => '/api/link',
     'controller' => 'App\\Controllers\\LinkController',
     'function' => 'update',
     'middleware' => 
@@ -170,7 +170,7 @@
   14 => 
   array (
     'method' => 'DELETE',
-    'path' => '/api/link/delete',
+    'path' => '/api/link',
     'controller' => 'App\\Controllers\\LinkController',
     'function' => 'delete',
     'middleware' => 

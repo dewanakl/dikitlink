@@ -51,11 +51,11 @@ Route::middleware(AuthMiddleware::class)->group(function () {
 
     // CRUD Link API
     Route::prefix('/api/link')->controller(LinkController::class)->group(function () {
-        Route::get('/show', 'show')->name('show.link');
+        Route::get('/', 'show')->name('show.link');
         Route::get('/detail', 'detail')->name('detail.link');
-        Route::post('/create', 'create')->name('create.link');
-        Route::put('/update', 'update')->name('update.link');
-        Route::delete('/delete', 'delete')->name('delete.link');
+        Route::post('/', 'create')->name('create.link');
+        Route::put('/', 'update')->name('update.link');
+        Route::delete('/', 'delete')->name('delete.link');
     });
 
     // statistik

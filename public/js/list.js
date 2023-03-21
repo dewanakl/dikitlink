@@ -84,7 +84,7 @@ const refreshTable = async () => {
     LOAD.disabled = true;
     LOAD.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Loading...';
 
-    await fetch(`${URI}/api/link/show?nama=${nama}&init=${init}&end=${end}`)
+    await fetch(`${URI}/api/link?nama=${nama}&init=${init}&end=${end}`)
         .then((res) => res.json())
         .then((res) => {
             if (res.length > 0) {
@@ -200,14 +200,14 @@ const update = async () => {
     EDIT.disabled = true;
     EDIT.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
-    await fetch(`${URI}/api/link/update`, REQ)
+    await fetch(`${URI}/api/link`, REQ)
         .then((res) => res.json())
         .then((res) => {
             if (res.status) {
                 reset(false);
                 refreshTable();
                 bootstrap.Modal.getInstance(document.querySelector('#editlinkmodal')).hide();
-                confirmCopy(name, 'Mengubah');
+                confirmCopy(`Mengubah link "${name}"`);
 
                 OLD.value = null;
                 NAME.value = null;
@@ -348,7 +348,7 @@ const destroy = async () => {
     HAPUS.disabled = true;
     HAPUS.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
-    await fetch(`${URI}/api/link/delete`, REQ)
+    await fetch(`${URI}/api/link`, REQ)
         .then((res) => res.json())
         .then((res) => {
             if (res.status) {

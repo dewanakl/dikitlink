@@ -17,26 +17,25 @@ const tambahModal = async () => {
         })
     };
 
-    BATAL.disabled = true
+    BATAL.disabled = true;
     TAMBAH.disabled = true;
+    let tmp = TAMBAH.innerHTML;
     TAMBAH.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
-    await fetch(`${URI}/api/link/create`, REQ)
+    await fetch(`${URI}/api/link`, REQ)
         .then((res) => res.json())
         .then((res) => {
             if (res.status) {
                 bootstrap.Modal.getInstance(document.querySelector('#addlinkmodal')).hide();
 
-                confirmCopy(name);
+                confirmCopy(`Membuat link "${name}"`);
 
                 NAME.value = null;
                 LINK.value = null;
 
-                try {
+                if (typeof reset === 'function' && typeof refreshTable === 'function') {
                     reset(false);
                     refreshTable();
-                } catch (error) {
-                    return;
                 }
             } else if (res.error) {
                 showModal(Object.values(res.error)[0], 'error');
@@ -48,7 +47,7 @@ const tambahModal = async () => {
 
     BATAL.disabled = false;
     TAMBAH.disabled = false;
-    TAMBAH.innerHTML = '<i class="fas fa-plus me-1"></i>Tambah';
+    TAMBAH.innerHTML = tmp;
 }
 
 const tambahMobile = async () => {
@@ -70,24 +69,23 @@ const tambahMobile = async () => {
     };
 
     TAMBAH.disabled = true;
+    let tmp = TAMBAH.innerHTML;
     TAMBAH.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Loading...`;
 
-    await fetch(`${URI}/api/link/create`, REQ)
+    await fetch(`${URI}/api/link`, REQ)
         .then((res) => res.json())
         .then((res) => {
             if (res.status) {
                 bootstrap.Offcanvas.getInstance(document.querySelector('#offcanvasBottom')).hide();
 
-                confirmCopy(name);
+                confirmCopy(`Membuat link "${name}"`);
 
                 NAME.value = null;
                 LINK.value = null;
 
-                try {
+                if (typeof reset === 'function' && typeof refreshTable === 'function') {
                     reset(false);
                     refreshTable();
-                } catch (error) {
-                    return;
                 }
             } else if (res.error) {
                 showModal(Object.values(res.error)[0], 'error');
@@ -98,7 +96,7 @@ const tambahMobile = async () => {
         .catch((err) => showModal(err, 'error'));
 
     TAMBAH.disabled = false;
-    TAMBAH.innerHTML = '<i class="fas fa-plus me-1"></i>Tambah';
+    TAMBAH.innerHTML = tmp;
 }
 
 const logout = () => {

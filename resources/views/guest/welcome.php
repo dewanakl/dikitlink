@@ -8,13 +8,13 @@
         <div class="row align-items-center justify-content-center">
             <div class="col">
                 <div class="text-center text-lg-start">
-                    <h1 class="fw-bold mt-0" style="font-size: 2.3rem;">Dikit Link</h1>
-                    <h2 class="mt-0 mb-3" style="font-size: 2rem;">Link tuh dikit nggak banyak !!</h2>
-                    <p class="lead" style="font-size: 1.2rem;">
-                        Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail, nggak percaya ?
+                    <h1 class="fw-bold my-2" style="font-size: 2.3rem;">Dikit Link</h1>
+                    <h2 class="mt-1 mb-3" style="font-size: 2rem;">Link tuh dikit nggak banyak !!</h2>
+                    <p class="lead my-4" style="font-size: 1.2rem;">
+                        Aplikasi pemendek url sederhana dengan fitur statistik yang sangat detail. Cobain dehhh, seriuss !!!
                     </p>
-                    <div class="d-grid justify-content-xl-start mb-3">
-                        <a class="btn btn-primary btn-lg fw-bold shadow" href="<?= route('login') ?>">Coba Sekarang !</a>
+                    <div class="d-grid justify-content-xl-start my-4">
+                        <a class="btn btn-primary btn-lg rounded-3 fw-bold shadow" href="<?= route('login') ?>">Coba Sekarang !</a>
                     </div>
                 </div>
             </div>
@@ -25,59 +25,71 @@
     </header>
 
     <main class="px-3 py-4 border-bottom">
-        <div class="row g-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
-            <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
-                    <i class="fa-solid fa-rotate"></i>
-                </div>
-                <div class="my-0">
-                    <div class="h4">Tanpa Batas</div>
-                    <p>Bikin link sampai ribuan juga boleh banget, intinya sampai kamu cape sendiri.</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
-                    <i class="fa-solid fa-chart-column"></i>
-                </div>
-                <div class="my-0">
-                    <div class="h4">Statistik</div>
-                    <p>Kamu juga bisa langsung stalking. Seperti jumlah kliknya, pake device apa, dll.</p>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+            <div class="col">
+                <div class="d-flex w-100 align-items-start bg-light my-2 rounded-4 p-3">
+                    <div class="d-inline-flex align-items-center justify-content-center fs-4 ms-1 me-2 mt-1">
+                        <i class="fa-solid fa-rotate"></i>
+                    </div>
+                    <div class="mt-1 mb-0">
+                        <div class="h5">Tanpa Batas</div>
+                        <p>Bikin link sampai ribuan juga boleh, intinya sampai kamu cape sendiri.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
-                    <i class="fa-solid fa-sack-dollar"></i>
-                </div>
-                <div class="my-0">
-                    <div class="h4">100% Gratis</div>
-                    <p>Asli gk bohong, coba dulu baru bilang.... tuhkan gratis tanpa butuh apa apa.</p>
-                </div>
-            </div>
-            <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
-                    <i class="fa-solid fa-thumbs-up"></i>
-                </div>
-                <div class="my-0">
-                    <div class="h4">Mudah</div>
-                    <p>Sat set sat set, hiyaaa.... mudah bangett kan bikin linknya ?.</p>
+            <div class="col">
+                <div class="d-flex w-100 align-items-start bg-light my-2 rounded-4 p-3">
+                    <div class="d-inline-flex align-items-center justify-content-center fs-4 ms-1 me-2 mt-1">
+                        <i class="fa-solid fa-chart-column"></i>
+                    </div>
+                    <div class="mt-1 mb-0">
+                        <div class="h5">Statistik</div>
+                        <p>Kamu bisa langsung stalking. Kayak jumlah kliknya, pake device apa, dll.</p>
+                    </div>
                 </div>
             </div>
-            <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <div class="my-0">
-                    <div class="h4">Aman</div>
-                    <p>Yoiii, open source lagi, kalau ada apa apa bisa langsung dibenerin.</p>
+            <div class="col">
+                <div class="d-flex w-100 align-items-start bg-light my-2 rounded-4 p-3">
+                    <div class="d-inline-flex align-items-center justify-content-center fs-4 ms-1 me-2 mt-1">
+                        <i class="fa-solid fa-sack-dollar"></i>
+                    </div>
+                    <div class="mt-1 mb-0">
+                        <div class="h5">100% Gratis</div>
+                        <p>Asli nggak bohong, coba dulu baru bilang.... tuhkan gratis tisss....</p>
+                    </div>
                 </div>
             </div>
-            <div class="col d-flex align-items-start">
-                <div class="d-inline-flex align-items-center justify-content-center fs-4 me-3 mt-1">
-                    <i class="fa-solid fa-bolt"></i>
+            <div class="col">
+                <div class="d-flex w-100 align-items-start bg-light my-2 rounded-4 p-3">
+                    <div class="d-inline-flex align-items-center justify-content-center fs-4 ms-1 me-2 mt-1">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    </div>
+                    <div class="mt-1 mb-0">
+                        <div class="h5">Mudah</div>
+                        <p>Sat set sat set, hiyaaa.... mudah bangett kan bikin linknya ?.</p>
+                    </div>
                 </div>
-                <div class="my-0">
-                    <div class="h4">Cepat</div>
-                    <p>Perasaan baru klik ini tombol kok udah muncul selesai ? Gile cepet bangettt.</p>
+            </div>
+            <div class="col">
+                <div class="d-flex w-100 align-items-start bg-light my-2 rounded-4 p-3">
+                    <div class="d-inline-flex align-items-center justify-content-center fs-4 ms-1 me-2 mt-1">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <div class="mt-1 mb-0">
+                        <div class="h5">Aman</div>
+                        <p>Yoiii, open source lagi, kalau ada apa apa bisa langsung dibenerin.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="d-flex w-100 align-items-start bg-light my-2 rounded-4 p-3">
+                    <div class="d-inline-flex align-items-center justify-content-center fs-4 ms-1 me-2 mt-1">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div class="mt-1 mb-0">
+                        <div class="h5">Cepat</div>
+                        <p>Perasaan baru klik ini tombol kok udah selesai ? Gile cepet bangettt.</p>
+                    </div>
                 </div>
             </div>
         </div>
