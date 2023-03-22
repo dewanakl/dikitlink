@@ -28,7 +28,7 @@ const tambahModal = async () => {
             if (res.status) {
                 bootstrap.Modal.getInstance(document.querySelector('#addlinkmodal')).hide();
 
-                confirmCopy(`Membuat link "${name}"`);
+                confirmCopy(name, 'Membuat');
 
                 NAME.value = null;
                 LINK.value = null;
@@ -78,7 +78,7 @@ const tambahMobile = async () => {
             if (res.status) {
                 bootstrap.Offcanvas.getInstance(document.querySelector('#offcanvasBottom')).hide();
 
-                confirmCopy(`Membuat link "${name}"`);
+                confirmCopy(name, 'Membuat');
 
                 NAME.value = null;
                 LINK.value = null;

@@ -18,9 +18,9 @@ const copy = (id) => {
     clipboard(DATA[id][0]);
 }
 
-const confirmCopy = (name) => {
+const confirmCopy = (name, action) => {
     Swal.fire({
-        title: name,
+        title: `${action} link "${name}"`,
         icon: 'success',
         showCancelButton: true,
         focusConfirm: true,

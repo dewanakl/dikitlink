@@ -208,7 +208,7 @@ const update = async () => {
                 reset(false);
                 refreshTable();
                 bootstrap.Modal.getInstance(document.querySelector('#editlinkmodal')).hide();
-                confirmCopy(`Mengubah link "${name}"`);
+                confirmCopy(name, 'Mengubah');
 
                 OLD.value = null;
                 NAME.value = null;

@@ -28,7 +28,7 @@
 
 <div class="row align-items-center">
     <div class="col-3">
-        <img src="<?= route('avatar') ?>" loading="eager" class="mx-auto d-block rounded-circle" style="width: 60%;">
+        <img src="<?= route('avatar') ?>" loading="eager" class="mx-auto d-block rounded-circle" style="width: 65%;">
     </div>
     <div class="col-9">
         <h4 class="fw-bold"><?= e(auth()->user()->nama) ?><?= auth()->user()->email_verify ? '<i class="fa-solid fa-circle-check text-success ms-2"></i>' : '' ?></h4>
@@ -134,7 +134,7 @@
 <div class="d-grid d-block d-md-none">
     <hr>
     <h5>Logout</h5>
-    <a href="javascript:void(0);" class="btn btn-danger fw-semibold" data-bs-toggle="modal" data-bs-target="#logoutModal">
+    <a href="javascript:void(0);" class="btn btn-danger btn-sm fw-semibold" data-bs-toggle="modal" data-bs-target="#logoutModal">
         <i class="fas fa-sign-out-alt me-1"></i>Logout
     </a>
 </div>
@@ -142,7 +142,7 @@
 <hr>
 <h5>Zona berbahaya</h5>
 <div class="d-md-block d-grid">
-    <button type="button" class="btn btn-outline-danger mb-4" data-bs-toggle="modal" data-bs-target="#hapusakun">
+    <button type="button" class="btn btn-outline-danger btn-sm mb-4" data-bs-toggle="modal" data-bs-target="#hapusakun">
         <i class="fa-solid fa-triangle-exclamation me-1"></i>Hapus Akun
     </button>
 </div>
