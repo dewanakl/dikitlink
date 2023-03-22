@@ -38,7 +38,7 @@
                         <?php endif ?>
                     </div>
                     <hr>
-                    <div class="form-check form-switch mb-3">
+                    <div class="form-check form-switch mb-2">
                         <input class="form-check-input" type="checkbox" role="switch" id="statistik">
                         <label class="form-check-label" for="statistik"><i class="fa-solid fa-chart-simple me-1"></i>Simpan Statistik</label>
                     </div>
