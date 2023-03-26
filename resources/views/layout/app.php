@@ -46,8 +46,8 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin="anonymous">
     <link rel="preload" href="<?= asset('css/app.css') ?>" as="style">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" integrity="sha256-WAgYcAck1C1/zEl5sBl5cfyhxtLgKGdpI3oKyJffVRI=" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" integrity="sha256-ky6hUQiSiZG88MCkZBX8ZS3l/8AVjDUgU1e5DGXus4Y=" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha256-Bh8LHqeebiyiT0YD5V0+kJ90cboLJ5zbbepAVUEGxqI=" as="script" crossorigin="anonymous">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha256-a2qmAYqm6jrkAn4CI2QF+/oLnecKkCkWVXLduy3hx+E=" as="style" crossorigin="anonymous">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha256-KSWhM38gRsEZb9MObzwv8Mxo8RvRVtYz6hafLNXc+l4=" as="script" crossorigin="anonymous">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" as="style" crossorigin="anonymous">
     <?= content('preload.alert') ?>
     <?= content('preload.chart') ?>
@@ -55,7 +55,7 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" integrity="sha256-WAgYcAck1C1/zEl5sBl5cfyhxtLgKGdpI3oKyJffVRI=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" integrity="sha256-ky6hUQiSiZG88MCkZBX8ZS3l/8AVjDUgU1e5DGXus4Y=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha256-a2qmAYqm6jrkAn4CI2QF+/oLnecKkCkWVXLduy3hx+E=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap">
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
@@ -73,7 +73,7 @@
 
 <body>
     <?= content('main') ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha256-Bh8LHqeebiyiT0YD5V0+kJ90cboLJ5zbbepAVUEGxqI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha256-KSWhM38gRsEZb9MObzwv8Mxo8RvRVtYz6hafLNXc+l4=" crossorigin="anonymous"></script>
 </body>
 
 </html>
