@@ -44,7 +44,7 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://google.com" crossorigin>
+    <link rel="preconnect" href="https://google.com">
     <link rel="preload" href="<?= asset('css/app.css') ?>" as="style">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" integrity="sha256-WAgYcAck1C1/zEl5sBl5cfyhxtLgKGdpI3oKyJffVRI=" as="style" crossorigin="anonymous">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha256-a2qmAYqm6jrkAn4CI2QF+/oLnecKkCkWVXLduy3hx+E=" as="style" crossorigin="anonymous">
