@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use Core\DataBase\DB;
+use Core\Database\DB;
 use Core\Routing\Controller;
 use Core\Valid\Validator;
 use App\Models\User;

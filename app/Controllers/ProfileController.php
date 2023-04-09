@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use Core\Auth\Auth;
-use Core\DataBase\DB;
+use Core\Database\DB;
 use Core\Http\Request;
 use Core\Routing\Controller;
 use Core\Support\Mail;
