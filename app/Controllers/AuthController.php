@@ -101,7 +101,7 @@ class AuthController extends Controller
             return $this->back()->with('gagal', 'Captcha Salah !');
         }
 
-        $user = User::find($request->email, 'email')->fail(fn () => false);
+        $user = User::find($request->email, 'email')->fail();
 
         if ($user === false) {
             return $this->back()->with('gagal', 'Email tidak ada');

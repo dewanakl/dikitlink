@@ -42,13 +42,13 @@
 
     <!-- Cache -->
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://google.com">
+    <link rel="preconnect" href="https://google.com" crossorigin>
     <link rel="preload" href="<?= asset('css/app.css') ?>" as="style">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" integrity="sha256-WAgYcAck1C1/zEl5sBl5cfyhxtLgKGdpI3oKyJffVRI=" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha256-a2qmAYqm6jrkAn4CI2QF+/oLnecKkCkWVXLduy3hx+E=" as="style" crossorigin="anonymous">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha256-KSWhM38gRsEZb9MObzwv8Mxo8RvRVtYz6hafLNXc+l4=" as="script" crossorigin="anonymous">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" integrity="sha256-Fu5/PVNGJlC70y4mPEjA6nWVdPz2IMaBrXGQCJEsRho=" as="style" crossorigin="anonymous">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha256-6o/gIaSs5PZ4b+zEGPcLZY/C3ALRNuj+XGq2tipG1dA=" as="script" crossorigin="anonymous">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" as="style" crossorigin="anonymous">
     <?= content('preload.alert') ?>
     <?= content('preload.chart') ?>
@@ -56,7 +56,7 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" integrity="sha256-WAgYcAck1C1/zEl5sBl5cfyhxtLgKGdpI3oKyJffVRI=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha256-a2qmAYqm6jrkAn4CI2QF+/oLnecKkCkWVXLduy3hx+E=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" integrity="sha256-Fu5/PVNGJlC70y4mPEjA6nWVdPz2IMaBrXGQCJEsRho=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap">
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
@@ -74,7 +74,7 @@
 
 <body>
     <?= content('main') ?>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha256-KSWhM38gRsEZb9MObzwv8Mxo8RvRVtYz6hafLNXc+l4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha256-6o/gIaSs5PZ4b+zEGPcLZY/C3ALRNuj+XGq2tipG1dA=" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -285,7 +285,7 @@
         await fetch(`<?= route('statistik.profile') ?>`, REQ)
             .then((res) => res.json())
             .then((res) => {
-                if (!res.status) {
+                if (res.status == 0) {
                     showModal('Server error', 'error');
                 }
             })

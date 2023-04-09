@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31d5e15e26272cd1c47d5c3ea79fc3ab",
+    "content-hash": "5cd78c4d2efa436e9d80d1a8535a6d05",
     "packages": [
         {
             "name": "kamu/framework",
-            "version": "v1.1.27",
+            "version": "v1.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dewanakl/framework.git",
-                "reference": "e263dde6b2eb5749362010cbd5b2c6f4e00b8cf4"
+                "reference": "71782768d63a5f288f8e9134b95987ca2a5100b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dewanakl/framework/zipball/e263dde6b2eb5749362010cbd5b2c6f4e00b8cf4",
-                "reference": "e263dde6b2eb5749362010cbd5b2c6f4e00b8cf4",
+                "url": "https://api.github.com/repos/dewanakl/framework/zipball/71782768d63a5f288f8e9134b95987ca2a5100b2",
+                "reference": "71782768d63a5f288f8e9134b95987ca2a5100b2",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "issues": "https://github.com/dewanakl/framework/issues",
                 "source": "https://github.com/dewanakl/framework"
             },
-            "time": "2023-03-30T16:30:39+00:00"
+            "time": "2023-04-09T14:00:15+00:00"
         }
     ],
     "packages-dev": [],

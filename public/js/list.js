@@ -204,7 +204,7 @@ const update = async () => {
     await fetch(`${URI}/api/link`, REQ)
         .then((res) => res.json())
         .then((res) => {
-            if (res.status) {
+            if (res.status == 1) {
                 reset(false);
                 refreshTable();
                 bootstrap.Modal.getInstance(document.querySelector('#editlinkmodal')).hide();
@@ -353,7 +353,7 @@ const destroy = async () => {
     await fetch(`${URI}/api/link`, REQ)
         .then((res) => res.json())
         .then((res) => {
-            if (res.status) {
+            if (res.status == 1) {
                 reset(false);
                 refreshTable();
                 bootstrap.Modal.getInstance(document.querySelector('#hapuslinkmodal')).hide();

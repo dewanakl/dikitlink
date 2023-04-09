@@ -110,7 +110,7 @@ class LinkRepository implements RepositoryContract
             ->created_at;
 
         if ($time) {
-            return (new DateTime($time))->format('d M Y, H:i');
+            return $time->format('d M Y, H:i');
         }
 
         return null;
