@@ -11,12 +11,7 @@ final class CorsMiddleware implements MiddlewareInterface
     public function handle(Request $request, Closure $next)
     {
         header('Access-Control-Allow-Origin: ' . baseurl());
-        header('Access-Control-Allow-Credentials: true');
-        header('Access-Control-Allow-Methods: *');
         header('Access-Control-Allow-Headers: Origin, Content-Type, Accept, Authorization');
-
-        header('Access-Control-Max-Age: 86400');
-        header('Vary: origin');
 
         if ($request->method() != 'OPTIONS') {
             return $next($request);
