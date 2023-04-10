@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "kamu/framework",
-            "version": "v1.2.5",
+            "version": "v1.2.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dewanakl/framework.git",
-                "reference": "122071d85f1d73a8ab9d7ef5228921b6a19a056b"
+                "reference": "28ac42afb0af5f4ca9222adeeca1a6fe6cec1d56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dewanakl/framework/zipball/122071d85f1d73a8ab9d7ef5228921b6a19a056b",
-                "reference": "122071d85f1d73a8ab9d7ef5228921b6a19a056b",
+                "url": "https://api.github.com/repos/dewanakl/framework/zipball/28ac42afb0af5f4ca9222adeeca1a6fe6cec1d56",
+                "reference": "28ac42afb0af5f4ca9222adeeca1a6fe6cec1d56",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +56,7 @@
                 "issues": "https://github.com/dewanakl/framework/issues",
                 "source": "https://github.com/dewanakl/framework"
             },
-            "time": "2023-04-09T15:15:28+00:00"
+            "time": "2023-04-10T08:23:11+00:00"
         }
     ],
     "packages-dev": [],
