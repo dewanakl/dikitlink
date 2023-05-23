@@ -214,7 +214,7 @@
         <div class="card-body shadow p-3 rounded-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h6 class="text-truncate m-0 p-0" style="max-width: 40%;">
-                    <strong>${data.ip_address}</strong>
+                    <strong>${escapeHtml(data.ip_address)}</strong>
                 </h6>
                 <small class="text-dark rounded m-0" style="background-color: var(--bs-gray-200)">
                     <i class="fa-solid fa-clock ms-1"></i>
@@ -222,7 +222,7 @@
                 </small>
             </div>
             <hr class="mb-2">
-            <small class="mt-2 mb-1 mx-0 p-0">${data.user_agent}</small>
+            <small class="mt-2 mb-1 mx-0 p-0">${escapeHtml(data.user_agent)}</small>
         </div>`;
         return DIV;
     };
