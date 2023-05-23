@@ -19,14 +19,6 @@ const refreshChart = () => {
     myChart.update();
 }
 
-const escapeHtml = (text) => {
-    return text
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-}
-
 const renderCard = (data, key) => {
     const DIV = document.createElement('div');
     DIV.classList.add('col-12');
@@ -308,8 +300,8 @@ const detail = async (button, id) => {
             document.getElementById('unik').innerHTML = res.unique;
             document.getElementById('lastclick').innerHTML = res.last_click ?? 'Tidak Terlihat';
 
-            res.user_agent.forEach((data) => AGENT.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.user_agent}</td></tr>`);
-            res.ip_address.forEach((data) => IP.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${data.ip_address}</td></tr>`);
+            res.user_agent.forEach((data) => AGENT.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${escapeHtml(data.user_agent)}</td></tr>`);
+            res.ip_address.forEach((data) => IP.insertRow(-1).innerHTML = `<tr><th>${data.hint}</th><td>${escapeHtml(data.ip_address)}</td></tr>`);
         })
         .catch((err) => showModal(err, 'error'));
 
