@@ -1,11 +1,11 @@
 <?php parents('layout/app') ?>
 
 <?php section('preload.alert') ?>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js" integrity="sha256-t0FDfwj/WoMHIBbmFfuOtZv1wtA977QCfsFR3p1K4No=" as="script" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js" integrity="sha256-eec5eLzX8mM4lR2i7HQXsjA8wFQv+CAjra5tB1p0230=" as="script" crossorigin="anonymous">
 <?php endsection('preload.alert') ?>
 
 <?php section('preload.chart') ?>
-<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.js" integrity="sha256-kJV6QFiOvYKbRWdhfNEwB2OKJ2w1y+8aH7mBGSHy8mY=" as="script" crossorigin="anonymous">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.js" integrity="sha256-5dsP1lVzcWPn5aOwu+zs+G+TqAu9oT8NUNM0C4n3H+4=" as="script" crossorigin="anonymous">
 <?php endsection('preload.chart') ?>
 
 <?php if (session()->get('dark')) : ?>
@@ -113,11 +113,11 @@
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js" integrity="sha256-t0FDfwj/WoMHIBbmFfuOtZv1wtA977QCfsFR3p1K4No=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js" integrity="sha256-eec5eLzX8mM4lR2i7HQXsjA8wFQv+CAjra5tB1p0230=" crossorigin="anonymous"></script>
 <?php if (session()->get('dark')) : ?>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5.0.15/dark.min.css" integrity="sha256-Dtn0fzAID6WRybYFj3UI5JDBy9kE2adX1xPUlW+B4XQ=" crossorigin="anonymous">
 <?php endif ?>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.js" integrity="sha256-kJV6QFiOvYKbRWdhfNEwB2OKJ2w1y+8aH7mBGSHy8mY=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.js" integrity="sha256-5dsP1lVzcWPn5aOwu+zs+G+TqAu9oT8NUNM0C4n3H+4=" crossorigin="anonymous"></script>
 <script src="<?= asset('js/utildown.js') ?>"></script>
 
 <?php endsection('main') ?>
