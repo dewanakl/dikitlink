@@ -62,6 +62,7 @@
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
 
     <!-- Service & Util -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2414261755452293" crossorigin="anonymous"></script>
     <script>
         if (!navigator.serviceWorker.controller) {
             navigator.serviceWorker.register('sw.js')
