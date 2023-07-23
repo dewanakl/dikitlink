@@ -61,8 +61,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap">
     <link rel="stylesheet" href="<?= asset('css/app.css') ?>">
 
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-SM0G5F1VS2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-SM0G5F1VS2');
+    </script>
+    
     <!-- Service & Util -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2414261755452293" crossorigin="anonymous"></script>
     <script>
         if (!navigator.serviceWorker.controller) {
             navigator.serviceWorker.register('sw.js')
