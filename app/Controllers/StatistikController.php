@@ -51,6 +51,47 @@ class StatistikController extends Controller
         fclose($handle);
     }
 
+    private function unsafeLink(string $data): bool
+    {
+        if (!env('SAFE_BROWSING')) {
+            return false;
+        }
+
+        $url = 'https://safebrowsing.googleapis.com/v4/threatMatches:find?key=' . env('SAFE_BROWSING');
+        $context  = stream_context_create([
+            'http' => [
+                'header'  => "Content-type: application/json\r\n",
+                'method'  => 'POST',
+                'content' => json_encode([
+                    'client' => [
+                        'clientId' => 'safe-browse-url-lookup-' . env('APP_NAME'),
+                        'clientVersion' => '1.0.0'
+                    ],
+                    'threatInfo' => [
+                        'threatTypes' => [
+                            'MALWARE',
+                            'SOCIAL_ENGINEERING',
+                            'UNWANTED_SOFTWARE',
+                            'MALICIOUS_BINARY',
+                            'POTENTIALLY_HARMFUL_APPLICATION',
+                            'THREAT_TYPE_UNSPECIFIED'
+                        ],
+                        'platformTypes' => ['ANY_PLATFORM'],
+                        'threatEntryTypes' => ['URL'],
+                        'threatEntries' => [
+                            [
+                                'url' => $data
+                            ]
+                        ]
+                    ]
+                ])
+            ]
+        ]);
+
+        $res = json_decode(file_get_contents($url, false, $context));
+        return !empty($res->matches);
+    }
+
     public function click(Request $request, $id)
     {
         $valid = Validator::make(
@@ -79,6 +120,18 @@ class StatistikController extends Controller
 
         if (empty($link->id)) {
             return $this->view('guest/hilang');
+        }
+
+        if (!empty($link->unsafe)) {
+            return $this->view('guest/unsafe');
+        }
+
+        if ($this->unsafeLink($link->link)) {
+            Link::where('id', $link->id)->update([
+                'unsafe' => true
+            ]);
+
+            return $this->view('guest/unsafe');
         }
 
         if (!empty($link->waktu_tutup)) {

@@ -185,10 +185,6 @@ class AuthController extends Controller
         ]);
 
         $res = json_decode(file_get_contents($url, false, $context));
-        if ($res->success && $res->score >= 0.5) {
-            return true;
-        }
-
-        return false;
+        return $res->success && $res->score >= 0.5;
     }
 }
