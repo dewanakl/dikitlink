@@ -36,7 +36,7 @@ const renderCard = (data, key) => {
                 ${(data.waktu_buka) ? '<i class="fa-solid fa-calendar-check my-0 p-0 ms-1"></i>' : ''}
                 ${(data.waktu_tutup) ? '<i class="fa-solid fa-calendar-xmark my-0 p-0 ms-1"></i>' : ''}
                 <i class="fa-solid fa-chart-simple my-0 p-0 ms-1"></i>
-                <span class="fw-bold ms-0 me-1 my-0 p-0">${data.hint}</span>
+                ${(data.unsafe) ? '<i class="fa-solid fa-triangle-exclamation ms-0 me-1 my-0 p-0"></i>' : `<span class="fw-bold ms-0 me-1 my-0 p-0">${data.hint}</span>`}
             </small>
         </div>
         <p class="text-truncate mt-2 mb-1 mx-0 p-0">${escapeHtml(data.link)}</p>
@@ -44,22 +44,22 @@ const renderCard = (data, key) => {
         <div class="d-flex justify-content-between align-items-center m-0 p-0">
             <small class="text-opacity-75 m-0 p-0"><i class="fa-solid fa-clock ms-0 me-1"></i>${(new Date(data.created_at)).toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' })}</small>
             <div class="btn-group btn-group-sm m-0" role="group">
-                <a onclick="copy(${key})" class="btn btn-outline-secondary">
+                <a onclick="copy(${key})" class="btn btn-outline-secondary ${(data.unsafe) ? 'disabled' : ''}">
                     <div class="d-flex justify-content-center align-items-center">
                         <i class="fas fa-copy mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Salin</span>
                     </div>
                 </a>
-                <a onclick="detail(this, ${key})" class="btn btn-outline-success">
+                <a onclick="detail(this, ${key})" class="btn btn-outline-success ${(data.unsafe) ? 'disabled' : ''}">
                     <div class="d-flex justify-content-center align-items-center">
                         <i class="fas fa-info-circle mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Detail</span>
                     </div>
                 </a>
-                <a onclick="edit(this, ${key})" class="btn btn-outline-warning">
+                <a onclick="edit(this, ${key})" class="btn btn-outline-warning ${(data.unsafe) ? 'disabled' : ''}">
                     <div class="d-flex justify-content-center align-items-center">
                         <i class="fas fa-pen-to-square mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Edit</span>
                     </div>
                 </a>
-                <a onclick="hapus(this, ${key})" class="btn btn-outline-danger">
+                <a onclick="hapus(this, ${key})" class="btn btn-outline-danger ${(data.unsafe) ? 'disabled' : ''}">
                     <div class="d-flex justify-content-center align-items-center">
                         <i class="fas fa-trash mx-1 my-0 p-0"></i><span class="d-none d-md-inline m-0 p-0">Hapus</span>
                     </div>
@@ -245,6 +245,9 @@ const detail = async (button, id) => {
     await fetch(`${URI}/api/link/detail?name=${DATA[id][0]}`)
         .then((res) => res.json())
         .then((res) => {
+            if (!res.hasOwnProperty('unique')) {
+                throw Object.values(res.error)[0];
+            }
             // chart
             let labels = [];
             let values = [];

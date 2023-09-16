@@ -51,6 +51,7 @@ class LinkController extends Controller
                     'links.waktu_tutup',
                     'links.query_param',
                     'links.record_statistics as stats',
+                    'links.unsafe',
                     'count(stats.id) as hint',
                 ])
                 ->get()

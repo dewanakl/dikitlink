@@ -13,6 +13,7 @@ use App\Middleware\AdminMiddleware;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\EmailMiddleware;
 use App\Middleware\GuestMiddleware;
+use App\Middleware\NoPermissionMiddleware;
 use App\Middleware\TemaMiddleware;
 
 /**
@@ -52,10 +53,13 @@ Route::middleware(AuthMiddleware::class)->group(function () {
     // CRUD Link API
     Route::prefix('/api/link')->controller(LinkController::class)->group(function () {
         Route::get('/', 'show')->name('show.link');
-        Route::get('/detail', 'detail')->name('detail.link');
         Route::post('/', 'create')->name('create.link');
-        Route::put('/', 'update')->name('update.link');
-        Route::delete('/', 'delete')->name('delete.link');
+
+        Route::middleware(NoPermissionMiddleware::class)->group(function () {
+            Route::get('/detail', 'detail')->name('detail.link');
+            Route::put('/', 'update')->name('update.link');
+            Route::delete('/', 'delete')->name('delete.link');
+        });
     });
 
     // statistik

@@ -133,18 +133,6 @@
   ),
   11 => 
   array (
-    'method' => 'GET',
-    'path' => '/api/link/detail',
-    'controller' => 'App\\Controllers\\LinkController',
-    'function' => 'detail',
-    'middleware' => 
-    array (
-      0 => 'App\\Middleware\\AuthMiddleware',
-    ),
-    'name' => 'detail.link',
-  ),
-  12 => 
-  array (
     'method' => 'POST',
     'path' => '/api/link',
     'controller' => 'App\\Controllers\\LinkController',
@@ -155,6 +143,19 @@
     ),
     'name' => 'create.link',
   ),
+  12 => 
+  array (
+    'method' => 'GET',
+    'path' => '/api/link/detail',
+    'controller' => 'App\\Controllers\\LinkController',
+    'function' => 'detail',
+    'middleware' => 
+    array (
+      0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\NoPermissionMiddleware',
+    ),
+    'name' => 'detail.link',
+  ),
   13 => 
   array (
     'method' => 'PUT',
@@ -164,6 +165,7 @@
     'middleware' => 
     array (
       0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\NoPermissionMiddleware',
     ),
     'name' => 'update.link',
   ),
@@ -176,6 +178,7 @@
     'middleware' => 
     array (
       0 => 'App\\Middleware\\AuthMiddleware',
+      1 => 'App\\Middleware\\NoPermissionMiddleware',
     ),
     'name' => 'delete.link',
   ),
